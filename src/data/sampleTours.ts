@@ -200,10 +200,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 35
       }
     ],
-    wikilocRoute: {
-      name: 'Carretera Austral (Chile) - Ruta MTB',
-      url: 'https://es.wikiloc.com/rutas-mountain-bike/carretera-austral-chile-2590269'
-    }
+    wikilocRoutes: [
+      {
+        name: 'Carretera Austral (Chile) - Ruta MTB',
+        url: 'https://es.wikiloc.com/rutas-mountain-bike/carretera-austral-chile-2590269'
+      }
+    ]
   },
   {
     id: 'tour-valparaiso-bohemio',
@@ -329,10 +331,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 20
       }
     ],
-    wikilocRoute: {
-      name: 'Cerro Concepcion - Valparaiso (recorrido a pie)',
-      url: 'https://es.wikiloc.com/rutas-senderismo/cerro-concepcion-valparaiso-150774033'
-    }
+    wikilocRoutes: [
+      {
+        name: 'Cerro Concepcion - Valparaiso (recorrido a pie)',
+        url: 'https://es.wikiloc.com/rutas-senderismo/cerro-concepcion-valparaiso-150774033'
+      }
+    ]
   },
   {
     id: 'tour-santiago-patrimonial',
@@ -412,6 +416,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 30
       }
     ],
+    wikilocRoutes: [
+      {
+        name: 'Cerro Santa Lucía - recorrido circular (Santiago)',
+        url: 'https://es.wikiloc.com/rutas-senderismo/cerro-santa-lucia-19619739'
+      }
+    ]
   },
   {
     id: 'tour-san-pedro-atacama',
@@ -491,10 +501,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 20
       }
     ],
-    wikilocRoute: {
-      name: 'Ruta Valle de la Luna (ciclismo)',
-      url: 'https://es.wikiloc.com/rutas-ciclismo/valle-de-la-luna-9465370'
-    }
+    wikilocRoutes: [
+      {
+        name: 'Ruta Valle de la Luna (ciclismo)',
+        url: 'https://es.wikiloc.com/rutas-ciclismo/valle-de-la-luna-9465370'
+      }
+    ]
   },
   {
     id: 'tour-torres-del-paine',
@@ -931,10 +943,16 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 150
       }
     ],
-    wikilocRoute: {
-      name: 'Circuito W - Torres del Paine (trekking)',
-      url: 'https://es.wikiloc.com/rutas-alpinismo/circuito-w-torres-del-paine-689260'
-    }
+    wikilocRoutes: [
+      {
+        name: 'Circuito W - Torres del Paine (trekking)',
+        url: 'https://es.wikiloc.com/rutas-alpinismo/circuito-w-torres-del-paine-689260'
+      },
+      {
+        name: 'Circuito O - Torres del Paine (vuelta completa al macizo)',
+        url: 'https://es.wikiloc.com/rutas-senderismo/torres-del-paine-circuito-o-252800659'
+      }
+    ]
   },
   {
     id: 'tour-valle-colchagua',
@@ -1358,10 +1376,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 30
       }
     ],
-    wikilocRoute: {
-      name: 'Cerro Las Mollacas - Valle de Elqui',
-      url: 'https://es.wikiloc.com/rutas-senderismo/cerro-las-mollacas-154878328'
-    }
+    wikilocRoutes: [
+      {
+        name: 'Cerro Las Mollacas - Valle de Elqui',
+        url: 'https://es.wikiloc.com/rutas-senderismo/cerro-las-mollacas-154878328'
+      }
+    ]
   },
   {
     id: 'tour-santiago-cerro-chena',
@@ -1594,10 +1614,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 45
       }
     ],
-    wikilocRoute: {
-      name: 'Cerro Chena - San Bernardo (circular)',
-      url: 'https://es.wikiloc.com/rutas-senderismo/cerro-chena-san-bernardo-232916251'
-    }
+    wikilocRoutes: [
+      {
+        name: 'Cerro Chena - San Bernardo (circular)',
+        url: 'https://es.wikiloc.com/rutas-senderismo/cerro-chena-san-bernardo-232916251'
+      }
+    ]
   },
   {
     id: 'tour-santiago-cerro-la-cantera',
@@ -2839,6 +2861,12 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 60
       }
     ],
+    wikilocRoutes: [
+      {
+        name: 'Volcán Osorno (ascenso desde la Ensenada)',
+        url: 'https://es.wikiloc.com/rutas-senderismo/volcan-osorno-154157899'
+      }
+    ]
   },
   {
     id: 'tour-pesca-llanquihue',

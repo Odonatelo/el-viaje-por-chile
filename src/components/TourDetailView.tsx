@@ -331,19 +331,24 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
               <span className="text-[11px] text-slate-600 font-medium">Pantalla completa · píntalo con tus dedos · tócalo para cerrar</span>
             </button>
 
-            {tour.wikilocRoute && (
-              <a
-                href={tour.wikilocRoute.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#B04E2A]/30 bg-[#F6F1E5] hover:bg-[#E4D8BF] transition-colors group"
-              >
-                <ExternalLink className="w-4 h-4 text-[#B04E2A] flex-shrink-0" />
-                <div className="min-w-0">
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-500">Ruta real sugerida en Wikiloc</span>
-                  <span className="block text-xs font-bold text-[#14281C] truncate group-hover:text-[#B04E2A]">{tour.wikilocRoute.name}</span>
-                </div>
-              </a>
+            {tour.wikilocRoutes && tour.wikilocRoutes.length > 0 && (
+              <div className="flex flex-col gap-2">
+                {tour.wikilocRoutes.map((route) => (
+                  <a
+                    key={route.url}
+                    href={route.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#B04E2A]/30 bg-[#F6F1E5] hover:bg-[#E4D8BF] transition-colors group"
+                  >
+                    <ExternalLink className="w-4 h-4 text-[#B04E2A] flex-shrink-0" />
+                    <div className="min-w-0">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-500">Ruta real sugerida en Wikiloc</span>
+                      <span className="block text-xs font-bold text-[#14281C] truncate group-hover:text-[#B04E2A]">{route.name}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             )}
           </div>
 
@@ -639,19 +644,24 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
               Cerrar
             </button>
           </div>
-          {tour.wikilocRoute && (
-            <a
-              href={tour.wikilocRoute.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-3 bg-[#14281C] text-white border-t border-white/10 flex-shrink-0 group"
-            >
-              <ExternalLink className="w-4 h-4 text-[#E8A58B] flex-shrink-0" />
-              <div className="min-w-0">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-white/60">Ruta real sugerida en Wikiloc</span>
-                <span className="block text-xs font-bold truncate group-hover:text-[#E8A58B]">{tour.wikilocRoute.name}</span>
-              </div>
-            </a>
+          {tour.wikilocRoutes && tour.wikilocRoutes.length > 0 && (
+            <div className="flex flex-col gap-0">
+              {tour.wikilocRoutes.map((route) => (
+                <a
+                  key={route.url}
+                  href={route.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-3 bg-[#14281C] text-white border-t border-white/10 flex-shrink-0 group"
+                >
+                  <ExternalLink className="w-4 h-4 text-[#E8A58B] flex-shrink-0" />
+                  <div className="min-w-0">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-white/60">Ruta real sugerida en Wikiloc</span>
+                    <span className="block text-xs font-bold truncate group-hover:text-[#E8A58B]">{route.name}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
           )}
           <div className="flex-1 h-full">
             <TourMap

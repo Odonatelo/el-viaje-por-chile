@@ -106,7 +106,7 @@ export interface Tour {
   socialLinks: SocialLinks;
   generalDocuments: TourDocument[];
   stops: TourStop[];
-  wikilocRoute?: { name: string; url: string };
+  wikilocRoutes?: Array<{ name: string; url: string }>;
   createdAt: string;
   updatedAt: string;
   published: boolean;
