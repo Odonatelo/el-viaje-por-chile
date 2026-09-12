@@ -47,10 +47,6 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
     <type>${stop.category}</type>
   </wpt>`).join('');
 
-    const trackPointsXml = (tour.routePolyline && tour.routePolyline.length > 0)
-      ? tour.routePolyline.map(([lat, lng]) => `      <trkpt lat="${lat}" lon="${lng}"></trkpt>`).join('\n')
-      : tour.stops.map(s => `      <trkpt lat="${s.location.lat}" lon="${s.location.lng}"></trkpt>`).join('\n');
-
     const gpxContent = `<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="El Viaje Por Chile - www.elviaje.cl" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
@@ -65,13 +61,6 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
     <time>${new Date().toISOString()}</time>
   </metadata>
   ${waypointsXml}
-  <trk>
-    <name>${escapeXml(tour.title)}</name>
-    <desc>Itinerario patrimonial en ${escapeXml(tour.city)}, Chile</desc>
-    <trkseg>
-${trackPointsXml}
-    </trkseg>
-  </trk>
 </gpx>`;
 
     downloadBlob(gpxContent, `${sanitizeFilename(tour.title)}_Ruta_GPS.gpx`, 'application/gpx+xml');
@@ -93,25 +82,12 @@ ${trackPointsXml}
       </Point>
     </Placemark>`).join('');
 
-    const lineCoords = (tour.routePolyline && tour.routePolyline.length > 0)
-      ? tour.routePolyline.map(([lat, lng]) => `${lng},${lat},0`).join(' ')
-      : tour.stops.map(s => `${s.location.lng},${s.location.lat},0`).join(' ');
-
     const kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>${escapeXml(tour.title)}</name>
     <description>${escapeXml(tour.description)}</description>
     ${placemarksXml}
-    <Placemark>
-      <name>Trazado de la Ruta - ${escapeXml(tour.title)}</name>
-      <LineString>
-        <tessellate>1</tessellate>
-        <coordinates>
-          ${lineCoords}
-        </coordinates>
-      </LineString>
-    </Placemark>
   </Document>
 </kml>`;
 
@@ -438,7 +414,6 @@ ${trackPointsXml}
                   <p className="font-bold text-slate-900">Contenido del archivo GPX generado:</p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li><strong>{tour.stops.length} Waypoints georreferenciados</strong> con nombres, coordenadas exactas y notas interpretativas.</li>
-                    <li><strong>Trazado vectorial de la ruta</strong> con secuencia ordenada de caminata/recorrido.</li>
                     <li>Metadatos de autor ({tour.author.name}) y enlace a www.elviaje.cl.</li>
                   </ul>
                 </div>

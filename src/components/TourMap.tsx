@@ -33,7 +33,6 @@ export const TourMap: React.FC<TourMapProps> = ({
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersRef = useRef<{ [id: string]: L.Marker }>({});
   const circlesRef = useRef<{ [id: string]: L.Circle }>({});
-  const polylineRef = useRef<L.Polyline | null>(null);
   const userMarkerRef = useRef<L.Marker | null>(null);
 
   // Initialize Map
@@ -103,11 +102,6 @@ export const TourMap: React.FC<TourMapProps> = ({
     Object.values(circlesRef.current).forEach((c: L.Circle) => c?.remove());
     markersRef.current = {};
     circlesRef.current = {};
-
-    if (polylineRef.current) {
-      polylineRef.current.remove();
-      polylineRef.current = null;
-    }
 
     const latLngs: L.LatLngExpression[] = [];
 
@@ -186,17 +180,6 @@ export const TourMap: React.FC<TourMapProps> = ({
         circlesRef.current[stop.id] = circle;
       }
     });
-
-    // Draw route polyline
-    if (latLngs.length > 1) {
-      polylineRef.current = L.polyline(latLngs, {
-        color: '#e11d48',
-        weight: 4,
-        opacity: 0.85,
-        dashArray: '8, 8',
-        lineCap: 'round',
-      }).addTo(map);
-    }
 
     // Auto-fit bounds if first load or multiple stops
     if (stops.length > 0 && !center) {

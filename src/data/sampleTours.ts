@@ -200,12 +200,10 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 35
       }
     ],
-    routePolyline: [
-      [-46.65417, -72.63056],
-      [-47.12139, -72.78472],
-      [-44.46667, -72.53333],
-      [-47.79444, -73.53333]
-    ]
+    wikilocRoute: {
+      name: 'Carretera Austral (Chile) - Ruta MTB',
+      url: 'https://es.wikiloc.com/rutas-mountain-bike/carretera-austral-chile-2590269'
+    }
   },
   {
     id: 'tour-valparaiso-bohemio',
@@ -331,10 +329,10 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 20
       }
     ],
-    routePolyline: [
-      [-33.04278, -71.62472],
-      [-33.04167, -71.62611]
-    ]
+    wikilocRoute: {
+      name: 'Cerro Concepcion - Valparaiso (recorrido a pie)',
+      url: 'https://es.wikiloc.com/rutas-senderismo/cerro-concepcion-valparaiso-150774033'
+    }
   },
   {
     id: 'tour-santiago-patrimonial',
@@ -414,9 +412,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 30
       }
     ],
-    routePolyline: [
-      [-33.44111, -70.64389]
-    ]
   },
   {
     id: 'tour-san-pedro-atacama',
@@ -496,9 +491,10 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 20
       }
     ],
-    routePolyline: [
-      [-22.91111, -68.20028]
-    ]
+    wikilocRoute: {
+      name: 'Ruta Valle de la Luna (ciclismo)',
+      url: 'https://es.wikiloc.com/rutas-ciclismo/valle-de-la-luna-9465370'
+    }
   },
   {
     id: 'tour-torres-del-paine',
@@ -935,21 +931,10 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 150
       }
     ],
-    routePolyline: [
-      [-50.975385, -72.746718],
-      [-50.973160, -72.874976],
-      [-50.957245, -72.910648],
-      [-50.942668, -72.949663],
-      [-50.957245, -72.910648],
-      [-51.023889, -72.985389],
-      [-51.026923, -73.040428],
-      [-50.999399, -73.054772],
-      [-51.026923, -73.040428],
-      [-51.072652, -73.093782],
-      [-51.062282, -72.993738],
-      [-51.067652, -73.006562],
-      [-51.002160, -73.181325]
-    ]
+    wikilocRoute: {
+      name: 'Circuito W - Torres del Paine (trekking)',
+      url: 'https://es.wikiloc.com/rutas-alpinismo/circuito-w-torres-del-paine-689260'
+    }
   },
   {
     id: 'tour-valle-colchagua',
@@ -1061,10 +1046,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 25
       }
     ],
-    routePolyline: [
-      [-34.63917, -71.36472],
-      [-34.72694, -71.64444]
-    ]
   },
   {
     id: 'tour-alerce-costero',
@@ -1143,9 +1124,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 40
       }
     ],
-    routePolyline: [
-      [-40.16667, -73.58333]
-    ]
   },
   {
     id: 'tour-chiloe-magico',
@@ -1224,9 +1202,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 30
       }
     ],
-    routePolyline: [
-      [-42.48278, -73.76694]
-    ]
   },
   {
     id: 'tour-lota-carbon',
@@ -1305,9 +1280,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 45
       }
     ],
-    routePolyline: [
-      [-37.09167, -73.16111]
-    ]
   },
   {
     id: 'tour-valle-elqui',
@@ -1386,9 +1358,10 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 30
       }
     ],
-    routePolyline: [
-      [-30.04694, -70.49611]
-    ]
+    wikilocRoute: {
+      name: 'Cerro Las Mollacas - Valle de Elqui',
+      url: 'https://es.wikiloc.com/rutas-senderismo/cerro-las-mollacas-154878328'
+    }
   },
   {
     id: 'tour-santiago-cerro-chena',
@@ -1621,13 +1594,10 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 45
       }
     ],
-    routePolyline: [
-      [-33.596, -70.7365],
-      [-33.5935, -70.734],
-      [-33.599, -70.741],
-      [-33.595447, -70.730883],
-      [-33.61512, -70.74692]
-    ]
+    wikilocRoute: {
+      name: 'Cerro Chena - San Bernardo (circular)',
+      url: 'https://es.wikiloc.com/rutas-senderismo/cerro-chena-san-bernardo-232916251'
+    }
   },
   {
     id: 'tour-santiago-cerro-la-cantera',
@@ -1860,13 +1830,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 15
       }
     ],
-    routePolyline: [
-      [-33.60739, -70.71584],
-      [-33.60775, -70.71609],
-      [-33.609, -70.7138],
-      [-33.6094593, -70.7149726],
-      [-33.6125, -70.7175]
-    ]
   },
   {
     id: 'tour-los-muermos-paraiso-perdido',
@@ -2059,12 +2022,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 80
       }
     ],
-    routePolyline: [
-      [-41.39556, -73.46237],
-      [-41.39401, -73.83589],
-      [-41.34692, -73.81723],
-      [-41.40279, -73.80446]
-    ]
   },
   {
     id: 'tour-puerto-montt-bizarro',
@@ -2629,21 +2586,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 30
       }
     ],
-    routePolyline: [
-      [-41.4747, -72.9391],
-      [-41.4733, -72.941],
-      [-41.47184, -72.94062],
-      [-41.47179, -72.93964],
-      [-41.47062, -72.93994],
-      [-41.47085, -72.94084],
-      [-41.4769, -72.9371],
-      [-41.47333, -72.94182],
-      [-41.4709, -72.93825],
-      [-41.4716, -72.939],
-      [-41.4722, -72.9401],
-      [-41.4874, -72.8993],
-      [-41.4738, -72.918]
-    ]
   },
   {
     id: 'tour-lago-llanquihue',
@@ -2897,20 +2839,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 60
       }
     ],
-    routePolyline: [
-      [-41.31716, -72.98161],
-      [-41.32059, -72.98606],
-      [-41.28, -73.02],
-      [-41.22, -73.03],
-      [-41.13945, -73.02527],
-      [-41.08, -72.97],
-      [-41.03, -72.95],
-      [-40.97276, -72.88422],
-      [-41.02, -72.76],
-      [-41.08, -72.7],
-      [-41.16, -72.62],
-      [-41.17235, -72.44683]
-    ]
   },
   {
     id: 'tour-pesca-llanquihue',
@@ -3171,24 +3099,6 @@ export const INITIAL_TOURS: Tour[] = [
         estimatedStayMinutes: 360
       }
     ],
-    routePolyline: [
-      [-41.31716, -72.98161],
-      [-41.235, -72.64],
-      [-41.19, -72.52],
-      [-41.17186, -72.44899],
-      [-41.22, -72.6],
-      [-41.26, -72.9],
-      [-41.31, -72.98],
-      [-41.38, -73.15],
-      [-41.45, -73.25],
-      [-41.47063, -73.28362],
-      [-41.53, -73.45],
-      [-41.61601, -73.59507],
-      [-41.6, -73.2],
-      [-41.62, -72.75],
-      [-41.65, -72.55],
-      [-41.66681, -72.37752]
-    ]
   }
 ];
 
