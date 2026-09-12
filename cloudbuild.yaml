@@ -1,0 +1,45 @@
+# Google Cloud Build -> Artifact Registry -> Cloud Run
+# Uso: gcloud builds submit --config cloudbuild.yaml --substitutions _REGION=southamerica-west1
+# Requisito previo: crear el repo de Artifact Registry:
+#   gcloud artifacts repositories create elviaje --repository-format=docker \
+#     --location=southamerica-west1 --description="El Viaje Por Chile"
+# Y los secretos en Secret Manager (gemini-key, google-id, google-secret, mp-token, session-secret).
+steps:
+  - id: setup-storage
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        BUCKET="$PROJECT_ID-data"
+        gcloud storage buckets create "gs://${BUCKET}" --location=${_REGION} --uniform-bucket-level-access 2>/dev/null || true
+        PN=$(gcloud projects describe "$PROJECT_ID" --format "value(projectNumber)")
+        gcloud storage buckets add-iam-policy-binding "gs://${BUCKET}" \
+          --member="serviceAccount:${PN}-compute@developer.gserviceaccount.com" \
+          --role=roles/storage.objectAdmin 2>/dev/null || true
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/elviaje/elviaje:$SHORT_SHA'
+      - '.'
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - elviaje
+      - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/elviaje/elviaje:$SHORT_SHA'
+      - '--region=${_REGION}'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--port=3000'
+      - '--set-env-vars=OWNER_EMAIL=juancarlos.castaing@gmail.com'
+      - '--set-env-vars=GCS_BUCKET=${PROJECT_ID}-data'
+      - '--set-secrets=GEMINI_API_KEY=gemini-key:latest,GOOGLE_CLIENT_ID=google-id:latest,GOOGLE_CLIENT_SECRET=google-secret:latest,MERCADOPAGO_ACCESS_TOKEN=mp-token:latest,SESSION_SECRET=session-secret:latest'
+images:
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/elviaje/elviaje:$SHORT_SHA'
+substitutions:
+  _REGION: southamerica-west1

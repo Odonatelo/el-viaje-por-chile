@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --copper-primary: #C04A26;
+    --copper-hover: #A63A19;
+    --copper-dark: #872C10;
+    --andean-navy: #15273F;
+    --andean-navy-dark: #0D1B2D;
+    --forest-moss: #27523C;
+    --parchment-bg: #FAF7F2;
+    --sand-border: #E8DFC8;
+    --ochre-gold: #D97706;
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes radarPulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.3; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@keyframes waveBar {
+  0%, 100% { height: 25%; }
+  50% { height: 95%; }
+}
+
+.animate-float-slow {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-radar-pulse {
+  animation: radarPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar matching Chilean expedition aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F2ECE1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4C5A9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C04A26;
+}
+
+
