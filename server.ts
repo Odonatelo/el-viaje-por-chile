@@ -34,7 +34,7 @@ const PORT = Number(process.env.PORT) || 3000;
 // ----------------------------------------------------
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL || 'juancarlos.castaing@gmail.com';
-const OWNER_NAME = process.env.OWNER_NAME || 'Juan Carlos Castaing';
+const OWNER_NAME = process.env.OWNER_NAME || 'El Viaje SPA';
 const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
 
 // Dev-only conveniences (auto-disabled in production builds / NODE_ENV=production)
@@ -483,7 +483,7 @@ app.post('/api/mercadopago/create-preference', async (req, res) => {
               {
                 id: planId || 'tour-publish-fee',
                 title: itemTitle,
-                description: `Cobro oficial recaudado por ${mercadoPagoConfig.ownerName} (El Viaje Por Chile)`,
+                description: `Cobro oficial recaudado por ${mercadoPagoConfig.ownerName}`,
                 quantity: 1,
                 currency_id: 'CLP',
                 unit_price: amount,

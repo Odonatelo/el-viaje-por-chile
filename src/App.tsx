@@ -379,10 +379,6 @@ export default function App() {
               className="w-full h-full object-contain rounded-md"
             />
           </div>
-          <span className="font-semibold text-slate-200">
-            Dominio Propio: <strong className="text-white font-mono">www.elviaje.cl</strong>
-          </span>
-          <span className="hidden sm:inline text-slate-500">•</span>
           <span className="hidden sm:inline text-slate-400">
             Plataforma Oficial de El Viaje
           </span>

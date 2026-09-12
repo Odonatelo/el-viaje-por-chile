@@ -360,9 +360,6 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
       </section>
 
-      {/* Tienda Oficial & Mapas Tourmaps - Publicidad con autorización de uso */}
-      <ShopSection />
-
       {/* Main Tours Grid Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-6">
         
@@ -567,6 +564,9 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
         )}
 
       </section>
+
+      {/* Tienda Oficial & Mapas Tourmaps - Publicidad con autorización de uso */}
+      <ShopSection />
 
     </div>
   );

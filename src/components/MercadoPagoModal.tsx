@@ -64,7 +64,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
     enterprisePriceClp: 189990,
     isLiveMode: false,
     ownerEmail: 'juancarlos.castaing@gmail.com',
-    ownerName: 'Juan Carlos Castaing',
+    ownerName: 'El Viaje SPA',
   });
 
   const [paymentHistory, setPaymentHistory] = useState<MercadoPagoPaymentRecord[]>([]);
@@ -224,7 +224,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
               Pasarela de Monetización & Pagos
             </h2>
             <p className="text-xs text-slate-300">
-              Recaudación oficial y directa a nombre de <strong>Juan Carlos Castaing</strong> (El Viaje Por Chile)
+              Recaudación oficial y directa a nombre de <strong>El Viaje SPA</strong>
             </p>
           </div>
 
@@ -479,7 +479,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
               </button>
 
               <p className="text-center text-[11px] text-slate-500">
-                Los fondos son transferidos directamente a la cuenta verificada de Mercado Pago de <strong>Juan Carlos Castaing</strong>.
+                Los fondos son transferidos directamente a la cuenta verificada de Mercado Pago de <strong>El Viaje SPA</strong>.
               </p>
             </div>
           )}
