@@ -2275,6 +2275,273 @@ export const INITIAL_TOURS: Tour[] = [
       [-41.4874, -72.8993],
       [-41.4738, -72.918]
     ]
+  },
+  {
+    id: 'tour-lago-llanquihue',
+    title: 'El Lago Llanquihue y los Pioneros Alemanes: Naturaleza y Herencia Teutona',
+    tagline: 'Audioguía Oficial El Viaje Por Chile • Lago Llanquihue, volcán Osorno y las ciudades de madera de la colonización',
+    description: 'Audioguía producida por El Viaje Por Chile (www.elviaje.cl). Recorre el circuito del segundo lago más grande de Chile y la cuna de la colonización alemana en el sur: el paseo costero de Puerto Varas frente al volcán Osorno, la iglesia neogótica de madera del Sagrado Corazón, la tradición musical de Frutillar con su Teatro del Lago, el muelle histórico de Puerto Octay y las aguas turquesa de los Saltos del Petrohué en el parque nacional más antiguo del país.',
+    coverImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Volcan_Osorno%2C_Lago_Llanquihue%2C_Puerto_Varas.JPG/1280px-Volcan_Osorno%2C_Lago_Llanquihue%2C_Puerto_Varas.JPG',
+    city: 'Puerto Varas y Cuenca del Lago Llanquihue',
+    country: 'Chile',
+    category: 'nature',
+    language: 'Español',
+    durationMinutes: 120,
+    distanceKm: 78.0,
+    difficulty: 'easy',
+    rating: 5.0,
+    reviewsCount: 320,
+    featured: true,
+    published: true,
+    createdAt: '2026-09-12T09:00:00Z',
+    updatedAt: '2026-09-12T09:00:00Z',
+    author: {
+      name: 'Juan Carlos Castaing',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      role: 'Especialista en Patrimonio y Rutas de Chile',
+      bio: 'Guía de expedición en el sur de Chile, consultor de interpretación del patrimonio natural y cultural y creador en El Viaje Por Chile.',
+      verified: true
+    },
+    socialLinks: {
+      instagram: 'https://instagram.com/tiendaelviaje',
+      youtube: 'https://youtube.com/@tiendaelviaje',
+      website: 'https://www.tiendaelviaje.cl',
+      twitter: 'https://x.com/tiendaelviaje'
+    },
+    generalDocuments: [
+      {
+        id: 'doc-ruta-lago-llanquihue',
+        name: 'Guía de Ruta: Cuenca del Lago Llanquihue, circuito a orillas del lago.pdf',
+        type: 'pdf',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '5.9 MB',
+        description: 'Mapa del circuito lacustre, tiempos de viaje entre localidades, miradores del volcán Osorno y recomendaciones de navegación.'
+      },
+      {
+        id: 'doc-colonizacion-alemana',
+        name: 'Ficha Histórica: Colonización Alemana del Lago Llanquihue, 1852-1875.pdf',
+        type: 'guide',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '4.1 MB',
+        description: 'Historia de la colonización, los barcos de veleros, la industria maderera, los tranques de manzanos y la arquitectura de madera.'
+      }
+    ],
+    stops: [
+      {
+        id: 'stop-llanquihue-1',
+        order: 1,
+        title: 'Lago Llanquihue y Volcán Osorno',
+        subtitle: 'El espejo de agua más grande del sur y el cono perfecto vigilante',
+        category: 'nature',
+        location: {
+          lat: -41.31716,
+          lng: -72.98161,
+          address: 'Costanera de Puerto Varas, paseo peatonal frente al lago, Puerto Varas'
+        },
+        triggerRadiusMeters: 60,
+        narrativeText: 'Estás frente al Lago Llanquihue, con casi 860 kilómetros cuadrados el segundo lago más grande de Chile, superado solo por el General Carrera en la Patagonia. Su forma irregular recuerda huellas de un gigante: en realidad es el resultado de las grandes glaciaciones, cuando los hielos avanzaron y esculpieron esta cubeta que hoy reúne aguas frías y transparentes de origen glacial.\n\nDel otro lado del espejo de agua, como un centinela, se levanta el volcán Osorno. Su cono casi perfecto, coronado de nieves eternas a 2.652 metros de altura, es uno de los íconos geográficos más fotografiados de Chile. Aunque parece dormido, es un estratovolcán activo: su última gran erupción ocurrió en 1835 según los reportes de Charles Darwin, que lo contempló desde la isla de Chiloé. Aún hoy se aprecian sus fumarolas, recordándonos que ladera abajo el paisaje entero está hecho de su lava.\n\nPara los mapuche-huilliche, el Osorno era un ser sagrado encadenado al lago. Cuentan que Tren Tren Vilú, la serpiente de la tierra, y Cai Cai Vilú, la del mar, disputaron la suerte del mundo en estas tierras, y que el volcán guarda el eco de aquella pelea. Mientras tanto, los colonos alemanes que llegaron en 1852 fundaron Puerto Varas a orillas de estas aguas, y hoy el lago les devuelve el reflejo de su herencia en cada ciudad que bordea.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 165,
+          voiceName: 'Zephyr',
+          transcript: 'Frente a ti, el Lago Llanquihue: el segundo más grande de Chile, con casi 860 kilómetros cuadrados de agua glacial. Al otro lado se eleva el volcán Osorno, un cono perfecto de 2.652 metros, activo aunque parece dormido. Darwin observó su erupción de 1835 desde Chiloé. Para los mapuche-huilliche, el Osorno es el guardián del lago, protagonista de la pelea eterna entre las serpientes Tren Tren Vilú y Cai Cai Vilú. En 1852, los colonos alemanes fundaron Puerto Varas junto a esta orilla. El volcán, dicen, vigila cada reflejo del lago.'
+        },
+        images: [
+          {
+            id: 'img-llanquihue-1-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Volcan_Osorno%2C_Lago_Llanquihue%2C_Puerto_Varas.JPG/1280px-Volcan_Osorno%2C_Lago_Llanquihue%2C_Puerto_Varas.JPG',
+            caption: 'El volcán Osorno nevado sobre el Lago Llanquihue, visto desde la costanera de Puerto Varas',
+            isPrimary: true
+          },
+          {
+            id: 'img-llanquihue-1-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Volcan_Osorno_y_Lago_Llanquihue.JPG/1280px-Volcan_Osorno_y_Lago_Llanquihue.JPG',
+            caption: 'El cono perfecto del Osorno y las aguas heladas del Lago Llanquihue'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.conaf.cl'
+        },
+        documents: [],
+        tips: 'Madruga o ven al atardecer: con luz rasante el volcán se pinta de rosado y el lago alcanza un azul profundo. El viento del oeste levanta oleaje por la tarde, así que la mejor hora para fotografiar la costa es por la mañana.',
+        trivia: 'El lago Llanquihue es el segundo más grande de Chile con unos 860 km², y el volcán Osorno es un estratovolcán de 2.652 m cuya erupción de 1835 fue registrada por Charles Darwin.',
+        estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-llanquihue-2',
+        order: 2,
+        title: 'Iglesia del Sagrado Corazón de Puerto Varas',
+        subtitle: 'La joya neogótica de madera de la ciudad de las rosas',
+        category: 'monument',
+        location: {
+          lat: -41.32059,
+          lng: -72.98606,
+          address: 'Iglesia del Sagrado Corazón, calle Verbo Divino 499, Puerto Varas'
+        },
+        triggerRadiusMeters: 50,
+        narrativeText: 'Esta es quizá la iglesia de madera más famosa de Chile. La Iglesia del Sagrado Corazón fue construida en 1918 con alerce y raulí, las maderas nobles del bosque valdiviano, siguiendo el estilo neogótico bávaro que los colonos alemanes trajeron consigo en sus memorias de la Selva Negra.\n\nLos pobladores cargaban cada pieza labrada del interior desde la costanera, a varias cuadras de aquí, porque no había caminos mecanizados. El resultado es una estructura que parece sacada de un cuento centroeuropeo, con su torre que se alza por sobre los tejados y su reloj que marca el pulso de la ciudad.\n\nPuerto Varas, la ciudad de las rosas, nació en 1854 como un asentamiento de colonos alemanes llegados por el lago. Los apellidos fundadores, los tejidos de lana, los kuchen y las casas de dos aguas con jardines floridos son el legado vivo de aquella colonización. La iglesia, declarada Monumento Nacional, es el corazón espiritual de esa comunidad y uno de los pocos templos del sur que sigue orientando su fachada directamente hacia el volcán Osorno, como si la fe y el paisaje se miraran de frente.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Puck',
+          transcript: 'Estás frente a una de las iglesias de madera más famosas de Chile. Construida en 1918 con alerce y raulí, su estilo neogótico bávaro recuerda la Selva Negra. Las piezas del interior llegaron cargadas a mano desde la costanera, sin caminos, por los propios colonos alemanes. Puerto Varas nació en 1854, la ciudad de las rosas, y esta iglesia, Monumento Nacional, es el corazón de su comunidad. Su fachada mira directo al volcán Osorno: la fe y el paisaje, frente a frente.'
+        },
+        images: [
+          {
+            id: 'img-llanquihue-2-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/00_1691_Church_of_Puerto_Varas_%28Chile%29.jpg/1280px-00_1691_Church_of_Puerto_Varas_%28Chile%29.jpg',
+            caption: 'La iglesia del Sagrado Corazón, joya neogótica de madera de Puerto Varas',
+            isPrimary: true
+          },
+          {
+            id: 'img-llanquihue-2-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Puerto_Varas_-Iglesia_del_Sagrado_Corazon_f01.jpg/1280px-Puerto_Varas_-Iglesia_del_Sagrado_Corazon_f01.jpg',
+            caption: 'La fachada de la iglesia con su torre y el estilo bávaro de la colonización'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.munipuertovaras.cl'
+        },
+        documents: [],
+        tips: 'La iglesia es un templo activo: visítala en horario de misa o consulta los horarios de visita para no interrumpir las celebraciones de la comunidad.',
+        trivia: 'La iglesia fue construida en 1918 en alerce y raulí, está declarada Monumento Nacional y es el emblema de Puerto Varas, la ciudad de las rosas fundada por colonos alemanes en 1854.',
+        estimatedStayMinutes: 25
+      },
+      {
+        id: 'stop-llanquihue-3',
+        order: 3,
+        title: 'Frutillar Bajo y el Teatro del Lago',
+        subtitle: 'La capital musical del sur y la postal de los molinos de agua',
+        category: 'history',
+        location: {
+          lat: -41.13945,
+          lng: -73.02527,
+          address: 'Teatro del Lago y costanera de Frutillar Bajo, Avenida Bernardo Philippi 1000, Frutillar'
+        },
+        triggerRadiusMeters: 60,
+        narrativeText: 'Bienvenido a Frutillar, la ciudad que nació en 1856 junto a un tranque de manzanos, pero que hoy es conocida en el mundo entero por su música y su arquitectura de madera.\n\nEstás en Frutillar Bajo, el barrio que abraza la orilla del lago. Aquí las casas de tablas teñidas, los jardines floridos y los históricos molinos de agua componen una de las postales más hermosas del sur de Chile. El Museo Colonial Alemán, más arriba, conserva la vida de los pioneros: sus herramientas, sus muebles tallados y su kuchen, aún horneado según recetas de más de un siglo.\n\nPero el gran protagonista es el Teatro del Lago, la imponente sala de madera inaugurada en 2010 que se asoma al lago Llanquihue como un barco varado. Gibilterra del sur, Frutillar levantó aquí la primera sala acústica diseñada para conciertos de nivel internacional en el sur del país. Cada verano, el Festival Internacional de Música de Frutillar, heredero de la tradicional Semana Musical, reúne a solistas y orquestas de todo el mundo en este escenario, transformando a esta pequeña ciudad portuaria en la capital musical del sur de Chile.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 165,
+          voiceName: 'Charon',
+          transcript: 'Bienvenido a Frutillar, nacida en 1856 junto a un tranque de manzanos. Estás en Frutillar Bajo, el barrio de la orilla: casas de tablas teñidas, jardines y los molinos de agua de las postales. El Museo Colonial Alemán conserva la vida de los pioneros y su kuchen, horneado con recetas de más de un siglo. Y aquí, el Teatro del Lago, inaugurado en 2010, se asoma al agua como un barco de madera. Cada verano, el Festival Internacional de Música de Frutillar convierte esta ciudad en la capital musical del sur de Chile.'
+        },
+        images: [
+          {
+            id: 'img-llanquihue-3-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Frutillar-Theatro-del-Lago-1030906-PSD.jpg/1280px-Frutillar-Theatro-del-Lago-1030906-PSD.jpg',
+            caption: 'El Teatro del Lago de Frutillar, la sala de madera frente al lago Llanquihue',
+            isPrimary: true
+          },
+          {
+            id: 'img-llanquihue-3-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Frutillar-Theatro-del-Lago-1030909.jpg/1280px-Frutillar-Theatro-del-Lago-1030909.jpg',
+            caption: 'La arquitectura del Teatro del Lago y la costanera de Frutillar Bajo'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.teatrodellago.cl'
+        },
+        documents: [],
+        tips: 'Combina la visita con un paseo por el Museo Colonial Alemán y una parada en los cafés de la costanera; pregunta por el kuchen recién horneado.',
+        trivia: 'El Teatro del Lago se inauguró en 2010 y el Festival Internacional de Música de Frutillar, heredero de la Semana Musical, es uno de los encuentros clásicos más importantes de Sudamérica.',
+        estimatedStayMinutes: 40
+      },
+      {
+        id: 'stop-llanquihue-4',
+        order: 4,
+        title: 'Puerto Octay y su Muelle Histórico',
+        subtitle: 'El puerto lacustre que movió el trigo y los sueños del norte del lago',
+        category: 'history',
+        location: {
+          lat: -40.97276,
+          lng: -72.88422,
+          address: 'Plaza de Puerto Octay y muelle histórico, orilla norte del Lago Llanquihue'
+        },
+        triggerRadiusMeters: 60,
+        narrativeText: 'Llegamos a Puerto Octay, el pueblo que mira el lago desde el norte y que guarda, casi intacto, el aire de una época dorada. Fue fundado en 1893 como puerto de embarque y estuvo llamada a ser la gran ciudad lacustre del circuito.\n\nDurante décadas, el trigo producido en los campos de Osorno y Río Negro llegaba en carretas hasta su muelle, y desde aquí cruzaba el Lago Llanquihue en barcos a vapor hasta Puerto Varas y Puerto Montt. La temporada de embarque, entre enero y marzo, convocaba a cientos de trabajadores; en su mejor momento, decenas de barcos zarparon hacia la capital regional.\n\nLa llegada del ferrocarril y luego las carreteras asfaltadas dejaron al muelle sin su función portuaria. Pero Puerto Octay quedó detenido en el tiempo: su iglesia de madera, sus casonas de techo a dos aguas y el famoso puente lacustre que se adentra en las aguas son hoy un patrimonio declarado. El muelle, el mismo por donde salió tanta riqueza, se ha convertido en la pasarela favorita de pescadores y de quienes buscan ver el volcán Osorno reflejado sobre el lago al atardecer, en una de las panorámicas más silenciosas del sur de Chile.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 155,
+          voiceName: 'Fenrir',
+          transcript: 'Puerto Octay, fundado en 1893, fue el gran puerto del norte del lago. El trigo de Osorno llegaba en carretas hasta su muelle y cruzaba el Lago Llanquihue en barcos a vapor hacia Puerto Varas y Puerto Montt. Cuando llegaron el ferrocarril y las carreteras, el muelle perdió su oficio, y el pueblo quedó detenido en el tiempo. Hoy su iglesia de madera, sus casonas y la pasarela que se adentra en el lago son patrimonio: el lugar perfecto para ver el Osorno reflejado al atardecer.'
+        },
+        images: [
+          {
+            id: 'img-llanquihue-4-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Puerto_Octay_2.jpg',
+            caption: 'El pueblo de Puerto Octay y su costa sobre el Lago Llanquihue',
+            isPrimary: true
+          },
+          {
+            id: 'img-llanquihue-4-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Puerto_Octay_Correos.jpg/1280px-Puerto_Octay_Correos.jpg',
+            caption: 'El edificio de Correos y el patrimonio arquitectónico de Puerto Octay'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.munipuertooctay.cl'
+        },
+        documents: [],
+        tips: 'Visita el muelle a media tarde: la luz del oeste ilumina el volcán Osorno y el lago queda en calma de espejo, ideal para fotos sin multitudes.',
+        trivia: 'En su auge, Puerto Octay fue el principal puerto del circuito lacustre: el trigo de Osorno y Río Negro cruzaba el lago en barcos a vapor antes de que el ferrocarril y las carreteras le quitaran su rol.',
+        estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-llanquihue-5',
+        order: 5,
+        title: 'Volcán Osorno y Saltos del Petrohué',
+        subtitle: 'Agua turquesa sobre lava andesítica en el parque nacional más antiguo de Chile',
+        category: 'nature',
+        location: {
+          lat: -41.17235,
+          lng: -72.44683,
+          address: 'Saltos del Petrohué, Parque Nacional Vicente Pérez Rosales, sector Ensenada, Ruta CH-225'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'Cerramos el circuito en el corazón del Parque Nacional Vicente Pérez Rosales, el más antiguo de Chile: creado en 1926, y el segundo de Sudamérica. Su nombre honra a Vicente Pérez Rosales, el agente de colonización que impulsó el poblamiento alemán de esta cuenca.\n\nEl río Petrohué nace en el Lago Todos los Santos y, pocos kilómetros después de su nacimiento, se estrella contra la lava endurecida del volcán Osorno. El resultado son los Saltos del Petrohué: una serie de cascadas, rápidos y pasarelas donde el agua toma ese color turquesa irreal, teñido por la harina glacial suspendida en la corriente.\n\nUn corto sendero de madera, apto para toda la familia, serpentea entre la selva valdiviana con sus alerces, coigües y ulmos hasta los miradores. Escucha el trueno del agua y contrasta su fuerza con la calma del Osorno, que aquí se ve no al otro lado del lago, sino a pocos kilómetros, desafiante y nevado. Caminando entre el trueno del agua, la vegetación del sur y el volcán, comprendes por qué este lugar es la joya natural más antigua y protegida del país.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 170,
+          voiceName: 'Kore',
+          transcript: 'Estás en el Parque Nacional Vicente Pérez Rosales, el más antiguo de Chile, creado en 1926. El río Petrohué nace en el Lago Todos los Santos y, al chocar contra la lava del volcán Osorno, forma los Saltos del Petrohué: cascadas de agua turquesa, teñida por la harina glacial. Un sendero de madera, fácil, atraviesa la selva valdiviana entre alerces y coigües hasta los miradores. Escucha el trueno del agua y mira el Osorno, aquí a pocos kilómetros, nevado y desafiante. La joya natural más antigua de Chile.'
+        },
+        images: [
+          {
+            id: 'img-llanquihue-5-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Saltos_del_Petrohue._%282010%29.JPG/1280px-Saltos_del_Petrohue._%282010%29.JPG',
+            caption: 'Los Saltos del Petrohué con sus aguas turquesa y la selva valdiviana al fondo',
+            isPrimary: true
+          },
+          {
+            id: 'img-llanquihue-5-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Saltos_del_Petrohue_caida_libre.jpg/1280px-Saltos_del_Petrohue_caida_libre.jpg',
+            caption: 'Caída libre del río Petrohué sobre la lava andesítica del volcán Osorno'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.conaf.cl'
+        },
+        documents: [],
+        tips: 'Compra tu entrada con anticipación en el sitio oficial de pases de parques nacionales; el parque es reserva y los accesos se controlan, especialmente en verano.',
+        trivia: 'El Parque Nacional Vicente Pérez Rosales es el más antiguo de Chile (1926) y el segundo de Sudamérica, y el color turquesa de los Saltos del Petrohué se debe a la harina glacial del Lago Todos los Santos.',
+        estimatedStayMinutes: 60
+      }
+    ],
+    routePolyline: [
+      [-41.31716, -72.98161],
+      [-41.32059, -72.98606],
+      [-41.28, -73.02],
+      [-41.22, -73.03],
+      [-41.13945, -73.02527],
+      [-41.08, -72.97],
+      [-41.03, -72.95],
+      [-40.97276, -72.88422],
+      [-41.02, -72.76],
+      [-41.08, -72.7],
+      [-41.16, -72.62],
+      [-41.17235, -72.44683]
+    ]
   }
 ];
 

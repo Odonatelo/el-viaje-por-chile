@@ -42,6 +42,7 @@ const T = {
   CANTERA: 'tour-santiago-cerro-la-cantera',
   MUERMOS: 'tour-los-muermos-paraiso-perdido',
   PUERTO_MONTT: 'tour-puerto-montt-bizarro',
+  LLANQUIHUE: 'tour-lago-llanquihue',
 };
 
 const STORE_BASE = 'https://www.tiendaelviaje.cl';
@@ -56,7 +57,7 @@ export const shopProducts: ShopProduct[] = [
     url: `${STORE_BASE}/hojas-nativas-del-sur-de-chile-el-viaje`,
     tag: 'Guía de Bolsillo',
     zones: ['Sur de Chile', 'Patagonia'],
-    tourRefs: [T.MUERMOS, T.ALERCE, T.CHILOE],
+    tourRefs: [T.MUERMOS, T.ALERCE, T.CHILOE, T.LLANQUIHUE],
   },
   {
     id: 'prod-hojas-central',
@@ -188,7 +189,7 @@ export const tourmapProjects: TourMapProject[] = [
     image: 'https://tourmaps.cl/wp-content/uploads/2024/03/Diseno-sin-titulo-6.png',
     url: 'https://tourmaps.cl/proyecto-puerto-montt/',
     zones: ['Sur de Chile', 'Los Lagos'],
-    tourRefs: [T.PUERTO_MONTT, T.MUERMOS],
+    tourRefs: [T.PUERTO_MONTT, T.MUERMOS, T.LLANQUIHUE],
   },
   {
     id: 'map-maullin',
