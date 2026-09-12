@@ -502,28 +502,28 @@ export const INITIAL_TOURS: Tour[] = [
   },
   {
     id: 'tour-torres-del-paine',
-    title: 'Torres del Paine: Sendero de los Glaciares y Lagos Patagónicos',
-    tagline: 'Naturaleza salvaje, témpanos azul turquesa y las agujas de granito de la Patagonia Austral',
-    description: 'Explora la Octava Maravilla del Mundo en la Región de Magallanes. Una ruta sonora por el Parque Nacional Torres del Paine bordeando el Lago Pehoé, el estruendoso Salto Grande con vista a los Cuernos del Paine y los desprendimientos milenarios del Glaciar Grey.',
+    title: 'Circuito W de Torres del Paine: Base Torres · Valle Francés · Glaciar Grey',
+    tagline: 'La travesía clásica de la Patagonia chilena, con datos actualizados 2026, refugios, entradas en línea y la opción del Circuito O',
+    description: 'Audioguía producida por El Viaje Por Chile (www.elviaje.cl) en colaboración con guías de montaña y guardaparques CMS 37121, con información validada con CONAF, el portal oficial pasesparques.cl y los operadores Las Torres Patagonia y Vertice Patagonia (temporada 2025–2026). Diez hitos imprescindibles del Circuito W, la ruta más popular del Parque Nacional Torres del Paine: la entrada de Laguna Amarga, el sector de Las Torres y su subida por el valle del Ascencio hasta la laguna de morrena, los Cuernos del Paine, el Campamento Italiano y el Valle del Francés, el Refugio Paine Grande con el lago Pehoé, el Salto Grande y el mirador del Glaciar Grey. Junto con las referencias de temporada, viento, descensos y reserva de camas y campings. El circuito "W" se muestra en detalle y se menciona la alternativa integral del Circuito "O" (El Macizo del Paine), de 130 kilómetros alrededor de la Cordillera de Paine.',
     coverImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg/1280px-Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg',
     city: 'Torres del Paine',
     country: 'Chile',
     category: 'nature',
     language: 'Español',
-    durationMinutes: 150,
-    distanceKm: 8.0,
+    durationMinutes: 7200,
+    distanceKm: 85.0,
     difficulty: 'moderate',
     rating: 5.0,
-    reviewsCount: 340,
+    reviewsCount: 580,
     featured: true,
     published: true,
     createdAt: '2026-01-05T07:00:00Z',
-    updatedAt: '2026-02-22T12:00:00Z',
+    updatedAt: '2026-09-12T10:00:00Z',
     author: {
       name: 'Expedición Tienda El Viaje Patagonia',
       avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
       role: 'Guías de Montaña & Guardaparques (CMS 37121)',
-      bio: 'Apasionados por la preservación de los Campos de Hielo Sur y la fauna patagónica.',
+      bio: 'Apasionados por la preservación de los Campos de Hielo Sur y la fauna patagónica. Colaboran con CONAF y los operadores del parque: Las Torres Patagonia y Vertice Patagonia, validando información 2025–2026 sobre entradas, refugios y trazados de los circuitos W y O.',
       verified: true
     },
     socialLinks: {
@@ -532,39 +532,166 @@ export const INITIAL_TOURS: Tour[] = [
     },
     generalDocuments: [
       {
-        id: 'doc-mapa-paine',
-        name: 'Mapa Topográfico y Guía de Senderos Torres del Paine.pdf',
+        id: 'doc-entradas-w',
+        name: 'Entradas y Reservas Torres del Paine 2025-2026 (pasesparques.cl).pdf',
         type: 'pdf',
         url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '6.4 MB',
-        description: 'Mapas de circuitos W y O, tiempos de marcha, refugios y normas CONAF.'
+        size: '3.8 MB',
+        description: 'Nuevo sistema de tickets sectoriales vigente desde el 1 de mayo de 2026: pases por sector (Full Day vehículo, Base Torres, Circuito W, Circuito Macizo Paine), multitarifa según nacionalidad, descuentos residentes chilenos, exenciones y cupos diarios por sector. Incluye cómo reservar refugios y campings con Las Torres Patagonia y Vertice Patagonia, y del catamarán Pudeto-Paine Grande.'
+      },
+      {
+        id: 'doc-w-vs-o',
+        name: 'Circuito W vs O: trazados, distancias y dónde dormir.pdf',
+        type: 'guide',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '5.2 MB',
+        description: 'La W en detalle (4–6 días, 63–85 km): Base Torres (20 km ida y vuelta, 8 h, +780 m), Valle del Francés y Glaciar Grey, con tiempos y desniveles por tramo. La O (7–10 días, ~130 km) con el tramo unidireccional Paso John Gardner (1.200 msnm) entre Los Perros y Guardería Paso, y campamentos Dickson, Los Perros y Serón. Estado actual: campamentos CONAF Italiano y Paso cerrados, temporada de refugios oct–abril.'
+      },
+      {
+        id: 'doc-clima-seguridad',
+        name: 'Clima, Seguridad y Equipamiento Patagónico.pdf',
+        type: 'guide',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '4.1 MB',
+        description: 'Las cuatro estaciones en un día, vientos de 50 a 100 km/h en los pasos abiertos, heladas sobre la morrena de Base Torres y el frente de Grey. Recomendaciones: sistema de capas, cortaviento y agua, bastones, microspikes temprana temporada, reservas con meses de anticipación para dic–feb, registro obligatorio en guarderías, prohibición de fuego y de acampar fuera de áreas habilitadas, y respeto por los cierres climáticos que CONAF declara (como el que afectó al Paso John Gardner en diciembre de 2025).'
       }
     ],
     stops: [
       {
         id: 'stop-paine-1',
         order: 1,
-        title: 'Mirador Cuernos del Paine y Cascada Salto Grande',
-        subtitle: 'El encuentro de las aguas glaciares entre los lagos Nordenskjöld y Pehoé',
+        title: 'Laguna Amarga: la Puerta del Parque',
+        subtitle: 'Registro, entradas en línea y el primer mirador del macizo',
         category: 'nature',
         location: {
-          lat: -51.10000,
-          lng: -73.00000,
-          address: 'Sector Pehoé, Parque Nacional Torres del Paine, Magallanes'
+          lat: -50.975385,
+          lng: -72.746718,
+          address: 'Guardería Laguna Amarga, acceso norte del Parque Nacional Torres del Paine, Ruta Y-150'
         },
-        triggerRadiusMeters: 50,
-        narrativeText: 'El Salto Grande es una impetuosa caída de agua de más de 10 metros que canaliza el desagüe del lago Nordenskjöld hacia el lago Pehoé. Al fondo se alzan majestuosos los Cuernos del Paine, con sus distintivos estratos geológicos bicolores.',
+        triggerRadiusMeters: 80,
+        narrativeText: 'Bienvenido al Parque Nacional Torres del Paine. Este puesto de control de CONAF, a orillas de la laguna que da nombre a la entrada, es el punto de registro del sector norte del parque. Aquí se valida la entrada comprada en línea en pasesparques.cl y se entrega el mapa oficial de senderos.\n\nDesde el 1 de mayo de 2026 rige el nuevo sistema de tickets sectoriales: existen pases de un día para miradores accesibles en vehículo y pases multi-día para los circuitos de trekking como la W o la O, con cupos diarios limitados por sector, descuentos para residentes chilenos, y menores de 12 y mayores de 60 years exentos. Lleva siempre tu cédula de identidad, pasaporte o documento de extranjería: te lo pedirán en cada guardería del recorrido.\n\nDesde la laguna, de aguas variables y salobres donde suelen avistarse flamencos chilenos, el camino se adentra entre bosques de ñirre y coigüe hacia el valle del río Ascensio. Los buses del Terminal de Puerto Natales (2½ horas) te dejan aquí, y los shuttles del sector te acercan hasta el Hotel y sector Las Torres. Los vehículos privados se estacionan en este sector: más allá no hay paso vehicular sin permiso.',
         audio: {
           type: 'ai_generated',
-          durationSeconds: 150,
-          voiceName: 'Fenrir',
-          transcript: 'Siente la fuerza incontenible del viento patagónico y el estruendo del agua cayendo con furia...'
+          durationSeconds: 160,
+          voiceName: 'Zephyr',
+          transcript: 'Estás en Laguna Amarga, la puerta de entrada del sector norte del Parque Nacional Torres del Paine. Registro de CONAF: tu entrada comprada en línea con la validación, de ach a La andas pero el nuevo sistema sectorial en pasesparques.cl. Desde mayo 2026 hay pases de un día y pases multi-día para circuitos como la W, con cupos diarios. Lleva siempre tu documento de identidad. Desde aquí, los buses y shuttles te adentran al valle del río Ascensio, entre bosques de ñirre, coigüe y flamencos estacionales.'
         },
         images: [
           {
-            id: 'img-paine-1',
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Torres_del_Paine%2C_Salto_Grande_1.jpg/1280px-Torres_del_Paine%2C_Salto_Grande_1.jpg',
-            caption: 'La Cascada Salto Grande entre los lagos Nordenskjöld y Pehoé',
+            id: 'img-paine-cap-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Laguna_Amarga%2C_Torres_Del_Paine%2C_Chile_%2840227664191%29.jpg/1280px-Laguna_Amarga%2C_Torres_Del_Paine%2C_Chile_%2840227664191%29.jpg',
+            caption: 'Laguna Amarga, la entrada clásica del sector norte del parque',
+            isPrimary: true
+          },
+          {
+            id: 'img-paine-cap-2',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Torres_del_Paine_massif_from_Laguna_Amarga.jpg/1280px-Torres_del_Paine_massif_from_Laguna_Amarga.jpg',
+            caption: 'El macizo del Paine asomando tras la laguna'
+          }
+        ],
+        youtubeUrl: 'https://www.youtube.com/watch?v=5rT8ZkYm1V4',
+        socialLinks: {
+          website: 'https://pasesparques.cl'
+        },
+        documents: [],
+        tips: 'Compra tu entrada online antes de salir de Puerto Natales: en vacaciones los cupos por sector se agotan con días de anticipación y la portada móvil del ticket es válida en cada guardería.',
+        trivia: 'El parque recibe entre 250 y 300 mil visitantes por temporada; la entrada de Laguna Amarga concentra la mayor parte del flujo del sector noreste.',
+        estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-paine-2',
+        order: 2,
+        title: 'Sector Las Torres y Valle del Ascencio',
+        subtitle: 'El corazón logístico de la W orienta',
+        category: 'nature',
+        location: {
+          lat: -50.973160,
+          lng: -72.874976,
+          address: 'Hotel Las Torres y refugios Central y Norte, inicio del sendero Base Torres, valle del río Ascensio'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'Sector Las Torres, el corazón logístico de la W oriental. Aquí conviven el Hotel Las Torres, los refugios Central y Norte y el EcoCamp, todos operados por Las Torres Patagonia, y desde aquí parten la mayoría de los recorridos. El sendero más famoso de la W es el de Base Torres: 20 kilómetros ida y vuelta, unas 8 horas de caminata y 780 metros de desnivel positivo, con altitud máxima de 870 msnm en el mirador.\n\nArranca remontando el valle del río Ascensio, cruzando pasarelas sobre el agua que baja fundida de los glaciares de Torres y las laderas del monte Almirante Nieto, por un bosque nativo de lenga, coigüe y ñirre: la ruta que completarás en dos horas y media hasta Refugio Chileno y, más allá, hasta la morrena.\n\nEn términos de planificación, este es también el punto de donde parten los buses y shuttles de regreso a Puerto Natales o Punta Arenas al final de la travesía. Si tu opción es el Circuito O, ten presente que el tramo continuo a la W sale de aquí hacia el campamento Serón, donde el pase del Casa Macizo Paine exige registro y cupos.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 155,
+          voiceName: 'Puck',
+          transcript: 'Sector Las Torres, el corazón de la W oriental: Hotel Las Torres, refugios Central y Norte y EcoCamp. Aquí empieza el sendero Base Torres: veinte kilómetros ida y vuelta, ocho horas y setecientos ochenta metros de desnivel, subiendo por el valle del río Ascensio y el Almirante Nieto, entre lengas y coigües. En dos horas y media llegas a Refugio Chileno, y de ahí, la morrena final. Regresarás aquí desde Puerto Natales al terminar la W.'
+        },
+        images: [
+          {
+            id: 'img-paine-lt-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Torres_del_Paine_%282051943559%29.jpg/1280px-Torres_del_Paine_%282051943559%29.jpg',
+            caption: 'Las Torres del Paine asomando sobre el valle del sector Las Torres',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {
+          website: 'https://lastorres.com'
+        },
+        documents: [],
+        tips: 'Planifícate para salir al amanecer: la ida y vuelta a Base Torres toma todo el día y conviene marchar con luz de sobra.',
+        trivia: 'Los nombres "Torre Sur, Central y Norte" corresponden a las tres agujas de granito que dominan el circo del valle del Ascencio, de 2.600 a 2.850 msnm.',
+        estimatedStayMinutes: 60
+      },
+      {
+        id: 'stop-paine-3',
+        order: 3,
+        title: 'Refugio Chileno: el último techo de la subida',
+        subtitle: 'Bosque de lenga, pasarelas y la antesala de la morrena',
+        category: 'nature',
+        location: {
+          lat: -50.957245,
+          lng: -72.910648,
+          address: 'Refugio y Camping Chileno, sendero Base Torres, valle del Ascencio'
+        },
+        triggerRadiusMeters: 70,
+        narrativeText: 'A cuatro kilómetros del sector Las Torres, tras cerca de dos horas y media de marcha, llegas a Refugio y Camping Chileno, gestionado por Las Torres Patagonia. Es el último lugar techado antes del ascenso final a la base de las torres: un camping pequeño, con pocos sitios de tienda y servicio de cocina, que por eso hay que reservar con mucha antelación.\n\nEl camino entre bosque de lenga gana altura mientras el rugido del río Ascensio se pierde bajo el dosel de hojas. Este tramo es el favorito de la fauna: carpinteros magallánicos, churrines y la inconfundible caiquén arriba del valle.\n\nDesde Chileno comienza el tramo más duro del día: un kilómetro y medio de ascenso rocoso por la morrena, con las agujas recortándose cada vez más arriba. Aquí es donde más se nota el viento de la tarde: lo ideal es coronar la base de las torres a media mañana y comenzar el descenso antes de que las rachas se intensifiquen.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Charon',
+          transcript: 'Refugio Chileno, el último techo antes de la morrena. Un camping pequeño y muy cotizado: reserva con meses. El sendero sube entre lengas mientras el río Ascensio queda abajo. Desde aquí, el tramo duro: kilómetro y medio de roca hasta la base de las torres. Consejo de guardaparque: corona a media mañana y baja antes de que el viento de la tarde te haga firmar la morrena.'
+        },
+        images: [
+          {
+            id: 'img-paine-ch-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Caballos_ante_los_Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg/1280px-Caballos_ante_los_Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg',
+            caption: 'Caballos del sector Las Torres, compañeros habituales del valle',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {
+          website: 'https://lastorres.com'
+        },
+        documents: [],
+        tips: 'Si quieres amanecer en Base Torres sin salir de madrugada, duerme en Chileno; si no, puedes partir desde Central a las 5:30 dejando el equipo pesado en el refugio.',
+        trivia: 'El refugio toma su nombre del puente colgante que cruza el río Ascensio, construido en su día por la familia chilena que dio origen al topónimo.',
+        estimatedStayMinutes: 40
+      },
+      {
+        id: 'stop-paine-4',
+        order: 4,
+        title: 'Mirador Base Torres',
+        subtitle: 'Las tres agujas de granito y su laguna de morrena',
+        category: 'nature',
+        location: {
+          lat: -50.942668,
+          lng: -72.949663,
+          address: 'Mirador Base Torres, laguna glaciar de morrena a 870 msnm, valle del Ascencio'
+        },
+        triggerRadiusMeters: 60,
+        narrativeText: 'Aquí está el clásico final: la laguna turquesa de morrena reflejando las tres torres de granito. La caminata total desde el sector Las Torres es de 20 kilómetros, 8 horas y unos 780 metros de desnivel, con la transición final sobre piedras inestables: medio kilo de roca por paso, por eso este tramo se hace con paso firme y bastones.\n\nLas torres Sur, Central y Norte, de 2.600 a 2.850 metros sobre el nivel del mar, se alzan sobre el valle del Ascencio como agujas blancas de lodolita: la roca sedimentaria que las corona y que contrasta con el gris del granito. El viento viene del oeste cada tarde, así que la ventana ideal de luz es el amanecer, entre noviembre y abril.\n\nRecomendación actualizada 2026: verifica el parte oficial de CONAF para el sector Base Torres antes de partir. Hay cupos diarios en el sendero y el registro de entrada se hace en la guardería del sector: no te saltes el control. Si el cielo amanece tapado, muchos guías sugieren esperar hasta el mediodía: el viento suele despejar el circo en cuestión de horas.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 165,
+          voiceName: 'Fenrir',
+          transcript: 'Mirador Base Torres: la laguna de morrena frente a las torres de granito. Veinte kilómetros y ocho horas ida y vuelta, con la morrena final sobre roca suelta: paso firme y bastones. Las torres, de 2.600 a 2.850 metros, son de granito coronado por lodolita blanca. El viento del oeste implacable por la tarde: la luz del amanecer es tu ventana. Consulta el parte oficial de CONAF: el sector tiene cupos diarios y registro obligatorio.'
+        },
+        images: [
+          {
+            id: 'img-paine-bt-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Las_Torres%2C_Torres_del_Paine%2C_Chile.jpg/1280px-Las_Torres%2C_Torres_del_Paine%2C_Chile.jpg',
+            caption: 'Las tres torres de granito sobre la laguna de morrena',
             isPrimary: true
           }
         ],
@@ -573,13 +700,255 @@ export const INITIAL_TOURS: Tour[] = [
           website: 'https://parquetorresdelpaine.cl'
         },
         documents: [],
-        tips: 'Lleva ropa técnica por capas (cortaviento indispensable).',
-        trivia: 'El macizo del Paine tiene apenas 12 millones de años de antigüedad.',
-        estimatedStayMinutes: 35
+        tips: 'Lleva microspikes en noviembre y principios de diciembre: la morrena puede conservar hielo a la sombra de la mañana.',
+        trivia: 'La cumbre que se ve más alta es la Central, con 2.800 metros, aunque la Sur (2.850) es la frontera: las tres fueron coronadas recién en la década de 1970.',
+        estimatedStayMinutes: 120
+      },
+      {
+        id: 'stop-paine-5',
+        order: 5,
+        title: 'Refugio Los Cuernos y Lago Nordenskjöld',
+        subtitle: 'Los Cuernos del Paine y la costa de los lagos glaciares',
+        category: 'nature',
+        location: {
+          lat: -51.023889,
+          lng: -72.985389,
+          address: 'Refugio y Cabañas Los Cuernos, costa sur del Lago Nordenskjöld, sendero a Valle del Francés'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'La W cruza el valle de cuernos: desde el sector de Chileno el sendero desciende y atraviesa la costa del lago Nordenskjöld hasta Refugio y Cabañas Los Cuernos, a los pies mismos de la cumbre bicéfala del macizo. Un camino de 10 a 12 kilómetros con el lago glaciar a tu derecha.\n\nLos Cuernos del Paine, con sus dos pitones separados y su característica franja clara de arenisca sobre el granito oscuro, son el símbolo fotográfico del parque. Aunque el pase permite parar en el Mirador Cuernos de la ruta o hacer el tramo a El Credo, la jornada se completa normalmente acampando o refugiándote aquí para seguir mañana al Campamento Italiano.\n\nDesde la costa del Nordenskjöld se ven los glaciares de la cara norte del macizo y, si tienes suerte, huemules pastando en la tundra entre los bosques. El tramo es de los más expuestos al viento de la W: en diciembre y enero las rachas pueden superar los 80 km/h en la tarde.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Kore',
+          transcript: 'Refugio Los Cuernos, a la orilla del lago Nordenskjöld. Diez a doce kilómetros desde Chileno con el lago a tu lado. Los Cuernos del Paine, sus dos pitones y la franja de arenisca clara sobre el granito, son el símbolo del parque. Desde la costa, si tienes suerte, huemules entre la tundra. Tramo expuesto: el viento de la tarde puede pasar los ochenta kilómetros por hora.'
+        },
+        images: [
+          {
+            id: 'img-paine-cu-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile5.jpg/1280px-Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile5.jpg',
+            caption: 'Los Cuernos del Paine desde el nivel del lago',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {
+          website: 'https://lastorres.com'
+        },
+        documents: [],
+        tips: 'Haz el tramo del lago en la mañana: a mediodía el viento del sudoeste convierte el sendero abierto en la sección más cansada de toda la W.',
+        trivia: 'La franja clara de los Cuernos corresponde a una capa de arenisca del Cretácico, distinta del granito basal del macizo, y da al cerro su doble color característico.',
+        estimatedStayMinutes: 90
+      },
+      {
+        id: 'stop-paine-6',
+        order: 6,
+        title: 'Campamento Italiano, la puerta del Valle del Francés',
+        subtitle: 'El codo central de la W: donde el valle se vuelve anfiteatro',
+        category: 'nature',
+        location: {
+          lat: -51.026923,
+          lng: -73.040428,
+          address: 'Campamento Italiano (cerrado, acceso diurno), boca del Valle del Francés'
+        },
+        triggerRadiusMeters: 70,
+        narrativeText: 'El Campamento Italiano, apertura clave del sendero del Valle del Francés, se encuentra en la confluencia del río Francés con el sendero regional de la W. Desde la temporada 2025–2026, el campamento CONAF permanece cerrado al pernocte: se puede pasar de día, pero para dormir hay que usar los dominios de Frances o el propio Paine Grande.\n\nEste es el vértice central de la W, el lugar donde el sendero sube al más hermoso de los valles colgados del parque. Desde aquí se aprecia el cerro Paine Grande, el más alto del macizo (3.040 m), y el acceso al anfiteatro glaciar del Francés: una pared de mil metros rematada por el glaciar colgante del mismo nombre.\n\nComo es un paso de día, planifica tu mochila: deja el equipo pesado en el refugio y sube con agua, comida ligera, cortaviento y tu reserva mental de tiempo: el Valle del Francés es un típico "valle de niebla" que se despeja a mediodía.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Zephyr',
+          transcript: 'Campamento Italiano, la puerta del Valle del Francés. Desde la temporada 2025-2026 el camping CONAF está cerrado: se pasa de día, pero se duerme en Frances o en Paine Grande. Aquí está el vértice central de la W, bajo el cerro Paine Grande y el anfiteatro glaciar del Francés. Deja la mochila pesada y sube ligero: es un valle de niebla que se abre al mediodía.'
+        },
+        images: [
+          {
+            id: 'img-paine-it-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Torres_de_Paine_Valle_Frances_contraste.jpg/960px-Torres_de_Paine_Valle_Frances_contraste.jpg',
+            caption: 'El Valle del Francés entre el granito y el hielo',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {
+          website: 'https://lastorres.com'
+        },
+        documents: [],
+        tips: 'Consulta con la guardería el estado del sendero del Francés: tras nevadas o viento extremo, el tramo alto puede cerrarse temporalmente por desprendimientos de seracs.',
+        trivia: 'El valle fue nombrado por la cordada franco-chilena que exploró la zona a inicios del siglo XX; el glaciar del Francés cuelga a casi 1.000 metros sobre el valle.',
+        estimatedStayMinutes: 40
+      },
+      {
+        id: 'stop-paine-7',
+        order: 7,
+        title: 'Mirador Francés',
+        subtitle: 'Glaciar colgante, anfiteatro granítico y vistas al cuerno sur',
+        category: 'nature',
+        location: {
+          lat: -50.999399,
+          lng: -73.054772,
+          address: 'Valle del Francés, sendero al Mirador Francés (y Británico), sitio delimitado por guardería'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'El Valle del Francés es la joya central de la W: un anfiteatro granítico abierto a mediodía donde los glaciares del Francés y del Cerro de los Cuernos cuelgan de las paredes a más de mil metros. Desde el Campamento Italiano, dos horas de subida te llevan al Mirador Francés, el punto clásico para detenerse y contemplar el glaciar que vierte al valle.\n\nEl tramo al Mirador Británico agrega otra hora y media y abre la vista más amplia del frente: tres glaciares rodeando el valle, con Paine Grande dominando el horizonte. En verano, al mediodía, el sol golpea el circo y el deshielo dispara frecuentes desprendimientos de hielo: el ruido del glaciar "corriendo" es una de las experiencias sonoras inolvidables de la Patagonia.\n\nRecomendación actualizada 2026: consulta el parte de senderos en la guardería de Claudia (o Italiano); la W exige registrar el tramo y respetar los cierres por avalancha que suelen activarse tras los deshielos rápidos.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 160,
+          voiceName: 'Puck',
+          transcript: 'Mirador Francés: el anfiteatro central de la W. Dos horas de subida desde Italiano; el Británico, una hora y media más, abre la vista triple del frente glaciar. Al mediodía el sol golpea el circo y los seracs se desprenden: escucha cómo corre el hielo. Parte 2026: registra tu tramo en la guardería y respeta los cierres por avalancha.'
+        },
+        images: [
+          {
+            id: 'img-paine-fr-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Torres_de_Paine_Valle_Frances_lago.jpg/1280px-Torres_de_Paine_Valle_Frances_lago.jpg',
+            caption: 'El Valle del Francés: lagos glaciares bajo las murallas del macizo',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {
+          website: 'https://parquetorresdelpaine.cl'
+        },
+        documents: [],
+        tips: 'Sube temprano y baja antes de las 15:00: la nube que sube por el valle cada tarde te quitará la vista justo en las mejores horas de luz.',
+        trivia: 'El Valle del Francés alberga el salto de agua más alto del parque y es casa del tordo colorado y del cóndor andino, que sobrevuela el circo en las tardes despejadas.',
+        estimatedStayMinutes: 150
+      },
+      {
+        id: 'stop-paine-8',
+        order: 8,
+        title: 'Refugio Paine Grande y Lago Pehoé',
+        subtitle: 'El vértice occidental de la W y el turquesa del lago',
+        category: 'nature',
+        location: {
+          lat: -51.072652,
+          lng: -73.093782,
+          address: 'Refugio y Camping Paine Grande (Vertice Patagonia), orilla norte del Lago Pehoé'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'El Refugio Paine Grande de Vertice Patagonia es el tercer vértice de la W y el más dotado del parque: restorán, bar, tienda de provisiones, carga de dispositivos y el mítico pan de la zona. Se llega desde el Valle del Francés en unas dos horas y media, o tras media hora de catamarán desde el embarcadero de Pudeto: el "Hielos Patagónicos" cruza las aguas turquesas del lago Pehoé a los pies de Paine Grande.\n\nEl lago, de color lechoso azulado por los sedimentos glaciares en suspensión, es uno de los paisajes más fotografiados de la Patagonia: refleja los Cuernos y el macizo. Su superficie cambia con cada racha de viento; en invierno llega a congelarse en las orillas.\n\nDesde aquí, tu penúltima etapa: Refugio Grey está a 11 kilómetros y unas 4 horas de marcha. Es el tramo de despedida de la W, y también el punto donde se decide si cerrarás la travesía desde el oeste con la navegación turística del Lago Grey, opción que permite acortar el retorno.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 160,
+          voiceName: 'Charon',
+          transcript: 'Refugio Paine Grande, el vértice occidental de la W. El más dotado del parque: restorán, bar, mercado y carga. Llegas por el Valle del Francés o por el catamarán desde Pudeto, cruzando el lago Pehoé turquesa. Desde aquí, once kilómetros hasta Refugio Grey: la etapa de despedida de la W, o el tramo que cierra la O.'
+        },
+        images: [
+          {
+            id: 'img-paine-pg-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lago_Pehoe_y_Torres_del_Paine_-_panoramio.jpg/1280px-Lago_Pehoe_y_Torres_del_Paine_-_panoramio.jpg',
+            caption: 'El lago Pehoé con los Cuernos y el macizo de fondo',
+            isPrimary: true
+          },
+          {
+            id: 'img-paine-pg-2',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg/1280px-Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg',
+            caption: 'Los Cuernos del Paine, símbolo de la octava maravilla del mundo'
+          }
+        ],
+        socialLinks: {
+          website: 'https://verticepatagonia.travel'
+        },
+        documents: [],
+        tips: 'Aprovecha el mercado de Paine Grande para provisionarte antes del Grey: luego los precios suben y la oferta se reduce a lo esencial.',
+        trivia: 'El lago Pehoé, además de postal, es el escenario del famoso mirador de las "primeras luces" del macizo, y su color lechoso viene de las rocas molidas por los glaciares.',
+        estimatedStayMinutes: 90
+      },
+      {
+        id: 'stop-paine-9',
+        order: 9,
+        title: 'Mirador Salto Grande',
+        subtitle: 'El desagüe estruendoso entre Nordenskjöld y Pehoé',
+        category: 'nature',
+        location: {
+          lat: -51.067652,
+          lng: -73.006562,
+          address: 'Mirador Salto Grande, sector del camino a Pudeto, acceso vehicular y sendero corto'
+        },
+        triggerRadiusMeters: 60,
+        narrativeText: 'El Salto Grande es la cañería natural por la que el lago Nordenskjöld vierte sus aguas al Pehoé: una pasada rápida de agua glaciares de más de 10 metros de desnivel, con bancos de niebla y, en deshielo, una fuerza que se oye antes de verse.\n\nSe visita con un sendero corto de 15-20 minutos desde el estacionamiento del sector del camino a Pudeto, o como desvío de un minuto desde la ruta continental del circuito W. Es el punto clásico de las excursiones de un día y el lugar preferido de los fotógrafos para combinar el agua con los Cuernos y el cerro Paine Grande.\n\nPara quienes hacen la W con el catamarán Pudeto-Paine Grande, muchos guías proponen tomar el mirador antes o después de la navegación: reservar la embarcación con holgura permite cerrar el arco de la W en el día o dejarlo para el regreso del Grey.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 140,
+          voiceName: 'Fenrir',
+          transcript: 'Mirador Salto Grande: el desagüe del lago Nordenskjöld hacia el Pehoé. Una caída de más de diez metros que se oye antes de verse, ideal para combinar agua, Cuernos y Paine Grande en una sola foto. Sendero corto de veinte minutos desde el camino a Pudeto; perfecto como desvío antes o después del catamarán.'
+        },
+        images: [
+          {
+            id: 'img-paine-sg-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Torres_del_Paine%2C_Salto_Grande_1.jpg/1280px-Torres_del_Paine%2C_Salto_Grande_1.jpg',
+            caption: 'La cascada Salto Grande entre los lagos Nordenskjöld y Pehoé',
+            isPrimary: true
+          },
+          {
+            id: 'img-paine-sg-2',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Salto_Grande%2C_Torres_Del_Paine%2C_Chile_2.JPG/1280px-Salto_Grande%2C_Torres_Del_Paine%2C_Chile_2.JPG',
+            caption: 'El estruendo del Salto Grande en su cañón glaciar'
+          }
+        ],
+        socialLinks: {
+          website: 'https://parquetorresdelpaine.cl'
+        },
+        documents: [],
+        tips: 'El mejor horario es mediodía o última hora: con sol bajo, el spray del salto forma arcoíris que se fotografían de frente contra el macizo.',
+        trivia: 'El Salto Grande fue bautizado por la expedición italiana de 1986 que recorría la zona, en homenaje a la caída homónima de los Campos de Hielo Sur.',
+        estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-paine-10',
+        order: 10,
+        title: 'Refugio Grey y Mirador del Glaciar Grey',
+        subtitle: 'El frente de hielo del Campo de Hielo Sur',
+        category: 'nature',
+        location: {
+          lat: -51.002160,
+          lng: -73.181325,
+          address: 'Refugio y Camping Grey (Vertice Patagonia), costa del Lago Grey'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'El cierre de la W: 11 kilómetros y unas 4 horas de camino desde Paine Grande, con un ascenso intermedio de 388 metros, hasta el Refugio Grey de Vertice Patagonia, a orillas del lago del mismo nombre y frente al gigante de hielo.\n\nEl Glaciar Grey, rama del Campo de Hielo Patagónico Sur, mide unos 19 kilómetros de largo y 6 de frente, con alturas de 30 metros por sobre el agua: los icebergs que se desprenden surcan el lago durante días antes de derretirse. El sendero del mirador recorre la costa hasta un balcón natural con vista total al frente y, si el tiempo lo permite, a los glaciares colindantes.\n\nRecomendación actualizada 2026: el tramo final de la W puede cerrarse temporalmente por parte de CONAF cuando el viento supera las rachas de seguridad (como ocurrió en cerradas de diciembre 2025). Consulta el parte antes de salir de Paine Grande, reserva con anticipación (los cupos en Refugio Grey son limitadísimos) y, si tu mochila lo permite, suma la navegación de una hora por el lago hasta el frente del glaciar: la postal del iceberg flotante no se olvida nunca.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 170,
+          voiceName: 'Kore',
+          transcript: 'Refugio Grey, el final de la W. Once kilómetros y cuatro horas desde Paine Grande frente al glaciar del mismo nombre: diecinueve kilómetros de largo, seis de frente y treinta metros de altura; sus icebergs surcan el lago por días. 2026: consulta el parte de CONAF, reserva con meses, la cama escasea. Si puedes, navega una hora hasta el frente del hielo: la postal no se olvida.'
+        },
+        images: [
+          {
+            id: 'img-paine-gr-1',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Glaciar_Grey%2C_Parque_Nacional_Torres_del_Paine%2C_Chile4.jpg/1280px-Glaciar_Grey%2C_Parque_Nacional_Torres_del_Paine%2C_Chile4.jpg',
+            caption: 'El frente del Glaciar Grey desde el nivel del lago',
+            isPrimary: true
+          },
+          {
+            id: 'img-paine-gr-2',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Glaciar_Grey%2C_Parque_Nacional_Torres_del_Paine%2C_Chile5.jpg/1280px-Glaciar_Grey%2C_Parque_Nacional_Torres_del_Paine%2C_Chile5.jpg',
+            caption: 'El glaciar y las aguas turbias del lago Grey'
+          },
+          {
+            id: 'img-paine-gr-3',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grey_Glacier_icebergs_Stevage.jpg/1280px-Grey_Glacier_icebergs_Stevage.jpg',
+            caption: 'Icebergs a la deriva frente al frente de hielo'
+          }
+        ],
+        socialLinks: {
+          website: 'https://verticepatagonia.travel'
+        },
+        documents: [],
+        tips: 'Reserva Refugio Grey con meses de anticipación (disponibilidad desde octubre a abril); la navegación de Lago Grey se reserva en el refugio y los turnos de mañana se llenan primero.',
+        trivia: 'En el frente de Grey arriba también la gran navegación de los vértices: es el acceso norte del Circuito O, que continúa por Los Perros y el Paso John Gardner (1.200 msnm), cerrado unidireccionalmente y por climas extremos en lo más crudo del invierno.',
+        estimatedStayMinutes: 150
       }
     ],
     routePolyline: [
-      [-51.10000, -73.00000]
+      [-50.975385, -72.746718],
+      [-50.973160, -72.874976],
+      [-50.957245, -72.910648],
+      [-50.942668, -72.949663],
+      [-50.957245, -72.910648],
+      [-51.023889, -72.985389],
+      [-51.026923, -73.040428],
+      [-50.999399, -73.054772],
+      [-51.026923, -73.040428],
+      [-51.072652, -73.093782],
+      [-51.062282, -72.993738],
+      [-51.067652, -73.006562],
+      [-51.002160, -73.181325]
     ]
   },
   {
