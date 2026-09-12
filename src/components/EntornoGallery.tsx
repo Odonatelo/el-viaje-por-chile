@@ -54,7 +54,7 @@ export const EntornoGallery: React.FC<EntornoGalleryProps> = ({ isOpen, onClose 
             <Images className="w-5 h-5 text-white/80" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-white font-['Outfit',sans-serif]">Entorno El Viaje Por Chile</h3>
+            <h3 className="text-base font-bold text-white font-['Cormorant_Garamond',Georgia,serif]">Entorno El Viaje Por Chile</h3>
             <p className="text-xs text-white/50">Galería visual · marco negro</p>
           </div>
         </div>

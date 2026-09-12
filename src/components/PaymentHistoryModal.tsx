@@ -62,11 +62,11 @@ export const PaymentHistoryModal: React.FC<PaymentHistoryModalProps> = ({ isOpen
           {p.dateCreated ? new Date(p.dateCreated).toLocaleString('es-CL') : '—'}
         </td>
         <td className="px-3 py-2.5">
-          <div className="text-xs font-semibold text-[#0D1B2D]">{p.payerName || '—'}</div>
+          <div className="text-xs font-semibold text-[#14281C]">{p.payerName || '—'}</div>
           <div className="text-[11px] text-slate-500">{p.payerEmail || '—'}</div>
         </td>
         <td className="px-3 py-2.5 text-xs text-slate-700 max-w-[180px] truncate">{p.planTitle || p.planId || '—'}</td>
-        <td className="px-3 py-2.5 text-xs font-bold text-[#0D1B2D] whitespace-nowrap">{fmtClp(p.amountClp)}</td>
+        <td className="px-3 py-2.5 text-xs font-bold text-[#14281C] whitespace-nowrap">{fmtClp(p.amountClp)}</td>
         <td className="px-3 py-2.5">
           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${s.cls}`}>
             {s.icon}
@@ -87,14 +87,14 @@ export const PaymentHistoryModal: React.FC<PaymentHistoryModalProps> = ({ isOpen
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white w-full max-w-3xl max-h-[85vh] rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden flex flex-col">
-        <div className="px-6 py-4 bg-[#0D1B2D] text-white flex items-center justify-between border-b border-[#192E47]">
+      <div className="bg-white w-full max-w-3xl max-h-[85vh] rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden flex flex-col">
+        <div className="px-6 py-4 bg-[#14281C] text-white flex items-center justify-between border-b border-[#223F2C]">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
               <Receipt className="w-5 h-5 text-emerald-300" />
             </div>
             <div>
-              <h3 className="text-base font-bold font-['Outfit',sans-serif]">Historial de Cobros</h3>
+              <h3 className="text-base font-bold font-['Cormorant_Garamond',Georgia,serif]">Historial de Cobros</h3>
               <p className="text-xs text-slate-400">Mercado Pago Chile · {currentUser?.email}</p>
             </div>
           </div>
@@ -113,7 +113,7 @@ export const PaymentHistoryModal: React.FC<PaymentHistoryModalProps> = ({ isOpen
             <div className="space-y-6">
               {/* Real payments */}
               <section>
-                <h4 className="text-sm font-bold text-[#0D1B2D] mb-2">Cobros reales (Mercado Pago)</h4>
+                <h4 className="text-sm font-bold text-[#14281C] mb-2">Cobros reales (Mercado Pago)</h4>
                 {records.length === 0 ? (
                   <p className="text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3">
                     Aún no hay cobros reales registrados. Configura <code className="px-1 bg-white rounded">MERCADOPAGO_ACCESS_TOKEN</code> para habilitar pagos reales.
@@ -139,7 +139,7 @@ export const PaymentHistoryModal: React.FC<PaymentHistoryModalProps> = ({ isOpen
 
               {/* Demo samples */}
               <section>
-                <h4 className="text-sm font-bold text-[#0D1B2D] mb-2 flex items-center gap-2">
+                <h4 className="text-sm font-bold text-[#14281C] mb-2 flex items-center gap-2">
                   Modo Demostración
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-600 border border-slate-300">
                     <AlertTriangle className="w-3 h-3" /> No representa dinero real

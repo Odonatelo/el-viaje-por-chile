@@ -25,12 +25,12 @@ export function QRCodeModal({ isOpen, onClose, tour, selectedStop, onSelectStop 
       onClick={onClose}
     >
       <div
-        className="relative bg-[#FAF7F2] text-slate-900 w-full max-w-md rounded-3xl p-6 shadow-2xl my-10 space-y-4 border border-[#E8DFC8]"
+        className="relative bg-[#F6F1E5] text-slate-900 w-full max-w-md rounded-3xl p-6 shadow-2xl my-10 space-y-4 border border-[#E4D8BF]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-[#0D1B2D]">Código QR de la Ruta</h3>
+            <h3 className="text-base font-bold text-[#14281C]">Código QR de la Ruta</h3>
             <p className="text-xs text-slate-600">Comparte o coloca este código en el punto de partida.</p>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-700 p-1 text-lg" aria-label="Cerrar">
@@ -47,7 +47,7 @@ export function QRCodeModal({ isOpen, onClose, tour, selectedStop, onSelectStop 
                 const found = tour.stops.find((s) => s.id === e.target.value) || null;
                 onSelectStop?.(found);
               }}
-              className="w-full px-3 py-2 bg-white border border-[#D4C5A9] rounded-xl font-semibold text-sm focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+              className="w-full px-3 py-2 bg-white border border-[#CDBA95] rounded-xl font-semibold text-sm focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
             >
               <option value="">Ruta completa</option>
               {tour.stops.map((s) => (
@@ -60,7 +60,7 @@ export function QRCodeModal({ isOpen, onClose, tour, selectedStop, onSelectStop 
         )}
 
         <div className="flex flex-col items-center gap-3 py-2">
-          <div className="bg-white p-4 rounded-2xl border border-[#E8DFC8] shadow-sm">
+          <div className="bg-white p-4 rounded-2xl border border-[#E4D8BF] shadow-sm">
             <QRCodeSVG value={url} size={220} level="M" />
           </div>
           <p className="text-[11px] text-slate-500 break-all text-center font-mono px-2">{url}</p>
@@ -71,7 +71,7 @@ export function QRCodeModal({ isOpen, onClose, tour, selectedStop, onSelectStop 
             onClick={() => {
               navigator.clipboard?.writeText(url);
             }}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-[#C04A26] hover:bg-[#C04A26]/10"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-[#B04E2A] hover:bg-[#B04E2A]/10"
           >
             Copiar enlace
           </button>

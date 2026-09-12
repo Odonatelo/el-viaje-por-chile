@@ -135,7 +135,7 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
   };
 
   return (
-    <div className="w-full bg-gradient-to-r from-[#0D1B2D] via-[#15273F] to-[#0D1B2D] text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-[#2B456B]/60 transition-all font-sans">
+    <div className="w-full bg-gradient-to-r from-[#14281C] via-[#1D3626] to-[#14281C] text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-[#3A5C44]/60 transition-all font-sans">
       {/* Hidden audio element */}
       {audioSrc && (
         <audio
@@ -164,18 +164,18 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
       <div className="flex items-center justify-between gap-3 mb-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#C04A26]/20 text-[#F59E7C] border border-[#C04A26]/40">
-              <Radio className="w-3 h-3 animate-pulse text-[#C04A26]" />
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40">
+              <Radio className="w-3 h-3 animate-pulse text-[#B04E2A]" />
               Audioguía Oficial
             </span>
             {audio?.type === 'ai_generated' && (
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#27523C]/40 text-[#A3E3B8] border border-[#27523C]/50">
+              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#2F5238]/40 text-[#A3E3B8] border border-[#2F5238]/50">
                 <Sparkles className="w-3 h-3 text-[#A3E3B8]" />
                 Voz IA ({audio.voiceName || 'Gemini'})
               </span>
             )}
             {audio?.type === 'uploaded_mp3' && (
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#27523C]/40 text-[#A3E3B8] border border-[#27523C]/50">
+              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#2F5238]/40 text-[#A3E3B8] border border-[#2F5238]/50">
                 <Music className="w-3 h-3 text-[#A3E3B8]" />
                 Audio Subido
               </span>
@@ -187,16 +187,16 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
               </span>
             )}
           </div>
-          <h4 className="text-base sm:text-lg font-bold text-white truncate mt-1 font-['Outfit',sans-serif]">{stopTitle}</h4>
-          {tourTitle && <p className="text-xs text-[#E8DFC8]/70 truncate">{tourTitle}</p>}
+          <h4 className="text-base sm:text-lg font-bold text-white truncate mt-1 font-['Cormorant_Garamond',Georgia,serif]">{stopTitle}</h4>
+          {tourTitle && <p className="text-xs text-[#E4D8BF]/70 truncate">{tourTitle}</p>}
         </div>
 
         {/* Waveform graphic bars */}
-        <div className="flex items-end gap-1 h-8 px-2 py-1 bg-[#09121E] rounded-lg border border-[#2B456B]">
+        <div className="flex items-end gap-1 h-8 px-2 py-1 bg-[#101F16] rounded-lg border border-[#3A5C44]">
           {[40, 70, 90, 60, 100, 50, 80, 45, 95, 30].map((h, i) => (
             <span
               key={i}
-              className={`w-1 rounded-full bg-[#C04A26] transition-all duration-200 ${
+              className={`w-1 rounded-full bg-[#B04E2A] transition-all duration-200 ${
                 isPlaying ? 'animate-pulse' : 'opacity-40'
               }`}
               style={{
@@ -217,28 +217,28 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
             step="0.5"
             value={currentTime}
             onChange={handleScrub}
-            className="w-full h-2 bg-[#09121E] rounded-lg appearance-none cursor-pointer accent-[#C04A26] hover:accent-[#E05A32] focus:outline-none"
+            className="w-full h-2 bg-[#101F16] rounded-lg appearance-none cursor-pointer accent-[#B04E2A] hover:accent-[#D97A46] focus:outline-none"
           />
         </div>
-        <div className="flex justify-between text-xs font-mono text-[#E8DFC8]/60">
+        <div className="flex justify-between text-xs font-mono text-[#E4D8BF]/60">
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
       </div>
 
       {/* Playback Controls Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-[#192E47]">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-[#223F2C]">
         {/* Speed selectors */}
-        <div className="flex items-center gap-1 bg-[#09121E] p-1 rounded-xl border border-[#2B456B] text-xs">
-          <Gauge className="w-3.5 h-3.5 text-[#E8DFC8]/60 ml-1" />
+        <div className="flex items-center gap-1 bg-[#101F16] p-1 rounded-xl border border-[#3A5C44] text-xs">
+          <Gauge className="w-3.5 h-3.5 text-[#E4D8BF]/60 ml-1" />
           {[0.8, 1.0, 1.25, 1.5].map((rate) => (
             <button
               key={rate}
               onClick={() => handleRateChange(rate)}
               className={`px-1.5 py-0.5 rounded text-[11px] font-semibold transition-colors ${
                 playbackRate === rate
-                  ? 'bg-[#C04A26] text-white shadow-sm'
-                  : 'text-[#E8DFC8]/60 hover:text-white'
+                  ? 'bg-[#B04E2A] text-white shadow-sm'
+                  : 'text-[#E4D8BF]/60 hover:text-white'
               }`}
             >
               {rate}x
@@ -251,7 +251,7 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
           <button
             onClick={() => handleSeek(-10)}
             title="Retroceder 10 segundos"
-            className="p-2 text-[#E8DFC8]/70 hover:text-white hover:bg-[#192E47] rounded-full transition-colors"
+            className="p-2 text-[#E4D8BF]/70 hover:text-white hover:bg-[#223F2C] rounded-full transition-colors"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -259,7 +259,7 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
           <button
             onClick={togglePlay}
             id="btn-play-pause-audioguide"
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-[#C04A26] hover:bg-[#A63A19] text-white shadow-lg shadow-[#C04A26]/40 hover:scale-105 active:scale-95 transition-all"
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-[#B04E2A] hover:bg-[#9A3F1E] text-white shadow-lg shadow-[#B04E2A]/40 hover:scale-105 active:scale-95 transition-all"
           >
             {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}
           </button>
@@ -267,7 +267,7 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
           <button
             onClick={() => handleSeek(10)}
             title="Avanzar 10 segundos"
-            className="p-2 text-[#E8DFC8]/70 hover:text-white hover:bg-[#192E47] rounded-full transition-colors"
+            className="p-2 text-[#E4D8BF]/70 hover:text-white hover:bg-[#223F2C] rounded-full transition-colors"
           >
             <RotateCw className="w-4 h-4" />
           </button>
@@ -284,10 +284,10 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
                 setIsMuted(nextMute);
               }
             }}
-            className="p-2 text-[#E8DFC8]/70 hover:text-white hover:bg-[#192E47] rounded-lg transition-colors"
+            className="p-2 text-[#E4D8BF]/70 hover:text-white hover:bg-[#223F2C] rounded-lg transition-colors"
             title={isMuted ? 'Activar sonido' : 'Silenciar'}
           >
-            {isMuted ? <VolumeX className="w-4 h-4 text-[#F59E7C]" /> : <Volume2 className="w-4 h-4" />}
+            {isMuted ? <VolumeX className="w-4 h-4 text-[#E8A58B]" /> : <Volume2 className="w-4 h-4" />}
           </button>
 
           {/* Transcript button */}
@@ -296,8 +296,8 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
               onClick={() => setShowTranscript(!showTranscript)}
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                 showTranscript
-                  ? 'bg-[#C04A26]/30 text-[#F59E7C] border-[#C04A26]/50'
-                  : 'bg-[#09121E] text-[#E8DFC8]/80 border-[#2B456B] hover:text-white'
+                  ? 'bg-[#B04E2A]/30 text-[#E8A58B] border-[#B04E2A]/50'
+                  : 'bg-[#101F16] text-[#E4D8BF]/80 border-[#3A5C44] hover:text-white'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
@@ -309,9 +309,9 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
 
       {/* Expandable Transcript view */}
       {showTranscript && (
-        <div className="mt-3 p-3.5 bg-[#09121E] rounded-xl border border-[#2B456B] text-xs sm:text-sm text-[#E8DFC8]/90 leading-relaxed max-h-48 overflow-y-auto animate-fadeIn">
-          <div className="font-bold text-[#F59E7C] mb-1 flex items-center gap-1.5 text-xs uppercase tracking-wider font-['Outfit',sans-serif]">
-            <Sparkles className="w-3 h-3 text-[#C04A26]" />
+        <div className="mt-3 p-3.5 bg-[#101F16] rounded-xl border border-[#3A5C44] text-xs sm:text-sm text-[#E4D8BF]/90 leading-relaxed max-h-48 overflow-y-auto animate-fadeIn">
+          <div className="font-bold text-[#E8A58B] mb-1 flex items-center gap-1.5 text-xs uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
+            <Sparkles className="w-3 h-3 text-[#B04E2A]" />
             Transcripción del Audio Guía
           </div>
           <p className="whitespace-pre-line">{audio?.transcript || fallbackText}</p>

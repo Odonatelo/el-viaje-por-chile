@@ -329,34 +329,34 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex justify-center p-2 sm:p-4 md:p-6 animate-fadeIn">
       <div 
-        className="relative bg-white text-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden my-auto max-h-[94vh] flex flex-col font-sans"
+        className="relative bg-white text-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden my-auto max-h-[94vh] flex flex-col font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#0D1B2D] text-white">
+        <div className="flex items-center justify-between px-6 py-4 bg-[#14281C] text-white">
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-full bg-[#C04A26] flex items-center justify-center font-bold text-sm shadow">
+            <span className="w-8 h-8 rounded-full bg-[#B04E2A] flex items-center justify-center font-bold text-sm shadow">
               {formData.order}
             </span>
             <div>
-              <span className="text-xs text-[#F59E7C] font-semibold uppercase tracking-wider block">
+              <span className="text-xs text-[#E8A58B] font-semibold uppercase tracking-wider block">
                 Editor de Parada • El Viaje Por Chile (www.elviaje.cl)
               </span>
-              <h2 className="text-lg font-bold truncate font-['Outfit',sans-serif]">
+              <h2 className="text-lg font-bold truncate font-['Cormorant_Garamond',Georgia,serif]">
                 {formData.title || 'Nueva Parada'}
               </h2>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white rounded-full hover:bg-[#192E47] transition-colors"
+            className="p-2 text-slate-400 hover:text-white rounded-full hover:bg-[#223F2C] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-[#E8DFC8] bg-[#FAF7F2] px-6 gap-2 overflow-x-auto">
+        <div className="flex border-b border-[#E4D8BF] bg-[#F6F1E5] px-6 gap-2 overflow-x-auto">
           {[
             { id: 'content', label: '📝 Guión & Datos', icon: Sparkles },
             { id: 'audio', label: '🎧 Audio & Voz IA / MP3', icon: Music },
@@ -372,7 +372,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 py-3 px-3 border-b-2 text-xs font-bold whitespace-nowrap transition-all ${
                   activeTab === tab.id
-                    ? 'border-[#C04A26] text-[#C04A26] bg-white shadow-sm rounded-t-lg'
+                    ? 'border-[#B04E2A] text-[#B04E2A] bg-white shadow-sm rounded-t-lg'
                     : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -399,7 +399,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="Ej. Ascensor Reina Victoria, Mirador Portales..."
-                    className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-sm font-semibold focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                    className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-sm font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                   />
                 </div>
 
@@ -408,7 +408,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value as StopCategory })}
-                    className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-sm font-semibold focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                    className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-sm font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                   >
                     {categories.map(c => (
                       <option key={c.value} value={c.value}>{c.label}</option>
@@ -425,7 +425,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     value={formData.subtitle || ''}
                     onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
                     placeholder="Ej. El funicular centenario que escala los cerros de Valparaíso"
-                    className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-xs focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                    className="w-full px-3.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-xs focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                   />
                 </div>
 
@@ -435,16 +435,16 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     type="number"
                     value={formData.estimatedStayMinutes || 15}
                     onChange={(e) => setFormData({ ...formData, estimatedStayMinutes: parseInt(e.target.value) || 15 })}
-                    className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-xs focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                    className="w-full px-3.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-xs focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Coordinates & Radius */}
-              <div className="p-4 bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl space-y-3">
+              <div className="p-4 bg-[#F6F1E5] border border-[#E4D8BF] rounded-2xl space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-800 uppercase flex items-center gap-1.5 font-['Outfit',sans-serif]">
-                    <MapPin className="w-4 h-4 text-[#C04A26]" />
+                  <span className="text-xs font-bold text-slate-800 uppercase flex items-center gap-1.5 font-['Cormorant_Garamond',Georgia,serif]">
+                    <MapPin className="w-4 h-4 text-[#B04E2A]" />
                     Geolocalización y Radio de Disparo (Geofence)
                   </span>
                   <span className="text-xs text-slate-600">Auto-reproduce audio al entrar al radio</span>
@@ -460,7 +460,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                         ...formData,
                         location: { ...formData.location, lat: parseFloat(e.target.value) || 0 }
                       })}
-                      className="w-full px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg"
+                      className="w-full px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg"
                     />
                   </div>
                   <div>
@@ -473,7 +473,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                         ...formData,
                         location: { ...formData.location, lng: parseFloat(e.target.value) || 0 }
                       })}
-                      className="w-full px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg"
+                      className="w-full px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg"
                     />
                   </div>
                   <div>
@@ -485,19 +485,19 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                         ...formData,
                         triggerRadiusMeters: parseInt(e.target.value) || 35
                       })}
-                      className="w-full px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg"
+                      className="w-full px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg"
                     />
                   </div>
                 </div>
               </div>
 
               {/* AI Script Assistant Banner */}
-              <div className="p-4 bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl space-y-3">
+              <div className="p-4 bg-[#F6F1E5] border border-[#E4D8BF] rounded-2xl space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-[#C04A26]" />
+                    <Sparkles className="w-5 h-5 text-[#B04E2A]" />
                     <div>
-                      <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">Asistente de Guiones con IA (Gemini)</h4>
+                      <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">Asistente de Guiones con IA (Gemini)</h4>
                       <p className="text-xs text-slate-600">Redacta el guión de audioguía, subtítulo, curiosidades y consejos de forma automática.</p>
                     </div>
                   </div>
@@ -509,7 +509,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <select
                       value={aiTone}
                       onChange={(e) => setAiTone(e.target.value as any)}
-                      className="w-full px-2.5 py-1.5 bg-white border border-[#D4C5A9] rounded-lg font-semibold"
+                      className="w-full px-2.5 py-1.5 bg-white border border-[#CDBA95] rounded-lg font-semibold"
                     >
                       <option value="historical">📜 Histórico y Patrimonial</option>
                       <option value="poetic">🌿 Interpretación del Patrimonio (Provocación & Relación)</option>
@@ -524,7 +524,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <select
                       value={aiLength}
                       onChange={(e) => setAiLength(e.target.value as any)}
-                      className="w-full px-2.5 py-1.5 bg-white border border-[#D4C5A9] rounded-lg font-semibold"
+                      className="w-full px-2.5 py-1.5 bg-white border border-[#CDBA95] rounded-lg font-semibold"
                     >
                       <option value="short">Corto (~1 min de audio)</option>
                       <option value="standard">Estándar (~2 min de audio)</option>
@@ -535,7 +535,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <button
                       onClick={handleGenerateScriptWithAI}
                       disabled={isGeneratingScript}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl font-bold shadow-md shadow-[#C04A26]/20 disabled:opacity-50 transition-all text-xs"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl font-bold shadow-md shadow-[#B04E2A]/20 disabled:opacity-50 transition-all text-xs"
                     >
                       {isGeneratingScript ? (
                         <>
@@ -568,7 +568,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                   value={formData.narrativeText}
                   onChange={(e) => setFormData({ ...formData, narrativeText: e.target.value })}
                   placeholder="Escribe la historia inmersiva que el visitante escuchará al llegar a este punto..."
-                  className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-xs sm:text-sm leading-relaxed focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                  className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-xs sm:text-sm leading-relaxed focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                 />
               </div>
 
@@ -581,7 +581,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     value={formData.tips || ''}
                     onChange={(e) => setFormData({ ...formData, tips: e.target.value })}
                     placeholder="Ej. Mejor horario para fotos, calzado adecuado..."
-                    className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl"
+                    className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl"
                   />
                 </div>
                 <div className="space-y-1">
@@ -591,7 +591,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     value={formData.trivia || ''}
                     onChange={(e) => setFormData({ ...formData, trivia: e.target.value })}
                     placeholder="Ej. Anécdota histórica poco conocida..."
-                    className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl"
+                    className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl"
                   />
                 </div>
               </div>
@@ -604,13 +604,13 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
             <div className="space-y-6">
               
               {/* Current Audio Status */}
-              <div className="p-5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl flex flex-wrap items-center justify-between gap-4">
+              <div className="p-5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-2xl flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#C04A26]/10 text-[#C04A26] flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-2xl bg-[#B04E2A]/10 text-[#B04E2A] flex items-center justify-center">
                     <Music className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#0D1B2D]">Estado del Audio de la Parada</h4>
+                    <h4 className="text-sm font-bold text-[#14281C]">Estado del Audio de la Parada</h4>
                     <p className="text-xs text-slate-600">
                       {formData.audio
                         ? `Configurado: ${audioTypeLabel(formData.audio.type, formData.audio.voiceName)}`
@@ -620,7 +620,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                 </div>
 
                 {isUploadingAudio && (
-                  <span className="flex items-center gap-1.5 text-xs font-bold text-[#C04A26]">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-[#B04E2A]">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Subiendo audio...
                   </span>
@@ -639,7 +639,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
 
               {/* Audio Preview Player */}
               {formData.audio?.url && (
-                <div className="p-4 bg-white border border-[#E8DFC8] rounded-2xl shadow-sm">
+                <div className="p-4 bg-white border border-[#E4D8BF] rounded-2xl shadow-sm">
                   <p className="text-[11px] font-bold uppercase text-slate-500 mb-2">Vista previa y verificación</p>
                   <audio controls preload="none" src={formData.audio.url} className="w-full" />
                   <p className="text-[11px] text-slate-500 mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5">
@@ -656,15 +656,15 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
               )}
 
               {/* OPTION A: GENERATE AI TTS (GEMINI) */}
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-4 shadow-sm">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-4 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-[#C04A26]" />
-                    <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                    <Sparkles className="w-5 h-5 text-[#B04E2A]" />
+                    <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                       Opción 1: Generar Voz Artificial con IA (Gemini TTS)
                     </h4>
                   </div>
-                  <span className="text-[10px] uppercase font-bold bg-[#C04A26]/10 text-[#C04A26] px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-bold bg-[#B04E2A]/10 text-[#B04E2A] px-2 py-0.5 rounded">
                     Recomendado
                   </span>
                 </div>
@@ -679,7 +679,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <select
                       value={selectedVoice}
                       onChange={(e) => setSelectedVoice(e.target.value as any)}
-                      className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                      className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                     >
                       <option value="Kore">Kore (Voz Femenina Clara, Cálida y Serena)</option>
                       <option value="Fenrir">Fenrir (Voz Masculina Grave, Épica y Profunda)</option>
@@ -693,7 +693,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <button
                       onClick={handleGenerateAudioWithAI}
                       disabled={isGeneratingAudio || !formData.narrativeText}
-                      className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#C04A26] to-[#D97706] hover:from-[#A63A19] hover:to-[#B45309] text-white rounded-xl font-bold shadow-md shadow-[#C04A26]/20 disabled:opacity-50 transition-all text-xs"
+                      className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white rounded-xl font-bold shadow-md shadow-[#B04E2A]/20 disabled:opacity-50 transition-all text-xs"
                     >
                       {isGeneratingAudio ? (
                         <>
@@ -718,10 +718,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
               </div>
 
               {/* OPTION B: UPLOAD MP3 FILE */}
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-3 shadow-sm">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-3 shadow-sm">
                 <div className="flex items-center gap-2">
-                  <Upload className="w-5 h-5 text-[#27523C]" />
-                  <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                  <Upload className="w-5 h-5 text-[#2F5238]" />
+                  <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                     Opción 2: Subir Archivo de Audio Propio (MP3, WAV, M4A)
                   </h4>
                 </div>
@@ -735,10 +735,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     accept="audio/*"
                     disabled={isUploadingAudio}
                     onChange={handleMp3FileUpload}
-                    className="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#0D1B2D] file:text-white hover:file:bg-[#15273F] file:cursor-pointer cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#14281C] file:text-white hover:file:bg-[#1D3626] file:cursor-pointer cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   {isUploadingAudio && (
-                    <p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#C04A26] mt-1.5">
+                    <p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#B04E2A] mt-1.5">
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       Subiendo y verificando archivo...
                     </p>
@@ -747,10 +747,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
               </div>
 
               {/* OPTION C: LIVE MICROPHONE RECORDING */}
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-3 shadow-sm">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-3 shadow-sm">
                 <div className="flex items-center gap-2">
-                  <Mic className="w-5 h-5 text-[#C04A26]" />
-                  <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                  <Mic className="w-5 h-5 text-[#B04E2A]" />
+                  <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                     Opción 3: Grabar con tu Micrófono en Vivo
                   </h4>
                 </div>
@@ -794,10 +794,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
             <div className="space-y-6">
               
               {/* YouTube Video URL */}
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-3 shadow-sm">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-3 shadow-sm">
                 <div className="flex items-center gap-2">
                   <Youtube className="w-5 h-5 text-red-600" />
-                  <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                  <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                     Video de YouTube Vinculado
                   </h4>
                 </div>
@@ -809,13 +809,13 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                   value={formData.youtubeUrl || ''}
                   onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
                   placeholder="https://www.youtube.com/watch?v=..."
-                  className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-xs font-mono"
+                  className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-xs font-mono"
                 />
 
                 {formData.youtubeUrl && (
                   <div className="pt-2">
                     <p className="text-[11px] text-emerald-600 font-semibold mb-2">Vista previa de integración:</p>
-                    <div className="relative aspect-video w-full max-w-md rounded-xl overflow-hidden border border-[#E8DFC8]">
+                    <div className="relative aspect-video w-full max-w-md rounded-xl overflow-hidden border border-[#E4D8BF]">
                       <iframe
                         src={getYouTubeEmbedUrl(formData.youtubeUrl) || ''}
                         className="absolute inset-0 w-full h-full"
@@ -827,11 +827,11 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
               </div>
 
               {/* Photo Gallery Manager */}
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-4 shadow-sm">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-4 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <ImageIcon className="w-5 h-5 text-[#C04A26]" />
-                    <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                    <ImageIcon className="w-5 h-5 text-[#B04E2A]" />
+                    <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                       Galería de Imágenes ({formData.images.length})
                     </h4>
                   </div>
@@ -840,7 +840,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                 {/* Existing Images Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {formData.images.map((img) => (
-                    <div key={img.id} className="relative group rounded-xl overflow-hidden border border-[#E8DFC8] aspect-square bg-slate-900">
+                    <div key={img.id} className="relative group rounded-xl overflow-hidden border border-[#E4D8BF] aspect-square bg-slate-900">
                       <img src={img.url} alt={img.caption} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
                         <span className="text-[10px] text-white truncate">{img.caption}</span>
@@ -856,7 +856,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                 </div>
 
                 {/* Add image form */}
-                <div className="p-3 bg-[#FAF7F2] rounded-xl border border-[#E8DFC8] space-y-2 text-xs">
+                <div className="p-3 bg-[#F6F1E5] rounded-xl border border-[#E4D8BF] space-y-2 text-xs">
                   <span className="font-bold text-slate-800 block">Añadir Nueva Foto por URL</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <input
@@ -864,19 +864,19 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                       value={newImageUrl}
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       placeholder="URL de la imagen (https://...)"
-                      className="px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg font-mono text-[11px]"
+                      className="px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg font-mono text-[11px]"
                     />
                     <input
                       type="text"
                       value={newImageCaption}
                       onChange={(e) => setNewImageCaption(e.target.value)}
                       placeholder="Pie de foto descriptivo"
-                      className="px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg"
+                      className="px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg"
                     />
                   </div>
                   <button
                     onClick={handleAddImage}
-                    className="px-3 py-1.5 bg-[#C04A26] hover:bg-[#A63A19] text-white font-bold rounded-lg text-xs"
+                    className="px-3 py-1.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white font-bold rounded-lg text-xs"
                   >
                     + Añadir a la Galería
                   </button>
@@ -889,10 +889,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
           {/* TAB 4: DOCS & PDFS */}
           {activeTab === 'docs' && (
             <div className="space-y-4">
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-3 shadow-sm">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-3 shadow-sm">
                 <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-[#C04A26]" />
-                  <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                  <FileText className="w-5 h-5 text-[#B04E2A]" />
+                  <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                     Documentos, Guías PDF y Archivos del Atractivo
                   </h4>
                 </div>
@@ -902,7 +902,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
 
                 <div className="space-y-2">
                   {formData.documents.map((doc) => (
-                    <div key={doc.id} className="flex items-center justify-between p-3 bg-[#FAF7F2] rounded-xl border border-[#E8DFC8]">
+                    <div key={doc.id} className="flex items-center justify-between p-3 bg-[#F6F1E5] rounded-xl border border-[#E4D8BF]">
                       <div className="truncate max-w-sm">
                         <span className="font-bold text-xs text-slate-900 block truncate">{doc.name}</span>
                         <span className="text-[10px] text-slate-500 font-mono truncate block">{doc.url}</span>
@@ -918,7 +918,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                 </div>
 
                 {/* Add doc input */}
-                <div className="p-3 bg-[#FAF7F2] rounded-xl border border-[#E8DFC8] space-y-2 text-xs pt-3">
+                <div className="p-3 bg-[#F6F1E5] rounded-xl border border-[#E4D8BF] space-y-2 text-xs pt-3">
                   <span className="font-bold text-slate-800 block">Adjuntar Nuevo Documento</span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <input
@@ -926,18 +926,18 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                       value={newDocName}
                       onChange={(e) => setNewDocName(e.target.value)}
                       placeholder="Título del documento (ej. Plano Histórico 1902.pdf)"
-                      className="px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg"
+                      className="px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg"
                     />
                     <input
                       type="text"
                       value={newDocUrl}
                       onChange={(e) => setNewDocUrl(e.target.value)}
                       placeholder="URL pública del archivo PDF"
-                      className="px-3 py-1.5 bg-white border border-[#D4C5A9] rounded-lg font-mono text-[11px]"
+                      className="px-3 py-1.5 bg-white border border-[#CDBA95] rounded-lg font-mono text-[11px]"
                     />
                     <button
                       onClick={handleAddDoc}
-                      className="px-3 py-1.5 bg-[#0D1B2D] hover:bg-[#15273F] text-white font-bold rounded-lg text-xs"
+                      className="px-3 py-1.5 bg-[#14281C] hover:bg-[#1D3626] text-white font-bold rounded-lg text-xs"
                     >
                       Adjuntar Archivo
                     </button>
@@ -950,10 +950,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
           {/* TAB 5: LINKS & SOCIAL */}
           {activeTab === 'links' && (
             <div className="space-y-4">
-              <div className="p-5 bg-white border border-[#E8DFC8] rounded-2xl space-y-4 shadow-sm text-xs">
+              <div className="p-5 bg-white border border-[#E4D8BF] rounded-2xl space-y-4 shadow-sm text-xs">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5 text-[#C04A26]" />
-                  <h4 className="text-sm font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                  <Globe className="w-5 h-5 text-[#B04E2A]" />
+                  <h4 className="text-sm font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                     Enlaces y Redes Sociales de este Atractivo
                   </h4>
                 </div>
@@ -968,7 +968,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                       socialLinks: { ...formData.socialLinks, website: e.target.value }
                     })}
                     placeholder="https://..."
-                    className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-[11px]"
+                    className="w-full px-3.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-[11px]"
                   />
                 </div>
 
@@ -982,7 +982,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                       socialLinks: { ...formData.socialLinks, instagram: e.target.value }
                     })}
                     placeholder="https://instagram.com/..."
-                    className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-[11px]"
+                    className="w-full px-3.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-[11px]"
                   />
                 </div>
               </div>
@@ -992,8 +992,8 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
           {/* TAB 6: SEÑALÉTICA Y CÓDIGO QR INDIVIDUAL */}
           {activeTab === 'qr' && (
             <div className="space-y-6">
-              <div className="p-4 bg-[#F9F5EE] border border-[#E8DFC8] rounded-2xl flex items-start gap-3">
-                <QrCode className="w-5 h-5 text-[#C04A26] flex-shrink-0 mt-0.5" />
+              <div className="p-4 bg-[#F1EAD9] border border-[#E4D8BF] rounded-2xl flex items-start gap-3">
+                <QrCode className="w-5 h-5 text-[#B04E2A] flex-shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-slate-900 uppercase">
                     Código QR Individual para {formData.title || 'esta Parada'}
@@ -1006,8 +1006,8 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 {/* Visual Plaque Preview */}
-                <div className="bg-[#0D1B2D] text-white p-6 rounded-3xl border-2 border-[#C04A26] shadow-xl text-center flex flex-col items-center space-y-4">
-                  <span className="text-[10px] font-bold text-[#F59E7C] uppercase tracking-widest">
+                <div className="bg-[#14281C] text-white p-6 rounded-3xl border-2 border-[#B04E2A] shadow-xl text-center flex flex-col items-center space-y-4">
+                  <span className="text-[10px] font-bold text-[#E8A58B] uppercase tracking-widest">
                     🇨🇱 El Viaje Por Chile • Parada #{formData.order}
                   </span>
                   
@@ -1017,12 +1017,12 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                       size={180}
                       level="H"
                       includeMargin={false}
-                      fgColor="#0D1B2D"
+                      fgColor="#14281C"
                     />
                   </div>
 
                   <div>
-                    <h4 className="text-base font-extrabold text-white font-['Outfit',sans-serif]">
+                    <h4 className="text-base font-extrabold text-white font-['Cormorant_Garamond',Georgia,serif]">
                       {formData.title || 'Parada Sin Título'}
                     </h4>
                     <p className="text-xs text-slate-300 mt-1">
@@ -1030,7 +1030,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     </p>
                   </div>
 
-                  <p className="text-[11px] text-[#F59E7C] font-semibold bg-[#192E47] px-3 py-1 rounded-full">
+                  <p className="text-[11px] text-[#E8A58B] font-semibold bg-[#223F2C] px-3 py-1 rounded-full">
                     🎧 Escanea para escuchar la audioguía
                   </p>
                 </div>
@@ -1043,7 +1043,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                       type="text"
                       readOnly
                       value={`https://www.elviaje.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}`}
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-xs text-slate-700 select-all"
+                      className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-xs text-slate-700 select-all"
                     />
                   </div>
 
@@ -1061,9 +1061,9 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     onClick={() => {
                       window.print();
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0D1B2D] hover:bg-[#192E47] text-white rounded-xl text-xs font-bold shadow transition-all"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#14281C] hover:bg-[#223F2C] text-white rounded-xl text-xs font-bold shadow transition-all"
                   >
-                    <Printer className="w-4 h-4 text-[#F59E7C]" />
+                    <Printer className="w-4 h-4 text-[#E8A58B]" />
                     <span>Imprimir Ficha de Señalética</span>
                   </button>
                 </div>
@@ -1074,10 +1074,10 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
         </div>
 
         {/* Footer Actions Bar */}
-        <div className="px-6 py-3.5 bg-[#FAF7F2] border-t border-[#E8DFC8] flex items-center justify-between">
+        <div className="px-6 py-3.5 bg-[#F6F1E5] border-t border-[#E4D8BF] flex items-center justify-between">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-[#E8DFC8] transition-colors"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-[#E4D8BF] transition-colors"
           >
             Cancelar
           </button>
@@ -1087,7 +1087,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
               onSave(formData);
               onClose();
             }}
-            className="flex items-center gap-2 px-6 py-2.5 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#C04A26]/30 transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#B04E2A]/30 transition-all"
           >
             <Check className="w-4 h-4" />
             <span>Guardar Parada</span>

@@ -10,25 +10,22 @@ import {
   Compass, 
   Layers, 
   Headphones, 
-  Filter, 
   ArrowRight, 
   Edit, 
   Trash2, 
   RefreshCw,
-  SlidersHorizontal,
-  Mountain,
   BookOpen,
   Feather,
-  Eye,
-  Heart,
-  TreePine,
+  Radio,
   ExternalLink,
   CreditCard,
   Download,
-  ShieldCheck,
-  Map as MapIcon
+  QrCode
 } from 'lucide-react';
-import { Tour, TourCategory } from '../types';
+import { Tour } from '../types';
+import { ShopSection } from './ShopSection';
+
+const FALLBACK_COVER = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
 
 interface CatalogViewProps {
   tours: Tour[];
@@ -42,8 +39,8 @@ interface CatalogViewProps {
   onOpenMembershipModal?: () => void;
   onOpenMercadoPagoModal?: () => void;
   onOpenTourExport?: (tour: Tour) => void;
+  onOpenQRCode?: (tour: Tour) => void;
   isMember?: boolean;
-  memberType?: 'none' | 'annual_paid' | 'consulting_free';
   isOwner?: boolean;
 }
 
@@ -59,8 +56,8 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
   onOpenMembershipModal,
   onOpenMercadoPagoModal,
   onOpenTourExport,
+  onOpenQRCode,
   isMember = false,
-  memberType = 'none',
   isOwner = false,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,10 +92,10 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-slate-900 pb-20 font-sans">
+    <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-20 font-sans">
       
       {/* Hero Section - El Viaje Por Chile & Tienda El Viaje Identity */}
-      <section className="relative bg-gradient-to-br from-[#0D1B2D] via-[#15273F] to-[#1E3A5F] text-white overflow-hidden py-14 sm:py-20 px-4 sm:px-6 shadow-md border-b border-[#1E334D]">
+      <section className="relative bg-gradient-to-br from-[#14281C] via-[#1D3626] to-[#2E4E37] text-white overflow-hidden py-14 sm:py-20 px-4 sm:px-6 shadow-md border-b border-[#2A4533]">
         {/* Naturalist drawing background */}
         <div className="absolute inset-0">
           <img
@@ -106,20 +103,20 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             alt=""
             className="w-full h-full object-cover object-center opacity-50"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0D1B2D]/95 via-[#15273F]/85 to-[#1E3A5F]/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#14281C]/95 via-[#1D3626]/85 to-[#2E4E37]/90"></div>
         </div>
 
         {/* Subtle Map Contour Grid overlay */}
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#C04A26_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
+        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#B04E2A_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
         
         <div className="relative max-w-5xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C04A26]/20 text-[#F59E7C] border border-[#C04A26]/40 text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-sm">
-            <Headphones className="w-3.5 h-3.5 text-[#E6683B] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40 text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-sm">
+            <Headphones className="w-3.5 h-3.5 text-[#D97A46] animate-pulse" />
             <span>Interpretación del Patrimonio Natural y Cultural • www.elviaje.cl</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight font-['Outfit',sans-serif]">
-            Recorre el territorio con <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E7C] via-[#E6683B] to-[#FBBF24]">El Viaje Por Chile</span>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight font-['Cormorant_Garamond',Georgia,serif]">
+            Recorre el territorio con <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8A58B] via-[#D97A46] to-[#FBBF24]">El Viaje Por Chile</span>
           </h1>
 
           <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed">
@@ -130,7 +127,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
               onClick={onCreateNewTour}
-              className="flex items-center gap-2 px-6 py-3 bg-[#C04A26] hover:bg-[#A63A19] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#C04A26]/30 hover:scale-105 active:scale-95 transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#B04E2A]/30 hover:scale-105 active:scale-95 transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>Crear Ruta en Studio</span>
@@ -138,7 +135,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
             <button
               onClick={onOpenAIGenerator}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D97706] to-[#C04A26] hover:from-[#B45309] hover:to-[#A63A19] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#D97706]/30 hover:scale-105 active:scale-95 transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D97706] to-[#B04E2A] hover:from-[#B45309] hover:to-[#9A3F1E] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#D97706]/30 hover:scale-105 active:scale-95 transition-all"
             >
               <Sparkles className="w-4 h-4 text-amber-200" />
               <span>Diseñar Ruta con IA</span>
@@ -149,7 +146,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                 onClick={onOpenConsultingModal}
                 className="flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-2xl border border-white/20 backdrop-blur-sm transition-all"
               >
-                <Feather className="w-4 h-4 text-[#F59E7C]" />
+                <Feather className="w-4 h-4 text-[#E8A58B]" />
                 <span>Consultoría Patrimonial</span>
               </button>
             )}
@@ -169,7 +166,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
       {/* Filter & Search Bar Container */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-7 relative z-20">
-        <div className="bg-white rounded-3xl p-4 shadow-xl border border-[#E8DFC8] space-y-4">
+        <div className="bg-white rounded-3xl p-4 shadow-xl border border-[#E4D8BF] space-y-4">
           
           {/* Main Search Input */}
           <div className="relative">
@@ -179,7 +176,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar por ciudad, parque nacional, cerro o temática patrimonial (ej. Valparaíso, Atacama, Torres del Paine, Santiago, Chiloé)..."
-              className="w-full pl-12 pr-4 py-3.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#C04A26] focus:outline-none transition-all shadow-inner"
+              className="w-full pl-12 pr-4 py-3.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-2xl text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#B04E2A] focus:outline-none transition-all shadow-inner"
             />
           </div>
 
@@ -194,8 +191,8 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                     selectedCategory === cat.id
-                      ? 'bg-[#C04A26] text-white shadow-md shadow-[#C04A26]/20'
-                      : 'bg-[#F2ECE1] text-slate-700 hover:bg-[#E8DFC8]'
+                      ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/20'
+                      : 'bg-[#EEE6D3] text-slate-700 hover:bg-[#E4D8BF]'
                   }`}
                 >
                   <span>{cat.icon}</span>
@@ -207,13 +204,13 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             {/* City dropdown filter */}
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-slate-600 uppercase flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#C04A26]" />
+                <MapPin className="w-3.5 h-3.5 text-[#B04E2A]" />
                 Destino:
               </span>
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="px-3 py-1.5 bg-[#F2ECE1] border border-[#E8DFC8] rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#C04A26]"
+                className="px-3 py-1.5 bg-[#EEE6D3] border border-[#E4D8BF] rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B04E2A]"
               >
                 <option value="all">Todo Chile ({tours.length} rutas)</option>
                 {uniqueCities.map((city) => (
@@ -231,13 +228,13 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
       {/* Heritage Interpretation Consulting Highlight Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
-        <div className="bg-gradient-to-r from-[#27523C] via-[#1F4532] to-[#0D1B2D] text-white p-6 sm:p-7 rounded-3xl shadow-md border border-emerald-900 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-[#2F5238] via-[#2C4E36] to-[#14281C] text-white p-6 sm:p-7 rounded-3xl shadow-md border border-emerald-900 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           <div className="space-y-2 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#F59E7C] text-[11px] font-bold uppercase tracking-wider backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#E8A58B] text-[11px] font-bold uppercase tracking-wider backdrop-blur-sm">
               <BookOpen className="w-3.5 h-3.5" />
               <span>Metodología Tienda El Viaje</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-['Outfit',sans-serif] text-white">
+            <h3 className="text-xl sm:text-2xl font-bold font-['Cormorant_Garamond',Georgia,serif] text-white">
               Consultoría para tu Viaje Personal en Interpretación del Patrimonio
             </h3>
             <p className="text-xs sm:text-sm text-emerald-100 max-w-2xl leading-relaxed">
@@ -249,7 +246,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             {onOpenConsultingModal && (
               <button
                 onClick={onOpenConsultingModal}
-                className="px-5 py-2.5 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#C04A26]/30 transition-all flex items-center gap-1.5"
+                className="px-5 py-2.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#B04E2A]/30 transition-all flex items-center gap-1.5"
               >
                 <Feather className="w-4 h-4" />
                 <span>Ver Guía Interpretativa</span>
@@ -272,10 +269,10 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         
         {/* Membership Fee & Consulting Card */}
-        <div className="bg-white p-5 rounded-3xl border border-[#E8DFC8] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#C04A26] transition-all">
+        <div className="bg-white p-5 rounded-3xl border border-[#E4D8BF] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#B04E2A] transition-all">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#C04A26] bg-[#C04A26]/10 px-2.5 py-0.5 rounded-full">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#B04E2A] bg-[#B04E2A]/10 px-2.5 py-0.5 rounded-full">
                 Membresía Plataforma
               </span>
               {isMember ? (
@@ -288,7 +285,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                 </span>
               )}
             </div>
-            <h3 className="text-base font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+            <h3 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
               ¿Quieres ser parte y publicar tus rutas en www.elviaje.cl?
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -300,7 +297,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             {onOpenMembershipModal && (
               <button
                 onClick={onOpenMembershipModal}
-                className="px-4 py-2 bg-[#0D1B2D] hover:bg-[#192E47] text-white text-xs font-bold rounded-xl transition-all shadow-sm"
+                className="px-4 py-2 bg-[#14281C] hover:bg-[#223F2C] text-white text-xs font-bold rounded-xl transition-all shadow-sm"
               >
                 Ver Membresía & Opciones
               </button>
@@ -317,7 +314,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
         </div>
 
         {/* Mercado Pago Chile Card */}
-        <div className="bg-white p-5 rounded-3xl border border-[#E8DFC8] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#009EE3] transition-all">
+        <div className="bg-white p-5 rounded-3xl border border-[#E4D8BF] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#009EE3] transition-all">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-extrabold uppercase tracking-wider text-white bg-[#009EE3] px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-sm">
@@ -328,7 +325,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                 Webpay Plus / Tarjetas
               </span>
             </div>
-            <h3 className="text-base font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+            <h3 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
               {isOwner ? 'Panel de Cobros & Configuración de Tarifas' : 'Monetización y Publicación de Audioguías'}
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -363,23 +360,26 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
       </section>
 
+      {/* Tienda Oficial & Mapas Tourmaps - Publicidad con autorización de uso */}
+      <ShopSection />
+
       {/* Main Tours Grid Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-6">
         
         {/* Results Counter & Reset */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-extrabold text-[#0D1B2D] font-['Outfit',sans-serif]">
+            <h2 className="text-xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
               Rutas y Audioguías de Chile
             </h2>
-            <span className="bg-[#C04A26]/10 text-[#C04A26] border border-[#C04A26]/20 text-xs font-extrabold px-3 py-0.5 rounded-full">
+            <span className="bg-[#B04E2A]/10 text-[#B04E2A] border border-[#B04E2A]/20 text-xs font-extrabold px-3 py-0.5 rounded-full">
               {filteredTours.length} rutas en www.elviaje.cl
             </span>
           </div>
 
           <button
             onClick={onResetTours}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#C04A26] transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#B04E2A] transition-colors"
             title="Recargar rutas oficiales de El Viaje Por Chile"
           >
             <RefreshCw className="w-3.5 h-3.5" />
@@ -389,7 +389,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
         {/* Empty state */}
         {filteredTours.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-[#E8DFC8] space-y-4 max-w-lg mx-auto shadow-sm">
+          <div className="bg-white rounded-3xl p-12 text-center border border-[#E4D8BF] space-y-4 max-w-lg mx-auto shadow-sm">
             <Compass className="w-12 h-12 text-slate-400 mx-auto" />
             <h3 className="text-lg font-bold text-slate-800">No se encontraron rutas</h3>
             <p className="text-xs text-slate-600">
@@ -401,7 +401,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                 setSelectedCity('all');
                 setSelectedCategory('all');
               }}
-              className="px-4 py-2 bg-[#0D1B2D] hover:bg-[#15273F] text-white text-xs font-bold rounded-xl transition-colors"
+              className="px-4 py-2 bg-[#14281C] hover:bg-[#1D3626] text-white text-xs font-bold rounded-xl transition-colors"
             >
               Limpiar filtros
             </button>
@@ -413,7 +413,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               return (
                 <div
                   key={tour.id}
-                  className="group bg-white rounded-3xl overflow-hidden border border-[#E8DFC8] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                  className="group bg-white rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >
                   {/* Card Cover Image */}
                   <div 
@@ -425,24 +425,27 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                       alt={tour.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_COVER; }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2D]/90 via-transparent to-black/20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#14281C]/90 via-transparent to-black/20" />
                     
                     {/* Top Badges */}
                     <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <span className="bg-white/95 backdrop-blur-md text-[#0D1B2D] text-[11px] font-extrabold px-3 py-1 rounded-full shadow capitalize">
+                        <span className="bg-white/95 backdrop-blur-md text-[#14281C] text-[11px] font-extrabold px-3 py-1 rounded-full shadow capitalize">
                           {tour.category === 'nature' ? 'Naturaleza' : tour.category === 'walking' ? 'Cerros & Miradores' : tour.category === 'history' ? 'Patrimonio' : tour.category}
                         </span>
                         {tour.cmsTourId && (
-                          <span className="bg-[#0D1B2D]/90 backdrop-blur-md text-[#F59E7C] text-[10px] font-mono font-bold px-2 py-1 rounded-full shadow border border-[#C04A26]/50 flex items-center gap-1">
-                            <Radio className="w-2.5 h-2.5 animate-pulse text-[#C04A26]" />
+                          <span className="bg-[#14281C]/90 backdrop-blur-md text-[#E8A58B] text-[10px] font-mono font-bold px-2 py-1 rounded-full shadow border border-[#B04E2A]/50 flex items-center gap-1">
+                            <Radio className="w-2.5 h-2.5 animate-pulse text-[#B04E2A]" />
                             <span>#{tour.cmsTourId}</span>
                           </span>
                         )}
                       </div>
                       
-                      <span className="bg-[#0D1B2D]/90 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow flex items-center gap-1">
+                      <span className="bg-[#14281C]/90 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow flex items-center gap-1">
                         <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                         {tour.rating.toFixed(1)}
                       </span>
@@ -451,11 +454,11 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                     {/* Bottom overlay: City & Stops count */}
                     <div className="absolute bottom-3 left-3 right-3 text-white flex items-center justify-between text-xs">
                       <span className="font-bold flex items-center gap-1 drop-shadow">
-                        <MapPin className="w-3.5 h-3.5 text-[#F59E7C]" />
+                        <MapPin className="w-3.5 h-3.5 text-[#E8A58B]" />
                         {tour.city}, {tour.country}
                       </span>
 
-                      <span className="bg-[#C04A26] text-white font-bold px-2.5 py-0.5 rounded-full text-[11px] flex items-center gap-1 shadow">
+                      <span className="bg-[#B04E2A] text-white font-bold px-2.5 py-0.5 rounded-full text-[11px] flex items-center gap-1 shadow">
                         <Layers className="w-3 h-3" />
                         {tour.stops.length} paradas
                       </span>
@@ -467,7 +470,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                     <div className="space-y-2">
                       <h3 
                         onClick={() => onSelectTour(tour)}
-                        className="font-bold text-base sm:text-lg text-[#0D1B2D] group-hover:text-[#C04A26] transition-colors line-clamp-2 cursor-pointer leading-snug font-['Outfit',sans-serif]"
+                        className="font-bold text-base sm:text-lg text-[#14281C] group-hover:text-[#B04E2A] transition-colors line-clamp-2 cursor-pointer leading-snug font-['Cormorant_Garamond',Georgia,serif]"
                       >
                         {tour.title}
                       </h3>
@@ -480,13 +483,13 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                     </div>
 
                     {/* Metrics Bar */}
-                    <div className="flex items-center justify-between text-xs font-semibold text-slate-600 pt-2 border-t border-[#E8DFC8]">
+                    <div className="flex items-center justify-between text-xs font-semibold text-slate-600 pt-2 border-t border-[#E4D8BF]">
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-[#C04A26]" />
+                        <Clock className="w-3.5 h-3.5 text-[#B04E2A]" />
                         {tour.durationMinutes} min
                       </span>
                       <span className="flex items-center gap-1">
-                        <Navigation className="w-3.5 h-3.5 text-[#15273F]" />
+                        <Navigation className="w-3.5 h-3.5 text-[#1D3626]" />
                         {tour.distanceKm} km
                       </span>
                       <span className="text-slate-500 capitalize">
@@ -500,8 +503,9 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                         <img
                           src={tour.author?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80'}
                           alt={tour.author?.name}
-                          className="w-7 h-7 rounded-full object-cover border border-[#D4C5A9] flex-shrink-0"
+                          className="w-7 h-7 rounded-full object-cover border border-[#CDBA95] flex-shrink-0"
                           referrerPolicy="no-referrer"
+                          loading="lazy"
                         />
                         <span className="text-xs font-bold text-slate-700 truncate">
                           {tour.author?.name || 'Tienda El Viaje'}
@@ -512,16 +516,26 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                         {onOpenTourExport && (
                           <button
                             onClick={() => onOpenTourExport(tour)}
-                            className="p-2 rounded-xl bg-white hover:bg-[#C04A26]/10 text-slate-700 hover:text-[#C04A26] border border-[#E8DFC8] transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-white hover:bg-[#B04E2A]/10 text-slate-700 hover:text-[#B04E2A] border border-[#E4D8BF] transition-colors cursor-pointer"
                             title="Descargar Formatos de Ruta (GPX, KML, Itinerario PDF)"
                           >
                             <Download className="w-3.5 h-3.5" />
                           </button>
                         )}
 
+                        {onOpenQRCode && (
+                          <button
+                            onClick={() => onOpenQRCode(tour)}
+                            className="p-2 rounded-xl bg-white hover:bg-[#B04E2A]/10 text-slate-700 hover:text-[#B04E2A] border border-[#E4D8BF] transition-colors cursor-pointer"
+                            title="Generar Código QR de la Ruta"
+                          >
+                            <QrCode className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+
                         <button
                           onClick={() => onEditTour(tour)}
-                          className="p-2 rounded-xl bg-[#F2ECE1] hover:bg-[#E8DFC8] text-slate-700 transition-colors"
+                          className="p-2 rounded-xl bg-[#EEE6D3] hover:bg-[#E4D8BF] text-slate-700 transition-colors"
                           title="Editar en Studio"
                         >
                           <Edit className="w-3.5 h-3.5" />
@@ -537,7 +551,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
                         <button
                           onClick={() => onSelectTour(tour)}
-                          className="flex items-center gap-1 px-3.5 py-2 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl text-xs font-bold shadow-md shadow-[#C04A26]/20 transition-all"
+                          className="flex items-center gap-1 px-3.5 py-2 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold shadow-md shadow-[#B04E2A]/20 transition-all"
                         >
                           <span>Explorar</span>
                           <ArrowRight className="w-3.5 h-3.5" />

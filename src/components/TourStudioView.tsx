@@ -50,7 +50,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
       title: 'Nueva Ruta Patrimonial por Chile',
       tagline: 'Explora la historia, cerros y naturaleza con tu audioguía personal',
       description: 'Describe aquí el recorrido, la temática geográfica o patrimonial y las recomendaciones para los exploradores.',
-      coverImage: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
+      coverImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg/1280px-Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg',
       city: 'Valparaíso',
       country: 'Chile',
       category: 'walking',
@@ -89,7 +89,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
           images: [
             {
               id: 'img-init-1',
-              url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1000&q=80',
+              url: 'https://upload.wikimedia.org/wikipedia/commons/2/27/Capillas_de_M%C3%A1rmol_adentro.JPG',
               caption: 'Punto de inicio del recorrido',
               isPrimary: true,
             }
@@ -137,7 +137,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
       images: [
         {
           id: `img-${Date.now()}`,
-          url: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=80',
+          url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg',
           caption: `Vista de la parada ${nextOrder}`,
           isPrimary: true,
         }
@@ -282,7 +282,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
           images: [
             {
               id: `img-ai-${idx}`,
-              url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1000&q=80',
+              url: 'https://upload.wikimedia.org/wikipedia/commons/2/27/Capillas_de_M%C3%A1rmol_adentro.JPG',
               caption: s.title,
               isPrimary: true,
             }
@@ -331,27 +331,27 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-slate-900 pb-16 font-sans">
+    <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-16 font-sans">
       
       {/* Studio Header Bar - Tienda El Viaje Corporate */}
-      <header className="sticky top-0 z-40 bg-[#0D1B2D] text-white shadow-lg border-b border-[#1E334D]">
+      <header className="sticky top-0 z-40 bg-[#14281C] text-white shadow-lg border-b border-[#2A4533]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
               onClick={onCancel}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#192E47] transition-colors"
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#223F2C] transition-colors"
               title="Volver al catálogo"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
               <div className="flex items-center gap-2">
-                <span className="bg-[#C04A26] text-white font-bold text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-md shadow">
+                <span className="bg-[#B04E2A] text-white font-bold text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-md shadow">
                   Studio de Rutas • El Viaje Por Chile (www.elviaje.cl)
                 </span>
                 <span className="text-xs text-slate-400 font-mono">ID: {tour.id}</span>
               </div>
-              <h1 className="text-base sm:text-lg font-bold text-white truncate max-w-md font-['Outfit',sans-serif]">
+              <h1 className="text-base sm:text-lg font-bold text-white truncate max-w-md font-['Cormorant_Garamond',Georgia,serif]">
                 {tour.title}
               </h1>
             </div>
@@ -363,16 +363,16 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
               onClick={() => {
                 setShowQrModal(true);
               }}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#15273F] hover:bg-[#1F395C] text-[#F59E7C] border border-[#C04A26]/40 shadow-sm transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all cursor-pointer"
               title="Descargar Formatos de Ruta: GPX, KML, Itinerario PDF"
             >
-              <Download className="w-4 h-4 text-[#F59E7C]" />
+              <Download className="w-4 h-4 text-[#E8A58B]" />
               <span>Formatos de Ruta (GPX/PDF)</span>
             </button>
 
             <button
               onClick={() => setShowAiModal(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#D97706] to-[#C04A26] hover:from-[#B45309] hover:to-[#A63A19] text-white shadow-md shadow-[#D97706]/20 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#D97706] to-[#B04E2A] hover:from-[#B45309] hover:to-[#9A3F1E] text-white shadow-md shadow-[#D97706]/20 transition-all"
             >
               <Sparkles className="w-4 h-4 text-amber-200" />
               <span>Generador IA de Rutas</span>
@@ -380,7 +380,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
 
             <button
               onClick={handleExportJSON}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-[#192E47] hover:bg-[#233F60] text-slate-200 border border-[#2B4B70] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-[#223F2C] hover:bg-[#33563D] text-slate-200 border border-[#40624A] transition-colors"
               title="Exportar archivo JSON"
             >
               <Download className="w-3.5 h-3.5" />
@@ -389,7 +389,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
 
             <button
               onClick={() => onPreviewTour(tour)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#27523C] hover:bg-[#1F4231] text-emerald-100 border border-emerald-700 transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#2F5238] hover:bg-[#2C4E36] text-emerald-100 border border-emerald-700 transition-colors"
             >
               <Eye className="w-4 h-4 text-emerald-300" />
               <span>Vista Previa Turista</span>
@@ -397,7 +397,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
 
             <button
               onClick={onCancel}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#15273F] hover:bg-[#1F395C] text-slate-200 border border-[#2B4B70] transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#1D3626] hover:bg-[#2E4E37] text-slate-200 border border-[#40624A] transition-colors"
               title="Vista previa de la página principal (catálogo público)"
             >
               <Eye className="w-4 h-4 text-slate-300" />
@@ -407,7 +407,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold bg-[#C04A26] hover:bg-[#A63A19] text-white shadow-lg shadow-[#C04A26]/30 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold bg-[#B04E2A] hover:bg-[#9A3F1E] text-white shadow-lg shadow-[#B04E2A]/30 transition-all disabled:opacity-50"
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
               <span>Publicar / Guardar Ruta</span>
@@ -423,9 +423,9 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
         <div className="lg:col-span-5 space-y-6">
           
           {/* General Tour Settings Card */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-4">
-            <h2 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
-              <Compass className="w-4 h-4 text-[#C04A26]" />
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4">
+            <h2 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+              <Compass className="w-4 h-4 text-[#B04E2A]" />
               Información General de la Ruta
             </h2>
 
@@ -437,7 +437,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   value={tour.title}
                   onChange={(e) => setTour({ ...tour, title: e.target.value })}
                   placeholder="Ej. Valparaíso: Ruta de Murales, Funiculares y Miradores"
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                 />
               </div>
 
@@ -448,7 +448,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   value={tour.tagline}
                   onChange={(e) => setTour({ ...tour, tagline: e.target.value })}
                   placeholder="Un viaje sonoro por los callejones y miradores..."
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl"
                 />
               </div>
 
@@ -460,7 +460,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     value={tour.city}
                     onChange={(e) => setTour({ ...tour, city: e.target.value })}
                     placeholder="Valparaíso"
-                    className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                    className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                   />
                 </div>
                 <div>
@@ -470,7 +470,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     value={tour.country}
                     onChange={(e) => setTour({ ...tour, country: e.target.value })}
                     placeholder="Chile"
-                    className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                    className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                   />
                 </div>
               </div>
@@ -481,7 +481,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   <select
                     value={tour.category}
                     onChange={(e) => setTour({ ...tour, category: e.target.value as TourCategory })}
-                    className="w-full px-2.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold text-xs"
+                    className="w-full px-2.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold text-xs"
                   >
                     <option value="walking">Cerros y Paseos</option>
                     <option value="history">Patrimonio</option>
@@ -497,7 +497,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     type="number"
                     value={tour.durationMinutes}
                     onChange={(e) => setTour({ ...tour, durationMinutes: parseInt(e.target.value) || 0 })}
-                    className="w-full px-2.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                    className="w-full px-2.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                   />
                 </div>
                 <div>
@@ -507,7 +507,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     step="0.1"
                     value={tour.distanceKm}
                     onChange={(e) => setTour({ ...tour, distanceKm: parseFloat(e.target.value) || 0 })}
-                    className="w-full px-2.5 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                    className="w-full px-2.5 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                   />
                 </div>
               </div>
@@ -519,7 +519,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   value={tour.coverImage}
                   onChange={(e) => setTour({ ...tour, coverImage: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-[11px]"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-[11px]"
                 />
               </div>
 
@@ -530,16 +530,16 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   value={tour.description}
                   onChange={(e) => setTour({ ...tour, description: e.target.value })}
                   placeholder="Explica qué verá el visitante, el contexto histórico y tips de seguridad o calzado..."
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl leading-relaxed"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl leading-relaxed"
                 />
               </div>
             </div>
           </div>
 
           {/* Social Links & Author Card */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-4">
-            <h2 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
-              <Share2 className="w-4 h-4 text-[#C04A26]" />
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4">
+            <h2 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+              <Share2 className="w-4 h-4 text-[#B04E2A]" />
               Redes y Autor (Tienda El Viaje)
             </h2>
 
@@ -555,7 +555,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                       author: { ...tour.author, name: e.target.value, verified: true }
                     })}
                     placeholder="Rodrigo Astudillo • Tienda El Viaje"
-                    className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                    className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                   />
                 </div>
                 <div>
@@ -568,7 +568,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                       author: { ...tour.author, role: e.target.value, verified: true }
                     })}
                     placeholder="Especialista en Patrimonio de Chile"
-                    className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-semibold"
+                    className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-semibold"
                   />
                 </div>
               </div>
@@ -583,7 +583,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     socialLinks: { ...tour.socialLinks, instagram: e.target.value }
                   })}
                   placeholder="https://instagram.com/tiendaelviaje"
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-[11px]"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-[11px]"
                 />
               </div>
 
@@ -597,7 +597,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     socialLinks: { ...tour.socialLinks, youtube: e.target.value }
                   })}
                   placeholder="https://youtube.com/@tiendaelviaje"
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-[11px]"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-[11px]"
                 />
               </div>
 
@@ -611,22 +611,22 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     socialLinks: { ...tour.socialLinks, website: e.target.value }
                   })}
                   placeholder="https://www.tiendaelviaje.cl"
-                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono text-[11px]"
+                  className="w-full px-3 py-2 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-[11px]"
                 />
               </div>
             </div>
           </div>
 
           {/* Downloadable Guides & Field Maps */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-4">
-            <h2 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
-              <FileText className="w-4 h-4 text-[#C04A26]" />
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4">
+            <h2 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+              <FileText className="w-4 h-4 text-[#B04E2A]" />
               Guías de Campo y Archivos Adjuntos ({tour.generalDocuments?.length || 0})
             </h2>
 
             <div className="space-y-2 text-xs">
               {(tour.generalDocuments || []).map((doc) => (
-                <div key={doc.id} className="flex items-center justify-between p-2.5 bg-[#FAF7F2] rounded-xl border border-[#E8DFC8]">
+                <div key={doc.id} className="flex items-center justify-between p-2.5 bg-[#F6F1E5] rounded-xl border border-[#E4D8BF]">
                   <div className="truncate max-w-[220px]">
                     <span className="font-bold text-slate-900 block truncate">{doc.name}</span>
                     <span className="text-[10px] text-slate-500 font-mono truncate block">{doc.url}</span>
@@ -640,13 +640,13 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                 </div>
               ))}
 
-              <div className="pt-2 space-y-2 border-t border-[#E8DFC8]">
+              <div className="pt-2 space-y-2 border-t border-[#E4D8BF]">
                 <input
                   type="text"
                   value={newDocName}
                   onChange={(e) => setNewDocName(e.target.value)}
                   placeholder="Nombre de la guía (ej. Mapa de Flora y Cerros.pdf)"
-                  className="w-full px-3 py-1.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-xs"
+                  className="w-full px-3 py-1.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-xs"
                 />
                 <div className="flex gap-2">
                   <input
@@ -654,11 +654,11 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     value={newDocUrl}
                     onChange={(e) => setNewDocUrl(e.target.value)}
                     placeholder="URL del archivo o documento PDF"
-                    className="flex-1 px-3 py-1.5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl text-xs font-mono"
+                    className="flex-1 px-3 py-1.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl text-xs font-mono"
                   />
                   <button
                     onClick={handleAddGeneralDoc}
-                    className="px-3 py-1.5 bg-[#0D1B2D] hover:bg-[#15273F] text-white text-xs font-bold rounded-xl"
+                    className="px-3 py-1.5 bg-[#14281C] hover:bg-[#1D3626] text-white text-xs font-bold rounded-xl"
                   >
                     Adjuntar
                   </button>
@@ -673,23 +673,23 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
         <div className="lg:col-span-7 space-y-6">
           
           {/* Map Builder Card */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-3">
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
-                  <MapPin className="w-4 h-4 text-[#C04A26]" />
+                <h2 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+                  <MapPin className="w-4 h-4 text-[#B04E2A]" />
                   Editor Cartográfico Interactivo
                 </h2>
                 <p className="text-xs text-slate-500">
                   Haz clic sobre el mapa para fijar una nueva parada con coordenadas GPS automáticas.
                 </p>
               </div>
-              <span className="text-xs font-extrabold px-3 py-1 bg-[#C04A26]/10 text-[#C04A26] rounded-full border border-[#C04A26]/20">
+              <span className="text-xs font-extrabold px-3 py-1 bg-[#B04E2A]/10 text-[#B04E2A] rounded-full border border-[#B04E2A]/20">
                 {tour.stops.length} Paradas
               </span>
             </div>
 
-            <div className="h-[400px] w-full rounded-2xl overflow-hidden border border-[#E8DFC8]">
+            <div className="h-[400px] w-full rounded-2xl overflow-hidden border border-[#E4D8BF]">
               <TourMap
                 stops={tour.stops}
                 activeStopId={activeStopId}
@@ -704,9 +704,9 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
           </div>
 
           {/* Stops List & Detail Cards */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-4">
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider font-['Outfit',sans-serif]">
+              <h2 className="text-sm font-bold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
                 Secuencia de Paradas y Audioguías
               </h2>
 
@@ -719,7 +719,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     lng: centerLng + (Math.random() - 0.5) * 0.005,
                   });
                 }}
-                className="flex items-center gap-1 px-3 py-1.5 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl text-xs font-bold shadow-md shadow-[#C04A26]/20 transition-all"
+                className="flex items-center gap-1 px-3 py-1.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold shadow-md shadow-[#B04E2A]/20 transition-all"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Añadir Parada Manual</span>
@@ -729,15 +729,15 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
             <div className="space-y-3">
               {tour.stops.map((stop, index) => {
                 const isSelected = stop.id === activeStopId;
-                const thumb = stop.images[0]?.url || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=200&q=80';
+                const thumb = stop.images[0]?.url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
 
                 return (
                   <div
                     key={stop.id}
                     className={`flex items-center gap-3 p-3.5 rounded-2xl border transition-all ${
                       isSelected
-                        ? 'bg-[#F9F5EE] border-[#C04A26] ring-2 ring-[#C04A26]/20 shadow-md'
-                        : 'bg-white border-[#E8DFC8] hover:border-slate-400'
+                        ? 'bg-[#F1EAD9] border-[#B04E2A] ring-2 ring-[#B04E2A]/20 shadow-md'
+                        : 'bg-white border-[#E4D8BF] hover:border-slate-400'
                     }`}
                   >
                     {/* Order & Drag Controls */}
@@ -749,7 +749,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                       >
                         <ChevronUp className="w-3.5 h-3.5" />
                       </button>
-                      <span className="w-6 h-6 rounded-full bg-[#C04A26] text-white font-extrabold text-xs flex items-center justify-center shadow">
+                      <span className="w-6 h-6 rounded-full bg-[#B04E2A] text-white font-extrabold text-xs flex items-center justify-center shadow">
                         {stop.order}
                       </span>
                       <button
@@ -765,17 +765,17 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                     <img
                       src={thumb}
                       alt={stop.title}
-                      className="w-14 h-14 rounded-xl object-cover border border-[#E8DFC8] flex-shrink-0 bg-slate-100"
+                      className="w-14 h-14 rounded-xl object-cover border border-[#E4D8BF] flex-shrink-0 bg-slate-100"
                       referrerPolicy="no-referrer"
                     />
 
                     {/* Info */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-sm text-[#0D1B2D] truncate font-['Outfit',sans-serif]">
+                        <h4 className="font-bold text-sm text-[#14281C] truncate font-['Cormorant_Garamond',Georgia,serif]">
                           {stop.title}
                         </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#FAF7F2] border border-[#E8DFC8] text-slate-700 uppercase">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#F6F1E5] border border-[#E4D8BF] text-slate-700 uppercase">
                           {stop.category}
                         </span>
                       </div>
@@ -786,7 +786,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
 
                       <div className="flex items-center gap-3 text-[11px] text-slate-600 mt-1">
                         {stop.audio ? (
-                          <span className="text-[#C04A26] font-semibold flex items-center gap-1">
+                          <span className="text-[#B04E2A] font-semibold flex items-center gap-1">
                             <Music className="w-3 h-3" />
                             Audio: {stop.audio.type === 'ai_generated' ? 'Voz IA (' + (stop.audio.voiceName || 'Kore') + ')' : 'Archivo MP3'}
                           </span>
@@ -811,7 +811,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                           setQrTargetStop(stop);
                           setShowQrModal(true);
                         }}
-                        className="p-1.5 text-slate-500 hover:text-[#C04A26] rounded-xl hover:bg-[#C04A26]/10 border border-slate-200 transition-colors"
+                        className="p-1.5 text-slate-500 hover:text-[#B04E2A] rounded-xl hover:bg-[#B04E2A]/10 border border-slate-200 transition-colors"
                         title={`Código QR para ${stop.title}`}
                       >
                         <QrCode className="w-4 h-4" />
@@ -822,7 +822,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                           setActiveStopId(stop.id);
                           setEditingStop(stop);
                         }}
-                        className="flex items-center gap-1 px-3 py-1.5 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl text-xs font-bold shadow transition-all"
+                        className="flex items-center gap-1 px-3 py-1.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold shadow transition-all"
                       >
                         <Edit3 className="w-3.5 h-3.5" />
                         <span>Editar</span>
@@ -860,14 +860,14 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
       {/* AI Tour Plan Generator Modal */}
       {showAiModal && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex justify-center p-4">
-          <div className="relative bg-[#FAF7F2] text-slate-900 w-full max-w-lg rounded-3xl p-6 shadow-2xl my-auto space-y-4 border border-[#E8DFC8]">
+          <div className="relative bg-[#F6F1E5] text-slate-900 w-full max-w-lg rounded-3xl p-6 shadow-2xl my-auto space-y-4 border border-[#E4D8BF]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-[#C04A26]/10 text-[#C04A26]">
+                <div className="p-2 rounded-xl bg-[#B04E2A]/10 text-[#B04E2A]">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">Generador de Rutas por Chile con IA</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">Generador de Rutas por Chile con IA</h3>
                   <p className="text-xs text-slate-600">Gemini creará un itinerario con coordenadas, relatos y guion sonoro.</p>
                 </div>
               </div>
@@ -882,7 +882,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   value={aiCity}
                   onChange={(e) => setAiCity(e.target.value)}
                   placeholder="Ej. Valparaíso, San Pedro de Atacama, Chiloé, Santiago, Pucón..."
-                  className="w-full px-3 py-2 bg-white border border-[#D4C5A9] rounded-xl font-semibold"
+                  className="w-full px-3 py-2 bg-white border border-[#CDBA95] rounded-xl font-semibold"
                 />
               </div>
 
@@ -893,7 +893,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                   value={aiTopic}
                   onChange={(e) => setAiTopic(e.target.value)}
                   placeholder="Ej. Ruta de Funiculares y Miradores, Patrimonio Minero, Bosque Esclerófilo..."
-                  className="w-full px-3 py-2 bg-white border border-[#D4C5A9] rounded-xl font-semibold"
+                  className="w-full px-3 py-2 bg-white border border-[#CDBA95] rounded-xl font-semibold"
                 />
               </div>
 
@@ -902,7 +902,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
                 <select
                   value={aiStopsCount}
                   onChange={(e) => setAiStopsCount(parseInt(e.target.value) || 4)}
-                  className="w-full px-3 py-2 bg-white border border-[#D4C5A9] rounded-xl font-semibold"
+                  className="w-full px-3 py-2 bg-white border border-[#CDBA95] rounded-xl font-semibold"
                 >
                   <option value={3}>3 Paradas</option>
                   <option value={4}>4 Paradas</option>
@@ -911,7 +911,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E8DFC8]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E4D8BF]">
               <button
                 onClick={() => setShowAiModal(false)}
                 className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-200 rounded-xl"
@@ -921,7 +921,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
               <button
                 onClick={handleGenerateAiTour}
                 disabled={isGeneratingTour}
-                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#C04A26] to-[#D97706] hover:from-[#A63A19] hover:to-[#B45309] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#C04A26]/30 disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#B04E2A]/30 disabled:opacity-50"
               >
                 {isGeneratingTour ? (
                   <>

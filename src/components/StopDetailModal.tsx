@@ -21,6 +21,8 @@ import { TourStop, Tour } from '../types';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
 import { getYouTubeEmbedUrl } from '../utils/audioUtils';
 
+const FALLBACK_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ventisquero_Colgante_Parque_Nacional_Queulat.jpg/1280px-Ventisquero_Colgante_Parque_Nacional_Queulat.jpg';
+
 interface StopDetailModalProps {
   stop: TourStop;
   tour: Tour;
@@ -44,7 +46,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
 
   const images = stop.images || [];
   const primaryImage = images[selectedImageIndex] || {
-    url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1000&q=80',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ventisquero_Colgante_Parque_Nacional_Queulat.jpg/1280px-Ventisquero_Colgante_Parque_Nacional_Queulat.jpg',
     caption: stop.title,
   };
 
@@ -58,20 +60,20 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex justify-center p-2 sm:p-4 md:p-6 animate-fadeIn">
       <div 
-        className="relative bg-white text-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden my-auto max-h-[92vh] flex flex-col font-sans"
+        className="relative bg-white text-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden my-auto max-h-[92vh] flex flex-col font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Header Bar */}
-        <div className="sticky top-0 z-30 flex items-center justify-between px-5 py-3.5 bg-white/95 backdrop-blur-md border-b border-[#E8DFC8]">
+        <div className="sticky top-0 z-30 flex items-center justify-between px-5 py-3.5 bg-white/95 backdrop-blur-md border-b border-[#E4D8BF]">
           <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#C04A26] text-white font-bold text-xs shadow">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#B04E2A] text-white font-bold text-xs shadow">
               {stop.order}
             </span>
             <div className="truncate">
-              <span className="text-xs font-semibold text-[#C04A26] uppercase tracking-wider block">
+              <span className="text-xs font-semibold text-[#B04E2A] uppercase tracking-wider block">
                 Parada {stop.order} de {tour.stops.length} • {tour.city}
               </span>
-              <h2 className="text-base sm:text-lg font-bold text-[#0D1B2D] truncate leading-tight font-['Outfit',sans-serif]">
+              <h2 className="text-base sm:text-lg font-bold text-[#14281C] truncate leading-tight font-['Cormorant_Garamond',Georgia,serif]">
                 {stop.title}
               </h2>
             </div>
@@ -79,11 +81,11 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
 
           <div className="flex items-center gap-2">
             {/* Quick nav stops */}
-            <div className="hidden sm:flex items-center gap-1 border-r border-[#E8DFC8] pr-2 mr-1">
+            <div className="hidden sm:flex items-center gap-1 border-r border-[#E4D8BF] pr-2 mr-1">
               <button
                 onClick={onSelectPrevStop}
                 disabled={!hasPrevStop}
-                className="p-1.5 rounded-lg text-slate-600 hover:bg-[#FAF7F2] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                className="p-1.5 rounded-lg text-slate-600 hover:bg-[#F6F1E5] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
                 title="Parada anterior"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -91,7 +93,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
               <button
                 onClick={onSelectNextStop}
                 disabled={!hasNextStop}
-                className="p-1.5 rounded-lg text-slate-600 hover:bg-[#FAF7F2] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                className="p-1.5 rounded-lg text-slate-600 hover:bg-[#F6F1E5] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
                 title="Siguiente parada"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -100,7 +102,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-[#FAF7F2] transition-colors"
+              className="p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-[#F6F1E5] transition-colors"
               title="Cerrar ventana"
             >
               <X className="w-5 h-5" />
@@ -119,16 +121,19 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
                 alt={primaryImage.caption || stop.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE; }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2D]/85 via-transparent to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#14281C]/85 via-transparent to-black/20" />
               
               {/* Category and Stay Time badges */}
               <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-                <span className="bg-white/90 backdrop-blur-md text-[#0D1B2D] text-xs font-bold px-3 py-1 rounded-full shadow capitalize">
+                <span className="bg-white/90 backdrop-blur-md text-[#14281C] text-xs font-bold px-3 py-1 rounded-full shadow capitalize">
                   {stop.category || 'Atractivo'}
                 </span>
-                <span className="bg-[#0D1B2D]/80 backdrop-blur-md text-white text-xs font-medium px-3 py-1 rounded-full shadow flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-[#F59E7C]" />
+                <span className="bg-[#14281C]/80 backdrop-blur-md text-white text-xs font-medium px-3 py-1 rounded-full shadow flex items-center gap-1">
+                  <Clock className="w-3 h-3 text-[#E8A58B]" />
                   {stop.estimatedStayMinutes || 15} min de visita
                 </span>
               </div>
@@ -136,7 +141,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
               {/* Caption & Location at bottom */}
               <div className="absolute bottom-3 left-3 right-3 text-white">
                 {stop.subtitle && (
-                  <p className="text-sm sm:text-base font-medium text-[#F59E7C] drop-shadow mb-1">
+                  <p className="text-sm sm:text-base font-medium text-[#E8A58B] drop-shadow mb-1">
                     {stop.subtitle}
                   </p>
                 )}
@@ -157,11 +162,11 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
                     onClick={() => setSelectedImageIndex(idx)}
                     className={`relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border-2 transition-all ${
                       selectedImageIndex === idx
-                        ? 'border-[#C04A26] scale-105 shadow-md'
+                        ? 'border-[#B04E2A] scale-105 shadow-md'
                         : 'border-transparent opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img src={img.url} alt={img.caption} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <img src={img.url} alt={img.caption} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>
@@ -169,13 +174,13 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
           </div>
 
           {/* AUDIO GUIDE PLAYER BAR */}
-          <div className="bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-[#E8DFC8] space-y-2 shadow-sm">
+          <div className="bg-[#F6F1E5] p-4 sm:p-5 rounded-2xl border border-[#E4D8BF] space-y-2 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-1.5 font-['Outfit',sans-serif]">
-                <Sparkles className="w-4 h-4 text-[#C04A26]" />
+              <span className="text-xs font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-1.5 font-['Cormorant_Garamond',Georgia,serif]">
+                <Sparkles className="w-4 h-4 text-[#B04E2A]" />
                 Audioguía Oficial del Atractivo
               </span>
-              <span className="text-xs font-semibold text-[#C04A26]">
+              <span className="text-xs font-semibold text-[#B04E2A]">
                 {stop.audio?.type === 'ai_generated' ? 'Voz IA (' + (stop.audio.voiceName || 'Kore') + ')' : 'Audio Local'}
               </span>
             </div>
@@ -190,11 +195,11 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
 
           {/* Narrative Text Section */}
           <div className="space-y-3">
-            <h3 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
-              <Info className="w-4 h-4 text-[#C04A26]" />
+            <h3 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+              <Info className="w-4 h-4 text-[#B04E2A]" />
               Historia & Guión del Recorrido
             </h3>
-            <div className="bg-white p-5 rounded-2xl border border-[#E8DFC8] text-slate-800 text-sm sm:text-base leading-relaxed whitespace-pre-line shadow-sm">
+            <div className="bg-white p-5 rounded-2xl border border-[#E4D8BF] text-slate-800 text-sm sm:text-base leading-relaxed whitespace-pre-line shadow-sm">
               {stop.narrativeText}
             </div>
           </div>
@@ -202,11 +207,11 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
           {/* YouTube Video Section */}
           {youtubeEmbedUrl && (
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
+              <h3 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
                 <Youtube className="w-4 h-4 text-red-600" />
                 Video y Contenido Multimedia
               </h3>
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-[#E8DFC8] shadow-md">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-[#E4D8BF] shadow-md">
                 <iframe
                   src={youtubeEmbedUrl}
                   title={`Video ${stop.title}`}
@@ -222,8 +227,8 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
           {(stop.tips || stop.trivia) && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {stop.tips && (
-                <div className="bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl p-4 space-y-1.5">
-                  <div className="flex items-center gap-2 text-[#C04A26] font-bold text-xs uppercase font-['Outfit',sans-serif]">
+                <div className="bg-[#F6F1E5] border border-[#E4D8BF] rounded-2xl p-4 space-y-1.5">
+                  <div className="flex items-center gap-2 text-[#B04E2A] font-bold text-xs uppercase font-['Cormorant_Garamond',Georgia,serif]">
                     <Lightbulb className="w-4 h-4" />
                     <span>Consejo de Visita</span>
                   </div>
@@ -234,8 +239,8 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
               )}
 
               {stop.trivia && (
-                <div className="bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl p-4 space-y-1.5">
-                  <div className="flex items-center gap-2 text-[#27523C] font-bold text-xs uppercase font-['Outfit',sans-serif]">
+                <div className="bg-[#F6F1E5] border border-[#E4D8BF] rounded-2xl p-4 space-y-1.5">
+                  <div className="flex items-center gap-2 text-[#2F5238] font-bold text-xs uppercase font-['Cormorant_Garamond',Georgia,serif]">
                     <Sparkles className="w-4 h-4" />
                     <span>¿Sabías qué?</span>
                   </div>
@@ -250,8 +255,8 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
           {/* Documents & PDF Files */}
           {stop.documents && stop.documents.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-2 font-['Outfit',sans-serif]">
-                <FileText className="w-4 h-4 text-[#C04A26]" />
+              <h3 className="text-sm font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+                <FileText className="w-4 h-4 text-[#B04E2A]" />
                 Guías y Archivos Adjuntos ({stop.documents.length})
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -261,20 +266,20 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
                     href={doc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF7F2] hover:bg-[#F2ECE1] border border-[#E8DFC8] transition-colors group"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#F6F1E5] hover:bg-[#EEE6D3] border border-[#E4D8BF] transition-colors group"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-8 h-8 rounded-lg bg-[#C04A26]/10 text-[#C04A26] flex items-center justify-center font-bold text-xs flex-shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-[#B04E2A]/10 text-[#B04E2A] flex items-center justify-center font-bold text-xs flex-shrink-0">
                         PDF
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs font-bold text-slate-900 truncate group-hover:text-[#C04A26]">
+                        <p className="text-xs font-bold text-slate-900 truncate group-hover:text-[#B04E2A]">
                           {doc.name}
                         </p>
                         {doc.size && <span className="text-[10px] text-slate-500">{doc.size}</span>}
                       </div>
                     </div>
-                    <Download className="w-4 h-4 text-slate-400 group-hover:text-[#C04A26] flex-shrink-0" />
+                    <Download className="w-4 h-4 text-slate-400 group-hover:text-[#B04E2A] flex-shrink-0" />
                   </a>
                 ))}
               </div>
@@ -282,7 +287,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
           )}
 
           {/* External Social Links & Navigation Action */}
-          <div className="pt-4 border-t border-[#E8DFC8] flex flex-wrap items-center justify-between gap-3">
+          <div className="pt-4 border-t border-[#E4D8BF] flex flex-wrap items-center justify-between gap-3">
             
             {/* Social icons */}
             <div className="flex items-center gap-2">
@@ -291,7 +296,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
                   href={stop.socialLinks.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FAF7F2] hover:bg-[#F2ECE1] text-xs font-semibold text-slate-700 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F6F1E5] hover:bg-[#EEE6D3] text-xs font-semibold text-slate-700 transition-colors"
                 >
                   <Globe className="w-3.5 h-3.5 text-blue-600" />
                   <span>Sitio Web</span>
@@ -313,9 +318,9 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
             {/* Google Maps Route Button */}
             <button
               onClick={openInGoogleMaps}
-              className="flex items-center gap-2 px-4 py-2 bg-[#0D1B2D] hover:bg-[#15273F] text-white rounded-xl text-xs font-bold transition-all shadow"
+              className="flex items-center gap-2 px-4 py-2 bg-[#14281C] hover:bg-[#1D3626] text-white rounded-xl text-xs font-bold transition-all shadow"
             >
-              <Navigation className="w-3.5 h-3.5 text-[#F59E7C]" />
+              <Navigation className="w-3.5 h-3.5 text-[#E8A58B]" />
               <span>Cómo Llegar con Google Maps</span>
               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             </button>
@@ -325,7 +330,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
         </div>
 
         {/* Modal Bottom Footer Navigation */}
-        <div className="sticky bottom-0 z-30 flex items-center justify-between px-5 py-3 bg-[#FAF7F2] border-t border-[#E8DFC8]">
+        <div className="sticky bottom-0 z-30 flex items-center justify-between px-5 py-3 bg-[#F6F1E5] border-t border-[#E4D8BF]">
           <button
             onClick={onSelectPrevStop}
             disabled={!hasPrevStop}
@@ -335,14 +340,14 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
             <span>Parada Anterior</span>
           </button>
 
-          <span className="text-xs font-bold text-[#0D1B2D]">
+          <span className="text-xs font-bold text-[#14281C]">
             {stop.order} de {tour.stops.length}
           </span>
 
           <button
             onClick={onSelectNextStop}
             disabled={!hasNextStop}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#C04A26] hover:bg-[#A63A19] text-white disabled:opacity-30 transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#B04E2A] hover:bg-[#9A3F1E] text-white disabled:opacity-30 transition-colors shadow-sm"
           >
             <span>Siguiente Parada</span>
             <ChevronRight className="w-4 h-4" />

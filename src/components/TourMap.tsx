@@ -237,7 +237,7 @@ export const TourMap: React.FC<TourMapProps> = ({
   }, [userLocation]);
 
   return (
-    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 bg-slate-100">
+    <div className="relative isolate z-0 w-full h-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 bg-slate-100">
       <div ref={mapContainerRef} className={className} id="tour-interactive-map" />
       {isEditable && (
         <div className="absolute top-3 left-3 z-[400] bg-slate-900/85 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg shadow flex items-center gap-2 border border-slate-700">

@@ -62,9 +62,9 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden">
+      <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 bg-[#0D1B2D] text-white flex items-center justify-between border-b border-[#192E47]">
+        <div className="px-6 py-4 bg-[#14281C] text-white flex items-center justify-between border-b border-[#223F2C]">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
               <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
               </svg>
             </div>
             <div>
-              <h3 className="text-base font-bold text-white font-['Outfit',sans-serif]">Cuenta Google</h3>
+              <h3 className="text-base font-bold text-white font-['Cormorant_Garamond',Georgia,serif]">Cuenta Google</h3>
               <p className="text-xs text-slate-400">Acceso a Creadores &amp; Tienda El Viaje</p>
             </div>
           </div>
@@ -91,21 +91,21 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
         <div className="p-6 space-y-6">
           {currentUser ? (
             <div className="space-y-4">
-              <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8DFC8] flex items-center gap-4">
+              <div className="bg-[#F4EEDF] p-4 rounded-2xl border border-[#E4D8BF] flex items-center gap-4">
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
                   referrerPolicy="no-referrer"
-                  className="w-14 h-14 rounded-full object-cover border-2 border-[#C04A26] shadow"
+                  className="w-14 h-14 rounded-full object-cover border-2 border-[#B04E2A] shadow"
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <h4 className="text-sm font-bold text-[#0D1B2D] truncate">{currentUser.name}</h4>
+                    <h4 className="text-sm font-bold text-[#14281C] truncate">{currentUser.name}</h4>
                     <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded border border-emerald-300">Google</span>
                   </div>
                   <p className="text-xs text-slate-600 truncate">{currentUser.email}</p>
                   <div className="flex items-center gap-2 mt-1.5">
-                    <span className="text-[10px] bg-[#C04A26]/10 text-[#C04A26] font-bold px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] bg-[#B04E2A]/10 text-[#B04E2A] font-bold px-2 py-0.5 rounded-full">
                       {currentUser.role === 'admin' ? 'Propietario / Admin' : 'Creador Activo'}
                     </span>
                     <span className="text-[10px] bg-[#009EE3]/10 text-[#009EE3] font-mono font-bold px-2 py-0.5 rounded-full">Mercado Pago Chile</span>
@@ -128,7 +128,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Recaudación / Monetización:</span>
-                  <span className="font-bold text-[#0D1B2D]">
+                  <span className="font-bold text-[#14281C]">
                     {currentUser.role === 'admin' ? 'Exclusivo Propietario (Mercado Pago)' : 'Conectado a El Viaje Por Chile'}
                   </span>
                 </div>
@@ -144,7 +144,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
                 </button>
                 <button
                   onClick={onClose}
-                  className="flex-1 py-2.5 px-4 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+                  className="flex-1 py-2.5 px-4 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
                 >
                   Continuar
                 </button>
@@ -153,7 +153,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
           ) : (
             <div className="space-y-5 text-center">
               <div className="space-y-1.5">
-                <h4 className="text-base font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">Ingresa con tu Cuenta Google</h4>
+                <h4 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">Ingresa con tu Cuenta Google</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Conéctate con Google para gestionar tus audioguías, editar rutas en el Tour Studio, usar la IA de locución y monetizar con Mercado Pago.
                 </p>
@@ -176,7 +176,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
               {devMode && (
                 <button
                   onClick={handleDevOwnerLogin}
-                  className="w-full py-2.5 px-4 bg-[#0D1B2D] hover:bg-[#192E47] text-white rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
+                  className="w-full py-2.5 px-4 bg-[#14281C] hover:bg-[#223F2C] text-white rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
                 >
                   <Crown className="w-3.5 h-3.5 text-yellow-400" />
                   <span>Entrar como Dueño (modo dev)</span>

@@ -21,7 +21,9 @@ import {
   CheckCircle2,
   Mountain,
   Radio,
-  ExternalLink
+  QrCode,
+  ExternalLink,
+  X
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Tour, TourStop } from '../types';
@@ -29,6 +31,8 @@ import { TourMap } from './TourMap';
 import { StopDetailModal } from './StopDetailModal';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
 import { TourExportModal } from './TourExportModal';
+import { QRCodeModal } from './QRCodeModal';
+import { RelatedShopStrip } from './ShopSection';
 
 interface TourDetailViewProps {
   tour: Tour;
@@ -46,12 +50,16 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showQrModal, setShowQrModal] = useState(false);
+  const [qrStop, setQrStop] = useState<TourStop | null>(null);
+  const [showMapModal, setShowMapModal] = useState(false);
 
   // Guided Walk Simulation / GPS state
   const [isWalkMode, setIsWalkMode] = useState(false);
   const [currentWalkStopIndex, setCurrentWalkStopIndex] = useState(0);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [walkProgress, setWalkProgress] = useState<number[]>([]); // indexes visited
+  const [tourCompleted, setTourCompleted] = useState(false);
 
   // Initialize selected stop
   useEffect(() => {
@@ -60,11 +68,18 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
     }
   }, [tour]);
 
+  // Lock body scroll while the interactive map popup is open (mobile)
+  useEffect(() => {
+    document.body.style.overflow = showMapModal ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [showMapModal]);
+
   // Handle Walking Simulation
   const handleStartWalkMode = () => {
     setIsWalkMode(true);
     setCurrentWalkStopIndex(0);
     setWalkProgress([0]);
+    setTourCompleted(false);
     if (tour.stops.length > 0) {
       const first = tour.stops[0];
       setUserLocation({ lat: first.location.lat, lng: first.location.lng });
@@ -84,12 +99,13 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
       setWalkProgress(prev => [...prev, nextIdx]);
     } else {
       // Tour Completed! Trigger celebratory confetti
+      setWalkProgress(Array.from({ length: tour.stops.length }, (_, i) => i));
+      setTourCompleted(true);
       confetti({
-        particleCount: 100,
-        spread: 70,
+        particleCount: 120,
+        spread: 75,
         origin: { y: 0.6 }
       });
-      alert('🎉 ¡Felicitaciones! Has completado todo el recorrido patrimonial por Chile.');
     }
   };
 
@@ -106,15 +122,15 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
   const hasPrevStop = currentStopIndex > 0;
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-slate-900 pb-20 font-sans">
+    <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-20 font-sans">
       
       {/* Top Sticky Navigation */}
-      <nav className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E8DFC8] px-4 sm:px-6 py-3 flex items-center justify-between">
+      <nav className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E4D8BF] px-4 sm:px-6 py-3 flex items-center justify-between">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-[#F2ECE1] transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-[#EEE6D3] transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 text-[#C04A26]" />
+          <ArrowLeft className="w-4 h-4 text-[#B04E2A]" />
           <span>Explorar Rutas de Chile</span>
         </button>
 
@@ -122,7 +138,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           {onEditTour && (
             <button
               onClick={() => onEditTour(tour)}
-              className="px-3.5 py-1.5 rounded-xl bg-[#F2ECE1] hover:bg-[#E8DFC8] text-slate-800 text-xs font-bold transition-colors"
+              className="px-3.5 py-1.5 rounded-xl bg-[#EEE6D3] hover:bg-[#E4D8BF] text-slate-800 text-xs font-bold transition-colors"
             >
               Editar en Studio
             </button>
@@ -131,7 +147,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           <button
             onClick={() => setIsFavorite(!isFavorite)}
             className={`p-2 rounded-xl border transition-colors ${
-              isFavorite ? 'bg-[#C04A26]/10 text-[#C04A26] border-[#C04A26]/30' : 'bg-white text-slate-600 border-[#E8DFC8] hover:bg-[#FAF7F2]'
+              isFavorite ? 'bg-[#B04E2A]/10 text-[#B04E2A] border-[#B04E2A]/30' : 'bg-white text-slate-600 border-[#E4D8BF] hover:bg-[#F6F1E5]'
             }`}
             title="Guardar en favoritos"
           >
@@ -140,12 +156,12 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
           <button
             onClick={handleShare}
-            className="p-2 rounded-xl bg-white text-slate-600 border border-[#E8DFC8] hover:bg-[#FAF7F2] transition-colors relative"
+            className="p-2 rounded-xl bg-white text-slate-600 border border-[#E4D8BF] hover:bg-[#F6F1E5] transition-colors relative"
             title="Compartir ruta"
           >
             <Share2 className="w-4 h-4" />
             {copiedLink && (
-              <span className="absolute -bottom-8 right-0 bg-[#0D1B2D] text-white text-[10px] px-2 py-1 rounded shadow whitespace-nowrap">
+              <span className="absolute -bottom-8 right-0 bg-[#14281C] text-white text-[10px] px-2 py-1 rounded shadow whitespace-nowrap">
                 ¡Enlace copiado!
               </span>
             )}
@@ -154,7 +170,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
       </nav>
 
       {/* Hero Header Banner */}
-      <div className="relative bg-[#0D1B2D] text-white">
+      <div className="relative bg-[#14281C] text-white">
         <div className="absolute inset-0 overflow-hidden">
           <img
             src={tour.coverImage}
@@ -162,16 +178,16 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
             className="w-full h-full object-cover opacity-40 scale-105 filter blur-[1px]"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2D] via-[#0D1B2D]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#14281C] via-[#14281C]/80 to-transparent" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3 py-1 rounded-full bg-[#C04A26] text-white text-xs font-bold uppercase tracking-wider shadow">
+            <span className="px-3 py-1 rounded-full bg-[#B04E2A] text-white text-xs font-bold uppercase tracking-wider shadow">
               {tour.category === 'nature' ? 'Naturaleza' : tour.category === 'walking' ? 'Paseo a Pie' : tour.category === 'history' ? 'Patrimonio' : tour.category}
             </span>
             <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#F59E7C]" />
+              <MapPin className="w-3.5 h-3.5 text-[#E8A58B]" />
               {tour.city}, {tour.country}
             </span>
             <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1">
@@ -180,21 +196,21 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight max-w-4xl font-['Outfit',sans-serif]">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight max-w-4xl font-['Cormorant_Garamond',Georgia,serif]">
             {tour.title}
           </h1>
 
           {tour.tagline && (
-            <p className="text-sm sm:text-base text-[#F59E7C] font-medium max-w-3xl">
+            <p className="text-sm sm:text-base text-[#E8A58B] font-medium max-w-3xl">
               {tour.tagline}
             </p>
           )}
 
           {/* Quick Metrics Bar & Start Button */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#1E334D]">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#2A4533]">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-300">
               <div className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-[#F59E7C]" />
+                <Clock className="w-4 h-4 text-[#E8A58B]" />
                 <span>{tour.durationMinutes} min de recorrido</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -213,13 +229,13 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                 className="flex items-center gap-2 px-4 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl font-bold text-xs shadow-lg transition-all backdrop-blur-md cursor-pointer"
                 title="Descargar Formatos de Ruta: GPX, KML, Itinerario PDF"
               >
-                <Download className="w-4 h-4 text-[#F59E7C]" />
+                <Download className="w-4 h-4 text-[#E8A58B]" />
                 <span>Descargar Formatos de Ruta</span>
               </button>
 
               <button
                 onClick={handleStartWalkMode}
-                className="flex items-center gap-2.5 px-6 py-3 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-2xl font-bold text-sm shadow-xl shadow-[#C04A26]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                className="flex items-center gap-2.5 px-6 py-3 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-2xl font-bold text-sm shadow-xl shadow-[#B04E2A]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
                 <Navigation className="w-4 h-4 fill-current" />
                 <span>Iniciar Recorrido Autoguiado</span>
@@ -231,7 +247,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
       {/* Walk Mode Active Banner */}
       {isWalkMode && (
-        <div className="bg-[#27523C] text-white px-4 sm:px-6 py-3 shadow-md sticky top-14 z-20 border-b border-emerald-800">
+        <div className="bg-[#2F5238] text-white px-4 sm:px-6 py-3 shadow-md sticky top-14 z-20 border-b border-emerald-800">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-amber-300 animate-ping"></span>
@@ -242,7 +258,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={handleNextWalkStop}
-                className="px-3.5 py-1.5 bg-white text-[#27523C] rounded-xl font-bold hover:bg-emerald-50 transition-colors shadow-sm"
+                className="px-3.5 py-1.5 bg-white text-[#2F5238] rounded-xl font-bold hover:bg-emerald-50 transition-colors shadow-sm"
               >
                 Avanzar a Siguiente Parada ➔
               </button>
@@ -257,16 +273,34 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
         </div>
       )}
 
+      {/* Tour Completed Banner */}
+      {tourCompleted && (
+        <div className="bg-emerald-600 text-white px-4 sm:px-6 py-3 shadow-md border-b border-emerald-700">
+          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+            <span className="font-bold flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-100" />
+              ¡Felicitaciones! Completaste las {tour.stops.length} paradas de {tour.title} en {tour.city}, Chile.
+            </span>
+            <button
+              onClick={() => setTourCompleted(false)}
+              className="px-3 py-1.5 bg-white text-emerald-700 rounded-xl font-bold hover:bg-emerald-50 transition-colors shadow-sm"
+            >
+              Entendido
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Main Split Layout: Map & Stops List */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* LEFT COLUMN: INTERACTIVE MAP & AUDIO PREVIEW (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           
-          <div className="bg-white rounded-3xl p-4 shadow-sm border border-[#E8DFC8] space-y-3">
+          <div className="bg-white rounded-3xl p-4 shadow-sm border border-[#E4D8BF] space-y-3">
             <div className="flex items-center justify-between px-2">
-              <span className="text-xs font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-1.5 font-['Outfit',sans-serif]">
-                <MapPin className="w-4 h-4 text-[#C04A26]" />
+              <span className="text-xs font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-1.5 font-['Cormorant_Garamond',Georgia,serif]">
+                <MapPin className="w-4 h-4 text-[#B04E2A]" />
                 Mapa de Ruta y Atractivos
               </span>
               <span className="text-xs text-slate-500">
@@ -274,7 +308,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
               </span>
             </div>
 
-            <div className="h-[420px] w-full rounded-2xl overflow-hidden border border-[#E8DFC8]">
+            <div className="hidden md:block h-[420px] w-full rounded-2xl overflow-hidden border border-[#E4D8BF]">
               <TourMap
                 stops={tour.stops}
                 activeStopId={activeStop?.id}
@@ -286,18 +320,28 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                 className="h-[420px] w-full"
               />
             </div>
+
+            {/* Mobile: compact trigger that opens the map in a closable full-screen popup */}
+            <button
+              onClick={() => setShowMapModal(true)}
+              className="md:hidden w-full h-40 rounded-2xl overflow-hidden border-2 border-dashed border-[#B04E2A]/40 bg-[#EEE6D3] flex flex-col items-center justify-center gap-2 text-[#B04E2A] hover:bg-[#E4D8BF] transition-colors cursor-pointer"
+            >
+              <MapPin className="w-7 h-7" />
+              <span className="text-sm font-bold">Ver Mapa Interactivo</span>
+              <span className="text-[11px] text-slate-600 font-medium">Pantalla completa · píntalo con tus dedos · tócalo para cerrar</span>
+            </button>
           </div>
 
           {/* Quick Active Stop Player Card */}
           {activeStop && (
-            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-3">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-full bg-[#C04A26] text-white font-bold text-xs flex items-center justify-center shadow">
+                  <span className="w-7 h-7 rounded-full bg-[#B04E2A] text-white font-bold text-xs flex items-center justify-center shadow">
                     {activeStop.order}
                   </span>
                   <div>
-                    <h3 className="font-bold text-[#0D1B2D] text-sm sm:text-base font-['Outfit',sans-serif]">
+                    <h3 className="font-bold text-[#14281C] text-sm sm:text-base font-['Cormorant_Garamond',Georgia,serif]">
                       {activeStop.title}
                     </h3>
                     {activeStop.subtitle && (
@@ -308,7 +352,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
                 <button
                   onClick={() => setSelectedStopModal(activeStop)}
-                  className="px-3 py-1.5 rounded-xl bg-[#C04A26]/10 hover:bg-[#C04A26]/20 text-[#C04A26] text-xs font-bold transition-colors"
+                  className="px-3 py-1.5 rounded-xl bg-[#B04E2A]/10 hover:bg-[#B04E2A]/20 text-[#B04E2A] text-xs font-bold transition-colors"
                 >
                   Ver Ficha Detallada
                 </button>
@@ -325,19 +369,19 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
           {/* Author Profile & Guide Info */}
           {tour.author && (
-            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] flex items-center gap-4">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] flex items-center gap-4">
               <img
                 src={tour.author.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80'}
                 alt={tour.author.name}
-                className="w-14 h-14 rounded-2xl object-cover border-2 border-[#C04A26]/40 flex-shrink-0"
+                className="w-14 h-14 rounded-2xl object-cover border-2 border-[#B04E2A]/40 flex-shrink-0"
                 referrerPolicy="no-referrer"
               />
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <h4 className="font-bold text-[#0D1B2D] text-sm truncate">{tour.author.name}</h4>
-                  {tour.author.verified && <ShieldCheck className="w-4 h-4 text-[#C04A26] flex-shrink-0" />}
+                  <h4 className="font-bold text-[#14281C] text-sm truncate">{tour.author.name}</h4>
+                  {tour.author.verified && <ShieldCheck className="w-4 h-4 text-[#B04E2A] flex-shrink-0" />}
                 </div>
-                <p className="text-xs text-[#C04A26] font-semibold">{tour.author.role || 'Guía Oficial de Rutas'}</p>
+                <p className="text-xs text-[#B04E2A] font-semibold">{tour.author.role || 'Guía Oficial de Rutas'}</p>
                 {tour.author.bio && <p className="text-xs text-slate-600 line-clamp-2 mt-0.5">{tour.author.bio}</p>}
               </div>
             </div>
@@ -349,12 +393,12 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
         <div className="lg:col-span-5 space-y-6">
           
           {/* Stops List */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-4">
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-extrabold text-[#0D1B2D] uppercase tracking-wider font-['Outfit',sans-serif]">
+              <h2 className="text-sm font-extrabold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
                 Itinerario ({tour.stops.length} Paradas)
               </h2>
-              <span className="text-xs font-semibold text-[#C04A26]">
+              <span className="text-xs font-semibold text-[#B04E2A]">
                 {tour.durationMinutes} min aprox.
               </span>
             </div>
@@ -363,7 +407,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
               {tour.stops.map((stop, idx) => {
                 const isActive = stop.id === activeStop?.id;
                 const isVisited = walkProgress.includes(idx);
-                const thumb = stop.images[0]?.url || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=300&q=80';
+                const thumb = stop.images[0]?.url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
 
                 return (
                   <div
@@ -374,15 +418,15 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                     }}
                     className={`flex items-center gap-3.5 p-3 rounded-2xl border cursor-pointer transition-all ${
                       isActive
-                        ? 'bg-[#F9F5EE] border-[#C04A26] shadow-md ring-2 ring-[#C04A26]/30'
-                        : 'bg-white border-[#E8DFC8] hover:border-slate-400 hover:bg-[#FAF7F2]'
+                        ? 'bg-[#F1EAD9] border-[#B04E2A] shadow-md ring-2 ring-[#B04E2A]/30'
+                        : 'bg-white border-[#E4D8BF] hover:border-slate-400 hover:bg-[#F6F1E5]'
                     }`}
                   >
                     {/* Thumbnail Image with Order Badge */}
                     <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 shadow-inner">
-                      <img src={thumb} alt={stop.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      <img src={thumb} alt={stop.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
                       <span className={`absolute top-1 left-1 w-5 h-5 rounded-full text-white font-bold text-[10px] flex items-center justify-center shadow ${
-                        isVisited ? 'bg-[#27523C]' : 'bg-[#C04A26]'
+                        isVisited ? 'bg-[#2F5238]' : 'bg-[#B04E2A]'
                       }`}>
                         {isVisited ? '✓' : stop.order}
                       </span>
@@ -390,16 +434,16 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
                     {/* Info */}
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-bold text-[#0D1B2D] text-sm truncate leading-tight font-['Outfit',sans-serif]">
+                      <h4 className="font-bold text-[#14281C] text-sm truncate leading-tight font-['Cormorant_Garamond',Georgia,serif]">
                         {stop.title}
                       </h4>
                       {stop.subtitle && (
                         <p className="text-xs text-slate-600 truncate mt-0.5">{stop.subtitle}</p>
                       )}
                       <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-1">
-                        <span className="capitalize font-semibold text-[#0D1B2D]">{stop.category}</span>
+                        <span className="capitalize font-semibold text-[#14281C]">{stop.category}</span>
                         <span>• ⏱️ {stop.estimatedStayMinutes || 15}m</span>
-                        {stop.audio && <span className="text-[#C04A26] font-semibold">🎧 Audioguía</span>}
+                        {stop.audio && <span className="text-[#B04E2A] font-semibold">🎧 Audioguía</span>}
                       </div>
                     </div>
 
@@ -408,10 +452,10 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setQrTargetStop(stop);
+                          setQrStop(stop);
                           setShowQrModal(true);
                         }}
-                        className="p-1.5 rounded-lg bg-slate-100 hover:bg-[#C04A26]/10 text-slate-500 hover:text-[#C04A26] transition-colors"
+                        className="p-1.5 rounded-lg bg-slate-100 hover:bg-[#B04E2A]/10 text-slate-500 hover:text-[#B04E2A] transition-colors"
                         title={`Generar Código QR para ${stop.title}`}
                       >
                         <QrCode className="w-4 h-4" />
@@ -425,8 +469,8 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           </div>
 
           {/* Tour Description */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-3">
-            <h3 className="text-xs font-bold text-[#0D1B2D] uppercase tracking-wider font-['Outfit',sans-serif]">
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
+            <h3 className="text-xs font-bold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
               Acerca de esta Ruta
             </h3>
             <p className="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line">
@@ -436,9 +480,9 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
           {/* Downloadable Documents */}
           {tour.generalDocuments && tour.generalDocuments.length > 0 && (
-            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-3">
-              <h3 className="text-xs font-bold text-[#0D1B2D] uppercase tracking-wider flex items-center gap-1.5 font-['Outfit',sans-serif]">
-                <FileText className="w-4 h-4 text-[#C04A26]" />
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
+              <h3 className="text-xs font-bold text-[#14281C] uppercase tracking-wider flex items-center gap-1.5 font-['Cormorant_Garamond',Georgia,serif]">
+                <FileText className="w-4 h-4 text-[#B04E2A]" />
                 Mapas y Guías de Campo Tienda El Viaje ({tour.generalDocuments.length})
               </h3>
               <div className="space-y-2">
@@ -448,20 +492,20 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                     href={doc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] hover:bg-[#F2ECE1] border border-[#E8DFC8] transition-colors group"
+                    className="flex items-center justify-between p-3 rounded-xl bg-[#F6F1E5] hover:bg-[#EEE6D3] border border-[#E4D8BF] transition-colors group"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-7 h-7 rounded-lg bg-[#C04A26]/10 text-[#C04A26] flex items-center justify-center font-bold text-xs">
+                      <div className="w-7 h-7 rounded-lg bg-[#B04E2A]/10 text-[#B04E2A] flex items-center justify-center font-bold text-xs">
                         PDF
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs font-bold text-slate-900 truncate group-hover:text-[#C04A26]">
+                        <p className="text-xs font-bold text-slate-900 truncate group-hover:text-[#B04E2A]">
                           {doc.name}
                         </p>
                         {doc.size && <span className="text-[10px] text-slate-500">{doc.size}</span>}
                       </div>
                     </div>
-                    <Download className="w-4 h-4 text-slate-400 group-hover:text-[#C04A26]" />
+                    <Download className="w-4 h-4 text-slate-400 group-hover:text-[#B04E2A]" />
                   </a>
                 ))}
               </div>
@@ -470,8 +514,8 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
           {/* Social Links */}
           {tour.socialLinks && Object.values(tour.socialLinks).some(v => Boolean(v)) && (
-            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E8DFC8] space-y-3">
-              <h3 className="text-xs font-bold text-[#0D1B2D] uppercase tracking-wider font-['Outfit',sans-serif]">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
+              <h3 className="text-xs font-bold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
                 Enlaces y Redes Oficiales
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -480,7 +524,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                     href={tour.socialLinks.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F2ECE1] hover:bg-[#E8DFC8] text-slate-800 text-xs font-semibold"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#EEE6D3] hover:bg-[#E4D8BF] text-slate-800 text-xs font-semibold"
                   >
                     <Globe className="w-3.5 h-3.5 text-blue-600" />
                     <span>Sitio Web</span>
@@ -516,6 +560,9 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
 
       </main>
 
+      {/* Related Store Items - Publicidad directa relacionada con esta ruta */}
+      <RelatedShopStrip tourId={tour.id} />
+
       {/* Stop Detail Full Modal */}
       {selectedStopModal && (
         <StopDetailModal
@@ -542,6 +589,16 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
       )}
 
       {/* QR Code Generator & Signage Modal */}
+      {showQrModal && (
+        <QRCodeModal
+          isOpen={showQrModal}
+          onClose={() => setShowQrModal(false)}
+          tour={tour}
+          selectedStop={qrStop}
+          onSelectStop={setQrStop}
+        />
+      )}
+
       {/* Tour Export & Route Formats Modal (GPX, KML, Itinerary PDF) */}
       {showExportModal && (
         <TourExportModal
@@ -549,6 +606,38 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           onClose={() => setShowExportModal(false)}
           tour={tour}
         />
+      )}
+
+      {/* Interactive Map Full-Screen Popup (mobile) */}
+      {showMapModal && (
+        <div className="fixed inset-0 z-[100] bg-[#14281C]/95 backdrop-blur-sm flex flex-col">
+          <div className="flex items-center justify-between px-4 py-3 text-white border-b border-white/10 flex-shrink-0">
+            <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-[#E8A58B]" />
+              Mapa de {tour.title}
+            </span>
+            <button
+              onClick={() => setShowMapModal(false)}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+              Cerrar
+            </button>
+          </div>
+          <div className="flex-1 h-full">
+            <TourMap
+              stops={tour.stops}
+              activeStopId={activeStop?.id}
+              onSelectStop={(stop) => {
+                setActiveStop(stop);
+                setSelectedStopModal(stop);
+                setShowMapModal(false);
+              }}
+              userLocation={userLocation}
+              className="h-full w-full"
+            />
+          </div>
+        </div>
       )}
 
     </div>

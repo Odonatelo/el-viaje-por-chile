@@ -19,7 +19,6 @@ import { HeritageConsultingModal } from './components/HeritageConsultingModal';
 import { MembershipModal } from './components/MembershipModal';
 import { MercadoPagoModal } from './components/MercadoPagoModal';
 import { GoogleAuthModal } from './components/GoogleAuthModal';
-import { TourExportModal } from './components/TourExportModal';
 import { QRCodeModal } from './components/QRCodeModal';
 import { EntornoGallery } from './components/EntornoGallery';
 import { PaymentHistoryModal } from './components/PaymentHistoryModal';
@@ -86,10 +85,6 @@ export default function App() {
   const [showEntornoModal, setShowEntornoModal] = useState<boolean>(false);
   const [showPaymentHistoryModal, setShowPaymentHistoryModal] = useState<boolean>(false);
 
-  // Global Route Export modal state
-  const [exportTargetTour, setExportTargetTour] = useState<Tour | null>(null);
-  const [showTourExportModal, setShowTourExportModal] = useState<boolean>(false);
-
   // Membership & Mercado Pago Chile States
   const [isMember, setIsMember] = useState<boolean>(true);
   const [memberType, setMemberType] = useState<'none' | 'annual_paid' | 'consulting_free'>('consulting_free');
@@ -116,15 +111,19 @@ export default function App() {
         const data = await res.json();
         if (data.success && Array.isArray(data.data) && data.data.length > 0) {
           setTours(data.data);
+          setApiError(null);
         } else {
           // Fallback to sample tours
+          setApiError('El servidor no devolvió rutas. Mostrando el catálogo de demostración local.');
           setTours(sampleTours);
         }
       } else {
+        setApiError('No se pudieron cargar las rutas desde el servidor. Mostrando el catálogo de demostración local.');
         setTours(sampleTours);
       }
     } catch (err: any) {
       console.warn('Could not connect to /api/tours, using offline sample tours', err);
+      setApiError('Sin conexión con el servidor. Mostrando el catálogo de demostración local.');
       setTours(sampleTours);
     } finally {
       setIsLoading(false);
@@ -134,6 +133,11 @@ export default function App() {
   useEffect(() => {
     fetchTours();
   }, []);
+
+  // Scroll to top al cambiar entre vistas (catálogo / detalle / studio)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [viewMode]);
 
   // ----------------------------------------------------
   // Save or Update Tour
@@ -257,7 +261,7 @@ export default function App() {
           title: plan.title,
           tagline: plan.tagline,
           description: plan.description,
-          coverImage: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80',
+          coverImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg/1280px-Cuernos_del_Paine%2C_Parque_Nacional_Torres_del_Paine%2C_Chile1.jpg',
           city: plan.city,
           country: plan.country,
           category: plan.category || 'history',
@@ -303,7 +307,7 @@ export default function App() {
             images: [
               {
                 id: `img-${idx}`,
-                url: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1000&q=80',
+                url: 'https://upload.wikimedia.org/wikipedia/commons/2/27/Capillas_de_M%C3%A1rmol_adentro.JPG',
                 caption: s.title,
                 isPrimary: true,
               }
@@ -331,11 +335,42 @@ export default function App() {
     }
   };
 
+  const renderCatalogView = () => (
+    <CatalogView
+      tours={tours}
+      onSelectTour={(tour) => {
+        setSelectedTour(tour);
+        setViewMode('detail');
+      }}
+      onCreateNewTour={() => {
+        setEditingTour(null);
+        setViewMode('studio');
+      }}
+      onEditTour={(tour) => {
+        setEditingTour(tour);
+        setViewMode('studio');
+      }}
+      onDeleteTour={handleDeleteTour}
+      onResetTours={handleResetTours}
+      onOpenAIGenerator={() => setShowAiModal(true)}
+      onOpenConsultingModal={() => setShowConsultingModal(true)}
+      onOpenMembershipModal={() => setShowMembershipModal(true)}
+      onOpenMercadoPagoModal={() => setShowMercadoPagoModal(true)}
+      onOpenQRCode={(tour) => {
+        setGlobalQrTour(tour);
+        setGlobalQrStop(null);
+        setShowGlobalQrModal(true);
+      }}
+      isMember={isMember}
+      isOwner={isOwner}
+    />
+  );
+
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-slate-900 flex flex-col font-sans selection:bg-[#C04A26] selection:text-white">
+    <div className="min-h-screen bg-[#F6F1E5] text-slate-900 flex flex-col font-sans selection:bg-[#B04E2A] selection:text-white">
       
       {/* Top Banner: Domain & Heritage Consulting Bar */}
-      <div className="bg-[#09121E] text-slate-300 text-xs px-4 sm:px-6 py-1.5 border-b border-[#192E47] flex flex-wrap items-center justify-between gap-2">
+      <div className="bg-[#101F16] text-slate-300 text-xs px-4 sm:px-6 py-1.5 border-b border-[#223F2C] flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-lg bg-black p-1 flex items-center justify-center border border-white/10 shadow-sm">
             <img
@@ -356,7 +391,7 @@ export default function App() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowConsultingModal(true)}
-            className="flex items-center gap-1.5 text-xs font-bold text-[#F59E7C] hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs font-bold text-[#E8A58B] hover:text-white transition-colors"
           >
             <Feather className="w-3.5 h-3.5" />
             <span>Consultoría en Interpretación</span>
@@ -366,7 +401,7 @@ export default function App() {
             href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-[#F59E7C] transition-colors"
+            className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-[#E8A58B] transition-colors"
           >
             <span>tiendaelviaje.cl</span>
             <ExternalLink className="w-3 h-3" />
@@ -375,7 +410,7 @@ export default function App() {
       </div>
 
       {/* Global Brand Navigation Bar - El Viaje Por Chile */}
-      <header className="bg-[#0D1B2D] text-white sticky top-0 z-40 border-b border-[#1E334D] shadow-lg">
+      <header className="bg-[#14281C] text-white sticky top-0 z-40 border-b border-[#2A4533] shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           
           {/* Logo & Platform Name */}
@@ -392,10 +427,10 @@ export default function App() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-white font-['Outfit',sans-serif]">
-                  El Viaje <span className="text-[#E6683B]">Por Chile</span>
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-white font-['Cormorant_Garamond',Georgia,serif]">
+                  El Viaje <span className="text-[#D97A46]">Por Chile</span>
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#C04A26]/20 text-[#F59E7C] border border-[#C04A26]/40">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40">
                   www.elviaje.cl
                 </span>
               </div>
@@ -411,8 +446,8 @@ export default function App() {
               onClick={() => setViewMode('catalog')}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                 viewMode === 'catalog'
-                  ? 'bg-[#C04A26] text-white shadow-md shadow-[#C04A26]/30'
-                  : 'text-slate-300 hover:text-white hover:bg-[#192E47]'
+                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
               }`}
             >
               <Globe className="w-4 h-4" />
@@ -421,7 +456,7 @@ export default function App() {
 
             <button
               onClick={() => setShowMembershipModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#15273F] hover:bg-[#1F395C] text-[#F59E7C] border border-[#C04A26]/40 shadow-sm transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all"
               title="Membresía Creador: Fee Anual $100 USD o Gratis por Consultoría"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -431,17 +466,17 @@ export default function App() {
 
             <button
               onClick={() => setShowEntornoModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#192E47] transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
               title="Entorno El Viaje Por Chile"
             >
-              <ImageIcon className="w-3.5 h-3.5 text-[#E6683B]" />
+              <ImageIcon className="w-3.5 h-3.5 text-[#D97A46]" />
               <span className="hidden md:inline">Entorno</span>
             </button>
 
             {isOwner && (
               <button
                 onClick={() => setShowPaymentHistoryModal(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#15273F] hover:bg-[#1F395C] text-emerald-300 border border-emerald-500/30 transition-all"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-emerald-300 border border-emerald-500/30 transition-all"
                 title="Historial de Cobros (Mercado Pago Chile)"
               >
                 <Receipt className="w-3.5 h-3.5" />
@@ -451,9 +486,9 @@ export default function App() {
 
             <button
               onClick={() => setShowConsultingModal(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#192E47] transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
             >
-              <BookOpen className="w-4 h-4 text-[#F59E7C]" />
+              <BookOpen className="w-4 h-4 text-[#E8A58B]" />
               <span className="hidden xl:inline">Consultoría Patrimonial</span>
             </button>
 
@@ -462,7 +497,7 @@ export default function App() {
                 setEditingTour(null);
                 setViewMode('studio');
               }}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#C04A26] to-[#D97706] hover:from-[#A63A19] hover:to-[#B45309] text-white shadow-md shadow-[#C04A26]/30 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/30 transition-all"
               title="Ambiente de edición: Studio de Rutas"
             >
               <Plus className="w-4 h-4" />
@@ -471,7 +506,7 @@ export default function App() {
 
             <button
               onClick={() => setShowAiModal(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#C04A26] to-[#D97706] hover:from-[#A63A19] hover:to-[#B45309] text-white shadow-md shadow-[#C04A26]/20 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/20 transition-all"
             >
               <Sparkles className="w-4 h-4 text-amber-200" />
               <span className="hidden md:inline">Generar con IA</span>
@@ -480,7 +515,7 @@ export default function App() {
             {/* Google Account Profile Button */}
             <button
               onClick={() => setShowAuthModal(true)}
-              className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl bg-[#15273F] hover:bg-[#1E3A5F] border border-[#2B4B70] transition-all ml-1"
+              className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl bg-[#1D3626] hover:bg-[#2E4E37] border border-[#40624A] transition-all ml-1"
               title="Cuenta Google & Credenciales de Creador"
             >
               {currentUser ? (
@@ -488,21 +523,21 @@ export default function App() {
                   <img
                     src={currentUser.avatar}
                     alt={currentUser.name}
-                    className="w-6 h-6 rounded-full object-cover border border-[#C04A26]"
+                    className="w-6 h-6 rounded-full object-cover border border-[#B04E2A]"
                     referrerPolicy="no-referrer"
                   />
                   <div className="text-left hidden lg:block">
                     <span className="text-[11px] font-bold text-white block leading-tight truncate max-w-[100px]">
                       {currentUser.name.split(' ')[0]}
                     </span>
-                    <span className="text-[9px] text-[#F59E7C] font-semibold block leading-none">
+                    <span className="text-[9px] text-[#E8A58B] font-semibold block leading-none">
                       {currentUser.role === 'admin' ? 'Admin' : 'Creador'}
                     </span>
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-[#0D1B2D] font-bold text-xs">
+                  <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-[#14281C] font-bold text-xs">
                     G
                   </div>
                   <span className="text-xs font-bold text-slate-200">Acceder</span>
@@ -514,41 +549,30 @@ export default function App() {
         </div>
       </header>
 
+      {/* Aviso de modo sin conexión / catálogo de demostración */}
+      {apiError && (
+        <div className="bg-amber-100 border-b border-amber-300 text-amber-900 text-xs px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+          <span className="font-semibold flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            {apiError}
+          </span>
+          <button
+            onClick={() => setApiError(null)}
+            className="font-extrabold hover:bg-amber-200 rounded-lg px-2 py-1 transition-colors"
+            aria-label="Cerrar aviso"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Main Views Switcher */}
       <div className="flex-1">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-            <Loader2 className="w-10 h-10 text-[#C04A26] animate-spin" />
+            <Loader2 className="w-10 h-10 text-[#B04E2A] animate-spin" />
             <p className="text-sm font-semibold text-slate-700">Cargando rutas de interpretación patrimonial de Chile...</p>
           </div>
-        ) : viewMode === 'catalog' ? (
-          <CatalogView
-            tours={tours}
-            onSelectTour={(tour) => {
-              setSelectedTour(tour);
-              setViewMode('detail');
-            }}
-            onCreateNewTour={() => {
-              setEditingTour(null);
-              setViewMode('studio');
-            }}
-            onEditTour={(tour) => {
-              setEditingTour(tour);
-              setViewMode('studio');
-            }}
-            onDeleteTour={handleDeleteTour}
-            onResetTours={handleResetTours}
-            onOpenAIGenerator={() => setShowAiModal(true)}
-            onOpenConsultingModal={() => setShowConsultingModal(true)}
-            onOpenMembershipModal={() => setShowMembershipModal(true)}
-            onOpenQRCode={(tour) => {
-              setGlobalQrTour(tour);
-              setGlobalQrStop(null);
-              setShowGlobalQrModal(true);
-            }}
-            isMember={isMember}
-            memberType={memberType}
-          />
         ) : viewMode === 'detail' && selectedTour ? (
           <TourDetailView
             tour={selectedTour}
@@ -569,33 +593,7 @@ export default function App() {
             }}
           />
         ) : (
-          <CatalogView
-            tours={tours}
-            onSelectTour={(tour) => {
-              setSelectedTour(tour);
-              setViewMode('detail');
-            }}
-            onCreateNewTour={() => {
-              setEditingTour(null);
-              setViewMode('studio');
-            }}
-            onEditTour={(tour) => {
-              setEditingTour(tour);
-              setViewMode('studio');
-            }}
-            onDeleteTour={handleDeleteTour}
-            onResetTours={handleResetTours}
-            onOpenAIGenerator={() => setShowAiModal(true)}
-            onOpenConsultingModal={() => setShowConsultingModal(true)}
-            onOpenMembershipModal={() => setShowMembershipModal(true)}
-            onOpenQRCode={(tour) => {
-              setGlobalQrTour(tour);
-              setGlobalQrStop(null);
-              setShowGlobalQrModal(true);
-            }}
-            isMember={isMember}
-            memberType={memberType}
-          />
+          renderCatalogView()
         )}
       </div>
 
@@ -648,14 +646,14 @@ export default function App() {
       {/* Quick AI Tour Generator Modal */}
       {showAiModal && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex justify-center p-4">
-          <div className="relative bg-[#FAF7F2] text-slate-900 w-full max-w-lg rounded-3xl p-6 shadow-2xl my-auto space-y-4 border border-[#E8DFC8]">
+          <div className="relative bg-[#F6F1E5] text-slate-900 w-full max-w-lg rounded-3xl p-6 shadow-2xl my-auto space-y-4 border border-[#E4D8BF]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-[#C04A26]/10 text-[#C04A26]">
+                <div className="p-2 rounded-xl bg-[#B04E2A]/10 text-[#B04E2A]">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#0D1B2D]">Diseñador de Rutas con IA Interpretativa</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-[#14281C]">Diseñador de Rutas con IA Interpretativa</h3>
                   <p className="text-xs text-slate-600">Crea un itinerario con el método de interpretación del patrimonio de Tienda El Viaje.</p>
                 </div>
               </div>
@@ -675,7 +673,7 @@ export default function App() {
                   value={aiCity}
                   onChange={(e) => setAiCity(e.target.value)}
                   placeholder="Ej. Valparaíso, San Pedro de Atacama, Chiloé, Santiago, Pucón, Torres del Paine, La Serena..."
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#D4C5A9] rounded-xl font-semibold focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#CDBA95] rounded-xl font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                 />
               </div>
 
@@ -686,7 +684,7 @@ export default function App() {
                   value={aiTopic}
                   onChange={(e) => setAiTopic(e.target.value)}
                   placeholder="Ej. Memorias del Carbón en Lota, Arqueología Atacameña, Palmeras y Cerros Costeros..."
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#D4C5A9] rounded-xl font-semibold focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#CDBA95] rounded-xl font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                 />
               </div>
 
@@ -695,7 +693,7 @@ export default function App() {
                 <select
                   value={aiStopsCount}
                   onChange={(e) => setAiStopsCount(parseInt(e.target.value) || 4)}
-                  className="w-full px-3 py-2 bg-white border border-[#D4C5A9] rounded-xl font-semibold"
+                  className="w-full px-3 py-2 bg-white border border-[#CDBA95] rounded-xl font-semibold"
                 >
                   <option value={3}>3 Paradas (~45 min • Paseo Corto)</option>
                   <option value={4}>4 Paradas (~1.5 horas • Ruta Estándar)</option>
@@ -704,7 +702,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E8DFC8]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E4D8BF]">
               <button
                 onClick={() => setShowAiModal(false)}
                 className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200"
@@ -714,7 +712,7 @@ export default function App() {
               <button
                 onClick={handleQuickAiGenerate}
                 disabled={isGeneratingAiTour}
-                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#C04A26] to-[#D97706] hover:from-[#A63A19] hover:to-[#B45309] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#C04A26]/30 disabled:opacity-50 transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#B04E2A]/30 disabled:opacity-50 transition-all"
               >
                 {isGeneratingAiTour ? (
                   <>
@@ -768,16 +766,16 @@ export default function App() {
       )}
 
       {/* Footer - Tienda El Viaje & www.elviaje.cl Identity */}
-      <footer className="bg-[#0D1B2D] text-slate-400 text-xs py-10 border-t border-[#1E334D]">
+      <footer className="bg-[#14281C] text-slate-400 text-xs py-10 border-t border-[#2A4533]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-6 pb-6 border-b border-[#1E334D]">
+          <div className="flex flex-wrap items-center justify-between gap-6 pb-6 border-b border-[#2A4533]">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#C04A26] flex items-center justify-center text-white font-bold text-sm shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-[#B04E2A] flex items-center justify-center text-white font-bold text-sm shadow-md">
                 🇨🇱
               </div>
               <div>
-                <span className="text-white font-extrabold text-sm block font-['Outfit',sans-serif]">
-                  El Viaje Por Chile • <span className="text-[#F59E7C]">www.elviaje.cl</span>
+                <span className="text-white font-extrabold text-sm block font-['Cormorant_Garamond',Georgia,serif]">
+                  El Viaje Por Chile • <span className="text-[#E8A58B]">www.elviaje.cl</span>
                 </span>
                 <span className="text-slate-400 text-xs">
                   Plataforma de audioguías e interpretación del patrimonio natural y cultural
@@ -788,7 +786,7 @@ export default function App() {
             <div className="flex flex-wrap items-center gap-4 text-xs">
               <button
                 onClick={() => setShowConsultingModal(true)}
-                className="text-[#F59E7C] hover:text-white font-semibold flex items-center gap-1 transition-colors"
+                className="text-[#E8A58B] hover:text-white font-semibold flex items-center gap-1 transition-colors"
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>Consultoría para tu Viaje Personal</span>

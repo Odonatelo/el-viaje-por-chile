@@ -80,18 +80,18 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex justify-center p-3 sm:p-5 animate-fadeIn">
       <div 
-        className="relative bg-white text-slate-900 w-full max-w-3xl rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden my-auto max-h-[94vh] flex flex-col font-sans"
+        className="relative bg-white text-slate-900 w-full max-w-3xl rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden my-auto max-h-[94vh] flex flex-col font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0D1B2D] via-[#15273F] to-[#0D1B2D] text-white px-6 py-5 flex items-center justify-between border-b border-[#1E334D]">
+        <div className="bg-gradient-to-r from-[#14281C] via-[#1D3626] to-[#14281C] text-white px-6 py-5 flex items-center justify-between border-b border-[#2A4533]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#C04A26] flex items-center justify-center text-white shadow-lg shadow-[#C04A26]/40">
+            <div className="w-10 h-10 rounded-2xl bg-[#B04E2A] flex items-center justify-center text-white shadow-lg shadow-[#B04E2A]/40">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#F59E7C]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#E8A58B]">
                   El Viaje Por Chile • www.elviaje.cl
                 </span>
                 {isMember && (
@@ -100,27 +100,27 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                   </span>
                 )}
               </div>
-              <h2 className="text-lg sm:text-xl font-extrabold font-['Outfit',sans-serif]">
+              <h2 className="text-lg sm:text-xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
                 Membresía & Acceso a la Plataforma
               </h2>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white rounded-full hover:bg-[#192E47] transition-colors"
+            className="p-2 text-slate-400 hover:text-white rounded-full hover:bg-[#223F2C] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="bg-[#FAF7F2] border-b border-[#E8DFC8] px-6 py-2 flex items-center gap-2">
+        <div className="bg-[#F6F1E5] border-b border-[#E4D8BF] px-6 py-2 flex items-center gap-2">
           <button
             onClick={() => setActiveTab('plans')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'plans'
-                ? 'bg-[#0D1B2D] text-white shadow-sm'
-                : 'text-slate-600 hover:text-[#0D1B2D] hover:bg-white/60'
+                ? 'bg-[#14281C] text-white shadow-sm'
+                : 'text-slate-600 hover:text-[#14281C] hover:bg-white/60'
             }`}
           >
             Opciones de Acceso (Fee Anual vs Consultoría)
@@ -129,22 +129,22 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
             onClick={() => setActiveTab('redeem')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
               activeTab === 'redeem'
-                ? 'bg-[#0D1B2D] text-white shadow-sm'
-                : 'text-slate-600 hover:text-[#0D1B2D] hover:bg-white/60'
+                ? 'bg-[#14281C] text-white shadow-sm'
+                : 'text-slate-600 hover:text-[#14281C] hover:bg-white/60'
             }`}
           >
-            <Key className="w-3.5 h-3.5 text-[#C04A26]" />
+            <Key className="w-3.5 h-3.5 text-[#B04E2A]" />
             <span>Canjear Acceso por Consultoría</span>
           </button>
         </div>
 
         {/* Body Content */}
-        <div className="overflow-y-auto flex-1 p-6 space-y-6 bg-[#FAF7F2]">
+        <div className="overflow-y-auto flex-1 p-6 space-y-6 bg-[#F6F1E5]">
 
           {activeTab === 'plans' ? (
             <>
               {/* Introduction Banner */}
-              <div className="bg-white p-5 rounded-2xl border border-[#E8DFC8] shadow-sm space-y-2">
+              <div className="bg-white p-5 rounded-2xl border border-[#E4D8BF] shadow-sm space-y-2">
                 <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
                   Para formar parte de <strong>El Viaje Por Chile (www.elviaje.cl)</strong> y publicar tus rutas geolocalizadas con narraciones sonoras con IA, cartografía y guías de campo, dispones de dos modalidades oficiales:
                 </p>
@@ -157,33 +157,33 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                 <div className={`bg-white rounded-3xl p-6 border-2 flex flex-col justify-between transition-all ${
                   memberType === 'annual_paid'
                     ? 'border-emerald-600 shadow-md ring-2 ring-emerald-500/20'
-                    : 'border-[#E8DFC8] hover:border-[#C04A26] shadow-sm'
+                    : 'border-[#E4D8BF] hover:border-[#B04E2A] shadow-sm'
                 }`}>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                         Modalidad Directa
                       </span>
-                      <div className="w-8 h-8 rounded-xl bg-[#0D1B2D]/5 text-[#0D1B2D] flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-xl bg-[#14281C]/5 text-[#14281C] flex items-center justify-center">
                         <CreditCard className="w-4 h-4" />
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-extrabold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                      <h3 className="text-lg font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                         Fee Anual Creador
                       </h3>
                       <p className="text-xs text-slate-500">Acceso completo durante 12 meses</p>
                     </div>
 
                     <div className="flex items-baseline gap-1 py-1">
-                      <span className="text-3xl font-extrabold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                      <span className="text-3xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                         $49.990
                       </span>
                       <span className="text-xs font-bold text-slate-500 uppercase">CLP / año (Mercado Pago)</span>
                     </div>
 
-                    <ul className="space-y-2 text-xs text-slate-600 border-t border-[#FAF7F2] pt-3">
+                    <ul className="space-y-2 text-xs text-slate-600 border-t border-[#F6F1E5] pt-3">
                       <li className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                         <span>Publicación de rutas y audioguías ilimitadas en <strong>www.elviaje.cl</strong></span>
@@ -230,12 +230,12 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                 </div>
 
                 {/* Option 2: Free Access via Personalized Heritage Consulting */}
-                <div className={`bg-gradient-to-br from-[#27523C] to-[#163625] text-white rounded-3xl p-6 border-2 flex flex-col justify-between relative overflow-hidden transition-all ${
+                <div className={`bg-gradient-to-br from-[#2F5238] to-[#203C29] text-white rounded-3xl p-6 border-2 flex flex-col justify-between relative overflow-hidden transition-all ${
                   memberType === 'consulting_free'
                     ? 'border-emerald-300 shadow-xl ring-2 ring-emerald-400/40'
                     : 'border-emerald-700 shadow-md hover:border-emerald-400'
                 }`}>
-                  <div className="absolute top-0 right-0 bg-[#C04A26] text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-bl-2xl shadow">
+                  <div className="absolute top-0 right-0 bg-[#B04E2A] text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-bl-2xl shadow">
                     Recomendado
                   </div>
 
@@ -247,7 +247,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-extrabold text-white font-['Outfit',sans-serif] flex items-center gap-2">
+                      <h3 className="text-lg font-extrabold text-white font-['Cormorant_Garamond',Georgia,serif] flex items-center gap-2">
                         <span>Consultoría Personalizada</span>
                         <Sparkles className="w-4 h-4 text-amber-300" />
                       </h3>
@@ -255,7 +255,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                     </div>
 
                     <div className="flex items-baseline gap-1 py-1">
-                      <span className="text-3xl font-extrabold text-white font-['Outfit',sans-serif]">
+                      <span className="text-3xl font-extrabold text-white font-['Cormorant_Garamond',Georgia,serif]">
                         GRATIS
                       </span>
                       <span className="text-xs font-bold text-emerald-200">con tu sesión de consultoría</span>
@@ -292,7 +292,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                           href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full py-3 bg-[#C04A26] hover:bg-[#A63A19] text-white text-xs font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
+                          className="w-full py-3 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
                         >
                           <span>Agendar Consultoría en Tienda El Viaje</span>
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -315,12 +315,12 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
             </>
           ) : (
             /* Tab: Redeem Voucher */
-            <div className="bg-white p-6 rounded-3xl border border-[#E8DFC8] shadow-sm space-y-5">
+            <div className="bg-white p-6 rounded-3xl border border-[#E4D8BF] shadow-sm space-y-5">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-2xl bg-[#C04A26]/10 text-[#C04A26] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-2xl bg-[#B04E2A]/10 text-[#B04E2A] flex items-center justify-center font-bold">
                   <Key className="w-5 h-5" />
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-[#0D1B2D] font-['Outfit',sans-serif]">
+                <h3 className="text-base sm:text-lg font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                   ¿Realizaste tu Consultoría en Tienda El Viaje?
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
@@ -338,7 +338,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                     value={voucherCode}
                     onChange={(e) => setVoucherCode(e.target.value)}
                     placeholder="Ej. CONSULTORIA-CHILE-2026 o VIAJE-PATRIMONIO"
-                    className="w-full px-4 py-3 bg-[#FAF7F2] border border-[#D4C5A9] rounded-2xl font-mono text-sm uppercase focus:bg-white focus:ring-2 focus:ring-[#C04A26] focus:outline-none"
+                    className="w-full px-4 py-3 bg-[#F6F1E5] border border-[#CDBA95] rounded-2xl font-mono text-sm uppercase focus:bg-white focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
                   />
                   {voucherError && (
                     <p className="text-xs text-rose-600 mt-1 font-semibold">{voucherError}</p>
@@ -354,7 +354,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                 <div className="flex items-center gap-3">
                   <button
                     type="submit"
-                    className="px-6 py-2.5 bg-[#C04A26] hover:bg-[#A63A19] text-white text-xs font-bold rounded-xl shadow-md transition-all"
+                    className="px-6 py-2.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold rounded-xl shadow-md transition-all"
                   >
                     Activar Membresía Gratuita
                   </button>
@@ -363,7 +363,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                     onClick={() => {
                       setVoucherCode('CONSULTORIA-TIENDAELVIAJE');
                     }}
-                    className="text-xs text-slate-500 hover:text-[#C04A26] underline font-semibold"
+                    className="text-xs text-slate-500 hover:text-[#B04E2A] underline font-semibold"
                   >
                     Usar código demo (CONSULTORIA-TIENDAELVIAJE)
                   </button>
@@ -375,9 +375,9 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-white border-t border-[#E8DFC8] flex items-center justify-between">
+        <div className="px-6 py-4 bg-white border-t border-[#E4D8BF] flex items-center justify-between">
           <div className="text-xs text-slate-500 font-semibold">
-            Dominio oficial: <strong className="font-mono text-[#C04A26]">www.elviaje.cl</strong>
+            Dominio oficial: <strong className="font-mono text-[#B04E2A]">www.elviaje.cl</strong>
           </div>
           <button
             onClick={onClose}

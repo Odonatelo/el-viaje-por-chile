@@ -2,16 +2,49 @@
 
 @layer base {
   :root {
-    --copper-primary: #C04A26;
-    --copper-hover: #A63A19;
-    --copper-dark: #872C10;
-    --andean-navy: #15273F;
-    --andean-navy-dark: #0D1B2D;
-    --forest-moss: #27523C;
-    --parchment-bg: #FAF7F2;
-    --sand-border: #E8DFC8;
+    --copper-primary: #B04E2A;
+    --copper-hover: #9A3F1E;
+    --copper-dark: #7E331A;
+    --andean-navy: #1D3626;
+    --andean-navy-dark: #14281C;
+    --forest-moss: #2F5238;
+    --parchment-bg: #F6F1E5;
+    --sand-border: #E4D8BF;
     --ochre-gold: #D97706;
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--parchment-bg);
+    color: #1C1A14;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Titulares editoriales inspirados en la estética de Fundación Cerros Isla */
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Sobre-título editorial (overline) estilo www.fundacioncerrosisla.cl */
+.cerro-overline {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 600;
 }
 
 @keyframes floatSlow {
@@ -38,23 +71,21 @@
   animation: radarPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Custom scrollbar matching Chilean expedition aesthetics */
+/* Custom scrollbar matching the earthy "Cerros Isla" palette */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F2ECE1;
+  background: #F6F1E5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4C5A9;
+  background: #CDBA95;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C04A26;
+  background: #B04E2A;
 }
-
-

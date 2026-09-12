@@ -168,20 +168,20 @@ ${trackPointsXml}
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-[#FAF7F2] w-full max-w-4xl rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="bg-[#F6F1E5] w-full max-w-4xl rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden flex flex-col max-h-[92vh]">
         
         {/* Modal Top Bar */}
-        <div className="bg-[#0D1B2D] text-white p-6 relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#2B4B70]">
+        <div className="bg-[#14281C] text-white p-6 relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#40624A]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#C04A26] text-white uppercase tracking-wider">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#B04E2A] text-white uppercase tracking-wider">
                 Formatos Descargables de la Ruta
               </span>
               <span className="text-xs text-slate-300 font-medium">
                 {tour.city}, Chile
               </span>
             </div>
-            <h2 className="text-xl font-bold font-['Outfit',sans-serif] text-white line-clamp-1">
+            <h2 className="text-xl font-bold font-['Cormorant_Garamond',Georgia,serif] text-white line-clamp-1">
               {tour.title}
             </h2>
             <p className="text-xs text-slate-300 mt-0.5">
@@ -198,12 +198,12 @@ ${trackPointsXml}
         </div>
 
         {/* Format Select Tabs */}
-        <div className="flex flex-wrap items-center bg-white border-b border-[#E8DFC8] px-6 gap-2">
+        <div className="flex flex-wrap items-center bg-white border-b border-[#E4D8BF] px-6 gap-2">
           <button
             onClick={() => setExportType('field_guide')}
             className={`py-3.5 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
               exportType === 'field_guide'
-                ? 'border-[#C04A26] text-[#C04A26]'
+                ? 'border-[#B04E2A] text-[#B04E2A]'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -215,7 +215,7 @@ ${trackPointsXml}
             onClick={() => setExportType('gpx')}
             className={`py-3.5 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
               exportType === 'gpx'
-                ? 'border-[#C04A26] text-[#C04A26]'
+                ? 'border-[#B04E2A] text-[#B04E2A]'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -227,7 +227,7 @@ ${trackPointsXml}
             onClick={() => setExportType('kml')}
             className={`py-3.5 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
               exportType === 'kml'
-                ? 'border-[#C04A26] text-[#C04A26]'
+                ? 'border-[#B04E2A] text-[#B04E2A]'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -239,7 +239,7 @@ ${trackPointsXml}
             onClick={() => setExportType('json')}
             className={`py-3.5 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
               exportType === 'json'
-                ? 'border-[#C04A26] text-[#C04A26]'
+                ? 'border-[#B04E2A] text-[#B04E2A]'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -261,7 +261,7 @@ ${trackPointsXml}
           {/* TAB 1: GUÍA DE CAMPO & ITINERARIO IMPRIMIBLE */}
           {exportType === 'field_guide' && (
             <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-[#E8DFC8]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-[#E4D8BF]">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">
                     Itinerario de Expedición & Guía de Campo Completa
@@ -273,7 +273,7 @@ ${trackPointsXml}
 
                 <button
                   onClick={() => window.print()}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#C04A26] hover:bg-[#A63A19] text-white rounded-xl font-bold text-xs shadow-md transition-all flex-shrink-0 cursor-pointer"
+                  className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl font-bold text-xs shadow-md transition-all flex-shrink-0 cursor-pointer"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Imprimir / Guardar en PDF</span>
@@ -283,15 +283,15 @@ ${trackPointsXml}
               {/* Printable Field Guide Container (Styled for Screen & Print) */}
               <div 
                 id="printable-route-guide" 
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8DFC8] shadow-sm space-y-6 text-slate-900 font-['Outfit',sans-serif]"
+                className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E4D8BF] shadow-sm space-y-6 text-slate-900 font-['Cormorant_Garamond',Georgia,serif]"
               >
                 {/* Header of the Field Guide */}
-                <div className="border-b-2 border-[#0D1B2D] pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="border-b-2 border-[#14281C] pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
-                    <span className="text-[11px] font-black text-[#C04A26] uppercase tracking-widest">
+                    <span className="text-[11px] font-black text-[#B04E2A] uppercase tracking-widest">
                       🇨🇱 El Viaje Por Chile • Guía de Ruta Patrimonial
                     </span>
-                    <h1 className="text-2xl font-extrabold text-[#0D1B2D]">
+                    <h1 className="text-2xl font-extrabold text-[#14281C]">
                       {tour.title}
                     </h1>
                     <p className="text-xs text-slate-600 italic">
@@ -299,12 +299,12 @@ ${trackPointsXml}
                     </p>
                   </div>
 
-                  <div className="p-3 bg-[#FAF7F2] rounded-2xl border border-[#E8DFC8] flex items-center gap-3">
+                  <div className="p-3 bg-[#F6F1E5] rounded-2xl border border-[#E4D8BF] flex items-center gap-3">
                     <QRCodeSVG
                       value={`https://www.elviaje.cl/tours?tourId=${encodeURIComponent(tour.id)}`}
                       size={64}
                       level="M"
-                      fgColor="#0D1B2D"
+                      fgColor="#14281C"
                     />
                     <div className="text-[10px] text-slate-600 leading-tight">
                       <strong className="block text-slate-900">Acceso Móvil</strong>
@@ -314,7 +314,7 @@ ${trackPointsXml}
                 </div>
 
                 {/* Technical Overview Matrix */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DFC8] text-xs">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F6F1E5] p-4 rounded-2xl border border-[#E4D8BF] text-xs">
                   <div>
                     <span className="text-[10px] font-bold text-slate-500 uppercase block">Destino</span>
                     <strong className="text-slate-900">{tour.city}, {tour.country}</strong>
@@ -351,11 +351,11 @@ ${trackPointsXml}
                     {tour.stops.map((stop) => (
                       <div
                         key={stop.id}
-                        className="p-4 rounded-2xl border border-[#E8DFC8] bg-[#FAF7F2]/60 flex flex-col sm:flex-row gap-4 justify-between"
+                        className="p-4 rounded-2xl border border-[#E4D8BF] bg-[#F6F1E5]/60 flex flex-col sm:flex-row gap-4 justify-between"
                       >
                         <div className="space-y-2 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="w-6 h-6 rounded-full bg-[#C04A26] text-white font-bold text-xs flex items-center justify-center flex-shrink-0">
+                            <span className="w-6 h-6 rounded-full bg-[#B04E2A] text-white font-bold text-xs flex items-center justify-center flex-shrink-0">
                               {stop.order}
                             </span>
                             <h5 className="font-bold text-sm text-slate-900">
@@ -377,7 +377,7 @@ ${trackPointsXml}
                           {(stop.trivia || stop.tips) && (
                             <div className="text-[11px] bg-white p-2.5 rounded-xl border border-slate-200 space-y-1">
                               {stop.trivia && (
-                                <p><strong className="text-[#C04A26]">Dato Curioso:</strong> {stop.trivia}</p>
+                                <p><strong className="text-[#B04E2A]">Dato Curioso:</strong> {stop.trivia}</p>
                               )}
                               {stop.tips && (
                                 <p><strong className="text-slate-700">Recomendación:</strong> {stop.tips}</p>
@@ -393,14 +393,14 @@ ${trackPointsXml}
                         </div>
 
                         {/* Stop QR Code for instant listening */}
-                        <div className="flex flex-col items-center justify-center p-3 bg-white rounded-2xl border border-[#E8DFC8] flex-shrink-0 text-center w-28">
+                        <div className="flex flex-col items-center justify-center p-3 bg-white rounded-2xl border border-[#E4D8BF] flex-shrink-0 text-center w-28">
                           <QRCodeSVG
                             value={`https://www.elviaje.cl/tours?stopId=${encodeURIComponent(stop.id)}&order=${stop.order}`}
                             size={72}
                             level="M"
-                            fgColor="#0D1B2D"
+                            fgColor="#14281C"
                           />
-                          <span className="text-[9px] font-bold text-[#C04A26] mt-1.5 leading-none">
+                          <span className="text-[9px] font-bold text-[#B04E2A] mt-1.5 leading-none">
                             🎧 Audio Hito #{stop.order}
                           </span>
                         </div>
@@ -421,9 +421,9 @@ ${trackPointsXml}
           {/* TAB 2: ARCHIVO GPS .GPX */}
           {exportType === 'gpx' && (
             <div className="space-y-6">
-              <div className="p-5 bg-white rounded-3xl border border-[#E8DFC8] space-y-4">
+              <div className="p-5 bg-white rounded-3xl border border-[#E4D8BF] space-y-4">
                 <div className="flex items-start gap-3">
-                  <Compass className="w-6 h-6 text-[#C04A26] flex-shrink-0 mt-0.5" />
+                  <Compass className="w-6 h-6 text-[#B04E2A] flex-shrink-0 mt-0.5" />
                   <div>
                     <h3 className="text-base font-bold text-slate-900">
                       Archivo de Navegación GPS Universal (.GPX)
@@ -434,7 +434,7 @@ ${trackPointsXml}
                   </div>
                 </div>
 
-                <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DFC8] space-y-2 text-xs text-slate-700">
+                <div className="bg-[#F6F1E5] p-4 rounded-2xl border border-[#E4D8BF] space-y-2 text-xs text-slate-700">
                   <p className="font-bold text-slate-900">Contenido del archivo GPX generado:</p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li><strong>{tour.stops.length} Waypoints georreferenciados</strong> con nombres, coordenadas exactas y notas interpretativas.</li>
@@ -445,9 +445,9 @@ ${trackPointsXml}
 
                 <button
                   onClick={handleDownloadGPX}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 bg-[#0D1B2D] hover:bg-[#192E47] text-white rounded-2xl font-bold text-xs shadow-lg transition-all cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 bg-[#14281C] hover:bg-[#223F2C] text-white rounded-2xl font-bold text-xs shadow-lg transition-all cursor-pointer"
                 >
-                  <Download className="w-4 h-4 text-[#F59E7C]" />
+                  <Download className="w-4 h-4 text-[#E8A58B]" />
                   <span>Descargar Archivo GPX ({sanitizeFilename(tour.title)}.gpx)</span>
                 </button>
               </div>
@@ -457,7 +457,7 @@ ${trackPointsXml}
           {/* TAB 3: GOOGLE EARTH .KML */}
           {exportType === 'kml' && (
             <div className="space-y-6">
-              <div className="p-5 bg-white rounded-3xl border border-[#E8DFC8] space-y-4">
+              <div className="p-5 bg-white rounded-3xl border border-[#E4D8BF] space-y-4">
                 <div className="flex items-start gap-3">
                   <Navigation className="w-6 h-6 text-[#009EE3] flex-shrink-0 mt-0.5" />
                   <div>
@@ -470,7 +470,7 @@ ${trackPointsXml}
                   </div>
                 </div>
 
-                <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DFC8] space-y-2 text-xs text-slate-700">
+                <div className="bg-[#F6F1E5] p-4 rounded-2xl border border-[#E4D8BF] space-y-2 text-xs text-slate-700">
                   <p className="font-bold text-slate-900">Compatibilidad directa:</p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>Google Earth (Web, Escritorio y Móvil).</li>
@@ -493,7 +493,7 @@ ${trackPointsXml}
           {/* TAB 4: GEOJSON DATOS ABIERTOS */}
           {exportType === 'json' && (
             <div className="space-y-6">
-              <div className="p-5 bg-white rounded-3xl border border-[#E8DFC8] space-y-4">
+              <div className="p-5 bg-white rounded-3xl border border-[#E4D8BF] space-y-4">
                 <div className="flex items-start gap-3">
                   <FileCode className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <div>
@@ -520,11 +520,11 @@ ${trackPointsXml}
         </div>
 
         {/* Footer */}
-        <div className="p-4 bg-[#F2ECE1] border-t border-[#E8DFC8] flex items-center justify-between text-xs text-slate-600">
+        <div className="p-4 bg-[#EEE6D3] border-t border-[#E4D8BF] flex items-center justify-between text-xs text-slate-600">
           <span className="font-semibold text-slate-700">El Viaje Por Chile • Tienda El Viaje</span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-[#E8DFC8] transition-colors"
+            className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-[#E4D8BF] transition-colors"
           >
             Cerrar
           </button>

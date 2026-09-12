@@ -206,10 +206,10 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-[#FAF7F2] w-full max-w-3xl rounded-3xl shadow-2xl border border-[#E8DFC8] overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-[#F6F1E5] w-full max-w-3xl rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden flex flex-col max-h-[90vh]">
         
         {/* Header with Mercado Pago Chile Official Badge */}
-        <div className="bg-[#0D1B2D] text-white p-6 relative flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#2B4B70]">
+        <div className="bg-[#14281C] text-white p-6 relative flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#40624A]">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#009EE3] text-white tracking-wider uppercase">
@@ -220,7 +220,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                 www.mercadopago.cl
               </span>
             </div>
-            <h2 className="text-xl font-bold font-['Outfit',sans-serif] text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold font-['Cormorant_Garamond',Georgia,serif] text-white flex items-center gap-2">
               Pasarela de Monetización & Pagos
             </h2>
             <p className="text-xs text-slate-300">
@@ -237,7 +237,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center border-b border-[#E8DFC8] bg-white px-6">
+        <div className="flex items-center border-b border-[#E4D8BF] bg-white px-6">
           <button
             onClick={() => setActiveTab('checkout')}
             className={`py-3 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
@@ -256,7 +256,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                 onClick={() => setActiveTab('admin_settings')}
                 className={`py-3 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
                   activeTab === 'admin_settings'
-                    ? 'border-[#C04A26] text-[#C04A26]'
+                    ? 'border-[#B04E2A] text-[#B04E2A]'
                     : 'border-transparent text-slate-500 hover:text-slate-900'
                 }`}
               >
@@ -268,7 +268,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                 onClick={() => setActiveTab('history')}
                 className={`py-3 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
                   activeTab === 'history'
-                    ? 'border-[#0D1B2D] text-[#0D1B2D]'
+                    ? 'border-[#14281C] text-[#14281C]'
                     : 'border-transparent text-slate-500 hover:text-slate-900'
                 }`}
               >
@@ -323,7 +323,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                     className={`p-4 rounded-2xl border-2 cursor-pointer transition-all ${
                       selectedPlan === 'single_tour'
                         ? 'border-[#009EE3] bg-[#009EE3]/5 shadow-md'
-                        : 'border-[#E8DFC8] bg-white hover:border-slate-400'
+                        : 'border-[#E4D8BF] bg-white hover:border-slate-400'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -332,7 +332,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                     </div>
                     <h3 className="font-bold text-slate-900 text-sm">Publicación Individual</h3>
                     <div className="my-2">
-                      <span className="text-xl font-black text-[#0D1B2D]">
+                      <span className="text-xl font-black text-[#14281C]">
                         ${(config.singleTourPriceClp || 14990).toLocaleString('es-CL')}
                       </span>
                       <span className="text-[10px] text-slate-500 font-bold ml-1">CLP</span>
@@ -349,20 +349,20 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                     onClick={() => setSelectedPlan('annual_membership')}
                     className={`p-4 rounded-2xl border-2 cursor-pointer relative transition-all ${
                       selectedPlan === 'annual_membership'
-                        ? 'border-[#C04A26] bg-[#C04A26]/5 shadow-lg'
-                        : 'border-[#E8DFC8] bg-white hover:border-slate-400'
+                        ? 'border-[#B04E2A] bg-[#B04E2A]/5 shadow-lg'
+                        : 'border-[#E4D8BF] bg-white hover:border-slate-400'
                     }`}
                   >
-                    <div className="absolute -top-2.5 right-3 bg-[#C04A26] text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow">
+                    <div className="absolute -top-2.5 right-3 bg-[#B04E2A] text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow">
                       Recomendado
                     </div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold text-[#C04A26] uppercase">Membresía Anual</span>
-                      {selectedPlan === 'annual_membership' && <CheckCircle2 className="w-4 h-4 text-[#C04A26]" />}
+                      <span className="text-[10px] font-bold text-[#B04E2A] uppercase">Membresía Anual</span>
+                      {selectedPlan === 'annual_membership' && <CheckCircle2 className="w-4 h-4 text-[#B04E2A]" />}
                     </div>
                     <h3 className="font-bold text-slate-900 text-sm">Creador Ilimitado</h3>
                     <div className="my-2">
-                      <span className="text-xl font-black text-[#C04A26]">
+                      <span className="text-xl font-black text-[#B04E2A]">
                         ${(config.annualMembershipPriceClp || 49990).toLocaleString('es-CL')}
                       </span>
                       <span className="text-[10px] text-slate-500 font-bold ml-1">CLP / año</span>
@@ -380,17 +380,17 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                     onClick={() => setSelectedPlan('enterprise_pack')}
                     className={`p-4 rounded-2xl border-2 cursor-pointer transition-all ${
                       selectedPlan === 'enterprise_pack'
-                        ? 'border-[#0D1B2D] bg-[#0D1B2D]/5 shadow-md'
-                        : 'border-[#E8DFC8] bg-white hover:border-slate-400'
+                        ? 'border-[#14281C] bg-[#14281C]/5 shadow-md'
+                        : 'border-[#E4D8BF] bg-white hover:border-slate-400'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[10px] font-bold text-slate-500 uppercase">Institucional</span>
-                      {selectedPlan === 'enterprise_pack' && <CheckCircle2 className="w-4 h-4 text-[#0D1B2D]" />}
+                      {selectedPlan === 'enterprise_pack' && <CheckCircle2 className="w-4 h-4 text-[#14281C]" />}
                     </div>
                     <h3 className="font-bold text-slate-900 text-sm">Municipal & Turismo</h3>
                     <div className="my-2">
-                      <span className="text-xl font-black text-[#0D1B2D]">
+                      <span className="text-xl font-black text-[#14281C]">
                         ${(config.enterprisePriceClp || 189990).toLocaleString('es-CL')}
                       </span>
                       <span className="text-[10px] text-slate-500 font-bold ml-1">CLP</span>
@@ -405,7 +405,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
               </div>
 
               {/* Payer Details */}
-              <div className="bg-white p-5 rounded-2xl border border-[#E8DFC8] space-y-4">
+              <div className="bg-white p-5 rounded-2xl border border-[#E4D8BF] space-y-4">
                 <h4 className="text-xs font-bold text-slate-900 uppercase flex items-center gap-2">
                   <UserCheck className="w-4 h-4 text-[#009EE3]" />
                   Datos del Pagador (Receptor de la Activación)
@@ -419,7 +419,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                       value={payerName}
                       onChange={(e) => setPayerName(e.target.value)}
                       placeholder="Ej. Fundación Patrimonial Aysén"
-                      className="w-full px-3 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl focus:ring-2 focus:ring-[#009EE3]"
+                      className="w-full px-3 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl focus:ring-2 focus:ring-[#009EE3]"
                     />
                   </div>
                   <div>
@@ -429,7 +429,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                       value={payerEmail}
                       onChange={(e) => setPayerEmail(e.target.value)}
                       placeholder="correo@ejemplo.cl"
-                      className="w-full px-3 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl focus:ring-2 focus:ring-[#009EE3]"
+                      className="w-full px-3 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl focus:ring-2 focus:ring-[#009EE3]"
                     />
                   </div>
                 </div>
@@ -507,7 +507,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
               </div>
 
               {/* Easy Setup Form */}
-              <div className="bg-white p-5 rounded-2xl border border-[#E8DFC8] space-y-4">
+              <div className="bg-white p-5 rounded-2xl border border-[#E4D8BF] space-y-4">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-slate-900 uppercase">
                     1. Credenciales de Mercado Pago Chile
@@ -533,7 +533,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                       value={config.accessToken || ''}
                       onChange={(e) => setConfig({ ...config, accessToken: e.target.value })}
                       placeholder="APP_USR-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-                      className="w-full px-3.5 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono focus:ring-2 focus:ring-[#009EE3]"
+                      className="w-full px-3.5 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono focus:ring-2 focus:ring-[#009EE3]"
                     />
                     <span className="text-[10px] text-slate-500 block mt-0.5">
                       Ingresa tu Access Token de www.mercadopago.cl para activar cobros en vivo.
@@ -549,14 +549,14 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                       value={config.publicKey || ''}
                       onChange={(e) => setConfig({ ...config, publicKey: e.target.value })}
                       placeholder="APP_USR-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-                      className="w-full px-3.5 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-mono focus:ring-2 focus:ring-[#009EE3]"
+                      className="w-full px-3.5 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono focus:ring-2 focus:ring-[#009EE3]"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Pricing in Chilean Pesos (CLP) */}
-              <div className="bg-white p-5 rounded-2xl border border-[#E8DFC8] space-y-4">
+              <div className="bg-white p-5 rounded-2xl border border-[#E4D8BF] space-y-4">
                 <h4 className="text-xs font-bold text-slate-900 uppercase">
                   2. Definición de Tarifas de Cobro en Pesos Chilenos (CLP)
                 </h4>
@@ -572,7 +572,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                         type="number"
                         value={config.singleTourPriceClp || 14990}
                         onChange={(e) => setConfig({ ...config, singleTourPriceClp: Number(e.target.value) })}
-                        className="w-full pl-7 pr-3 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-bold text-slate-900"
+                        className="w-full pl-7 pr-3 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-bold text-slate-900"
                       />
                     </div>
                     <span className="text-[10px] text-slate-500 mt-0.5 block">Por subir 1 audioguía</span>
@@ -588,7 +588,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                         type="number"
                         value={config.annualMembershipPriceClp || 49990}
                         onChange={(e) => setConfig({ ...config, annualMembershipPriceClp: Number(e.target.value) })}
-                        className="w-full pl-7 pr-3 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-bold text-slate-900"
+                        className="w-full pl-7 pr-3 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-bold text-slate-900"
                       />
                     </div>
                     <span className="text-[10px] text-slate-500 mt-0.5 block">1 año de subidas ilimitadas</span>
@@ -604,7 +604,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                         type="number"
                         value={config.enterprisePriceClp || 189990}
                         onChange={(e) => setConfig({ ...config, enterprisePriceClp: Number(e.target.value) })}
-                        className="w-full pl-7 pr-3 py-2 text-xs bg-[#FAF7F2] border border-[#E8DFC8] rounded-xl font-bold text-slate-900"
+                        className="w-full pl-7 pr-3 py-2 text-xs bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-bold text-slate-900"
                       />
                     </div>
                     <span className="text-[10px] text-slate-500 mt-0.5 block">Pack institucional</span>
@@ -616,7 +616,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
               <button
                 type="submit"
                 disabled={isProcessing}
-                className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#0D1B2D] hover:bg-[#192E47] text-white rounded-2xl font-bold text-xs shadow-lg transition-all"
+                className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#14281C] hover:bg-[#223F2C] text-white rounded-2xl font-bold text-xs shadow-lg transition-all"
               >
                 {isProcessing ? (
                   <>
@@ -625,7 +625,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                   </>
                 ) : (
                   <>
-                    <ShieldCheck className="w-4 h-4 text-[#F59E7C]" />
+                    <ShieldCheck className="w-4 h-4 text-[#E8A58B]" />
                     <span>Guardar y Aplicar Configuración de Mercado Pago</span>
                   </>
                 )}
@@ -652,7 +652,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                 {paymentHistory.map((item) => (
                   <div
                     key={item.id}
-                    className="p-4 bg-white rounded-2xl border border-[#E8DFC8] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                    className="p-4 bg-white rounded-2xl border border-[#E4D8BF] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
@@ -669,7 +669,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
                     </div>
 
                     <div className="text-right flex sm:flex-col items-center sm:items-end justify-between">
-                      <span className="text-base font-extrabold text-[#0D1B2D]">
+                      <span className="text-base font-extrabold text-[#14281C]">
                         ${item.amountClp.toLocaleString('es-CL')} CLP
                       </span>
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 mt-1">
@@ -686,14 +686,14 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-[#F2ECE1] border-t border-[#E8DFC8] flex items-center justify-between text-xs text-slate-600">
+        <div className="p-4 bg-[#EEE6D3] border-t border-[#E4D8BF] flex items-center justify-between text-xs text-slate-600">
           <div className="flex items-center gap-2">
             <Lock className="w-3.5 h-3.5 text-slate-500" />
             <span>Monetización autorizada www.elviaje.cl • Mercado Pago Chile</span>
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-[#E8DFC8] transition-colors"
+            className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-[#E4D8BF] transition-colors"
           >
             Cerrar
           </button>
