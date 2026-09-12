@@ -38,16 +38,16 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-mapa-carretera-austral',
         name: 'Guía de Ruta: Carretera Austral y Cuenca del Lago General Carrera.pdf',
         type: 'pdf',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '6.8 MB',
+        url: '/pdf/doc-mapa-carretera-austral.pdf',
+        size: '75 KB',
         description: 'Mapa hidrográfico, tiempos de navegación lacustre, estaciones de combustible y miradores panorámicos.'
       },
       {
         id: 'doc-geologia-marmol',
         name: 'Ficha Científica: Geomorfología y Cavernas de Carbonato de Calcio.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.4 MB',
+        url: '/pdf/doc-geologia-marmol.pdf',
+        size: '68 KB',
         description: 'Estudio de los minerales, cambios de nivel del lago y conservación del Santuario de la Naturaleza.'
       }
     ],
@@ -244,16 +244,16 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-mapa-valpo',
         name: 'Mapa Ilustrado y Guía de Cerros de Valparaíso.pdf',
         type: 'pdf',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.2 MB',
+        url: '/pdf/doc-mapa-valpo.pdf',
+        size: '69 KB',
         description: 'Plano con arquitectura de chapa, ubicación de funiculares y miradores icónicos.'
       },
       {
         id: 'doc-fauna-costa',
         name: 'Guía de Campo: Aves Costeras y Flora Urbana de Chile Central.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '2.1 MB',
+        url: '/pdf/doc-fauna-costa.pdf',
+        size: '69 KB',
         description: 'Ficha de campo de Tienda El Viaje sobre gaviotas, pelícanos y árboles patrimoniales.'
       }
     ],
@@ -371,8 +371,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-plano-stgo-colonial',
         name: 'Plano del Santiago Colonial y Cuadrícula Damero.pdf',
         type: 'pdf',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.1 MB',
+        url: '/pdf/doc-plano-stgo-colonial.pdf',
+        size: '609 KB',
         description: 'Evolución del trazado urbano ideado por Pedro de Gamboa en 1541.'
       }
     ],
@@ -453,8 +453,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-guia-geologia-atacama',
         name: 'Guía Geológica del Desierto de Atacama y Cordillera de la Sal.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '5.8 MB',
+        url: '/pdf/doc-guia-geologia-atacama.pdf',
+        size: '69 KB',
         description: 'Explicación de minerales, evaporitas, estratigrafía y fauna del altiplano chileno.'
       }
     ],
@@ -535,24 +535,24 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-entradas-w',
         name: 'Entradas y Reservas Torres del Paine 2025-2026 (pasesparques.cl).pdf',
         type: 'pdf',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.8 MB',
+        url: '/pdf/doc-entradas-w.pdf',
+        size: '70 KB',
         description: 'Nuevo sistema de tickets sectoriales vigente desde el 1 de mayo de 2026: pases por sector (Full Day vehículo, Base Torres, Circuito W, Circuito Macizo Paine), multitarifa según nacionalidad, descuentos residentes chilenos, exenciones y cupos diarios por sector. Incluye cómo reservar refugios y campings con Las Torres Patagonia y Vertice Patagonia, y del catamarán Pudeto-Paine Grande.'
       },
       {
         id: 'doc-w-vs-o',
         name: 'Circuito W vs O: trazados, distancias y dónde dormir.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '5.2 MB',
+        url: '/pdf/doc-w-vs-o.pdf',
+        size: '72 KB',
         description: 'La W en detalle (4–6 días, 63–85 km): Base Torres (20 km ida y vuelta, 8 h, +780 m), Valle del Francés y Glaciar Grey, con tiempos y desniveles por tramo. La O (7–10 días, ~130 km) con el tramo unidireccional Paso John Gardner (1.200 msnm) entre Los Perros y Guardería Paso, y campamentos Dickson, Los Perros y Serón. Estado actual: campamentos CONAF Italiano y Paso cerrados, temporada de refugios oct–abril.'
       },
       {
         id: 'doc-clima-seguridad',
         name: 'Clima, Seguridad y Equipamiento Patagónico.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.1 MB',
+        url: '/pdf/doc-clima-seguridad.pdf',
+        size: '58 KB',
         description: 'Las cuatro estaciones en un día, vientos de 50 a 100 km/h en los pasos abiertos, heladas sobre la morrena de Base Torres y el frente de Grey. Recomendaciones: sistema de capas, cortaviento y agua, bastones, microspikes temprana temporada, reservas con meses de anticipación para dic–feb, registro obligatorio en guarderías, prohibición de fuego y de acampar fuera de áreas habilitadas, y respeto por los cierres climáticos que CONAF declara (como el que afectó al Paso John Gardner en diciembre de 2025).'
       }
     ],
@@ -986,8 +986,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-guia-colchagua',
         name: 'Guía de Enoturismo y Terroirs del Valle de Colchagua.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.8 MB',
+        url: '/pdf/doc-guia-colchagua.pdf',
+        size: '68 KB',
         description: 'Mapa de bodegas, cepas patrimoniales (País, Carménère, Syrah) y gastronomía criolla.'
       }
     ],
@@ -1101,8 +1101,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-flora-selva-valdiviana',
         name: 'Guía Botánica: Especies Endémicas de la Selva Valdiviana.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.7 MB',
+        url: '/pdf/doc-flora-selva-valdiviana.pdf',
+        size: '68 KB',
         description: 'Ficha de identificación de Alerce, Coigüe, Mañío, Chucao y Monito del Monte.'
       }
     ],
@@ -1182,8 +1182,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-mapa-iglesias-chiloe',
         name: 'Guía Arquitectónica: Las 16 Iglesias de Madera UNESCO de Chiloé.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '5.2 MB',
+        url: '/pdf/doc-mapa-iglesias-chiloe.pdf',
+        size: '81 KB',
         description: 'Tipologías de ensambles en madera, tejuelas cortadas a mano y estilos jesuítico-franciscanos.'
       }
     ],
@@ -1263,8 +1263,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-historia-lota',
         name: 'Guía del Patrimonio Industrial: El Circuito del Carbón de Lota.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.9 MB',
+        url: '/pdf/doc-historia-lota.pdf',
+        size: '54 KB',
         description: 'Historia del pique minero, la familia Cousiño Goyenechea y la arquitectura de pabellones.'
       }
     ],
@@ -1344,7 +1344,7 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-guia-cielos-elqui',
         name: 'Guía de Astroturismo y Mapa Estelar del Valle del Elqui.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://mma.gob.cl/wp-content/uploads/2018/06/Cielos_2018_Chilean_Skies.pdf',
         size: '4.5 MB',
         description: 'Carta celeste de constelaciones australes, nebulosas y observatorios científicos y turísticos.'
       }
@@ -1426,16 +1426,16 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-ficha-chena',
         name: 'Ficha técnica Cerros de Chena (PRMS 8.3.1.3 · Área de Rehabilitación Ecológica).pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '2.9 MB',
+        url: '/pdf/doc-ficha-chena.pdf',
+        size: '56 KB',
         description: 'Altitud 952 msnm, superficie 1.390 ha, cobertura arbórea 30-40% y normativa PRC San Bernardo y Calera de Tango.'
       },
       {
         id: 'doc-huaca-chena',
         name: 'Estudio: La huaca del cerro Chena, arquitectura sagrada del pueblo inca (Bustamante, 1996).pdf',
         type: 'archive',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.7 MB',
+        url: '/pdf/doc-huaca-chena.pdf',
+        size: '72 KB',
         description: 'El sitio inca de Chena: semblanza de un puma hermafrodita sagrado y su orientación astronómica hacia los solsticios, según Rubén Stehberg.'
       }
     ],
@@ -1611,8 +1611,8 @@ export const INITIAL_TOURS: Tour[] = [
             id: 'doc-huaca-chena-stop',
             name: 'Planimetría y orientaciones astronómicas de la Huaca de Chena.pdf',
             type: 'sheet',
-            url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-            size: '2.2 MB',
+            url: '/pdf/doc-huaca-chena-stop.pdf',
+        size: '65 KB',
             description: 'Carta con la planta del sitio, la morfología de puma y las visuales de los solsticios.'
           }
         ],
@@ -1664,16 +1664,16 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-ficha-cantera',
         name: 'Ficha del proyecto: Cerro Escuela La Cantera (plan maestro).pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '5.1 MB',
+        url: '/pdf/doc-ficha-cantera.pdf',
+        size: '64 KB',
         description: 'Altura 51 msnm, superficie aproximada 7 ha, densa cobertura vegetal y 4 canteras en su interior.'
       },
       {
         id: 'doc-guia-florafauna-cantera',
         name: 'Guía de flora y fauna: Huilli, Lirio de campo y Chercán.pdf',
         type: 'brochure',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.3 MB',
+        url: '/pdf/doc-guia-florafauna-cantera.pdf',
+        size: '72 KB',
         description: 'Fichas ilustradas de las especies que se protegerán y propagarán en el vivero del cerro.'
       }
     ],
@@ -1904,15 +1904,15 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-ruta-gastronomica-muermina',
         name: 'Ruta Gastronómica y Patrimonial de Los Muermos.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.2 MB',
+        url: '/pdf/doc-ruta-gastronomica-muermina.pdf',
+        size: '50 KB',
         description: 'Mapa de la ruta autoguiada: accesos por las rutas V-50 y V-60, caletas, dunas y los restaurantes del circuito muermino.'
       },
       {
         id: 'doc-chungungo',
         name: 'Ficha de conservación: El chungungo (Lontra felina).pdf',
         type: 'brochure',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://clasificacionespecies.mma.gob.cl/wp-content/uploads/2019/10/Lontra_felina_P07.pdf',
         size: '2.9 MB',
         description: 'Guía de avistamiento responsable de la nutria marina más pequeña del mundo en la costa de Hua Huar.'
       }
@@ -2102,8 +2102,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-guia-puerto-montt-bizarro',
         name: 'Guía de la Ruta Bizarra de Puerto Montt.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '3.4 MB',
+        url: '/pdf/doc-guia-puerto-montt-bizarro.pdf',
+        size: '52 KB',
         description: 'Mapa de las 13 paradas: fundación, Plaza de Armas, Catedral, Casa Pauly, costanera, Casa del Arte, Pelluco y la animita de Bellavista.'
       }
     ],
@@ -2682,16 +2682,16 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-ruta-lago-llanquihue',
         name: 'Guía de Ruta: Cuenca del Lago Llanquihue, circuito a orillas del lago.pdf',
         type: 'pdf',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '5.9 MB',
+        url: '/pdf/doc-ruta-lago-llanquihue.pdf',
+        size: '65 KB',
         description: 'Mapa del circuito lacustre, tiempos de viaje entre localidades, miradores del volcán Osorno y recomendaciones de navegación.'
       },
       {
         id: 'doc-colonizacion-alemana',
         name: 'Ficha Histórica: Colonización Alemana del Lago Llanquihue, 1852-1875.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.1 MB',
+        url: '/pdf/doc-colonizacion-alemana.pdf',
+        size: '54 KB',
         description: 'Historia de la colonización, los barcos de veleros, la industria maderera, los tranques de manzanos y la arquitectura de madera.'
       }
     ],
@@ -2948,15 +2948,15 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-licencia-pesca',
         name: 'Licencia de Pesca Recreativa: cómo y dónde tramitarla.pdf',
         type: 'pdf',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '2.6 MB',
+        url: '/pdf/doc-licencia-pesca.pdf',
+        size: '69 KB',
         description: 'Paso a paso de la Ley N°20.256: obtener tu licencia en pescarecreativa.sernapesca.cl (con ClaveÚnica), en oficinas Sernapesca o en puntos de venta en convenio; exenciones para menores de 12, mayores de 65 y personas en situación de discapacidad; porte obligatorio junto a cédula o pasaporte.'
       },
       {
         id: 'doc-temporadas-vedas',
         name: 'Temporadas, Vedas y Cuotas de Salmónidos en Aguas Continentales.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://www.sernapesca.cl/app/uploads/2025/02/medidas_de_administracion_de_pesca_recreativa_en_chile_2024-2025_26.02.2025.pdf',
         size: '3.1 MB',
         description: 'Decreto Supremo N°320 de 1981: temporada general del segundo viernes de noviembre al primer domingo de mayo, veda biológica, cuota máxima de 3 ejemplares o 15 kg por jornada, una caña por persona, señuelos con anzuelo simple o triple araña y prohibición de pesca nocturna cerca de desembocaduras y desagües.'
       },
@@ -2964,8 +2964,8 @@ export const INITIAL_TOURS: Tour[] = [
         id: 'doc-especies-cuenca',
         name: 'Especies y Ecosistemas de la Cuenca del Lago Llanquihue.pdf',
         type: 'guide',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        size: '4.4 MB',
+        url: '/pdf/doc-especies-cuenca.pdf',
+        size: '67 KB',
         description: 'Salmónidos del lago, el río Petrohué, el Maullín y el estuario de Reloncaví: salmón Chinook, Coho y del Atlántico, trucha arcoíris y trucha café, además de las especies nativas; y el Santuario de la Naturaleza Humedales del Río Maullín.'
       }
     ],
