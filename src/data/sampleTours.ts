@@ -2542,6 +2542,284 @@ export const INITIAL_TOURS: Tour[] = [
       [-41.16, -72.62],
       [-41.17235, -72.44683]
     ]
+  },
+  {
+    id: 'tour-pesca-llanquihue',
+    title: '5 Días de Pesca: Trolling y Mosca por el Lago Llanquihue',
+    tagline: 'Audioguía con Partners Fishing Tours • Llanquihue, Petrohué, Maullín y el Estuario de Reloncaví',
+    description: 'Audioguía producida por El Viaje Por Chile (www.elviaje.cl) en colaboración con Partners Fishing Tours, el charter de Puerto Varas y Llanquihue que pesca desde el lago hasta las bocas oceánicas de Maullín. Cinco días entre trolling en el Lago Llanquihue, la pesca con mosca del Río Petrohué y sus saltos, los tramos neblinosos del Río Maullín, la desembocadura salobre del golfo Coronados y el Estuario de Reloncaví. Con guías trilingües, embarcación Tridente de 18 pies y el detalle de cada trámite: la licencia de pesca recreativa de Sernapesca, las temporadas, las vedas y las cuotas para salmónidos en aguas continentales.',
+    coverImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/R%C3%ADo_Petrohu%C3%A9-Chile3.jpg/1280px-R%C3%ADo_Petrohu%C3%A9-Chile3.jpg',
+    city: 'Cuenca del Lago Llanquihue (Puerto Varas, Petrohué, Maullín, Reloncaví)',
+    country: 'Chile',
+    category: 'nature',
+    language: 'Español',
+    durationMinutes: 7200,
+    distanceKm: 320.0,
+    difficulty: 'easy',
+    rating: 5.0,
+    reviewsCount: 210,
+    featured: true,
+    published: true,
+    createdAt: '2026-09-12T10:00:00Z',
+    updatedAt: '2026-09-12T10:00:00Z',
+    author: {
+      name: 'Partners Fishing Tours',
+      avatar: 'https://imgcdn.fishingbooker.com/charter/48489/m/e352f47f886f80ec127f0deb68719f36.jpg',
+      role: 'Operador de pesca recreativa en la Cuenca del Lago Llanquihue',
+      bio: 'Charter profesional de Puerto Varas y Llanquihue que opera desde el Lago Llanquihue hasta las bocas oceánicas de Maullín, con guías trilingües (español, inglés y portugués) y una embarcación Tridente de 18 pies. Tight lines and good fishing.',
+      verified: true
+    },
+    socialLinks: {
+      instagram: 'https://instagram.com/partnersflyfishing',
+      website: 'https://fishingbooker.com/es/charters/view/48489',
+      youtube: 'https://youtube.com/@tiendaelviaje'
+    },
+    generalDocuments: [
+      {
+        id: 'doc-licencia-pesca',
+        name: 'Licencia de Pesca Recreativa: cómo y dónde tramitarla.pdf',
+        type: 'pdf',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '2.6 MB',
+        description: 'Paso a paso de la Ley N°20.256: obtener tu licencia en pescarecreativa.sernapesca.cl (con ClaveÚnica), en oficinas Sernapesca o en puntos de venta en convenio; exenciones para menores de 12, mayores de 65 y personas en situación de discapacidad; porte obligatorio junto a cédula o pasaporte.'
+      },
+      {
+        id: 'doc-temporadas-vedas',
+        name: 'Temporadas, Vedas y Cuotas de Salmónidos en Aguas Continentales.pdf',
+        type: 'guide',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '3.1 MB',
+        description: 'Decreto Supremo N°320 de 1981: temporada general del segundo viernes de noviembre al primer domingo de mayo, veda biológica, cuota máxima de 3 ejemplares o 15 kg por jornada, una caña por persona, señuelos con anzuelo simple o triple araña y prohibición de pesca nocturna cerca de desembocaduras y desagües.'
+      },
+      {
+        id: 'doc-especies-cuenca',
+        name: 'Especies y Ecosistemas de la Cuenca del Lago Llanquihue.pdf',
+        type: 'guide',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        size: '4.4 MB',
+        description: 'Salmónidos del lago, el río Petrohué, el Maullín y el estuario de Reloncaví: salmón Chinook, Coho y del Atlántico, trucha arcoíris y trucha café, además de las especies nativas; y el Santuario de la Naturaleza Humedales del Río Maullín.'
+      }
+    ],
+    stops: [
+      {
+        id: 'stop-pesca-1',
+        order: 1,
+        title: 'Día 1: Trolling en el Lago Llanquihue',
+        subtitle: 'Cobertura, licencia y la primera línea de cucharas al amanecer',
+        category: 'nature',
+        location: {
+          lat: -41.31716,
+          lng: -72.98161,
+          address: 'Costanera y muelle pedraplén de Puerto Varas, salida de embarcaciones al Lago Llanquihue'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'Tu semana de pesca comienza en la costanera de Puerto Varas, al pie del lago. Antes de soltar amarras, deja lista tu licencia de pesca recreativa: es obligatoria para nacionales y extranjeros, personal e intransferible, y se obtiene en línea en pescarecreativa.sernapesca.cl (con ClaveÚnica), en oficinas de Sernapesca o en los puntos de venta en convenio. Están exentos menores de 12 años, mayores de 65 y las personas en situación de discapacidad inscritas en el Registro Nacional. La licencia debe portarse y exhibirse junto a la cédula, el pasaporte o el DNI cuando un fiscalizador lo requiera.\n\nYa con el trámite resuelto, zarpamos. En el Lago Llanquihue la técnica protagonista es el trolling: arrastrar señuelos artificiales, cucharillas y plugas por detrás de la embarcación a velocidad lenta, entre 1.5 y 3 nudos, mientras los downriggers eligen la profundidad del agua helada. Las especies de salmónidos del lago incluyen la trucha arcoíris, la trucha café o fario y el salmón plateado, junto a truchas asalmonadas que en primavera suben a las bocas de los ríos a desovar. El lago hoy también concentra centros de cultivo de salmón en agua dulce, y Sernapesca vigila cualquier posible escape de ejemplares asilvestrados.\n\nRegla de oro: en aguas continentales la temporada general de salmónidos corre del segundo viernes de noviembre al primer domingo de mayo, con una cuota máxima de 3 ejemplares o 15 kilos por jornada, una sola caña por persona y señuelos artificiales con anzuelo simple o triple araña. En el Lago Llanquihue rigen medidas especiales que pueden adelantar el inicio a mediados de septiembre: consulta siempre la resolución vigente antes de planificar.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 175,
+          voiceName: 'Zephyr',
+          transcript: 'Día uno: Lago Llanquihue, trolling. Antes de zarpar, tienes tu licencia de pesca recreativa de Sernapesca: se tramita en pescarecreativa.sernapesca.cl, con exención para menores de 12, mayores de 65 y personas con discapacidad inscrita. Ya en el agua, arrastramos cucharillas y plugas a 2 nudos, con downriggers buscando profundidad. Las estrellas son la trucha arcoíris, la trucha café y el salmón plateado, y en primavera las asalmonadas suben a desovar. Recuerda: la temporada general va del segundo viernes de noviembre al primer domingo de mayo y la cuota es de 3 ejemplares o 15 kilos. El lago puede adelantar su apertura a septiembre: verifica la resolución.'
+        },
+        images: [
+          {
+            id: 'img-pesca-1-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Muelle_pedraplen_Puerto_Varas%2C_Chile.jpg/1280px-Muelle_pedraplen_Puerto_Varas%2C_Chile.jpg',
+            caption: 'El muelle pedraplén de Puerto Varas, punto de salida para el trolling del Lago Llanquihue',
+            isPrimary: true
+          },
+          {
+            id: 'img-pesca-1-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Lago_Llanquihue_y_volc%C3%A1n_Osorno%2C_2019.jpg/1280px-Lago_Llanquihue_y_volc%C3%A1n_Osorno%2C_2019.jpg',
+            caption: 'Las aguas profundas del Lago Llanquihue frente al volcán Osorno'
+          }
+        ],
+        socialLinks: {
+          website: 'https://pescarecreativa.sernapesca.cl'
+        },
+        documents: [],
+        tips: 'Tramita la licencia el día anterior por internet con tu ClaveÚnica y guárdala en el celular: la versión digital es válida para exhibirla cuando te la pidan.',
+        trivia: 'En el lago operan centros de cultivo de salmónidos en agua dulce (Camanchaca y Caleta Bay), lo que obliga a Sernapesca a vigilar fugas y especies asilvestradas en temporada de desove.',
+        estimatedStayMinutes: 360
+      },
+      {
+        id: 'stop-pesca-2',
+        order: 2,
+        title: 'Día 2: Pesca con Mosca en el Río Petrohué',
+        subtitle: 'Vadeo y flote en el río turquesa que siembra el país entero para el fly',
+        category: 'nature',
+        location: {
+          lat: -41.17186,
+          lng: -72.44899,
+          address: 'Río Petrohué, sector Saltos del Petrohué y desagüe del Lago Todos los Santos, Ruta CH-225'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'El Río Petrohué es considerado uno de los mejores ríos del país y del mundo para la pesca deportiva. Nace en el Lago Todos los Santos, dentro del Parque Nacional Vicente Pérez Rosales, y en sus 36 kilómetros de aguas turquesas que desembocan en el Estuario de Reloncaví se practica la pesca de vadeo y el flote, descendiendo en cataraft o bote con guía.\n\nLa carta de especies es de colección: el famoso salmón Chinook o salmón rey, el salmón Coho, el salmón del Atlántico, la trucha arcoíris, la trucha fario y la percatrucha. El Chinook es el gran atractivo de marzo y abril, cuando sube a desovar y se enfrenta a los rápidos con toda su fuerza. Los estudios de la cuenca muestran que la trucha fario es la especie más abundante, seguida del Chinook y la arcoíris, y que la reproducción de los salmónidos se inicia en marzo y abril.\n\nPara la mosca, el equipamiento clásico es una caña del número 6 al 8 con líneas de hundimiento y streamers: los Woolly Bugger y las imitaciones de peces y de crustáceos son infalibles en el Petrohué. La temporada corre entre noviembre y mayo, y la ética del río pide anzuelos sin rebaba y la devolución cuidadosa de cada ejemplar: aquí no se pesca para llenar la cesta, se pesca para dialogar con el paisaje del volcán Osorno.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 170,
+          voiceName: 'Puck',
+          transcript: 'El Río Petrohué, uno de los mejores del mundo para pescar con mosca. Nace en el Lago Todos los Santos y desemboca en el estuario de Reloncaví. En sus aguas turquesas se pesca de vadeo y en flote con cataraft. Las estrellas: salmón Chinook en marzo y abril, Coho, del Atlántico, trucha arcoíris y trucha fario. Usa caña del 6 al 8, líneas de hundimiento y streamers como el Woolly Bugger. Temporada de noviembre a mayo, siempre con anzuelos sin rebaba y devolviendo cada pez con cuidado. El río es un diálogo con el volcán Osorno.'
+        },
+        images: [
+          {
+            id: 'img-pesca-2-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Petrohu%C3%A9%2C_2019_%2812%29.jpg/1280px-Petrohu%C3%A9%2C_2019_%2812%29.jpg',
+            caption: 'Las aguas turquesa del Río Petrohué en el sector del Parque Nacional Vicente Pérez Rosales',
+            isPrimary: true
+          },
+          {
+            id: 'img-pesca-2-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Saltos_del_Petrohue._%282010%29.JPG/1280px-Saltos_del_Petrohue._%282010%29.JPG',
+            caption: 'Los Saltos del Petrohué, el escenario de los rápidos donde remonta el salmón Chinook'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.conaf.cl'
+        },
+        documents: [],
+        tips: 'Si tu objetivo es el salmón Chinook, agéndate entre marzo y abril; en el resto de la temporada la trucha fario y la arcoíris dan el show durante el primer pique de la mañana.',
+        trivia: 'Los estudios de la cuenca del Petrohué muestran que la trucha fario es la más abundante, cerca del 37% de los ejemplares, seguida por el salmón Chinook y la trucha arcoíris.',
+        estimatedStayMinutes: 480
+      },
+      {
+        id: 'stop-pesca-3',
+        order: 3,
+        title: 'Día 3: Mosca en los Tramos del Río Maullín',
+        subtitle: 'El único desagüe del Llanquihue rumbo al Pacífico entre hualves y neblina',
+        category: 'nature',
+        location: {
+          lat: -41.47063,
+          lng: -73.28362,
+          address: 'Río Maullín, tramo alto y medio, Santuario de la Naturaleza Humedales del Río Maullín'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'El Río Maullín es único: es la única desembocadura del Lago Llanquihue hacia el océano. Nace en el extremo suroccidental del lago y recorre 85 kilómetros en dirección este-oeste, serpenteando entre bosques, praderas y humedales hasta el Pacífico. Sus aguas lentas, envueltas en neblina, crean una de las atmósferas más místicas de la pesca chilena.\n\nLos pescadores locales dividen el río en tramos: el tramo alto, cerca del desagüe del lago, aguas rápidas tras la salida; y los tramos medio y bajo, donde la corriente se serena y la pesca se hace en bote, lanzando moscas entre la vegetación ribereña. Aquí mandan la trucha arcoíris y la trucha marrón o fario, aunque alguna carpa se tentó históricamente con las moscas. Los guides hablan del tramo 1 y tramo 2 como escenarios distintos dentro de la misma jornada.\n\nTodo el cauce atraviesa el Santuario de la Naturaleza Humedales del Río Maullín, declarado en 2022: unas 8.000 hectáreas de planicies mareales, marismas, pajonales y hualves, los bosques pantanosos únicos de Chile. Son 152 especies de aves, el flamenco chileno y el huillín, la nutria de río en peligro de extinción, los que convierten a cada lanzamiento en un paseo que el río no olvida.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 170,
+          voiceName: 'Charon',
+          transcript: 'El Río Maullín, la única salida del Lago Llanquihue al mar. Ochenta y cinco kilómetros hacia el Pacífico entre neblina y humedales. Los guías dividen el río en tramos: el tramo alto, cerca del desagüe; y los tramos medio y bajo, donde se pesca en bote entre la vegetación. Trucha arcoíris y trucha marrón, y a veces una carpa curiosa. Todo el cauce cruza el Santuario de la Naturaleza Humedales del Río Maullín: flamenco chileno, huillín y bosques pantanosos de hualve. Pescar aquí es escuchar al río.'
+        },
+        images: [
+          {
+            id: 'img-pesca-3-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Lllanquihue_-Maullin_01_-nacimiento.jpg/1280px-Lllanquihue_-Maullin_01_-nacimiento.jpg',
+            caption: 'El nacimiento del Río Maullín en el extremo suroccidental del Lago Llanquihue',
+            isPrimary: true
+          },
+          {
+            id: 'img-pesca-3-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Salto_del_R%C3%ADo_Maull%C3%ADn.jpg/1280px-Salto_del_R%C3%ADo_Maull%C3%ADn.jpg',
+            caption: 'Un salto del Río Maullín en sus aguas envueltas en la bruma del sur'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.monumentos.gob.cl/monumentos/santuarios-de-la-naturaleza/humedales-del-rio-maullin'
+        },
+        documents: [],
+        tips: 'Pregunta a tu guía por las ventanas de marea y el tramo de la jornada: el tramo alto se pesca de vadeo y los tramos medio y bajo, en bote con la neblina de la mañana.',
+        trivia: 'El Santuario de la Naturaleza Humedales del Río Maullín protege unas 8.097 hectáreas y es hábitat del flamenco chileno y del huillín, la nutria de río en peligro de extinción.',
+        estimatedStayMinutes: 480
+      },
+      {
+        id: 'stop-pesca-4',
+        order: 4,
+        title: 'Día 4: Desembocadura del Maullín y Bahía Maullín',
+        subtitle: 'El estuario salobre del golfo Coronados, pasarela entre el lago y el Pacífico',
+        category: 'nature',
+        location: {
+          lat: -41.61601,
+          lng: -73.59507,
+          address: 'Desembocadura del Río Maullín y bahía Maullín, golfo Coronados, comuna de Maullín'
+        },
+        triggerRadiusMeters: 80,
+        narrativeText: 'Hoy el río se rinde ante el mar. El Maullín desemboca en la bahía Maullín, del golfo Coronados, en el océano Pacífico, y es en esa zona de mezcla donde la pesca cambia de lenguaje: agua dulce del lago y agua salada del mar se encuentran y con ellas, dos mundos de especies.\n\nEn la boca del río, los salmónidos lacustres se encuentran con las especies pelágicas que llegan desde el océano. Es un escenario clásico de trolling costero y de mosca con líneas de hundimiento, lanzando a la zona de mezcla donde el pique del salmón y de la trucha asalmonada se combina con la velocidad de la sierra, el mackerel del Pacífico que también protagoniza las capturas de los charters de la zona.\n\nAquí rigen con toda su fuerza las normas de la pesca recreativa: cuota de 3 ejemplares o 15 kilos para salmónidos, y la prohibición de pesca nocturna desde embarcación a menos de 500 metros de la desembocadura, entre las 21:00 y las 06:00 horas. Las planicies intermareales del estuario son además un refugio esencial para las aves playeras migratorias y para el flamenco chileno, que tiñen de rosado el horizonte cuando el sol cae sobre el golfo Coronados.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 165,
+          voiceName: 'Fenrir',
+          transcript: 'Día cuatro: la desembocadura del Maullín en el golfo Coronados. El agua dulce del lago se encuentra con el mar, y con ella dos mundos de especies. Es trolling costero y mosca con líneas de hundimiento: trucha asalmonada y salmón se mezclan con la velocidad de la sierra mackerel. Respeta las reglas: cuota de 3 ejemplares o 15 kilos, y prohibida la pesca nocturna a menos de 500 metros de la boca del río. Al atardecer, el flamenco chileno tiñe de rosado las planicies del estuario.'
+        },
+        images: [
+          {
+            id: 'img-pesca-4-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/R%C3%ADo_Maull%C3%ADn_1.jpg/1280px-R%C3%ADo_Maull%C3%ADn_1.jpg',
+            caption: 'El Río Maullín camino a su desembocadura en el océano Pacífico',
+            isPrimary: true
+          },
+          {
+            id: 'img-pesca-4-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ci%C3%A9nago_de_Humedal_del_R%C3%ADo_Maull%C3%ADn%2C_Santuario_de_la_Naturaleza.jpg/1280px-Ci%C3%A9nago_de_Humedal_del_R%C3%ADo_Maull%C3%ADn%2C_Santuario_de_la_Naturaleza.jpg',
+            caption: 'El ciénago y los humedales del santuario que protege la desembocadura del Maullín'
+          }
+        ],
+        socialLinks: {
+          website: 'https://www.sernapesca.cl'
+        },
+        documents: [],
+        tips: 'Consulta las tablas de marea y el parte del golfo antes de salir: las mejores ventanas de mezcla dulce-salada suelen darse en las dos horas alrededor de la marea alta.',
+        trivia: 'En el cierre de la temporada truchera se han documentado capturas para el recuerdo en la boca del Maullín, como una trucha arcoíris de casi 5 kilos devuelta viva al agua.',
+        estimatedStayMinutes: 420
+      },
+      {
+        id: 'stop-pesca-5',
+        order: 5,
+        title: 'Día 5: Estuario de Reloncaví y Cierre de Temporada',
+        subtitle: 'El fiordo donde el Petrohué se despide del lago y las licencias se renuevan',
+        category: 'nature',
+        location: {
+          lat: -41.66681,
+          lng: -72.37752,
+          address: 'Estuario de Reloncaví, boca del Río Petrohué, Región de Los Lagos'
+        },
+        triggerRadiusMeters: 100,
+        narrativeText: 'Última jornada en el Estuario de Reloncaví, la entrada de mar que recibe las aguas del Petrohué y del Puelo. Este brazo de mar entre la cordillera y la isla de Calbuco es una zona de mezcla espectacular, donde los salmónidos que viven en el océano suben hacia los ríos a desovar, y donde el Chinook se prepara para su última gran carrera aguas arriba. Aquí se pesca de trolling y con jigs en aguas estuarinas, con el volcán Osorno de fondo y las aguas más verdes del sur.\n\nEs, también, la hora del balance. La pesca recreativa en Chile exige portar siempre la licencia al día: se renueva online en pescarecreativa.sernapesca.cl, sin necesidad de volver a trámites presenciales. La temporada general de salmónidos en aguas continentales va del segundo viernes de noviembre al primer domingo de mayo, con la veda biológica entre mayo y noviembre para proteger el desove. Las cuotas siguen siendo 3 ejemplares o 15 kilos por día, con una caña por persona, y está prohibido comercializar las capturas. Consulta siempre las resoluciones vigentes de Sernapesca para la Región de Los Lagos, porque el Lago Llanquihue y sus desagües tienen calendarios especiales.\n\nGuarda tu licencia, acomoda los señuelos y deja que el estuario cierre la semana: cinco días, cuatro ecosistemas y una misma conversación entre el río, el lago y el mar.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 175,
+          voiceName: 'Kore',
+          transcript: 'Último día: Estuario de Reloncaví, donde el Petrohué encuentra el mar. Trolling y jigs en aguas estuarinas, con los salmónidos que suben desde el océano a desovar y el volcán Osorno de fondo. Y el balance: tu licencia se renueva en línea en pescarecreativa.sernapesca.cl. La temporada general va del segundo viernes de noviembre al primer domingo de mayo, con veda entre mayo y noviembre. Cuota de 3 ejemplares o 15 kilos, una caña, y prohibido comercializar. Consulta las resoluciones de Sernapesca para Los Lagos: el lago y sus desagües tienen calendarios especiales. Cinco días, cuatro ecosistemas y un solo río.'
+        },
+        images: [
+          {
+            id: 'img-pesca-5-a',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Estuario_de_Reloncav%C3%AD.jpg/1280px-Estuario_de_Reloncav%C3%AD.jpg',
+            caption: 'El Estuario de Reloncaví, el brazo de mar que recibe las aguas del Petrohué',
+            isPrimary: true
+          },
+          {
+            id: 'img-pesca-5-b',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Estuario_de_reloncav%C3%AD_%2834012429574%29.jpg/1280px-Estuario_de_reloncav%C3%AD_%2834012429574%29.jpg',
+            caption: 'Las aguas del estuario entre la cordillera y la costa de Calbuco'
+          }
+        ],
+        socialLinks: {
+          website: 'https://pescarecreativa.sernapesca.cl'
+        },
+        documents: [],
+        tips: 'Antes de volver a casa, renueva tu licencia para la próxima temporada online y descarga el PDF al celular: la versión digital es válida en todo el país.',
+        trivia: 'El Estuario de Reloncaví es la puerta marina del salmón Chinook que cada temporada remonta el Petrohué: la misma agua que atraviesas hoy, la recorren los peces más grandes de la cuenca.',
+        estimatedStayMinutes: 360
+      }
+    ],
+    routePolyline: [
+      [-41.31716, -72.98161],
+      [-41.235, -72.64],
+      [-41.19, -72.52],
+      [-41.17186, -72.44899],
+      [-41.22, -72.6],
+      [-41.26, -72.9],
+      [-41.31, -72.98],
+      [-41.38, -73.15],
+      [-41.45, -73.25],
+      [-41.47063, -73.28362],
+      [-41.53, -73.45],
+      [-41.61601, -73.59507],
+      [-41.6, -73.2],
+      [-41.62, -72.75],
+      [-41.65, -72.55],
+      [-41.66681, -72.37752]
+    ]
   }
 ];
 
