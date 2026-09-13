@@ -43,11 +43,56 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
   const [isMuted, setIsMuted] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
   const [isUsingBrowserTts, setIsUsingBrowserTts] = useState(false);
+  const [premiumSrc, setPremiumSrc] = useState<string | null>(null);
+  const [ttsEngine, setTtsEngine] = useState<'speechify' | 'gemini' | null>(null);
+  const [premiumFetching, setPremiumFetching] = useState(false);
+  const [premiumFailed, setPremiumFailed] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const premiumSrcRef = useRef<string | null>(null);
 
-  // Audio source URL
-  const audioSrc = audio?.url;
+  // Audio source URL: archivo persistido, o blob sintetizado con voz premium del servidor
+  const audioSrc = audio?.url || premiumSrc;
+
+  // Sintetiza con voz premium del servidor (Speechify o Gemini) en vez de la voz del navegador
+  useEffect(() => {
+    const shouldUseServerTts = audio?.type === 'ai_generated' && !audio?.url && fallbackText;
+    if (!shouldUseServerTts) return;
+    let cancelled = false;
+    setPremiumFetching(true);
+    setPremiumFailed(false);
+    fetch('/api/tts/audio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: fallbackText, voiceName: audio.voiceName || 'Kore' }),
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (cancelled) return;
+        setPremiumFetching(false);
+        if (!data?.success) {
+          setPremiumFailed(true);
+          return;
+        }
+        const binary = atob(data.audioBase64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const url = URL.createObjectURL(new Blob([bytes], { type: data.mimeType || 'audio/mpeg' }));
+        premiumSrcRef.current = url;
+        setPremiumSrc(url);
+        setTtsEngine(data.engine || null);
+        if (data.durationSeconds) setDuration(data.durationSeconds);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setPremiumFetching(false);
+          setPremiumFailed(true);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [audio?.type, audio?.url, audio?.voiceName, fallbackText]);
 
   // Initialize or reset player when stop or audio changes
   useEffect(() => {
@@ -55,6 +100,14 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
     setCurrentTime(0);
     stopBrowserTts();
     setIsUsingBrowserTts(false);
+    setTtsEngine(null);
+    setPremiumFetching(false);
+    setPremiumFailed(false);
+    if (premiumSrcRef.current) {
+      URL.revokeObjectURL(premiumSrcRef.current);
+      premiumSrcRef.current = null;
+    }
+    setPremiumSrc(null);
 
     if (audio?.durationSeconds) {
       setDuration(audio.durationSeconds);
@@ -63,14 +116,14 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
-      if (audioSrc) {
+      if (audio?.url) {
         audioRef.current.load();
         if (autoPlay) {
           audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
         }
       }
     }
-  }, [audio, audioSrc, autoPlay]);
+  }, [audio, audio?.url, autoPlay]);
 
   // Handle Play/Pause
   const togglePlay = () => {
@@ -85,8 +138,8 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
           console.warn('Audio play error:', err);
         });
       }
-    } else if (fallbackText) {
-      // Use Web Speech API if no audio file
+    } else if (fallbackText && (audio?.type !== 'ai_generated' || premiumFailed)) {
+      // Web Speech API como respaldo solo si no hay voz premium disponible
       if (isPlaying) {
         stopBrowserTts();
         setIsPlaying(false);
@@ -171,7 +224,13 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
             {audio?.type === 'ai_generated' && (
               <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#2F5238]/40 text-[#A3E3B8] border border-[#2F5238]/50">
                 <Sparkles className="w-3 h-3 text-[#A3E3B8]" />
-                Voz IA ({audio.voiceName || 'Gemini'})
+                Voz IA ({audio.voiceName || 'Gemini'}{ttsEngine === 'speechify' ? ' · Premium' : ''})
+              </span>
+            )}
+            {isUsingBrowserTts && (
+              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#4B3B2A]/40 text-[#E4D8BF] border border-[#B04E2A]/40">
+                <Volume2 className="w-3 h-3 text-[#E8A58B]" />
+                Voz del dispositivo
               </span>
             )}
             {audio?.type === 'uploaded_mp3' && (

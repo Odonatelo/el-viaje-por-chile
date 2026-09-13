@@ -228,7 +228,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
     setIsSaving(true);
     try {
       await onSaveTour(tour);
-      alert('✅ ¡Ruta guardada y publicada exitosamente en El Viaje Por Chile (www.elviaje.cl)!');
+      alert('✅ ¡Ruta guardada y publicada exitosamente en El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)!');
     } catch (e) {
       console.error(e);
       alert('Error al guardar la ruta.');
@@ -347,7 +347,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="bg-[#B04E2A] text-white font-bold text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-md shadow">
-                  Studio de Rutas • El Viaje Por Chile (www.elviaje.cl)
+                  Studio de Rutas • El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)
                 </span>
                 <span className="text-xs text-slate-400 font-mono">ID: {tour.id}</span>
               </div>

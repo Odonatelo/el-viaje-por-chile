@@ -92,7 +92,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#E8A58B]">
-                  El Viaje Por Chile • www.elviaje.cl
+                  El Viaje Por Chile • www.interpretaciondelpatrimonio.cl
                 </span>
                 {isMember && (
                   <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/40 font-bold">
@@ -146,7 +146,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
               {/* Introduction Banner */}
               <div className="bg-white p-5 rounded-2xl border border-[#E4D8BF] shadow-sm space-y-2">
                 <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                  Para formar parte de <strong>El Viaje Por Chile (www.elviaje.cl)</strong> y publicar tus rutas geolocalizadas con narraciones sonoras con IA, cartografía y guías de campo, dispones de dos modalidades oficiales:
+                  Para formar parte de <strong>El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)</strong> y publicar tus rutas geolocalizadas con narraciones sonoras con IA, cartografía y guías de campo, dispones de dos modalidades oficiales:
                 </p>
               </div>
 
@@ -186,7 +186,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                     <ul className="space-y-2 text-xs text-slate-600 border-t border-[#F6F1E5] pt-3">
                       <li className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <span>Publicación de rutas y audioguías ilimitadas en <strong>www.elviaje.cl</strong></span>
+                        <span>Publicación de rutas y audioguías ilimitadas en <strong>www.interpretaciondelpatrimonio.cl</strong></span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -377,7 +377,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
         {/* Footer */}
         <div className="px-6 py-4 bg-white border-t border-[#E4D8BF] flex items-center justify-between">
           <div className="text-xs text-slate-500 font-semibold">
-            Dominio oficial: <strong className="font-mono text-[#B04E2A]">www.elviaje.cl</strong>
+            Dominio oficial: <strong className="font-mono text-[#B04E2A]">www.interpretaciondelpatrimonio.cl</strong>
           </div>
           <button
             onClick={onClose}

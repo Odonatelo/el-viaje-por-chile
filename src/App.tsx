@@ -427,7 +427,7 @@ export default function App() {
                   El Viaje <span className="text-[#D97A46]">Por Chile</span>
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40">
-                  www.elviaje.cl
+                  www.interpretaciondelpatrimonio.cl
                 </span>
               </div>
               <p className="text-[10px] text-slate-300 font-medium hidden sm:block">
@@ -761,7 +761,7 @@ export default function App() {
         />
       )}
 
-      {/* Footer - Tienda El Viaje & www.elviaje.cl Identity */}
+      {/* Footer - Plataforma Interpretación del Patrimonio & Editorial El Viaje Por Chile (www.elviaje.cl) */}
       <footer className="bg-[#14281C] text-slate-400 text-xs py-10 border-t border-[#2A4533]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-6 pb-6 border-b border-[#2A4533]">
@@ -771,10 +771,10 @@ export default function App() {
               </div>
               <div>
                 <span className="text-white font-extrabold text-sm block font-['Cormorant_Garamond',Georgia,serif]">
-                  El Viaje Por Chile • <span className="text-[#E8A58B]">www.elviaje.cl</span>
+                  Interpretación del Patrimonio Natural y Cultural • <span className="text-[#E8A58B]">www.interpretaciondelpatrimonio.cl</span>
                 </span>
                 <span className="text-slate-400 text-xs">
-                  Plataforma de audioguías e interpretación del patrimonio natural y cultural
+                  Plataforma editorial del consultor de patrimonio <strong className="text-slate-300">El Viaje Por Chile (www.elviaje.cl)</strong>
                 </span>
               </div>
             </div>
@@ -802,7 +802,7 @@ export default function App() {
 
           <div className="flex flex-wrap items-center justify-between gap-4 text-slate-400 text-[11px]">
             <p>
-              © {new Date().getFullYear()} El Viaje Por Chile (<strong>www.elviaje.cl</strong>). Inspirado en los principios de interpretación de Freeman Tilden y la pasión por el territorio de Tienda El Viaje.
+              © {new Date().getFullYear()} Interpretación del Patrimonio Natural y Cultural (<strong>www.interpretaciondelpatrimonio.cl</strong>), plataforma editorial de El Viaje Por Chile (<strong>www.elviaje.cl</strong>). Inspirado en los principios de interpretación de Freeman Tilden y la pasión por el territorio de Tienda El Viaje.
             </p>
             <div className="flex items-center gap-3">
               <span>Gemini AI (TTS & Narrativas)</span>

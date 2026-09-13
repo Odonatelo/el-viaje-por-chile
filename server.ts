@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import session from 'express-session';
 import RedisStore from 'connect-redis';
 import { createClient } from 'redis';
@@ -302,6 +303,153 @@ function getAI(): GoogleGenAI {
     aiClient = new GoogleGenAI({ apiKey });
   }
   return aiClient;
+}
+
+// ----------------------------------------------------
+// SPEECHIFY TTS (voces premium; fallback automático a Gemini)
+// Crea tu API key en https://platform.speechify.ai
+// ----------------------------------------------------
+
+interface SpeechifyVoice {
+  id: string;
+  display_name: string;
+  gender: string;
+  locale: string;
+}
+
+const SPEECHIFY_API_KEY = process.env.SPEECHIFY_API_KEY || '';
+const SPEECHIFY_VOICE_ID = process.env.SPEECHIFY_VOICE_ID || '';
+const SPEECHIFY_MODEL = process.env.SPEECHIFY_MODEL || 'simba-3.0';
+
+export const GEMINI_TTS_VOICES = ['Kore', 'Fenrir', 'Zephyr', 'Puck', 'Charon'];
+
+// Instrucción de estilo en español para entonar las voces Gemini (audioguía patrimonial)
+const GEMINI_STYLE_PROMPT = 'Habla en español de Chile, con un tono cautivador, cálido y profesional de audioguía patrimonial, claro y pausado. Texto: ';
+
+function voiceIsFemale(voiceName: string): boolean {
+  return !['Fenrir', 'Zephyr', 'Charon'].includes(voiceName);
+}
+
+let speechifyVoicesCache: SpeechifyVoice[] | null = null;
+
+async function listSpeechifyVoices(): Promise<SpeechifyVoice[]> {
+  if (speechifyVoicesCache) return speechifyVoicesCache;
+  const headers = { Authorization: `Bearer ${SPEECHIFY_API_KEY}` };
+  let voices: SpeechifyVoice[] = [];
+  try {
+    const res = await fetch('https://api.speechify.ai/v1/voices?limit=200&locale=es', { headers });
+    if (!res.ok) throw new Error(`Speechify /v1/voices responded ${res.status}`);
+    const data: any = await res.json();
+    voices = (data.voices || []).filter((v: any) => typeof v.id === 'string');
+    if (voices.length === 0) {
+      const res2 = await fetch('https://api.speechify.ai/v1/voices?limit=200', { headers });
+      const data2: any = await res2.json();
+      voices = (data2.voices || []).filter((v: any) => typeof v.id === 'string');
+    }
+  } catch (e) {
+    console.warn('No se pudieron listar voces de Speechify:', e);
+  }
+  speechifyVoicesCache = voices;
+  return voices;
+}
+
+let speechifyPickCounter = 0;
+
+async function pickSpeechifyVoice(voiceName: string): Promise<string> {
+  if (SPEECHIFY_VOICE_ID) return SPEECHIFY_VOICE_ID;
+  const voices = await listSpeechifyVoices();
+  // Prioridad: español de México (neutro latinoamericano); luego el resto del español.
+  const es = voices.filter(v => (v.locale || '').toLowerCase().startsWith('es'));
+  let pool = es.filter(v => (v.locale || '').toLowerCase().startsWith('es-mx'));
+  if (pool.length === 0) pool = es;
+  if (pool.length === 0) pool = voices;
+  // Excluir variantes "-agent" cuando existan alternativas narrativas.
+  const main = pool.filter(v => !/-agent$/.test(v.id || ''));
+  if (main.length > 0) pool = main;
+  // Si se indica una voz original, respetar su género; si no, alternar variado (m/f).
+  let candidates = pool;
+  if (voiceName) {
+    const gendered = pool.filter(v => v.gender === (voiceIsFemale(voiceName) ? 'female' : 'male'));
+    if (gendered.length > 0) candidates = gendered;
+  }
+  if (candidates.length === 0) candidates = pool;
+  const chosen = candidates[speechifyPickCounter % candidates.length];
+  speechifyPickCounter++;
+  if (SPEECHIFY_API_KEY && !chosen) {
+    throw new Error('Speechify no devolvió voces disponibles para esta cuenta');
+  }
+  return chosen?.id || SPEECHIFY_VOICE_ID || '';
+}
+
+async function speechifyVoiceDisplayName(voiceId: string): Promise<string> {
+  const voices = await listSpeechifyVoices();
+  return voices.find(v => v.id === voiceId)?.display_name || voiceId;
+}
+
+async function speechifySynthesize(text: string, voiceId: string): Promise<{ base64: string; mimeType: string; voiceId: string }> {
+  const res = await fetch('https://api.speechify.ai/v1/audio/speech', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${SPEECHIFY_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+      input: text,
+      voice_id: voiceId,
+      audio_format: 'mp3',
+      model: SPEECHIFY_MODEL,
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`Speechify ${res.status}: ${body.slice(0, 300)}`);
+  }
+  const data: any = await res.json();
+  if (!data.audio_data) {
+    throw new Error('Speechify no devolvió audio en la respuesta');
+  }
+  return {
+    base64: data.audio_data,
+    mimeType: data.audio_format === 'wav' ? 'audio/wav' : 'audio/mpeg',
+    voiceId,
+  };
+}
+
+interface TtsResult {
+  base64: string;
+  mimeType: string;
+  engine: 'speechify' | 'gemini';
+  voiceName: string;
+  voiceId?: string;
+}
+
+async function synthesizeTts(text: string, voiceName: string): Promise<TtsResult> {
+  if (SPEECHIFY_API_KEY) {
+    const voiceId = await pickSpeechifyVoice(voiceName);
+    const voiceLabel = await speechifyVoiceDisplayName(voiceId);
+    const audio = await speechifySynthesize(text, voiceId);
+    return { base64: audio.base64, mimeType: audio.mimeType, engine: 'speechify', voiceName: voiceLabel, voiceId: audio.voiceId };
+  }
+  const ai = getAI();
+  const response = await ai.models.generateContent({
+    model: GEMINI_TTS_MODEL,
+    contents: [{ parts: [{ text: `${GEMINI_STYLE_PROMPT}${text}` }] }],
+    config: {
+      responseModalities: [Modality.AUDIO],
+      speechConfig: {
+        voiceConfig: {
+          prebuiltVoiceConfig: { voiceName },
+        },
+      },
+    },
+  });
+  const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+  const mimeType = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType || 'audio/pcm;rate=24000';
+  if (!base64Audio) {
+    throw new Error('No se pudo generar el audio TTS');
+  }
+  return { base64: base64Audio, mimeType, engine: 'gemini', voiceName };
 }
 
 // ----------------------------------------------------
@@ -854,7 +1002,7 @@ app.post('/api/gemini/generate-script', requireAuth, async (req, res) => {
           ? 'alrededor de 350 palabras (3 minutos de audio)'
           : 'alrededor de 200-250 palabras (2 minutos de audio)';
 
-    const prompt = `Eres un reputado creador de audioguías patrimoniales de excelencia para la plataforma oficial El Viaje Por Chile (www.elviaje.cl).
+    const prompt = `Eres un reputado creador de audioguías patrimoniales de excelencia para la plataforma oficial de Interpretación del Patrimonio Natural y Cultural (www.interpretaciondelpatrimonio.cl), plataforma editorial del consultor El Viaje Por Chile (www.elviaje.cl).
 Crea el contenido sonoro y documental para el atractivo turístico "${poiTitle}" ubicado en "${cityName || 'Chile'}".
 Categoría del punto: ${category || 'monumento o sitio de interés'}.
 Tono deseado: ${tonePrompt}.
@@ -893,59 +1041,148 @@ El texto de la narración ('narrativeText') debe estar redactado en primera/segu
 
 app.post('/api/gemini/generate-audio', requireAuth, async (req, res) => {
   try {
-    const { text, voiceName = 'Kore', stylePrompt, persist = false } = req.body;
+    const { text, voiceName = 'Kore', persist = false } = req.body;
 
     if (!text || typeof text !== 'string' || text.trim() === '') {
       return res.status(400).json({ success: false, error: 'Texto para audio requerido' });
     }
 
-    const ai = getAI();
+    const chosenVoice = GEMINI_TTS_VOICES.includes(voiceName) ? voiceName : 'Kore';
 
-    const validVoices = ['Kore', 'Fenrir', 'Zephyr', 'Puck', 'Charon'];
-    const chosenVoice = validVoices.includes(voiceName) ? voiceName : 'Kore';
-
-    const spokenText = stylePrompt ? `Speak in a captivating, professional audio-guide tone: ${text}` : text;
-
-    const response = await ai.models.generateContent({
-      model: GEMINI_TTS_MODEL,
-      contents: [{ parts: [{ text: spokenText }] }],
-      config: {
-        responseModalities: [Modality.AUDIO],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: chosenVoice },
-          },
-        },
-      },
-    });
-
-    const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-    const mimeType = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType || 'audio/pcm;rate=24000';
-
-    if (!base64Audio) {
-      return res.status(500).json({ success: false, error: 'No se pudo generar el audio TTS' });
-    }
+    const result = await synthesizeTts(text, chosenVoice);
 
     let url: string | undefined;
     if (persist) {
-      const sampleRate = mimeType.includes('32000') ? 32000 : 24000;
-      const wavBuffer = pcmBase64ToWavBuffer(base64Audio, sampleRate);
-      const fileName = `tts-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.wav`;
-      const relPath = `${AUDIO_DIR}/${fileName}`;
-      await writeBuffer(relPath, wavBuffer);
-      url = `/api/uploads/audio/${fileName}`;
+      if (result.mimeType === 'audio/mpeg' || result.mimeType === 'audio/wav') {
+        const ext = result.mimeType.includes('wav') ? 'wav' : 'mp3';
+        const fileName = `tts-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+        await writeBuffer(`${AUDIO_DIR}/${fileName}`, Buffer.from(result.base64, 'base64'));
+        url = `/api/uploads/audio/${fileName}`;
+      } else {
+        const sampleRate = result.mimeType.includes('32000') ? 32000 : 24000;
+        const wavBuffer = pcmBase64ToWavBuffer(result.base64, sampleRate);
+        const fileName = `tts-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.wav`;
+        await writeBuffer(`${AUDIO_DIR}/${fileName}`, wavBuffer);
+        url = `/api/uploads/audio/${fileName}`;
+      }
     }
 
     res.json({
       success: true,
-      audioBase64: base64Audio,
-      mimeType,
+      audioBase64: result.base64,
+      mimeType: result.mimeType,
+      engine: result.engine,
       voiceName: chosenVoice,
+      voiceId: result.voiceId,
       url,
     });
   } catch (error: any) {
     console.error('Error generating audio TTS:', error);
-    res.status(500).json({ success: false, error: error.message || 'Error al generar audio con Gemini' });
+    res.status(500).json({ success: false, error: error.message || 'Error al generar audio TTS' });
+  }
+});
+
+// ----------------------------------------------------
+// TTS PÚBLICO (voces premium para las audioguías de muestra)
+// ----------------------------------------------------
+
+const TTS_CACHE_DIR = 'data/tts-cache';
+const TTS_MAX_INPUT_CHARS = 4000;
+const TTS_RATE_LIMIT_PER_MIN = 15;
+
+const ttsHitTimes = new Map<string, number[]>();
+
+function clientIp(req: any): string {
+  const fwd = req.headers['x-forwarded-for'];
+  if (typeof fwd === 'string') return fwd.split(',')[0].trim();
+  return req.ip || 'unknown';
+}
+
+function allowPublicTts(ip: string): boolean {
+  const now = Date.now();
+  const recent = (ttsHitTimes.get(ip) || []).filter(t => now - t < 60_000);
+  recent.push(now);
+  ttsHitTimes.set(ip, recent);
+  return recent.length <= TTS_RATE_LIMIT_PER_MIN;
+}
+
+app.get('/api/tts/voices', async (req, res) => {
+  try {
+    let speechifyVoices: SpeechifyVoice[] = [];
+    let defaultSpeechifyVoiceId: string | null = null;
+    if (SPEECHIFY_API_KEY) {
+      speechifyVoices = await listSpeechifyVoices();
+      defaultSpeechifyVoiceId = await pickSpeechifyVoice('Kore').catch(() => null);
+    }
+    res.json({
+      success: true,
+      engine: SPEECHIFY_API_KEY ? 'speechify' : 'gemini',
+      geminiVoices: GEMINI_TTS_VOICES,
+      speechifyVoices: speechifyVoices
+        .map(v => ({ id: v.id, name: v.display_name, gender: v.gender, locale: v.locale }))
+        .slice(0, 100),
+      defaultSpeechifyVoiceId,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message || 'Error al listar voces TTS' });
+  }
+});
+
+app.post('/api/tts/audio', async (req, res) => {
+  try {
+    const { text, voiceName = 'Kore' } = req.body;
+    if (!text || typeof text !== 'string' || text.trim() === '') {
+      return res.status(400).json({ success: false, error: 'Texto requerido' });
+    }
+    if (text.trim().length > TTS_MAX_INPUT_CHARS) {
+      return res.status(400).json({ success: false, error: `Máximo ${TTS_MAX_INPUT_CHARS} caracteres por síntesis` });
+    }
+
+    const ip = clientIp(req);
+    if (!allowPublicTts(ip)) {
+      return res.status(429).json({ success: false, error: 'Demasiadas solicitudes de audio. Intenta de nuevo en un minuto.' });
+    }
+
+    const chosenVoice = GEMINI_TTS_VOICES.includes(voiceName) ? voiceName : 'Kore';
+
+    // Caché persistente en disco: mismo contenido + voz + motor => mismo audio (sin costo ni latencia)
+    const engine = SPEECHIFY_API_KEY ? 'speechify' : 'gemini';
+    const voiceId = engine === 'speechify' ? await pickSpeechifyVoice(chosenVoice) : chosenVoice;
+    const cacheKey = crypto.createHash('sha256').update(`${engine}|${voiceId}|${text}`).digest('hex');
+
+    const cachedRaw = await readBuffer(`${TTS_CACHE_DIR}/${cacheKey}.mp3`);
+    if (cachedRaw && cachedRaw.length > 0) {
+      return res.json({
+        success: true,
+        audioBase64: cachedRaw.toString('base64'),
+        mimeType: 'audio/mpeg',
+        engine,
+        voiceName: engine === 'speechify' ? await speechifyVoiceDisplayName(voiceId) : chosenVoice,
+        voiceId,
+        cached: true,
+      });
+    }
+
+    const result = await synthesizeTts(text, chosenVoice);
+    try {
+      const ext = result.mimeType.includes('wav') ? 'wav' : 'mp3';
+      await writeBuffer(`${TTS_CACHE_DIR}/${cacheKey}.${ext}`, Buffer.from(result.base64, 'base64'));
+    } catch (e) {
+      console.warn('No se pudo cachear el audio TTS:', e);
+    }
+
+    res.json({
+      success: true,
+      audioBase64: result.base64,
+      mimeType: result.mimeType,
+      engine: result.engine,
+      voiceName: result.voiceName,
+      voiceId: result.voiceId,
+      cached: false,
+    });
+  } catch (error: any) {
+    console.error('Error generating public TTS audio:', error);
+    res.status(500).json({ success: false, error: error.message || 'Error al generar audio TTS' });
   }
 });
 
@@ -959,7 +1196,7 @@ app.post('/api/gemini/generate-tour-plan', requireAuth, async (req, res) => {
 
     const ai = getAI();
 
-    const prompt = `Crea un tour patrimonial y autoguiado completo para la plataforma El Viaje Por Chile (www.elviaje.cl) sobre "${topic}" en la ciudad o destino "${city}".
+    const prompt = `Crea un tour patrimonial y autoguiado completo para la plataforma de Interpretación del Patrimonio Natural y Cultural (www.interpretaciondelpatrimonio.cl), plataforma editorial del consultor El Viaje Por Chile (www.elviaje.cl), sobre "${topic}" en la ciudad o destino "${city}".
 Idioma: ${language}.
 Número de paradas: ${stopsCount}.
 Incluye coordenadas geográficas reales (latitud y longitud precisas), títulos evocadores, guión de audio para cada parada, trivia, consejos y categoría.`;

@@ -22,7 +22,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-28T14:00:00Z',
     author: {
       name: 'Juan Carlos Castaing',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/images/juan-carlos-castaing.png',
       role: 'Especialista en Patrimonio y Rutas de Chile',
       bio: 'Guía de expedición en Patagonia, consultor de interpretación del patrimonio natural y creador en El Viaje Por Chile.',
       verified: true
@@ -329,6 +329,39 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'La luz de la tarde (Golden Hour) ilumina las fachadas de calamina con tonos dorados excepcionales para fotografía.',
         trivia: 'Muchas casonas de este cerro fueron construidas con maderas de pino oregón importadas desde Norteamérica.',
         estimatedStayMinutes: 20
+      },
+      {
+        id: 'stop-valpo-3',
+        order: 3,
+        title: 'Plaza Sotomayor, Edificio Armada y Monumento a los Héroes de Iquique',
+        subtitle: 'El corazón cívico y marítimo del plan de Valparaíso',
+        category: 'monument',
+        location: {
+          lat: -33.03944,
+          lng: -71.62944,
+          address: 'Plaza Sotomayor s/n, Valparaíso'
+        },
+        triggerRadiusMeters: 30,
+        narrativeText: 'Bajas al plan de la ciudad para encontrar la Plaza Sotomayor, el escenario cívico donde convergen el puerto, la Armada y la memoria marítima de Chile. Al centro se eleva el Monumento a los Héroes de Iquique, erigido para honrar a Arturo Prat y a sus hombres tras el Combate Naval de Iquique de 1879. Al costado brilla la fachada del Edificio de la Armada, obra de 1910 ejecutada para conmemorar el Centenario de la República.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Puck',
+          transcript: 'Detente frente al monumento y escucha el aleteo de las gaviotas. Detrás de ti, el vaivén de grúas y remolcadores recuerda que este es uno de los puertos más antiguos del Pacífico sur...'
+        },
+        images: [
+          {
+            id: 'img-valpo-sotomayor',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Plaza%20Sotomayor%2C%20Valpara%C3%ADso.jpg?width=1280',
+            caption: 'Plaza Sotomayor con el Monumento a los Héroes de Iquique y el Edificio de la Armada',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Camina dos cuadras hacia el mar para asomarte al Muelle Prat y observar a los pescadores artesanales y reconocerse en el monumento.',
+        trivia: 'El Monumento a los Héroes de Iquique, inaugurado en 1886, custodia en su cripta subterránea los restos del comandante Arturo Prat.',
+        estimatedStayMinutes: 20
       }
     ],
     wikilocRoutes: [
@@ -414,6 +447,72 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'Sube hasta la Torre Mirador del Castillo Hidalgo al mediodía para escuchar el cañonazo de las 12:00 hrs.',
         trivia: 'Bajo el cerro descansan los restos de Benjamín Vicuña Mackenna en la capilla que él mismo mandó edificar.',
         estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-stgo-2',
+        order: 2,
+        title: 'Plaza de Armas y Catedral Metropolitana',
+        subtitle: 'El corazón fundacional y religioso de la capital',
+        category: 'monument',
+        location: {
+          lat: -33.43722,
+          lng: -70.65028,
+          address: 'Plaza de Armas, Santiago Centro'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'Esta es la Plaza Mayor donde Pedro de Valdivia fundó Santiago el 12 de febrero de 1541: aquí se celebró la primera misa, se instalaron los poderes del cabildo y se ejecutó el trazado en damero que Pedro de Gamboa proyectó junto al curso del río Mapocho. La Catedral Metropolitana que domina el costado poniente se levantó en varias campañas entre 1748 y 1830, con una fachada neoclásica atribuida al arquitecto Joaquín Toesca. A su costado se alzan el Palacio de la Real Audiencia, hoy Museo Histórico Nacional, y el edificio del Correo Central.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 160,
+          voiceName: 'Charon',
+          transcript: 'Percibe el contraste de Santiago en una sola esquina: el repique de las campanas de la Catedral, los puestos de la feria y el murmullo del metro bajo tus pies...'
+        },
+        images: [
+          {
+            id: 'img-stgo-catedral',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Catedral%20Metropolitana%20de%20Santiago.jpg?width=1280',
+            caption: 'Fachada neoclásica de la Catedral Metropolitana junto a la Plaza de Armas',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'La plaza se llena de vida al atardecer con payadores, mimos y ajedrecistas; observa además la estatua de Pedro de Valdivia al centro.',
+        trivia: 'La Catedral guarda bajo sus naves los restos de varios gobernadores coloniales y del propio Benjamín Vicuña Mackenna.',
+        estimatedStayMinutes: 25
+      },
+      {
+        id: 'stop-stgo-3',
+        order: 3,
+        title: 'Palacio de La Moneda',
+        subtitle: 'De Casa de la Moneda a sede del Gobierno de Chile',
+        category: 'history',
+        location: {
+          lat: -33.44361,
+          lng: -70.65417,
+          address: 'Calle Moneda s/n, Santiago'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'El Palacio de La Moneda es la obra cumbre del arquitecto Joaquín Toesca, comenzada en 1784 para acuñar moneda colonial y reconvertida en sede del Poder Ejecutivo desde 1845. Su sobria fachada neoclásica de piedras cárcavas enmarca la Plaza de la Constitución, donde se realizan los cambios de guardia. Testigo de la vida republicana, fue centro de la política chilena durante el siglo XX y sufrió duramente el bombardeo del 11 de septiembre de 1973, siendo luego restaurado y abierto a visitas patrimoniales.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 165,
+          voiceName: 'Fenrir',
+          transcript: 'Mira el frontón y los jardines anteriores. El crujido de las ventanas y el tránsito de los buses te cuentan que continúas en el corazón administrativo de Chile...'
+        },
+        images: [
+          {
+            id: 'img-stgo-moneda',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Palacio%20de%20La%20Moneda.jpg?width=1280',
+            caption: 'Fachada norte del Palacio de La Moneda frente a la Plaza de la Constitución',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Asiste al cambio de guardia de los Carabineros de Chile, los días hábiles a las 10:00 hrs frente a la puerta norte.',
+        trivia: 'En sus patios interiores crecen naranjos y camelias, y sus subterráneos albergan el Centro Cultural Palacio La Moneda.',
+        estimatedStayMinutes: 25
       }
     ],
     wikilocRoutes: [
@@ -499,6 +598,72 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'Mantente muy bien hidratado y utiliza sombrero y bloqueador solar en todo momento.',
         trivia: 'El pueblo fue un enclave estratégico de las caravanas que comerciaban entre el altiplano boliviano y la costa del Pacífico.',
         estimatedStayMinutes: 20
+      },
+      {
+        id: 'stop-spa-2',
+        order: 2,
+        title: 'Las Tres Marías y la Cordillera de la Sal',
+        subtitle: 'Esculturas de halita forjadas por el viento',
+        category: 'nature',
+        location: {
+          lat: -22.90861,
+          lng: -68.21806,
+          address: 'Camino al Valle de la Luna, San Pedro de Atacama'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'Ante ti se alzan las Tres Marías, tres columnas de sal que el viento ha esculpido durante millones de años sobre la Cordillera de la Sal. Esta cordillera nació como un fondo marino evaporado que luego se elevó, deformó y fracturó en movimientos tectónicos, dejando estratos de sal blanca, yeso y sedimentos que brillan con la luz de la tarde. Los tonos rojos y ocres de los acantilados provienen de óxidos de hierro que tiñen las capas de mineral.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 145,
+          voiceName: 'Zephyr',
+          transcript: 'Acércate a las formaciones y nota el crujido de la halita bajo tus pasos. El viento, que aquí sopla casi todos los días del año, sigue esculpiendo estas figuras...'
+        },
+        images: [
+          {
+            id: 'img-spa-tresmarias',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Valle%20de%20la%20Luna%2002.JPG?width=1280',
+            caption: 'Formaciones de sal de la Cordillera de la Sal en el sector de Las Tres Marías',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Camina solo por los senderos demarcados: la sal es blanda y cualquier desvío degrada estas frágiles esculturas.',
+        trivia: 'La sal de esta cordillera fue explotada por los pueblos atacameños durante siglos y abasteció a los minerales de plata bolivianos.',
+        estimatedStayMinutes: 20
+      },
+      {
+        id: 'stop-spa-3',
+        order: 3,
+        title: 'Duna Mayor y Mirador del Valle de la Luna',
+        subtitle: 'El atardecer más famoso del desierto de Atacama',
+        category: 'viewpoint',
+        location: {
+          lat: -22.89750,
+          lng: -68.24444,
+          address: 'Sector Valle de la Luna, San Pedro de Atacama'
+        },
+        triggerRadiusMeters: 40,
+        narrativeText: 'Sube la Duna Mayor, un arenal de granos finísimos que se eleva sobre la cuenca del Valle de la Luna. Desde la cumbre, el mirador abre una vista de 360 grados: al poniente, el macizo del valle con sus cráteres y anfiteatros de sal; al oriente, los volcanes Licancabur y Láscar custodiando el altiplano. Al caer el sol, la luz tiñe de púrpura y naranja cada estrato y las sombras se estiran hasta fundir el desierto con la noche estrellada.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 160,
+          voiceName: 'Kore',
+          transcript: 'Siente el silencio del altiplano y el calor que se disipa. Espera el ocaso: aquí el cielo pasa del celeste al cobre y del cobre al negro en veinte minutos...'
+        },
+        images: [
+          {
+            id: 'img-spa-duna',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Duna%20Mayor%2C%20Valle%20de%20la%20Luna%2C%20San%20Pedro%20de%20Atacama%2C%20Chile%2C%202016-02-01%2C%20DD%20173-175%20HDR.JPG?width=1280',
+            caption: 'Duna Mayor del Valle de la Luna al atardecer, con los volcanes al fondo',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Llega dos horas antes del ocaso: el sendero se cierra al anochecer y debes portar agua y chaqueta para la caída de temperatura.',
+        trivia: 'El Valle de la Luna fue declarado Santuario de la Naturaleza y su sendero de atardecer admite un cupo diario reducido de visitantes.',
+        estimatedStayMinutes: 40
       }
     ],
     wikilocRoutes: [
@@ -1062,6 +1227,39 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'Visita los talleres de artesanos en cestería de mimbre y cantería en piedra.',
         trivia: 'El nombre Lolol proviene del mapudungun "lolo", que significa tierra de zanjas o cangrejeras.',
         estimatedStayMinutes: 25
+      },
+      {
+        id: 'stop-colchagua-3',
+        order: 3,
+        title: 'Viña Santa Cruz y su Aldea del Vino',
+        subtitle: 'Teleférico, patrimonio vitivinícola y tradición rural',
+        category: 'museum',
+        location: {
+          lat: -34.73950,
+          lng: -71.33920,
+          address: 'Llollinco s/n, Palmilla, O\'Higgins'
+        },
+        triggerRadiusMeters: 40,
+        narrativeText: 'La Viña Santa Cruz conjuga la cultura del vino con el patrimonio campesino de Chile central. Un teleférico sobre los viñedos conduce al cerro donde se levanta una aldea que recrea los oficios del campo: graneros, rueda de agua, mercado de artesanos y una capilla de madera inspirada en las misiones jesuitas. En la casa de la cultura del vino se degustan los Carménère y Syrah del valle, mientras los miradores descubren el curso del río Tinguiririca y las lomas de Lolol.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Charon',
+          transcript: 'Escucha el cable del teleférico deslizarse en silencio. Abajo, las hileras de parras dibujan sobre el valle los surcos de casi cuatro siglos de viticultura...'
+        },
+        images: [
+          {
+            id: 'img-colchagua-vina',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Vi%C3%B1edo%20Colchagua%2C%20Chile.jpg?width=1280',
+            caption: 'Viñedos del valle de Colchagua, cuna del Carménère chileno',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Reserva las visitas de vendimia entre marzo y abril para participar de la cosecha y la molienda del vino artesanal.',
+        trivia: 'La bodega de Viña Santa Cruz atesora además una muestra de carruajes históricos y una colección paleontológica dedicada a los niños.',
+        estimatedStayMinutes: 25
       }
     ],
   },
@@ -1140,6 +1338,72 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'Camina exclusivamente por las pasarelas de madera elevadas para no compactar las raíces superficiales del árbol.',
         trivia: 'El alerce crece a un ritmo extremadamente lento: tan solo 1 milímetro de diámetro por año.',
         estimatedStayMinutes: 40
+      },
+      {
+        id: 'stop-alerce-2',
+        order: 2,
+        title: 'Sendero Los Alerces Milenarios',
+        subtitle: 'A paso lento entre mañíos y helechos gigantes',
+        category: 'nature',
+        location: {
+          lat: -40.16111,
+          lng: -73.54194,
+          address: 'Parque Nacional Alerce Costero, sendero Los Alerces'
+        },
+        triggerRadiusMeters: 30,
+        narrativeText: 'Dejas atrás al Gran Abuelo para internarte en el sendero principal del parque. A cada paso, el bosque templado lluvioso te envuelve: mañíos de hojas brillantes, ulmos con raíces tabulares que se hunden en la turba, quilas que se mecen con la llovizna y helechos que preceden a los dinosaurios. La niebla es permanente y la humedad convierte el suelo en una alfombra de musgo que amortigua cualquier sonido, salvo el canto del chucao.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 145,
+          voiceName: 'Puck',
+          transcript: 'El ruido más fuerte de este sendero es el goteo del agua entre las copas. Camina despacio y en silencio: la avifauna del bosque valdiviano se acerca tímida...'
+        },
+        images: [
+          {
+            id: 'img-alerce-sendero',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/PN%20alerce%20costero%2010.jpg?width=1280',
+            caption: 'Troncos milenarios y vegetación de la selva valdiviana en el sendero del parque',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Lleva impermeable y bastones: las pasarelas permanecen húmedas casi todo el año a causa de las lluvias constantes.',
+        trivia: 'Cada alerce puede albergar en su corteza todo un ecosistema en miniatura de musgos, líquenes y helechos epífitos.',
+        estimatedStayMinutes: 25
+      },
+      {
+        id: 'stop-alerce-3',
+        order: 3,
+        title: 'El Alerce Caído',
+        subtitle: 'Un gigante derribado que sigue dando vida',
+        category: 'nature',
+        location: {
+          lat: -40.16500,
+          lng: -73.52806,
+          address: 'Parque Nacional Alerce Costero, sector del Alerce Caído'
+        },
+        triggerRadiusMeters: 30,
+        narrativeText: 'Un coloso caído yace frente a ti: un alerce que, tras más de un milenio en pie, fue derribado por el viento y la gravedad. Su tronco, de varios metros de diámetro, se ha transformado en un jardín en miniatura: sobre su corteza germinan coigües, canelos y enredaderas, mientras sus raíces volteadas forman una pared de tierra donde anidan las aves. Es un recordatorio de la resiliencia del bosque valdiviano y de los ciclos naturales.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 140,
+          voiceName: 'Charon',
+          transcript: 'Acércate y toca la madera rojiza, densa como piedra. Aunque cayó hace décadas, su leño sigue nutriendo cientos de especies de este bosque...'
+        },
+        images: [
+          {
+            id: 'img-alerce-caido',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/PN%20alerce%20costero%2005.jpg?width=1280',
+            caption: 'Bosque nativo del Parque Nacional Alerce Costero con vegetación sobre troncos caídos',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'No toques ni retires las plántulas que crecen sobre los troncos caídos: forman parte del sucesivo ciclo del bosque.',
+        trivia: 'La madera del alerce puede conservarse más de mil años en el suelo; en la zona protegida se han hallado incluso bosques fósiles sumergidos.',
+        estimatedStayMinutes: 20
       }
     ],
   },
@@ -1218,6 +1482,72 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'Prueba la gastronomía tradicional en los cafés y bistrós ubicados dentro de los propios palafitos.',
         trivia: 'Las tejuelas de alerce en las fachadas tienen diseños decorativos variados: punta de flecha, cola de castor y media luna.',
         estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-chiloe-2',
+        order: 2,
+        title: 'Iglesia de San Francisco de Castro',
+        subtitle: 'La catedral de madera del archipiélago',
+        category: 'church',
+        location: {
+          lat: -42.48194,
+          lng: -73.76250,
+          address: 'Plaza de Armas de Castro'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'Frente a la Plaza de Armas de Castro se eleva la iglesia de San Francisco, la más grande de las iglesias de madera de Chiloé inscritas en la Lista del Patrimonio Mundial de la UNESCO. Fue proyectada a inicios del siglo XX por el arquitecto italiano Eduardo Provasoli, conjugando el gótico europeo con la carpintería chilota: maderas nobles unidas a caja y espiga, techo de tejuelas y su característico torreón pintado de fucsia que domina el centro de la ciudad.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 155,
+          voiceName: 'Fenrir',
+          transcript: 'Levanta la vista hasta la torre de tejuelas. La madera que la cubre fue cortada a hacha y labrada en los astilleros de la isla...'
+        },
+        images: [
+          {
+            id: 'img-chiloe-sfcastro',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Iglesia%20San%20Francisco%20de%20Castro%20%281%29.jpg?width=1280',
+            caption: 'Torre de madera pintada de fucsia de la Iglesia de San Francisco de Castro',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Desde el pasaje Gamboa, detrás del templo, obtendrás una postal que reúne la torre de la iglesia y los palafitos a la vez.',
+        trivia: 'El conjunto de iglesias de madera de Chiloé fue inscrito en la lista del Patrimonio Mundial de la UNESCO el año 2000.',
+        estimatedStayMinutes: 20
+      },
+      {
+        id: 'stop-chiloe-3',
+        order: 3,
+        title: 'Iglesia de Dalcahue y su Feria Artesanal',
+        subtitle: 'Herencia jesuita frente al canal de Quinchao',
+        category: 'church',
+        location: {
+          lat: -42.37750,
+          lng: -73.64972,
+          address: 'Plaza de Dalcahue, Chiloé'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'En la plaza de Dalcahue se encuentra otra joya de la Lista del Patrimonio Mundial: la iglesia parroquial levantada a mediados del siglo XIX bajo la influencia de la Compañía de Jesús, con su fachada blanca de arcos y su torre de madera. Junto al templo, la feria del canal despliega la vida más auténtica del archipiélago: lancheros descargando mercancía, tejedoras en telar y puestos de curanto, hortalizas y tejidos que mantienen viva la economía campesina insular.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Kore',
+          transcript: 'Mira el canal que separa Dalcahue de la isla Quinchao. Las lanchas de pasajeros zarpan cada pocos minutos con el trapicheo de la feria...'
+        },
+        images: [
+          {
+            id: 'img-chiloe-dalcahue',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Iglesia%20de%20Dalcahue.jpg?width=1280',
+            caption: 'Iglesia de madera de Dalcahue, Patrimonio Mundial de la UNESCO',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Cruza a Quinchao en la lancha del canal: en 10 minutos llegarás a la iglesia de Santa María de Loreto de Achao, una de las más antiguas de Chiloé.',
+        trivia: 'La iglesia de Dalcahue está construida enteramente en maderas nativas unidas a caja y espiga, sin clavos de metal.',
+        estimatedStayMinutes: 25
       }
     ],
   },
@@ -1296,6 +1626,72 @@ export const INITIAL_TOURS: Tour[] = [
         tips: 'Usa calzado cómodo y cerrado con buena adherencia para caminar por las galerías húmedas.',
         trivia: 'El Chiflón del Diablo no sufrió derrumbes catastróficos debido a la excelente calidad de la roca y la ingeniería de soporte en madera.',
         estimatedStayMinutes: 45
+      },
+      {
+        id: 'stop-lota-2',
+        order: 2,
+        title: 'Parque Isidora Cousiño',
+        subtitle: 'Un jardín europeo plantado junto al carbón',
+        category: 'nature',
+        location: {
+          lat: -37.09250,
+          lng: -73.15417,
+          address: 'Parque Isidora Cousiño, Lota'
+        },
+        triggerRadiusMeters: 40,
+        narrativeText: 'Nada parece más improbable que un jardín botánico al borde del Pacífico, y sin embargo aquí, entre la bahía y las minas de carbón, crece desde 1873 el Parque Isidora Cousiño. Inspirado en los jardines paisajistas europeos, alberga cipreses, araucarias y centenares de especies traídas de los cinco continentes, junto a lagunas artificiales, grutas y miradores sobre el mar. Fue construido junto a la empresa minera y el castillo de la familia, reflejo del esplendor que el carbón trajo a esta costa.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 155,
+          voiceName: 'Charon',
+          transcript: 'Respira el aire salino mezclado con resina. Entre estos árboles, la familia Cousiño recibía a científicos, artistas y diplomáticos de todo el mundo...'
+        },
+        images: [
+          {
+            id: 'img-lota-parque',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Parque%20Isidora%20Cousi%C3%B1o%20de%20Lota.JPG?width=1280',
+            caption: 'Áreas verdes y especies exóticas del Parque Isidora Cousiño',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'El sendero hacia el mirador de la costa es corto y empinado: desciende con cuidado, el suelo de tierra puede estar blando.',
+        trivia: 'El parque llegó a albergar más de mil especies vegetales, entre ellas robles americanos y coníferas traídas por los barcos carboneros.',
+        estimatedStayMinutes: 40
+      },
+      {
+        id: 'stop-lota-3',
+        order: 3,
+        title: 'Pique Carlos Cousiño y los Pabellones Mineros',
+        subtitle: 'El corazón de la gran minería del carbón',
+        category: 'history',
+        location: {
+          lat: -37.08917,
+          lng: -73.15278,
+          address: 'Calle Cousiño s/n, Lota'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'El Pique Carlos Cousiño da nombre al complejo que articuló la epopeya del carbón en Chile. Desde mediados del siglo XIX, las jaulas de madera descendían por este pozo hacia galerías que alcanzaban el fondo del mar, transportando a miles de mineros que arañaban las vetas a pala y picota. A su alrededor crecieron los pabellones de vivienda, la escuela, la capilla y el teatro de la empresa: una ciudad completa dependiente de la oscuridad del mineral.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 150,
+          voiceName: 'Fenrir',
+          transcript: 'Imagina el silbato del pique marcando el fin de turno y a los mineros emergiendo cubiertos de fina negrura. Muchos de ellos apenas superaban los catorce años...'
+        },
+        images: [
+          {
+            id: 'img-lota-pique',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cauria%2C%20Pique%20Carlos%20Cousi%C3%B1o%2C%20Lota%2C%20Octava%20Regi%C3%B3n%2C%20Chile.jpg?width=1280',
+            caption: 'Infraestructura del Pique Carlos Cousiño en Lota, Región del Biobío',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Aprovecha las visitas guiadas conjuntas: el circuito abarca el museo histórico, el pique y el parque con mineros jubilados como guías.',
+        trivia: 'El escritor Baldomero Lillo conoció la vida de estas faenas antes de escribir "Sub Terra", la denuncia social más célebre de la literatura minera chilena.',
+        estimatedStayMinutes: 30
       }
     ],
   },
@@ -1373,6 +1769,72 @@ export const INITIAL_TOURS: Tour[] = [
         documents: [],
         tips: 'Planifica una sesión nocturna de observación telescópica en el Observatorio Mamalluca en Vicuña.',
         trivia: 'El Valle del Elqui ostenta más de 300 noches despejadas al año, siendo declarado el primer Santuario Internacional de Cielos Oscuros.',
+        estimatedStayMinutes: 30
+      },
+      {
+        id: 'stop-elqui-2',
+        order: 2,
+        title: 'Observatorio Astronómico Mamalluca',
+        subtitle: 'El cielo del Elqui bajo una cúpula turística',
+        category: 'museum',
+        location: {
+          lat: -30.04806,
+          lng: -70.50722,
+          address: 'Camino a Mamalluca, Vicuña, Región de Coquimbo'
+        },
+        triggerRadiusMeters: 40,
+        narrativeText: 'En la falda del cerro Mamalluca opera el observatorio turístico más popular del hemisferio sur. Su gran cúpula alberga un telescopio de 14 pulgadas de abertura y sus guías te conducen por las constelaciones australes, aquellas que inspiraron a la cultura diaguita y a la propia Gabriela Mistral. Gracias a la sequedad del aire y a la ausencia de contaminación lumínica, el valle del Elqui es uno de los puntos del planeta con el cielo más transparente.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 155,
+          voiceName: 'Kore',
+          transcript: 'Cuando no hay luna, la Vía Láctea cruza el cielo como un río de polvo. Guarda silencio un instante: estás mirando luces que viajaron miles de años para llegar a tus ojos...'
+        },
+        images: [
+          {
+            id: 'img-elqui-mamalluca',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nocturna%20mamalluca%20obs.jpg?width=1280',
+            caption: 'Cúpula del Observatorio Mamalluca y cielo nocturno del valle del Elqui',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Las mejores observaciones se logran en noches de luna nueva; reserva con varios días de anticipación durante la temporada alta.',
+        trivia: 'Astrónomos de Chile, Europa y Estados Unidos instalan observatorios científicos en las cumbres cercanas por la calidad única del cielo.',
+        estimatedStayMinutes: 60
+      },
+      {
+        id: 'stop-elqui-3',
+        order: 3,
+        title: 'Plaza de Vicuña y Museo Gabriela Mistral',
+        subtitle: 'La cuna de una Premio Nobel',
+        category: 'history',
+        location: {
+          lat: -30.03528,
+          lng: -70.71278,
+          address: 'Plaza de Armas de Vicuña'
+        },
+        triggerRadiusMeters: 35,
+        narrativeText: 'El pueblo de Vicuña es la cuna de Lucila Godoy Alcayaga, la poeta que pasó a la historia con el nombre de Gabriela Mistral. En la casa donde nació en 1889 funciona el Museo Gabriela Mistral, que resguarda sus manuscritos, premios y objetos personales. La plaza principal, sombreada y silenciosa, cierra esta ruta: desde aquí el valle se abre hacia las destilerías pisqueras que convierten el agua y la uva moscatel en uno de los tesoros de la región.',
+        audio: {
+          type: 'ai_generated',
+          durationSeconds: 145,
+          voiceName: 'Puck',
+          transcript: 'Recorre las salas del museo y reconoce la letra de la poeta. Luego regresa a la plaza: los membrillos y las papayas confitadas son el regalo dulce del valle...'
+        },
+        images: [
+          {
+            id: 'img-elqui-vicuna',
+            url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Museo%20Gabriela%20Mistral%20-%20Vicu%C3%B1a.JPG?width=1280',
+            caption: 'Museo Gabriela Mistral en la casa natal de la poeta, Vicuña',
+            isPrimary: true
+          }
+        ],
+        socialLinks: {},
+        documents: [],
+        tips: 'Combina la visita con una cata de pisco en alguno de los pisqueros que rodean el pueblo y guarda un momento para la biblioteca del museo.',
+        trivia: 'Antes de adoptar el seudónimo definitivo en 1914, Gabriela Mistral firmó sus primeros versos como "Alondra".',
         estimatedStayMinutes: 30
       }
     ],
@@ -1874,7 +2336,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-09-01T15:30:00Z',
     author: {
       name: 'Juan Carlos Castaing',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/images/juan-carlos-castaing.png',
       role: 'Creador de rutas autoguiadas y audioguías en El Viaje Por Chile',
       bio: 'Autor de la audioguía "Sumérgete en el paraíso perdido de Los Muermos" publicada en izi.TRAVEL y gestor de www.elviaje.cl.',
       verified: true
@@ -2066,7 +2528,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-09-12T12:00:00Z',
     author: {
       name: 'Juan Carlos Castaing',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/images/juan-carlos-castaing.png',
       role: 'Creador de rutas autoguiadas y audioguías en El Viaje Por Chile',
       bio: 'Autor de la audioguía "Puerto Montt Bizarro" publicada en izi.TRAVEL y gestor de www.elviaje.cl.',
       verified: true
@@ -2630,7 +3092,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-09-12T09:00:00Z',
     author: {
       name: 'Juan Carlos Castaing',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/images/juan-carlos-castaing.png',
       role: 'Especialista en Patrimonio y Rutas de Chile',
       bio: 'Guía de expedición en el sur de Chile, consultor de interpretación del patrimonio natural y cultural y creador en El Viaje Por Chile.',
       verified: true

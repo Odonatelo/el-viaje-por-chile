@@ -112,7 +112,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
         <div className="relative max-w-5xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40 text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-sm">
             <Headphones className="w-3.5 h-3.5 text-[#D97A46] animate-pulse" />
-            <span>Interpretación del Patrimonio Natural y Cultural • www.elviaje.cl</span>
+            <span>Interpretación del Patrimonio Natural y Cultural • www.interpretaciondelpatrimonio.cl</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight font-['Cormorant_Garamond',Georgia,serif]">
@@ -286,7 +286,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               )}
             </div>
             <h3 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-              ¿Quieres ser parte y publicar tus rutas en www.elviaje.cl?
+              ¿Quieres ser parte y publicar tus rutas en www.interpretaciondelpatrimonio.cl?
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               Para publicar en la plataforma se requiere un <strong>fee anual de 100 dólares por 12 meses</strong> o puedes <strong>acceder gratis</strong> al contratar una sesión de <em>Consultoría Personalizada en Interpretación del Patrimonio</em> de Tienda El Viaje.
@@ -331,7 +331,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             <p className="text-xs text-slate-600 leading-relaxed">
               {isOwner 
                 ? 'Como propietario exclusivo (juancarlos.castaing@gmail.com), configura fácilmente tus credenciales de Mercado Pago y define las tarifas en CLP.'
-                : 'Paga tu derecho de publicación o adquiere tu membresía anual para subir audioguías ilimitadas con recaudación directa a www.elviaje.cl.'
+                : 'Paga tu derecho de publicación o adquiere tu membresía anual para subir audioguías ilimitadas con recaudación directa a www.interpretaciondelpatrimonio.cl.'
               }
             </p>
           </div>
@@ -370,7 +370,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               Rutas y Audioguías de Chile
             </h2>
             <span className="bg-[#B04E2A]/10 text-[#B04E2A] border border-[#B04E2A]/20 text-xs font-extrabold px-3 py-0.5 rounded-full">
-              {filteredTours.length} rutas en www.elviaje.cl
+              {filteredTours.length} rutas en www.interpretaciondelpatrimonio.cl
             </span>
           </div>
 

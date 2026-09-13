@@ -48,14 +48,14 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
   </wpt>`).join('');
 
     const gpxContent = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="El Viaje Por Chile - www.elviaje.cl" xmlns="http://www.topografix.com/GPX/1/1">
+<gpx version="1.1" creator="El Viaje Por Chile - www.interpretaciondelpatrimonio.cl" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>${escapeXml(tour.title)}</name>
     <desc>${escapeXml(tour.description)}</desc>
     <author>
       <name>${escapeXml(tour.author.name)}</name>
     </author>
-    <link href="https://www.elviaje.cl/tours/${tour.id}">
+    <link href="https://www.interpretaciondelpatrimonio.cl/tours/${tour.id}">
       <text>Audioguía en El Viaje Por Chile</text>
     </link>
     <time>${new Date().toISOString()}</time>
@@ -109,7 +109,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
         distanceKm: tour.distanceKm,
         difficulty: tour.difficulty,
         author: tour.author.name,
-        source: 'El Viaje Por Chile (www.elviaje.cl)',
+        source: 'El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)',
         exportedAt: new Date().toISOString(),
       },
       features: tour.stops.map(stop => ({
@@ -277,7 +277,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
 
                   <div className="p-3 bg-[#F6F1E5] rounded-2xl border border-[#E4D8BF] flex items-center gap-3">
                     <QRCodeSVG
-                      value={`https://www.elviaje.cl/tours?tourId=${encodeURIComponent(tour.id)}`}
+                      value={`https://www.interpretaciondelpatrimonio.cl/tours?tourId=${encodeURIComponent(tour.id)}`}
                       size={64}
                       level="M"
                       fgColor="#14281C"
@@ -371,7 +371,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
                         {/* Stop QR Code for instant listening */}
                         <div className="flex flex-col items-center justify-center p-3 bg-white rounded-2xl border border-[#E4D8BF] flex-shrink-0 text-center w-28">
                           <QRCodeSVG
-                            value={`https://www.elviaje.cl/tours?stopId=${encodeURIComponent(stop.id)}&order=${stop.order}`}
+                            value={`https://www.interpretaciondelpatrimonio.cl/tours?stopId=${encodeURIComponent(stop.id)}&order=${stop.order}`}
                             size={72}
                             level="M"
                             fgColor="#14281C"
@@ -387,7 +387,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
 
                 {/* Visitor code & respect */}
                 <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <span>Plataforma Oficial El Viaje Por Chile • www.elviaje.cl</span>
+                  <span>Plataforma Oficial de Interpretación del Patrimonio • www.interpretaciondelpatrimonio.cl</span>
                   <span>No dejes rastro • Cuida los monumentos nacionales y la flora silvestre.</span>
                 </div>
               </div>
@@ -414,7 +414,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
                   <p className="font-bold text-slate-900">Contenido del archivo GPX generado:</p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li><strong>{tour.stops.length} Waypoints georreferenciados</strong> con nombres, coordenadas exactas y notas interpretativas.</li>
-                    <li>Metadatos de autor ({tour.author.name}) y enlace a www.elviaje.cl.</li>
+                    <li>Metadatos de autor ({tour.author.name}) y enlace a www.interpretaciondelpatrimonio.cl.</li>
                   </ul>
                 </div>
 

@@ -23,6 +23,26 @@ export function pcmBase64ToWavBlobUrl(base64Pcm: string, sampleRate = 24000, num
   }
 }
 
+// Convert a base64 audio payload (WAV, MP3, etc.) directly to a playable Blob URL
+export function base64AudioBlobUrl(base64: string, mimeType = 'audio/mpeg'): string {
+  try {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const isPcm = mimeType.startsWith('audio/pcm');
+    if (isPcm) {
+      const sampleRate = mimeType.includes('32000') ? 32000 : 24000;
+      return pcmBase64ToWavBlobUrl(base64, sampleRate);
+    }
+    return URL.createObjectURL(new Blob([bytes], { type: mimeType }));
+  } catch (error) {
+    console.error('Error decoding audio blob:', error);
+    return '';
+  }
+}
+
 function createWavHeaderAndData(samples: Int16Array, sampleRate: number, numChannels: number): ArrayBuffer {
   const buffer = new ArrayBuffer(44 + samples.length * 2);
   const view = new DataView(buffer);

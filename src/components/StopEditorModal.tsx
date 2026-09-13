@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { TourStop, StopCategory, StopAudio, StopImage, TourDocument, SocialLinks } from '../types';
-import { AudioRecorder, pcmBase64ToWavBlobUrl, getYouTubeEmbedUrl, uploadAudioToServer, audioDurationFromBlob } from '../utils/audioUtils';
+import { AudioRecorder, base64AudioBlobUrl, getYouTubeEmbedUrl, uploadAudioToServer, audioDurationFromBlob } from '../utils/audioUtils';
 
 interface StopEditorModalProps {
   stop: TourStop;
@@ -135,7 +135,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
       const data = await response.json();
       if (data.success && data.audioBase64) {
         const persistentUrl: string | undefined = data.url;
-        const blobUrl = persistentUrl ? '' : pcmBase64ToWavBlobUrl(data.audioBase64, 24000);
+        const blobUrl = persistentUrl ? '' : base64AudioBlobUrl(data.audioBase64, data.mimeType || 'audio/pcm;rate=24000');
 
         const newAudio: StopAudio = {
           type: 'ai_generated',
@@ -340,7 +340,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
             </span>
             <div>
               <span className="text-xs text-[#E8A58B] font-semibold uppercase tracking-wider block">
-                Editor de Parada • El Viaje Por Chile (www.elviaje.cl)
+                Editor de Parada • El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)
               </span>
               <h2 className="text-lg font-bold truncate font-['Cormorant_Garamond',Georgia,serif]">
                 {formData.title || 'Nueva Parada'}
@@ -1013,7 +1013,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                   
                   <div className="p-4 bg-white rounded-2xl shadow-inner inline-block">
                     <QRCodeSVG
-                      value={`https://www.elviaje.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}&title=${encodeURIComponent(formData.title)}`}
+                      value={`https://www.interpretaciondelpatrimonio.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}&title=${encodeURIComponent(formData.title)}`}
                       size={180}
                       level="H"
                       includeMargin={false}
@@ -1042,7 +1042,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <input
                       type="text"
                       readOnly
-                      value={`https://www.elviaje.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}`}
+                      value={`https://www.interpretaciondelpatrimonio.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}`}
                       className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-xs text-slate-700 select-all"
                     />
                   </div>

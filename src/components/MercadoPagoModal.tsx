@@ -689,7 +689,7 @@ export const MercadoPagoModal: React.FC<MercadoPagoModalProps> = ({
         <div className="p-4 bg-[#EEE6D3] border-t border-[#E4D8BF] flex items-center justify-between text-xs text-slate-600">
           <div className="flex items-center gap-2">
             <Lock className="w-3.5 h-3.5 text-slate-500" />
-            <span>Monetización autorizada www.elviaje.cl • Mercado Pago Chile</span>
+            <span>Monetización autorizada www.interpretaciondelpatrimonio.cl • Mercado Pago Chile</span>
           </div>
           <button
             onClick={onClose}

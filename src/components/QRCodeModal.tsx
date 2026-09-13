@@ -14,7 +14,7 @@ interface QRCodeModalProps {
 export function QRCodeModal({ isOpen, onClose, tour, selectedStop, onSelectStop }: QRCodeModalProps) {
   if (!isOpen) return null;
 
-  const base = (typeof window !== 'undefined' && window.location.origin) || 'https://www.elviaje.cl';
+  const base = (typeof window !== 'undefined' && window.location.origin) || 'https://www.interpretaciondelpatrimonio.cl';
   const url = selectedStop
     ? `${base}/tour/${tour.id}?stop=${selectedStop.id}`
     : `${base}/tour/${tour.id}`;

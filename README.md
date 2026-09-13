@@ -7,7 +7,7 @@ Mercado Pago (CLP).
 ## Características
 - Catálogo de rutas con mapa (Leaflet/OpenStreetMap), geolocalización y QR por ruta.
 - Studio de creación/edición de rutas (paradas, audio, imágenes, documentos).
-- Generación de guiones y audio TTS con Gemini.
+- Generación de guiones y audio TTS con Gemini (y voces premium con Speechify si defines `SPEECHIFY_API_KEY`).
 - Membresías y publicación de audioguías de pago con Mercado Pago (Chile).
 - Persistencia de rutas en `data/tours.json` (sobrevive reinicios).
 
@@ -29,6 +29,15 @@ La app es un único proceso Node que sirve el frontend y la API.
 Variables mínimas: `PORT`, `GEMINI_API_KEY`, `APP_URL`. Para cobros reales añade
 `MERCADOPAGO_ACCESS_TOKEN` y `MERCADOPAGO_PUBLIC_KEY`.
 
+### Voces premium (Speechify TTS, opcional)
+Si defines `SPEECHIFY_API_KEY` (obténla en https://platform.speechify.ai), los audios
+sintetizados usan las voces premium de Speechify en lugar de Gemini TTS. Opcional:
+`SPEECHIFY_VOICE_ID` fija una voz concreta (si se omite, se priorizan voces neutras
+mexicanas `es-MX` y se alternan entre sí para variar el narrador, respetando el género
+de la voz original cuando se indica); `SPEECHIFY_MODEL` (por defecto `simba-3.0`,
+multilingüe, incluye español). El endpoint público `/api/tts/audio` sintetiza las
+audioguías de muestra bajo demanda con caché en disco y un límite de peticiones por IP.
+
 ### Docker
 ```bash
 docker build -t el-viaje-por-chile .
@@ -46,8 +55,8 @@ docker run -d --name elviaje -p 3000:3000 --env-file .env el-viaje-por-chile
 
 ## Login con Google OAuth (real)
 1. En [Google Cloud Console](https://console.cloud.google.com/apis/credentials) crea un "ID de cliente de OAuth 2.0" de tipo Aplicación web.
-2. Orígenes autorizados de JavaScript: `https://www.elviaje.cl` (y `http://localhost:3000` para dev).
-3. URI de redirección autorizada: `https://www.elviaje.cl/api/auth/google/callback`.
+2. Orígenes autorizados de JavaScript: `https://www.interpretaciondelpatrimonio.cl` (y `http://localhost:3000` para dev).
+3. URI de redirección autorizada: `https://www.interpretaciondelpatrimonio.cl/api/auth/google/callback`.
 4. Define en `.env`: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` y un `SESSION_SECRET` seguro.
 5. El flujo: `/api/auth/google` → consentimiento de Google → `/api/auth/google/callback` (verifica el ID token, crea sesión y redirige a `/`). La sesión viaja en cookie httpOnly; el frontend la consulta en `/api/auth/me`.
 
