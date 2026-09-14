@@ -8,13 +8,15 @@ import {
   BookOpen,
   Feather,
   Instagram,
-  Receipt
+  Receipt,
+  ClipboardCheck
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
 import { CatalogView } from './components/CatalogView';
 import { TourDetailView } from './components/TourDetailView';
 import { TourStudioView } from './components/TourStudioView';
+import { FactibilidadGuide } from './components/FactibilidadGuide';
 import { HeritageConsultingModal } from './components/HeritageConsultingModal';
 import { MembershipModal } from './components/MembershipModal';
 import { MercadoPagoModal } from './components/MercadoPagoModal';
@@ -25,7 +27,10 @@ import { PaymentHistoryModal } from './components/PaymentHistoryModal';
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
-  const [viewMode, setViewMode] = useState<'catalog' | 'detail' | 'studio'>('catalog');
+  type ViewMode = 'catalog' | 'detail' | 'studio' | 'factibilidad';
+  const [viewMode, setViewMode] = useState<ViewMode>(() =>
+    window.location.pathname.startsWith('/factibilidad') ? 'factibilidad' : 'catalog',
+  );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [editingTour, setEditingTour] = useState<Tour | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -134,10 +139,26 @@ export default function App() {
     fetchTours();
   }, []);
 
-  // Scroll to top al cambiar entre vistas (catálogo / detalle / studio)
+  // Scroll to top al cambiar entre vistas (catálogo / detalle / studio / factibilidad)
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [viewMode]);
+
+  // Navegación con URL real (SPA): /factibilidad abre la Guía de Factibilidad
+  const navigateTo = (mode: ViewMode, path: string) => {
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+    setViewMode(mode);
+  };
+
+  // Sincroniza la vista cuando el usuario usa los botones atrás/adelante del navegador
+  useEffect(() => {
+    const onPopState = () =>
+      setViewMode(window.location.pathname.startsWith('/factibilidad') ? 'factibilidad' : 'catalog');
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   // ----------------------------------------------------
   // Save or Update Tour
@@ -411,7 +432,7 @@ export default function App() {
           
           {/* Logo & Platform Name */}
           <div 
-            onClick={() => setViewMode('catalog')}
+            onClick={() => navigateTo('catalog', '/')}
             className="flex items-center gap-3 cursor-pointer group"
           >
             <div className="w-12 h-12 rounded-2xl bg-black p-1 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform border border-white/10">
@@ -439,7 +460,7 @@ export default function App() {
           {/* Navigation Tabs */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setViewMode('catalog')}
+              onClick={() => navigateTo('catalog', '/')}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                 viewMode === 'catalog'
                   ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
@@ -448,6 +469,19 @@ export default function App() {
             >
               <Globe className="w-4 h-4" />
               <span className="hidden sm:inline">Explorar Rutas</span>
+            </button>
+
+            <button
+              onClick={() => navigateTo('factibilidad', '/factibilidad')}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                viewMode === 'factibilidad'
+                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
+              }`}
+              title="Guía de Factibilidad: diseña tu experiencia y prototípala con audioguías"
+            >
+              <ClipboardCheck className="w-4 h-4 text-[#E8A58B]" />
+              <span className="hidden lg:inline">Factibilidad</span>
             </button>
 
             <button
@@ -587,6 +621,8 @@ export default function App() {
               setViewMode('detail');
             }}
           />
+        ) : viewMode === 'factibilidad' ? (
+          <FactibilidadGuide onBack={() => navigateTo('catalog', '/')} />
         ) : (
           renderCatalogView()
         )}
@@ -785,6 +821,14 @@ export default function App() {
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>Consultoría para tu Viaje Personal</span>
+              </button>
+              <span className="text-slate-600">•</span>
+              <button
+                onClick={() => navigateTo('factibilidad', '/factibilidad')}
+                className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <ClipboardCheck className="w-3.5 h-3.5" />
+                <span>Guía de Factibilidad</span>
               </button>
               <span className="text-slate-600">•</span>
               <a
