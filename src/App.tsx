@@ -407,37 +407,37 @@ export default function App() {
 
       {/* Global Brand Navigation Bar - El Viaje Por Chile */}
       <header className="bg-[#14281C] text-white sticky top-0 z-40 border-b border-[#2A4533] shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+
           {/* Logo & Platform Name */}
           <div 
             onClick={() => setViewMode('catalog')}
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center gap-3 cursor-pointer group min-w-0"
           >
-            <div className="w-12 h-12 rounded-2xl bg-black p-1 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform border border-white/10">
+            <div className="w-12 h-12 rounded-2xl bg-black p-1 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform border border-white/10 flex-shrink-0">
               <img
                 src="/entorno/Recurso-6.png"
                 alt="El Viaje Por Chile"
                 className="w-full h-full object-contain rounded-[14px]"
               />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-white font-['Cormorant_Garamond',Georgia,serif]">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-white font-['Cormorant_Garamond',Georgia,serif] whitespace-nowrap">
                   El Viaje <span className="text-[#D97A46]">Por Chile</span>
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40">
+                <span className="hidden lg:inline text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#B04E2A]/20 text-[#E8A58B] border border-[#B04E2A]/40 whitespace-nowrap">
                   www.interpretaciondelpatrimonio.cl
                 </span>
               </div>
-              <p className="text-[10px] text-slate-300 font-medium hidden sm:block">
+              <p className="text-[10px] text-slate-300 font-medium hidden sm:block truncate">
                 Audioguías & Interpretación del Patrimonio Natural y Cultural
               </p>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
             <button
               onClick={() => setViewMode('catalog')}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
