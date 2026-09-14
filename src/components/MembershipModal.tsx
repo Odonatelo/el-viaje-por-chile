@@ -5,7 +5,7 @@ import {
   ShieldCheck, 
   Sparkles, 
   ExternalLink, 
-  CreditCard, 
+  Mail, 
   Compass, 
   Gift, 
   Key, 
@@ -21,8 +21,7 @@ interface MembershipModalProps {
   isOpen: boolean;
   onClose: () => void;
   isMember: boolean;
-  memberType: 'none' | 'annual_paid' | 'consulting_free';
-  onOpenMercadoPago: () => void;
+  memberType: 'none' | 'basic_free' | 'annual_paid' | 'consulting_free';
   onAuthRefreshed: () => void;
   onOpenConsultingModal: () => void;
 }
@@ -32,7 +31,6 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
   onClose,
   isMember,
   memberType,
-  onOpenMercadoPago,
   onAuthRefreshed,
   onOpenConsultingModal,
 }) => {
@@ -40,7 +38,6 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
   const [voucherCode, setVoucherCode] = useState('');
   const [voucherError, setVoucherError] = useState('');
   const [voucherSuccess, setVoucherSuccess] = useState(false);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   if (!isOpen) return null;
 
@@ -66,15 +63,11 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
         onAuthRefreshed();
         setTimeout(() => onClose(), 1200);
       } else {
-        setVoucherError(data.error || 'Código no válido. Si realizaste tu consultoría en Tienda El Viaje, contacta a tiendaelviaje@gmail.com.');
+        setVoucherError(data.error || 'Código no válido. Si realizaste tu consultoría en Tienda El Viaje, contacta a juancarlos.castaing@gmail.com.');
       }
     } catch {
       setVoucherError('Error de conexión con el servidor.');
     }
-  };
-
-  const handlePayWithMercadoPago = () => {
-    onOpenMercadoPago();
   };
 
   return (
@@ -123,7 +116,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                 : 'text-slate-600 hover:text-[#14281C] hover:bg-white/60'
             }`}
           >
-            Opciones de Acceso (Fee Anual vs Consultoría)
+            Opciones de Acceso (Membresía vs Consultoría)
           </button>
           <button
             onClick={() => setActiveTab('redeem')}
@@ -153,7 +146,7 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
               {/* Two Column Pricing / Access Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 
-                {/* Option 1: Annual Fee 100 USD */}
+                {/* Option 1: Annual Fee - Direct coordination with administrator */}
                 <div className={`bg-white rounded-3xl p-6 border-2 flex flex-col justify-between transition-all ${
                   memberType === 'annual_paid'
                     ? 'border-emerald-600 shadow-md ring-2 ring-emerald-500/20'
@@ -165,28 +158,31 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                         Modalidad Directa
                       </span>
                       <div className="w-8 h-8 rounded-xl bg-[#14281C]/5 text-[#14281C] flex items-center justify-center">
-                        <CreditCard className="w-4 h-4" />
+                        <Mail className="w-4 h-4" />
                       </div>
                     </div>
 
                     <div>
                       <h3 className="text-lg font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-                        Fee Anual Creador
+                        Membresía Plataforma · Cuota Anual
                       </h3>
-                      <p className="text-xs text-slate-500">Acceso completo durante 12 meses</p>
+                      <p className="text-xs text-slate-500">Acceso completo durante 12 meses · hasta 50 rutas</p>
                     </div>
 
-                    <div className="flex items-baseline gap-1 py-1">
-                      <span className="text-3xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-                        $49.990
+                    <div className="py-1">
+                      <span className="text-xs font-bold text-slate-700">
+                        Cuota anual — pago directo
                       </span>
-                      <span className="text-xs font-bold text-slate-500 uppercase">CLP / año (Mercado Pago)</span>
+                      <p className="text-[11px] text-slate-500 mt-0.5">
+                        Sin pagos por la plataforma. Una vez confirmada tu cuota anual, el administrador activa
+                        tu membresía manualmente (hasta 50 rutas).
+                      </p>
                     </div>
 
                     <ul className="space-y-2 text-xs text-slate-600 border-t border-[#F6F1E5] pt-3">
                       <li className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <span>Publicación de rutas y audioguías ilimitadas en <strong>www.interpretaciondelpatrimonio.cl</strong></span>
+                        <span>Publicación de hasta 50 rutas con audioguías en <strong>www.interpretaciondelpatrimonio.cl</strong></span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -198,33 +194,37 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <span>Recaudación segura procesada con <strong>Mercado Pago Chile</strong></span>
+                        <span>Activación coordinada directamente con el administrador por correo</span>
                       </li>
                     </ul>
                   </div>
 
-                  <div className="pt-6">
+                  <div className="pt-6 space-y-2">
                     {memberType === 'annual_paid' ? (
                       <div className="w-full py-2.5 bg-emerald-100 text-emerald-800 text-center text-xs font-bold rounded-xl border border-emerald-300">
                         ✓ Plan Anual Activo
                       </div>
                     ) : (
-                      <button
-                        onClick={handlePayWithMercadoPago}
-                        className="w-full py-3 bg-[#009EE3] hover:bg-[#0086C2] text-white text-xs font-bold rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-                      >
-                        {isProcessingPayment ? (
-                          <>
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                            <span>Conectando con Mercado Pago...</span>
-                          </>
-                        ) : (
-                          <>
-                            <CreditCard className="w-4 h-4" />
-                            <span>Pagar con Mercado Pago ($49.990 CLP)</span>
-                          </>
-                        )}
-                      </button>
+                      <>
+                        <a
+                          href="mailto:juancarlos.castaing@gmail.com?subject=Solicitud%20de%20Membres%C3%ADa%20Plataforma%20%E2%80%94%20El%20Viaje%20Por%20Chile&body=Hola%2C%20quiero%20activar%20la%20Membres%C3%ADa%20Plataforma%20(cuota%20anual%2C%20hasta%2050%20rutas)%20en%20www.interpretaciondelpatrimonio.cl.%20Quedo%20atento%20a%20la%20coordinaci%C3%B3n%20de%20la%20cuota.%0A%0AMi%20correo%20o%20cuenta%20de%20la%20plataforma%3A%20"
+                          className="w-full py-3 bg-[#1D3626] hover:bg-[#2E4E37] text-white text-xs font-bold rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
+                        >
+                          <Mail className="w-4 h-4" />
+                          <span>Solicitar membresía al administrador</span>
+                        </a>
+                        <p className="text-center text-[11px] text-slate-500">
+                          <button
+                            onClick={() => {
+                              onOpenConsultingModal();
+                              onClose();
+                            }}
+                            className="underline font-semibold hover:text-[#B04E2A]"
+                          >
+                            Prefiero la consultoría patrimonial (acceso gratuito)
+                          </button>
+                        </p>
+                      </>
                     )}
                   </div>
                 </div>

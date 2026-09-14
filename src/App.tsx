@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Sparkles, 
-  Plus, 
-  Loader2, 
+import {
+  Sparkles,
+  Plus,
+  Loader2,
   ExternalLink,
   Globe,
   BookOpen,
   Feather,
   Instagram,
   ShieldCheck,
-  ClipboardCheck
+  ClipboardCheck,
+  Settings2,
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
@@ -19,19 +20,23 @@ import { TourStudioView } from './components/TourStudioView';
 import { FactibilidadGuide } from './components/FactibilidadGuide';
 import { HeritageConsultingModal } from './components/HeritageConsultingModal';
 import { MembershipModal } from './components/MembershipModal';
-import { MercadoPagoModal } from './components/MercadoPagoModal';
 import { GoogleAuthModal } from './components/GoogleAuthModal';
 import { QRCodeModal } from './components/QRCodeModal';
 import { EntornoGallery } from './components/EntornoGallery';
-import { PaymentHistoryModal } from './components/PaymentHistoryModal';
 import { AchpiInscriptionModal } from './components/AchpiInscriptionModal';
 import { AchpiAdminModal } from './components/AchpiAdminModal';
+import { AuthorizationModal } from './components/AuthorizationModal';
+import { AdminPanel } from './components/AdminPanel';
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
-  type ViewMode = 'catalog' | 'detail' | 'studio' | 'factibilidad';
+  type ViewMode = 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
-    window.location.pathname.startsWith('/factibilidad') ? 'factibilidad' : 'catalog',
+    window.location.pathname.startsWith('/factibilidad')
+      ? 'factibilidad'
+      : window.location.pathname === '/admin'
+        ? 'admin'
+        : 'catalog',
   );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [editingTour, setEditingTour] = useState<Tour | null>(null);
@@ -111,10 +116,6 @@ export default function App() {
       alert('No se pudo iniciar sesión con Google: ' + params.get('auth_error'));
       window.history.replaceState({}, '', window.location.pathname);
     }
-    if (params.get('mp_status')) {
-      setShowMembershipModal(true);
-      window.history.replaceState({}, '', window.location.pathname);
-    }
   }, []);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
 
@@ -123,15 +124,13 @@ export default function App() {
   const [globalQrStop, setGlobalQrStop] = useState<TourStop | null>(null);
   const [showGlobalQrModal, setShowGlobalQrModal] = useState<boolean>(false);
 
-  // Entorno (black-framed image gallery) & payment history modals
+  // Entorno (black-framed image gallery)
   const [showEntornoModal, setShowEntornoModal] = useState<boolean>(false);
-  const [showPaymentHistoryModal, setShowPaymentHistoryModal] = useState<boolean>(false);
 
-  // Membership & Mercado Pago Chile States
+  // Membership States
   const [isMember, setIsMember] = useState<boolean>(true);
-  const [memberType, setMemberType] = useState<'none' | 'annual_paid' | 'consulting_free'>('consulting_free');
+  const [memberType, setMemberType] = useState<'none' | 'basic_free' | 'annual_paid' | 'consulting_free'>('none');
   const [showMembershipModal, setShowMembershipModal] = useState<boolean>(false);
-  const [showMercadoPagoModal, setShowMercadoPagoModal] = useState<boolean>(false);
 
   // Quick AI Modal
   const [showAiModal, setShowAiModal] = useState<boolean>(false);
@@ -192,7 +191,13 @@ export default function App() {
   // Sincroniza la vista cuando el usuario usa los botones atrás/adelante del navegador
   useEffect(() => {
     const onPopState = () =>
-      setViewMode(window.location.pathname.startsWith('/factibilidad') ? 'factibilidad' : 'catalog');
+      setViewMode(
+        window.location.pathname.startsWith('/factibilidad')
+          ? 'factibilidad'
+          : window.location.pathname === '/admin'
+            ? 'admin'
+            : 'catalog',
+      );
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
@@ -228,6 +233,14 @@ export default function App() {
         setViewMode('detail');
       } else {
         alert(data.error || 'Error al guardar el tour');
+        if (res.status === 403) {
+          const msg = String(data.error || '');
+          if (msg.toLowerCase().includes('restringido') || msg.toLowerCase().includes('autorizado')) {
+            setShowAuthorizationModal(true);
+          } else {
+            setShowAchpiModal(true);
+          }
+        }
       }
     } catch (e: any) {
       console.error('Error saving tour:', e);
@@ -308,6 +321,13 @@ export default function App() {
       if (response.status === 401) {
         setShowAuthModal(true);
         alert('Inicia sesión con Google para usar la generación con IA.');
+        return;
+      }
+
+      if (response.status === 403) {
+        setShowAuthorizationModal(true);
+        setAccessRequest({ intent: 'ai' });
+        alert('El Generador con IA está disponible solo para miembros autorizados.');
         return;
       }
 
@@ -393,7 +413,29 @@ export default function App() {
     }
   };
 
+  // ----------------------------------------------------
+  // Acceso al Studio y al Generador de Rutas (solo miembros autorizados)
+  // ----------------------------------------------------
+  const [showAuthorizationModal, setShowAuthorizationModal] = useState<boolean>(false);
+  const [accessRequest, setAccessRequest] = useState<{ intent: 'studio' | 'ai' | 'edit'; tour?: Tour } | null>(null);
+
+  const canUseStudio = isOwner || (!!currentUser && (isMember || achpiStatus === 'approved'));
+
+  const requireAccess = (req: { intent: 'studio' | 'ai' | 'edit'; tour?: Tour }) => {
+    if (!canUseStudio) {
+      setAccessRequest(req);
+      setShowAuthorizationModal(true);
+      return false;
+    }
+    return true;
+  };
+
   const handleOpenStudio = () => {
+    if (!canUseStudio) {
+      setAccessRequest({ intent: 'studio' });
+      setShowAuthorizationModal(true);
+      return;
+    }
     // Límite gratuito de 1 ruta por cuenta (el propietario queda exento)
     if (!isOwner && currentUser) {
       const usage = routeUsage;
@@ -408,11 +450,46 @@ export default function App() {
   };
 
   const handleOpenAiGenerator = () => {
+    if (!canUseStudio) {
+      setAccessRequest({ intent: 'ai' });
+      setShowAuthorizationModal(true);
+      return;
+    }
     if (!isOwner && currentUser && routeUsage >= routeLimit) {
       setShowAchpiModal(true);
       return;
     }
     setShowAiModal(true);
+  };
+
+  const handleEditTour = (tour: Tour) => {
+    if (!canUseStudio) {
+      setAccessRequest({ intent: 'edit', tour });
+      setShowAuthorizationModal(true);
+      return;
+    }
+    setEditingTour(tour);
+    setViewMode('studio');
+  };
+
+  const handleAccessGranted = () => {
+    refreshUser();
+    setShowAuthorizationModal(false);
+    const req = accessRequest;
+    setAccessRequest(null);
+    // Re-ejecuta la acción que el usuario intentaba realizar
+    setTimeout(() => {
+      if (!req) return;
+      if (req.intent === 'studio') {
+        setEditingTour(null);
+        setViewMode('studio');
+      } else if (req.intent === 'ai') {
+        setShowAiModal(true);
+      } else if (req.intent === 'edit' && req.tour) {
+        setEditingTour(req.tour);
+        setViewMode('studio');
+      }
+    }, 120);
   };
 
   const renderCatalogView = () => (
@@ -423,10 +500,7 @@ export default function App() {
         setViewMode('detail');
       }}
       onCreateNewTour={handleOpenStudio}
-      onEditTour={(tour) => {
-        setEditingTour(tour);
-        setViewMode('studio');
-      }}
+      onEditTour={handleEditTour}
       onDeleteTour={handleDeleteTour}
       onResetTours={handleResetTours}
       onOpenAIGenerator={handleOpenAiGenerator}
@@ -591,6 +665,21 @@ export default function App() {
               </button>
             )}
 
+            {isOwner && (
+              <button
+                onClick={() => navigateTo('admin', '/admin')}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === 'admin'
+                    ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+                    : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
+                }`}
+                title="Panel de administración: usuarios, miembros, inscripciones ACHPI y rutas"
+              >
+                <Settings2 className="w-4 h-4 text-[#E8A58B]" />
+                <span className="hidden lg:inline">Administración</span>
+              </button>
+            )}
+
             <button
               onClick={() => setShowConsultingModal(true)}
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
@@ -609,7 +698,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setShowAiModal(true)}
+              onClick={handleOpenAiGenerator}
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/20 transition-all"
             >
               <Sparkles className="w-4 h-4 text-amber-200" />
@@ -681,10 +770,7 @@ export default function App() {
           <TourDetailView
             tour={selectedTour}
             onBack={() => setViewMode('catalog')}
-            onEditTour={(tour) => {
-              setEditingTour(tour);
-              setViewMode('studio');
-            }}
+            onEditTour={handleEditTour}
           />
         ) : viewMode === 'studio' ? (
           <TourStudioView
@@ -698,6 +784,18 @@ export default function App() {
           />
         ) : viewMode === 'factibilidad' ? (
           <FactibilidadGuide onBack={() => navigateTo('catalog', '/')} />
+        ) : viewMode === 'admin' ? (
+          <AdminPanel
+            currentUser={currentUser}
+            isOwner={isOwner}
+            onBack={() => navigateTo('catalog', '/')}
+            onOpenAuthModal={() => setShowAuthModal(true)}
+            onDeleteTour={handleDeleteTour}
+            onDataChanged={() => {
+              fetchTours();
+              refreshUser();
+            }}
+          />
         ) : (
           renderCatalogView()
         )}
@@ -709,10 +807,6 @@ export default function App() {
         onClose={() => setShowMembershipModal(false)}
         isMember={isMember}
         memberType={memberType}
-        onOpenMercadoPago={() => {
-          setShowMembershipModal(false);
-          setShowMercadoPagoModal(true);
-        }}
         onAuthRefreshed={() => refreshUser()}
         onOpenConsultingModal={() => {
           setShowMembershipModal(false);
@@ -720,26 +814,10 @@ export default function App() {
         }}
       />
 
-      {/* Mercado Pago Chile - Pasarela de pagos real */}
-      <MercadoPagoModal
-        isOpen={showMercadoPagoModal}
-        onClose={() => setShowMercadoPagoModal(false)}
-        currentUser={currentUser}
-        defaultPlan="annual_membership"
-        onPaymentSuccess={() => refreshUser()}
-      />
-
       {/* Entorno (black-framed image gallery) */}
       <EntornoGallery
         isOpen={showEntornoModal}
         onClose={() => setShowEntornoModal(false)}
-      />
-
-      {/* Owner Payment History (Mercado Pago Chile) */}
-      <PaymentHistoryModal
-        isOpen={showPaymentHistoryModal}
-        onClose={() => setShowPaymentHistoryModal(false)}
-        currentUser={currentUser}
       />
 
       {/* Heritage Consulting Modal */}
@@ -860,6 +938,35 @@ export default function App() {
         onApproved={() => {
           refreshUser();
         }}
+      />
+
+      {/* Inscripción ACHPI — Panel del administrador */}
+      <AchpiAdminModal
+        isOpen={showAchpiAdminModal}
+        onClose={() => setShowAchpiAdminModal(false)}
+        onApproved={() => {
+          refreshUser();
+        }}
+      />
+
+      {/* Acceso restringido al Studio / Generador — modal de autorización */}
+      <AuthorizationModal
+        isOpen={showAuthorizationModal}
+        onClose={() => {
+          setShowAuthorizationModal(false);
+          setAccessRequest(null);
+        }}
+        currentUser={currentUser}
+        isOwner={isOwner}
+        isMember={isMember}
+        achpiStatus={achpiStatus}
+        routeLimit={routeLimit}
+        routeUsage={routeUsage}
+        onOpenAuthModal={() => setShowAuthModal(true)}
+        onOpenAchpiModal={() => setShowAchpiModal(true)}
+        onOpenMembershipModal={() => setShowMembershipModal(true)}
+        onOpenConsultingModal={() => setShowConsultingModal(true)}
+        onAccessGranted={handleAccessGranted}
       />
 
       {/* Google Authentication & Creator Credentials Modal */}

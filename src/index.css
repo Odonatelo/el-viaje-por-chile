@@ -17,6 +17,8 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
   }
 
   body {
@@ -25,6 +27,15 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    scrollbar-gutter: stable;
+  }
+
+  /* Evita que modales y overlays fijos provoquen desplazamiento horizontal (Chrome/Android) */
+  #root {
+    overflow-x: clip;
+    max-width: 100vw;
   }
 
   /* Titulares editoriales inspirados en la estética de Fundación Cerros Isla */

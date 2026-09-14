@@ -43,7 +43,6 @@ interface CatalogViewProps {
   onOpenAIGenerator: () => void;
   onOpenConsultingModal?: () => void;
   onOpenMembershipModal?: () => void;
-  onOpenMercadoPagoModal?: () => void;
   onOpenAchpiModal: () => void;
   onOpenAchpiAdminModal: () => void;
   onOpenTourExport?: (tour: Tour) => void;

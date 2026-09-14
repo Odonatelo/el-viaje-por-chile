@@ -142,7 +142,7 @@ export interface UserProfile {
   googleId?: string;
   role: 'creator' | 'admin' | 'explorer';
   isMember: boolean;
-  memberType: 'none' | 'annual_paid' | 'consulting_free';
+  memberType: 'none' | 'basic_free' | 'annual_paid' | 'consulting_free';
   membershipExpiresAt?: string;
   toursCount?: number;
   bio?: string;
@@ -151,6 +151,37 @@ export interface UserProfile {
   achpiCode?: string;
   routeLimit?: number;
   routeUsage?: number;
+}
+
+export interface AdminUser {
+  email: string;
+  memberType: 'none' | 'basic_free' | 'annual_paid' | 'consulting_free';
+  membershipExpiresAt?: string | null;
+  achpiStatus: 'none' | 'pending' | 'approved';
+  achpiCode?: string | null;
+  routeLimit: number;
+  routeUsage: number;
+}
+
+export interface AdminStats {
+  totalUsers: number;
+  totalTours: number;
+  pendingAchpi: number;
+  totalStops: number;
+  planCounts: { free_basic: number; achpi: number; platform: number; none: number };
+  ownerEmail: string;
+}
+
+export interface AdminTourRow {
+  id: string;
+  title: string;
+  city: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+  authorEmail?: string | null;
+  authorName?: string | null;
+  stops: number;
 }
 
 export interface AchpiInscription {
@@ -173,31 +204,4 @@ export interface AdminNotification {
   subject: string;
   body: string;
   createdAt: string;
-}
-
-export interface MercadoPagoConfig {
-  publicKey: string;
-  accessToken: string;
-  webhookUrl?: string;
-  currency: 'CLP';
-  singleTourPriceClp: number;
-  annualMembershipPriceClp: number;
-  enterprisePriceClp: number;
-  isLiveMode: boolean;
-  ownerEmail: string;
-  ownerName: string;
-}
-
-export interface MercadoPagoPaymentRecord {
-  id: string;
-  payerEmail: string;
-  payerName: string;
-  planId: 'single_tour' | 'annual_membership' | 'enterprise_pack';
-  planTitle: string;
-  amountClp: number;
-  status: 'approved' | 'pending' | 'rejected' | 'in_process';
-  dateCreated: string;
-  paymentMethod: string;
-  mercadoPagoPaymentId?: string;
-  initPointUrl?: string;
 }

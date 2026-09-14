@@ -137,7 +137,7 @@ function saveTours() {
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 type StoredUser = {
   email: string;
-  memberType: 'none' | 'annual_paid' | 'consulting_free';
+  memberType: 'none' | 'basic_free' | 'annual_paid' | 'consulting_free';
   membershipExpiresAt?: string;
   achpiStatus?: 'none' | 'pending' | 'approved';
   achpiCode?: string;
@@ -218,7 +218,7 @@ function getUserMembership(email: string): StoredUser {
   return usersStore[email.toLowerCase()] || { email: email.toLowerCase(), memberType: 'none' };
 }
 
-function setUserMembership(email: string, memberType: 'annual_paid' | 'consulting_free', months = 12) {
+function setUserMembership(email: string, memberType: 'basic_free' | 'annual_paid' | 'consulting_free', months = 12) {
   const key = email.toLowerCase();
   const expires = new Date();
   expires.setMonth(expires.getMonth() + months);
@@ -227,7 +227,7 @@ function setUserMembership(email: string, memberType: 'annual_paid' | 'consultin
 }
 
 // Límite de rutas publicables por cuenta:
-//  - Gratis: 1 ruta por cuenta
+//  - Gratis básica (código de autorización): 1 ruta por cuenta
 //  - Miembro ACHPI (con código): hasta 10 rutas
 //  - Membresía de plataforma o consultoría: hasta 50 rutas
 function routeLimitFor(email: string): number {
@@ -235,6 +235,27 @@ function routeLimitFor(email: string): number {
   if (m.memberType === 'annual_paid' || m.memberType === 'consulting_free') return 50;
   if (m.achpiStatus === 'approved' && m.achpiCode) return 10;
   return 1;
+}
+
+// ¿Tiene acceso al Studio y al Generador de Rutas? (miembro habilitado o propietario)
+function isStudioAllowed(email: string): boolean {
+  const m = getUserMembership(email.toLowerCase());
+  return m.memberType !== 'none' || m.achpiStatus === 'approved';
+}
+
+function requireMemberOrOwner(req: any, res: any, next: any) {
+  const user = getCurrentUser(req);
+  if (!user) {
+    return res.status(401).json({ success: false, error: 'Debes iniciar sesión para esta acción.' });
+  }
+  if (user.isOwner || isStudioAllowed(user.email)) {
+    return next();
+  }
+  return res.status(403).json({
+    success: false,
+    error:
+      'Acceso restringido a miembros autorizados. Canjea un código de autorización, inscríbete en ACHPI o contrata una membresía/consultoría para usar el Studio y el Generador de Rutas.',
+  });
 }
 
 function routeUsageFor(email: string): number {
@@ -351,23 +372,69 @@ app.get('/api/auth/dev-owner-login', (req, res) => {
   });
 });
 
-// Redeem a real consulting voucher (validated server-side)
+// Canjear un código de autorización o de consultoría (validado server-side)
+//  - AUTHORIZATION_CODES: otorgan acceso al Studio/Generador con la Membresía Básica Gratis (1 ruta)
+//  - VALID_VOUCHER_CODES: otorgan la habilidad de consultoría (50 rutas / 12 meses)
 app.post('/api/membership/redeem', requireAuth, async (req, res) => {
   try {
     const { code } = (req.body || {}) as { code?: string };
-    const valid = (process.env.VALID_VOUCHER_CODES || '')
+    const normalized = (code || '').trim().toUpperCase();
+    const AUTHORIZATION_CODES = (process.env.AUTHORIZATION_CODES || '')
       .split(',')
       .map((s) => s.trim().toUpperCase())
       .filter(Boolean);
-    if (!code || !valid.includes(code.trim().toUpperCase())) {
-      return res.status(400).json({ success: false, error: 'Código de consultoría no válido.' });
+    const VOUCHER_CODES = (process.env.VALID_VOUCHER_CODES || '')
+      .split(',')
+      .map((s) => s.trim().toUpperCase())
+      .filter(Boolean);
+    if (!normalized) {
+      return res.status(400).json({ success: false, error: 'Ingresa el código de autorización.' });
     }
+
     const u = getCurrentUser(req) as SessionUser;
-    setUserMembership(u.email, 'consulting_free', 12);
-    const m = getUserMembership(u.email);
-    res.json({
-      success: true,
-      user: { ...u, isMember: true, memberType: m.memberType, membershipExpiresAt: m.membershipExpiresAt },
+
+    if (VOUCHER_CODES.includes(normalized)) {
+      setUserMembership(u.email, 'consulting_free', 12);
+      const m = getUserMembership(u.email);
+      return res.json({
+        success: true,
+        message: 'Código de consultoría validado. Membresía de plataforma activa (hasta 50 rutas).',
+        granted: 'consulting_free',
+        user: {
+          ...u,
+          isMember: m.memberType !== 'none',
+          memberType: m.memberType,
+          membershipExpiresAt: m.membershipExpiresAt,
+          achpiStatus: m.achpiStatus || 'none',
+          routeLimit: routeLimitFor(u.email),
+          routeUsage: routeUsageFor(u.email),
+        },
+      });
+    }
+
+    if (AUTHORIZATION_CODES.includes(normalized)) {
+      setUserMembership(u.email, 'basic_free', 12);
+      const m = getUserMembership(u.email);
+      return res.json({
+        success: true,
+        message:
+          'Código de autorización validado. Membresía Básica Gratis activa: ya puedes usar el Studio y el Generador de Rutas (1 ruta publicable).',
+        granted: 'basic_free',
+        user: {
+          ...u,
+          isMember: m.memberType !== 'none',
+          memberType: m.memberType,
+          membershipExpiresAt: m.membershipExpiresAt,
+          achpiStatus: m.achpiStatus || 'none',
+          routeLimit: routeLimitFor(u.email),
+          routeUsage: routeUsageFor(u.email),
+        },
+      });
+    }
+
+    return res.status(400).json({
+      success: false,
+      error: 'Código no válido. Verifica tu código de autorización o de consultoría.',
     });
   } catch (e: any) {
     res.status(500).json({ success: false, error: e.message });
@@ -1151,6 +1218,166 @@ app.post('/api/achpi/inscriptions/:id/reject', requireAuth, (req, res) => {
 });
 
 // ----------------------------------------------------
+// ADMIN — Panel de administración de la plataforma (usuarios, miembros, rutas)
+// ----------------------------------------------------
+
+function requireOwner(req: any, res: any, next: any) {
+  const user = getCurrentUser(req);
+  if (!user || !user.isOwner) {
+    return res.status(403).json({ success: false, error: 'Solo el propietario puede acceder al panel de administración.' });
+  }
+  next();
+}
+
+function adminUserView(email: string) {
+  const m = getUserMembership(email);
+  return {
+    email: m.email || email,
+    memberType: m.memberType || 'none',
+    membershipExpiresAt: m.membershipExpiresAt || null,
+    achpiStatus: m.achpiStatus || 'none',
+    achpiCode: m.achpiCode || null,
+    routeLimit: routeLimitFor(email),
+    routeUsage: routeUsageFor(email),
+  };
+}
+
+// Resumen general (solo propietario)
+app.get('/api/admin/overview', requireAuth, requireOwner, (req, res) => {
+  const pendingAchpi = achpiStore.inscriptions.filter((i) => i.status === 'pending').length;
+  const emails = new Set<string>();
+  toursDatabase.forEach((t) => {
+    if (t.authorEmail) emails.add(t.authorEmail.toLowerCase());
+  });
+  Object.keys(usersStore).forEach((e) => emails.add(e));
+  const users = Array.from(emails);
+
+  const planCounts = { free_basic: 0, achpi: 0, platform: 0, none: 0 };
+  users.forEach((email) => {
+    const m = getUserMembership(email);
+    if (m.memberType === 'annual_paid' || m.memberType === 'consulting_free') planCounts.platform++;
+    else if (m.achpiStatus === 'approved' && m.achpiCode) planCounts.achpi++;
+    else if (m.memberType === 'basic_free') planCounts.free_basic++;
+    else planCounts.none++;
+  });
+
+  res.json({
+    success: true,
+    stats: {
+      totalUsers: users.length,
+      totalTours: toursDatabase.length,
+      pendingAchpi,
+      totalStops: toursDatabase.reduce((acc, t) => acc + (t.stops ? t.stops.length : 0), 0),
+      planCounts,
+      ownerEmail: OWNER_EMAIL,
+    },
+  });
+});
+
+// Listado de usuarios (solo propietario)
+app.get('/api/admin/users', requireAuth, requireOwner, (req, res) => {
+  const emails = new Set<string>();
+  toursDatabase.forEach((t) => {
+    if (t.authorEmail) emails.add(t.authorEmail.toLowerCase());
+  });
+  Object.keys(usersStore).forEach((e) => emails.add(e));
+  const users = Array.from(emails)
+    .sort()
+    .map((email) => adminUserView(email));
+  res.json({ success: true, users });
+});
+
+// Cambiar el plan de un usuario (solo propietario)
+app.post('/api/admin/users/:email/membership', requireAuth, requireOwner, (req, res) => {
+  const target = String(req.params.email).toLowerCase();
+  const { memberType, months } = req.body || {};
+  const allowed: Array<string> = ['none', 'basic_free', 'annual_paid', 'consulting_free'];
+  if (!allowed.includes(memberType)) {
+    return res.status(400).json({ success: false, error: 'Plan no válido.' });
+  }
+  if (memberType === 'none') {
+    const current = getUserMembership(target);
+    usersStore[target] = { email: target, memberType: 'none' };
+    if (current) usersStore[target].achpiStatus = current.achpiStatus;
+    if (current) usersStore[target].achpiCode = current.achpiCode;
+    saveUsers();
+  } else {
+    setUserMembership(target, memberType, Number(months) || 12);
+  }
+  notifyAdmin(
+    `Plan del usuario actualizado: ${target}`,
+    `Nuevo plan: ${memberType} por ${Number(months) || 12} meses.`,
+  );
+  res.json({ success: true, user: adminUserView(target) });
+});
+
+// Otorgar código de miembro ACHPI directamente (solo propietario)
+app.post('/api/admin/users/:email/achpi-grant', requireAuth, requireOwner, (req, res) => {
+  const target = String(req.params.email).toLowerCase();
+  if (!target || !target.includes('@')) {
+    return res.status(400).json({ success: false, error: 'Correo no válido.' });
+  }
+  const existingUser = getUserMembership(target);
+  const code = existingUser.achpiCode || generateMemberCode();
+  usersStore[target] = { ...existingUser, achpiStatus: 'approved', achpiCode: code };
+  saveUsers();
+
+  let inscription = achpiStore.inscriptions.find((i) => i.email === target && i.status === 'approved');
+  if (!inscription) {
+    inscription = {
+      id: `achpi-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      name: target,
+      email: target,
+      region: '—',
+      experience: '',
+      motivation: 'Código otorgado directamente por el administrador.',
+      status: 'approved',
+      memberCode: code,
+      createdAt: new Date().toISOString(),
+      reviewedAt: new Date().toISOString(),
+    };
+    achpiStore.inscriptions.unshift(inscription);
+    saveAchpi();
+  }
+  notifyAdmin(
+    `Código de miembro ACHPI otorgado por el administrador: ${code}`,
+    `Usuario: ${target}. Límite de rutas: 10.`,
+  );
+  res.json({ success: true, code, user: adminUserView(target) });
+});
+
+// Revocar acceso de creación a un usuario (solo propietario)
+app.post('/api/admin/users/:email/revoke', requireAuth, requireOwner, (req, res) => {
+  const target = String(req.params.email).toLowerCase();
+  const current = getUserMembership(target);
+  usersStore[target] = { email: target, memberType: 'none' };
+  saveUsers();
+  notifyAdmin(
+    `Acceso revocado: ${target}`,
+    `Se deshabilitó la cuenta ${target}. Ya no puede publicar rutas.`,
+  );
+  res.json({ success: true, user: adminUserView(target) });
+});
+
+// Listado de rutas con autor (solo propietario)
+app.get('/api/admin/tours', requireAuth, requireOwner, (req, res) => {
+  res.json({
+    success: true,
+    tours: toursDatabase.map((t) => ({
+      id: t.id,
+      title: t.title,
+      city: t.city,
+      published: t.published,
+      createdAt: t.createdAt,
+      updatedAt: t.updatedAt,
+      authorEmail: t.authorEmail || null,
+      authorName: (t.author && t.author.name) || null,
+      stops: Array.isArray(t.stops) ? t.stops.length : 0,
+    })),
+  });
+});
+
+// ----------------------------------------------------
 // AUDIO FILE UPLOAD & SERVING
 // ----------------------------------------------------
 
@@ -1190,7 +1417,7 @@ const MIME_EXT: Record<string, string> = {
 };
 const SAFE_FILE_RE = /^[a-zA-Z0-9_\-.]+$/;
 
-app.post('/api/uploads/audio', requireAuth, async (req, res) => {
+app.post('/api/uploads/audio', requireMemberOrOwner, async (req, res) => {
   try {
     const { dataUrl, mimeType = 'audio/mpeg' } = req.body;
     if (!dataUrl || typeof dataUrl !== 'string') {
@@ -1258,7 +1485,7 @@ app.get('/api/uploads/audio/:file', async (req, res) => {
 // API ROUTES: GEMINI AI SCRIPT & AUDIO GENERATION
 // ----------------------------------------------------
 
-app.post('/api/gemini/generate-script', requireAuth, async (req, res) => {
+app.post('/api/gemini/generate-script', requireMemberOrOwner, async (req, res) => {
   try {
     const { poiTitle, cityName, category, tone = 'historical', language = 'Español', length = 'standard', additionalNotes } = req.body;
 
@@ -1322,7 +1549,7 @@ El texto de la narración ('narrativeText') debe estar redactado en primera/segu
   }
 });
 
-app.post('/api/gemini/generate-audio', requireAuth, async (req, res) => {
+app.post('/api/gemini/generate-audio', requireMemberOrOwner, async (req, res) => {
   try {
     const { text, voiceName = 'Kore', persist = false } = req.body;
 
@@ -1473,7 +1700,7 @@ app.post('/api/tts/audio', async (req, res) => {
   }
 });
 
-app.post('/api/gemini/generate-tour-plan', requireAuth, async (req, res) => {
+app.post('/api/gemini/generate-tour-plan', requireMemberOrOwner, async (req, res) => {
   try {
     const { topic, city, stopsCount = 4, language = 'Español' } = req.body;
 
