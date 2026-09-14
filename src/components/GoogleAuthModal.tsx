@@ -108,7 +108,6 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
                     <span className="text-[10px] bg-[#B04E2A]/10 text-[#B04E2A] font-bold px-2 py-0.5 rounded-full">
                       {currentUser.role === 'admin' ? 'Propietario / Admin' : 'Creador Activo'}
                     </span>
-                    <span className="text-[10px] bg-[#009EE3]/10 text-[#009EE3] font-mono font-bold px-2 py-0.5 rounded-full">Mercado Pago Chile</span>
                   </div>
                 </div>
               </div>
@@ -127,9 +126,23 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Recaudación / Monetización:</span>
+                  <span className="text-slate-500">Miembro ACHPI:</span>
                   <span className="font-bold text-[#14281C]">
-                    {currentUser.role === 'admin' ? 'Exclusivo Propietario (Mercado Pago)' : 'Conectado a El Viaje Por Chile'}
+                    {currentUser.role === 'admin'
+                      ? 'Asociación — Panel disponible'
+                      : (currentUser as any).achpiStatus === 'approved'
+                        ? 'Aprobado · ' + ((currentUser as any).achpiCode || '')
+                        : (currentUser as any).achpiStatus === 'pending'
+                          ? 'Solicitud en revisión'
+                          : 'Sin inscripción'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500">Límite de rutas:</span>
+                  <span className="font-bold text-[#14281C]">
+                    {currentUser.role === 'admin'
+                      ? 'Propietario (sin límite)'
+                      : `${(currentUser as any).routeUsage ?? 0} / ${(currentUser as any).routeLimit ?? 1} rutas publicadas`}
                   </span>
                 </div>
               </div>
@@ -155,7 +168,8 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
               <div className="space-y-1.5">
                 <h4 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">Ingresa con tu Cuenta Google</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Conéctate con Google para gestionar tus audioguías, editar rutas en el Tour Studio, usar la IA de locución y monetizar con Mercado Pago.
+                  Conéctate con Google para gestionar tus audioguías, editar rutas en el Tour Studio, usar la IA de
+                  locución y publicar tus rutas de interpretación del patrimonio.
                 </p>
               </div>
 

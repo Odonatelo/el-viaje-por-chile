@@ -208,7 +208,7 @@ export const FactibilidadGuide: React.FC<{ onBack: () => void }> = ({ onBack }) 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-[#E8A58B] border border-[#B04E2A]/40 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
               <ClipboardList className="w-4 h-4" />
-              Guía 1.3.2 · Factibilidad de una experiencia turística
+              Factibilidad de una experiencia turística
             </span>
             <button
               onClick={onBack}
@@ -485,9 +485,8 @@ export const FactibilidadGuide: React.FC<{ onBack: () => void }> = ({ onBack }) 
               </div>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Haz clic en el botón para abrir una pantalla completa con el <strong>QR de descarga</strong>, ideal para
-              proyectar a una audiencia en sala, taller o presentación. Al escanearlo, se descarga la planilla Excel de
-              ROI directamente en el dispositivo.
+              Haz clic en el botón para abrir una <strong>pantalla completa con el QR de descarga</strong>. Al escanearlo, se
+              descarga la planilla Excel de ROI directamente en el dispositivo.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <button

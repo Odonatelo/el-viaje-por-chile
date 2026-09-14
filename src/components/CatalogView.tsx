@@ -18,11 +18,17 @@ import {
   Feather,
   Radio,
   ExternalLink,
-  CreditCard,
   Download,
-  QrCode
+  QrCode,
+  ShieldCheck,
+  BadgeCheck,
+  TrendingUp,
+  CheckCircle2,
+  Mail,
+  Users,
+  Award
 } from 'lucide-react';
-import { Tour } from '../types';
+import { Tour, UserProfile } from '../types';
 import { ShopSection } from './ShopSection';
 
 const FALLBACK_COVER = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
@@ -38,10 +44,17 @@ interface CatalogViewProps {
   onOpenConsultingModal?: () => void;
   onOpenMembershipModal?: () => void;
   onOpenMercadoPagoModal?: () => void;
+  onOpenAchpiModal: () => void;
+  onOpenAchpiAdminModal: () => void;
   onOpenTourExport?: (tour: Tour) => void;
   onOpenQRCode?: (tour: Tour) => void;
   isMember?: boolean;
   isOwner?: boolean;
+  currentUser?: UserProfile | null;
+  achpiStatus?: 'none' | 'pending' | 'approved';
+  achpiCode?: string;
+  routeLimit?: number;
+  routeUsage?: number;
 }
 
 export const CatalogView: React.FC<CatalogViewProps> = ({
@@ -54,11 +67,17 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
   onOpenAIGenerator,
   onOpenConsultingModal,
   onOpenMembershipModal,
-  onOpenMercadoPagoModal,
+  onOpenAchpiModal,
+  onOpenAchpiAdminModal,
   onOpenTourExport,
   onOpenQRCode,
   isMember = false,
   isOwner = false,
+  currentUser,
+  achpiStatus = 'none',
+  achpiCode = '',
+  routeLimit = 1,
+  routeUsage = 0,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCity, setSelectedCity] = useState<string>('all');
@@ -148,16 +167,6 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               >
                 <Feather className="w-4 h-4 text-[#E8A58B]" />
                 <span>Consultoría Patrimonial</span>
-              </button>
-            )}
-
-            {onOpenMercadoPagoModal && (
-              <button
-                onClick={onOpenMercadoPagoModal}
-                className="flex items-center gap-2 px-5 py-3 bg-[#009EE3]/90 hover:bg-[#009EE3] text-white font-bold text-sm rounded-2xl border border-white/20 backdrop-blur-sm transition-all shadow-lg cursor-pointer"
-              >
-                <CreditCard className="w-4 h-4 text-white" />
-                <span>{isOwner ? 'Mercado Pago (Owner)' : 'Mercado Pago Chile'}</span>
               </button>
             )}
           </div>
@@ -265,96 +274,176 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
         </div>
       </section>
 
-      {/* Platform Membership & Creator Dashboard Quick Cards */}
+      {/* ACHPI & Límite de Rutas por Cuenta */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        {/* Membership Fee & Consulting Card */}
-        <div className="bg-white p-5 rounded-3xl border border-[#E4D8BF] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#B04E2A] transition-all">
+
+        {/* Card A: Inscripción ACHPI */}
+        <div className="bg-gradient-to-br from-[#14281C] to-[#1D3626] text-white p-5 sm:p-6 rounded-3xl border border-[#2A4533] shadow-sm space-y-4">
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#B04E2A] bg-[#B04E2A]/10 px-2.5 py-0.5 rounded-full">
-                Membresía Plataforma
-              </span>
-              {isMember ? (
-                <span className="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-300">
-                  ✓ Acceso Activo
-                </span>
-              ) : (
-                <span className="text-[11px] text-slate-500 font-bold">
-                  Fee $100 USD / 12 meses o Gratis
-                </span>
-              )}
-            </div>
-            <h3 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-              ¿Quieres ser parte y publicar tus rutas en www.interpretaciondelpatrimonio.cl?
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] bg-white/10 border border-[#B04E2A]/40 px-2.5 py-1 rounded-full">
+              <ShieldCheck className="w-3 h-3" />
+              Asociación Chilena Para La Interpretación del Patrimonio
+            </span>
+            <h3 className="text-base font-bold font-['Cormorant_Garamond',Georgia,serif] text-white">
+              Solicita tu inscripción a ACHPI
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Para publicar en la plataforma se requiere un <strong>fee anual de 100 dólares por 12 meses</strong> o puedes <strong>acceder gratis</strong> al contratar una sesión de <em>Consultoría Personalizada en Interpretación del Patrimonio</em> de Tienda El Viaje.
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Únete a la asociación para formalizar tu quehacer en la interpretación del patrimonio de Chile. Al
+              aprobar tu solicitud, recibirás tu <strong className="text-white">código de miembro ACHPI</strong>, con
+              el cual puedes <strong className="text-white">subir tus rutas</strong> a esta plataforma de audioguías
+              (hasta 10 rutas publicadas).
             </p>
           </div>
 
-          <div className="pt-2 flex flex-wrap items-center gap-2">
-            {onOpenMembershipModal && (
+          {achpiStatus === 'approved' ? (
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/20 text-emerald-200 border border-emerald-400/40 rounded-xl text-[11px] font-bold">
+                <BadgeCheck className="w-4 h-4" />
+                Miembro ACHPI activo
+              </span>
+              <p className="font-mono text-sm font-extrabold tracking-widest text-[#E8A58B] bg-white/5 border border-[#B04E2A]/40 rounded-xl px-3 py-2 w-fit">
+                {achpiCode || 'ACHPI-XXXX-XXXX'}
+              </p>
+              <p className="text-[11px] text-slate-400">
+                Con tu código de miembro puedes publicar hasta 10 rutas en interpretaciondelpatrimonio.cl.
+              </p>
+            </div>
+          ) : achpiStatus === 'pending' ? (
+            <div className="flex items-center gap-2 px-3 py-2 bg-white/10 border border-white/15 rounded-xl text-[11px] font-bold text-amber-200">
+              <CheckCircle2 className="w-4 h-4" />
+              Solicitud enviada. La ACHPI la está revisando: al aprobarla recibirás tu código de miembro.
+            </div>
+          ) : isOwner ? (
+            <button
+              onClick={onOpenAchpiAdminModal}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-[#B04E2A]/30"
+            >
+              <Users className="w-4 h-4" />
+              Panel Administrador ACHPI
+            </button>
+          ) : (
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={onOpenAchpiModal}
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-[#B04E2A]/30"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                Solicitar Inscripción
+              </button>
+              <span className="text-[11px] text-slate-400">
+                {currentUser ? `Conectado como ${currentUser.email}` : 'Disponible para creadores con cuenta'}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Card B: Límite de rutas por cuenta */}
+        <div className="bg-white p-5 sm:p-6 rounded-3xl border border-[#E4D8BF] shadow-sm space-y-4">
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A] bg-[#B04E2A]/10 px-2.5 py-1 rounded-full">
+              <TrendingUp className="w-3 h-3" />
+              Límite de rutas por cuenta
+            </span>
+            <h3 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+              ¿Cuántas rutas puedes publicar?
+            </h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Cada cuenta gratis puede publicar <strong>1 ruta</strong>. Al ser <strong>miembro ACHPI</strong> (con tu
+              código) subes hasta <strong>10 rutas</strong>, y con <strong>membresía de la plataforma o consultoría
+              patrimonial</strong> hasta <strong>50 rutas</strong>.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between text-[11px] font-bold text-slate-700">
+              <span className="flex items-center gap-1.5">
+                {isOwner ? (
+                  <>
+                    <Award className="w-3.5 h-3.5 text-amber-500" />
+                    Propietario de la plataforma · sin límite
+                  </>
+                ) : achpiStatus === 'approved' ? (
+                  <>
+                    <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    Miembro ACHPI · 10 rutas
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#B04E2A]" />
+                    Plan Gratis · 1 ruta por cuenta
+                  </>
+                )}
+              </span>
+              {!isOwner && (
+                <span>
+                  {Math.min(routeUsage, routeLimit)} / {routeLimit} usadas
+                </span>
+              )}
+            </div>
+
+            {!isOwner && (
+              <div className="h-2 rounded-full bg-[#EEE6D3] overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-[#B04E2A] to-[#D97706] transition-all"
+                  style={{ width: `${Math.min(100, (routeUsage / routeLimit) * 100)}%` }}
+                />
+              </div>
+            )}
+
+            <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold text-slate-600">
+              <div className="bg-[#F6F1E5] rounded-xl py-2 px-1 border border-[#E4D8BF]">
+                <ShieldCheck className="w-4 h-4 mx-auto text-slate-400 mb-0.5" />
+                Gratis
+                <div className="text-slate-800 text-[11px]">1 ruta</div>
+              </div>
+              <div className="bg-[#F6F1E5] rounded-xl py-2 px-1 border border-[#E4D8BF]">
+                <BadgeCheck className="w-4 h-4 mx-auto text-emerald-600 mb-0.5" />
+                Miembro ACHPI
+                <div className="text-slate-800 text-[11px]">10 rutas</div>
+              </div>
+              <div className="bg-[#F6F1E5] rounded-xl py-2 px-1 border border-[#E4D8BF]">
+                <Award className="w-4 h-4 mx-auto text-amber-500 mb-0.5" />
+                Membresía / Consult.
+                <div className="text-slate-800 text-[11px]">50 rutas</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            {onOpenAchpiModal && !isOwner && achpiStatus === 'none' && (
+              <button
+                onClick={onOpenAchpiModal}
+                className="flex items-center gap-1.5 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl transition-all"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                Inscríbete en ACHPI
+              </button>
+            )}
+            {onOpenMembershipModal && !isOwner && (
               <button
                 onClick={onOpenMembershipModal}
-                className="px-4 py-2 bg-[#14281C] hover:bg-[#223F2C] text-white text-xs font-bold rounded-xl transition-all shadow-sm"
+                className="px-4 py-2 bg-[#14281C] hover:bg-[#223F2C] text-white text-xs font-bold rounded-xl transition-all"
               >
-                Ver Membresía & Opciones
+                Ver Membresía (50 rutas)
               </button>
             )}
             {onOpenConsultingModal && (
               <button
                 onClick={onOpenConsultingModal}
-                className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl transition-all"
+                className="px-4 py-2 bg-[#F6F1E5] hover:bg-[#EEE6D3] text-slate-800 text-xs font-bold rounded-xl border border-[#E4D8BF] transition-all"
               >
-                Consultoría (Acceso Gratis)
+                Consultoría Patrimonial
               </button>
             )}
-          </div>
-        </div>
-
-        {/* Mercado Pago Chile Card */}
-        <div className="bg-white p-5 rounded-3xl border border-[#E4D8BF] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#009EE3] transition-all">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase tracking-wider text-white bg-[#009EE3] px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-sm">
-                <CreditCard className="w-3 h-3" />
-                <span>Mercado Pago Chile (www.mercadopago.cl)</span>
-              </span>
-              <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                Webpay Plus / Tarjetas
-              </span>
-            </div>
-            <h3 className="text-base font-bold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-              {isOwner ? 'Panel de Cobros & Configuración de Tarifas' : 'Monetización y Publicación de Audioguías'}
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              {isOwner 
-                ? 'Como propietario exclusivo (juancarlos.castaing@gmail.com), configura fácilmente tus credenciales de Mercado Pago y define las tarifas en CLP.'
-                : 'Paga tu derecho de publicación o adquiere tu membresía anual para subir audioguías ilimitadas con recaudación directa a www.interpretaciondelpatrimonio.cl.'
-              }
-            </p>
-          </div>
-
-          <div className="pt-2 flex flex-wrap items-center gap-2">
-            {onOpenMercadoPagoModal && (
+            {isOwner && (
               <button
-                onClick={onOpenMercadoPagoModal}
-                className="px-4 py-2 bg-[#009EE3] hover:bg-[#0086C2] text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+                onClick={onOpenAchpiAdminModal}
+                className="flex items-center gap-1.5 px-4 py-2 bg-[#14281C] hover:bg-[#223F2C] text-white text-xs font-bold rounded-xl transition-all"
               >
-                <CreditCard className="w-3.5 h-3.5" />
-                <span>{isOwner ? 'Abrir Configuración Mercado Pago' : 'Pagar con Mercado Pago ($ CLP)'}</span>
+                <Users className="w-3.5 h-3.5" />
+                Revisar Solicitudes ACHPI
               </button>
             )}
-            <a
-              href="https://www.mercadopago.cl"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-all flex items-center gap-1"
-            >
-              <span>Portal mercadopago.cl</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
           </div>
         </div>
 

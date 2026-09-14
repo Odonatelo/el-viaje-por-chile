@@ -139,6 +139,8 @@ type StoredUser = {
   email: string;
   memberType: 'none' | 'annual_paid' | 'consulting_free';
   membershipExpiresAt?: string;
+  achpiStatus?: 'none' | 'pending' | 'approved';
+  achpiCode?: string;
 };
 let usersStore: Record<string, StoredUser> = {};
 
@@ -146,9 +148,70 @@ function saveUsers() {
   writeJson('data/users.json', usersStore);
 }
 
+// ----------------------------------------------------
+// ACHPI PERSISTENCE (inscripciones + notificaciones al administrador)
+// ----------------------------------------------------
+
+interface AchpiInscription {
+  id: string;
+  name: string;
+  email: string;
+  region: string;
+  experience: string;
+  courseWithElViaje?: string;
+  motivation: string;
+  status: 'pending' | 'approved' | 'rejected';
+  memberCode?: string;
+  createdAt: string;
+  reviewedAt?: string;
+}
+
+interface AdminNotification {
+  id: string;
+  recipient: string;
+  subject: string;
+  body: string;
+  createdAt: string;
+}
+
+let achpiStore: { inscriptions: AchpiInscription[]; notifications: AdminNotification[] } = {
+  inscriptions: [],
+  notifications: [],
+};
+
+function saveAchpi() {
+  writeJson('data/achpi.json', achpiStore);
+}
+
+function notifyAdmin(subject: string, body: string) {
+  const n: AdminNotification = {
+    id: `notif-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    recipient: OWNER_EMAIL,
+    subject,
+    body,
+    createdAt: new Date().toISOString(),
+  };
+  achpiStore.notifications.unshift(n);
+  saveAchpi();
+  console.log(`[notify:admin] To: ${OWNER_EMAIL} — ${subject}: ${body}`);
+}
+
+function generateMemberCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const block = () =>
+    Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  return `ACHPI-${block()}-${block()}`;
+}
+
+function getUserByEmail(email: string): StoredUser {
+  const key = email.toLowerCase();
+  return usersStore[key] || { email: key, memberType: 'none', achpiStatus: 'none' };
+}
+
 async function initData() {
   toursDatabase = await readJson('data/tours.json', JSON.parse(JSON.stringify(INITIAL_TOURS)));
   usersStore = await readJson('data/users.json', {});
+  achpiStore = await readJson('data/achpi.json', { inscriptions: [], notifications: [] });
 }
 
 function getUserMembership(email: string): StoredUser {
@@ -161,6 +224,22 @@ function setUserMembership(email: string, memberType: 'annual_paid' | 'consultin
   expires.setMonth(expires.getMonth() + months);
   usersStore[key] = { email: key, memberType, membershipExpiresAt: expires.toISOString() };
   saveUsers();
+}
+
+// Límite de rutas publicables por cuenta:
+//  - Gratis: 1 ruta por cuenta
+//  - Miembro ACHPI (con código): hasta 10 rutas
+//  - Membresía de plataforma o consultoría: hasta 50 rutas
+function routeLimitFor(email: string): number {
+  const m = getUserMembership(email.toLowerCase());
+  if (m.memberType === 'annual_paid' || m.memberType === 'consulting_free') return 50;
+  if (m.achpiStatus === 'approved' && m.achpiCode) return 10;
+  return 1;
+}
+
+function routeUsageFor(email: string): number {
+  const key = email.toLowerCase();
+  return toursDatabase.filter((t) => (t.authorEmail || '').toLowerCase() === key).length;
 }
 
 // ----------------------------------------------------
@@ -226,6 +305,7 @@ app.get('/api/auth/me', (req, res) => {
   const u = getCurrentUser(req);
   if (!u) return res.json({ success: true, user: null, devMode: DEV_MODE });
   const m = getUserMembership(u.email);
+  const limit = routeLimitFor(u.email);
   res.json({
     success: true,
     user: {
@@ -233,6 +313,10 @@ app.get('/api/auth/me', (req, res) => {
       isMember: m.memberType !== 'none',
       memberType: m.memberType,
       membershipExpiresAt: m.membershipExpiresAt,
+      achpiStatus: m.achpiStatus || 'none',
+      achpiCode: m.achpiCode,
+      routeLimit: limit,
+      routeUsage: routeUsageFor(u.email),
     },
     devMode: DEV_MODE,
   });
@@ -860,9 +944,31 @@ app.post('/api/tours', requireAuth, (req, res) => {
       return res.status(400).json({ success: false, error: 'Título y ciudad son obligatorios' });
     }
 
+    const user = getCurrentUser(req) as SessionUser;
+    const newId = tourData.id || `tour-${Date.now()}`;
+
+    // Límite de rutas por cuenta (el propietario queda exento)
+    if (!user.isOwner) {
+      const existing = toursDatabase.filter(
+        (t) => (t.authorEmail || '').toLowerCase() === user.email.toLowerCase() && t.id !== newId,
+      );
+      const limit = routeLimitFor(user.email);
+      if (existing.length >= limit) {
+        const m = getUserMembership(user.email);
+        return res.status(403).json({
+          success: false,
+          error:
+            m.achpiStatus === 'approved'
+              ? `Alcanzaste tu límite de ${limit} rutas como miembro ACHPI. Contrata una membresía de plataforma o una consultoría para publicar hasta 50 rutas.`
+              : `Tu cuenta gratuita permite 1 ruta. Inscríbete en la Asociación ACHPI (código de miembro = 10 rutas) o contrata membresía/consultoría (50 rutas) para publicar más.`,
+        });
+      }
+    }
+
     const newTour: Tour = {
       ...tourData,
-      id: tourData.id || `tour-${Date.now()}`,
+      id: newId,
+      authorEmail: user.email,
       createdAt: tourData.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       rating: tourData.rating ?? 5.0,
@@ -892,6 +998,7 @@ app.put('/api/tours/:id', requireAuth, (req, res) => {
       ...toursDatabase[index],
       ...req.body,
       id: req.params.id,
+      authorEmail: toursDatabase[index].authorEmail || (getCurrentUser(req) as SessionUser).email,
       updatedAt: new Date().toISOString(),
     };
 
@@ -917,6 +1024,130 @@ app.post('/api/tours/reset', (req, res) => {
   toursDatabase = JSON.parse(JSON.stringify(INITIAL_TOURS));
   saveTours();
   res.json({ success: true, data: toursDatabase });
+});
+
+// ----------------------------------------------------
+// ACHPI — Asociación Chilena Para La Interpretación del Patrimonio
+// ----------------------------------------------------
+
+// Solicitud de inscripción (público)
+app.post('/api/achpi/inscriptions', async (req, res) => {
+  try {
+    const { name, email, region, experience, courseWithElViaje, motivation } = req.body || {};
+    if (!name || !email || !region || !motivation) {
+      return res.status(400).json({ success: false, error: 'Completa nombre, correo, región y motivación.' });
+    }
+    const key = String(email).trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(key)) {
+      return res.status(400).json({ success: false, error: 'Correo electrónico no válido.' });
+    }
+
+    const existing = achpiStore.inscriptions.find(
+      (i) => i.email === key && i.status !== 'rejected',
+    );
+    if (existing) {
+      return res
+        .status(409)
+        .json({ success: false, error: `Ya existe una solicitud ${existing.status} para ${key}.` });
+    }
+
+    const inscription: AchpiInscription = {
+      id: `achpi-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      name: String(name).trim(),
+      email: key,
+      region: String(region).trim(),
+      experience: String(experience || '').trim(),
+      courseWithElViaje: String(courseWithElViaje || '').trim(),
+      motivation: String(motivation).trim(),
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    };
+
+    // Marca también estado pendiente en users.json (si la persona ya tiene cuenta)
+    const userKey = key;
+    const current = getUserMembership(userKey);
+    usersStore[userKey] = { ...current, achpiStatus: 'pending' };
+    saveUsers();
+
+    achpiStore.inscriptions.unshift(inscription);
+    saveAchpi();
+    notifyAdmin(
+      `Nueva solicitud de inscripción ACHPI: ${inscription.name}`,
+      `Correo: ${inscription.email} | Región: ${inscription.region} | Curso o taller con El Viaje: ${inscription.courseWithElViaje || 'No indicado'} | Experiencia: ${inscription.experience || 'No indicada'} | Motivación: ${inscription.motivation} | Aprobar en: https://www.interpretaciondelpatrimonio.cl/ (panel ACHPI)`,
+    );
+
+    res.status(201).json({ success: true, data: inscription });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Listado + notificaciones (solo propietario)
+app.get('/api/achpi/inscriptions', requireAuth, (req, res) => {
+  const user = getCurrentUser(req) as SessionUser;
+  if (!user.isOwner) {
+    return res.status(403).json({ success: false, error: 'Solo el administrador puede ver este panel.' });
+  }
+  res.json({
+    success: true,
+    inscriptions: achpiStore.inscriptions,
+    notifications: achpiStore.notifications,
+    ownerEmail: OWNER_EMAIL,
+  });
+});
+
+// Aprobar una solicitud → genera el código de miembro y lo entrega al usuario y al correo del administrador
+app.post('/api/achpi/inscriptions/:id/approve', requireAuth, (req, res) => {
+  const user = getCurrentUser(req) as SessionUser;
+  if (!user.isOwner) {
+    return res.status(403).json({ success: false, error: 'Solo el administrador puede aprobar inscripciones.' });
+  }
+  const inscription = achpiStore.inscriptions.find((i) => i.id === req.params.id);
+  if (!inscription) {
+    return res.status(404).json({ success: false, error: 'Inscripción no encontrada.' });
+  }
+  if (inscription.status === 'approved') {
+    return res.json({ success: true, data: inscription });
+  }
+
+  const memberCode = inscription.memberCode || generateMemberCode();
+  inscription.status = 'approved';
+  inscription.memberCode = memberCode;
+  inscription.reviewedAt = new Date().toISOString();
+
+  // Entrega el código al usuario (aparece en su panel /auth/me y en la plataforma)
+  const userKey = inscription.email;
+  const current = getUserMembership(userKey);
+  usersStore[userKey] = { ...current, achpiStatus: 'approved', achpiCode: memberCode };
+  saveUsers();
+
+  saveAchpi();
+  notifyAdmin(
+    `Código de miembro ACHPI entregado: ${memberCode}`,
+    `Inscripción aprobada para ${inscription.name} (${inscription.email}). Código de miembro: ${memberCode}. El código quedó activo en la cuenta ${inscription.email} y eleva su límite de rutas de 1 a 10. Enviar copia al correo del solicitante para notificación final.`,
+  );
+
+  res.json({ success: true, data: inscription });
+});
+
+// Rechazar una solicitud
+app.post('/api/achpi/inscriptions/:id/reject', requireAuth, (req, res) => {
+  const user = getCurrentUser(req) as SessionUser;
+  if (!user.isOwner) {
+    return res.status(403).json({ success: false, error: 'Solo el administrador puede rechazar inscripciones.' });
+  }
+  const inscription = achpiStore.inscriptions.find((i) => i.id === req.params.id);
+  if (!inscription) {
+    return res.status(404).json({ success: false, error: 'Inscripción no encontrada.' });
+  }
+  inscription.status = 'rejected';
+  inscription.reviewedAt = new Date().toISOString();
+  saveAchpi();
+  notifyAdmin(
+    `Inscripción ACHPI rechazada: ${inscription.name}`,
+    `Se rechazó la solicitud de ${inscription.name} (${inscription.email}).`,
+  );
+  res.json({ success: true, data: inscription });
 });
 
 // ----------------------------------------------------

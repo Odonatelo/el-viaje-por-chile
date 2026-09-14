@@ -8,7 +8,7 @@ import {
   BookOpen,
   Feather,
   Instagram,
-  Receipt,
+  ShieldCheck,
   ClipboardCheck
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
@@ -24,6 +24,8 @@ import { GoogleAuthModal } from './components/GoogleAuthModal';
 import { QRCodeModal } from './components/QRCodeModal';
 import { EntornoGallery } from './components/EntornoGallery';
 import { PaymentHistoryModal } from './components/PaymentHistoryModal';
+import { AchpiInscriptionModal } from './components/AchpiInscriptionModal';
+import { AchpiAdminModal } from './components/AchpiAdminModal';
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
@@ -45,6 +47,33 @@ export default function App() {
   // Dev-only flag (lets you auto-login as owner locally; disabled in production)
   const [devMode, setDevMode] = useState<boolean>(false);
 
+  // ACHPI — Asociación Chilena Para La Interpretación del Patrimonio
+  const [achpiStatus, setAchpiStatus] = useState<'none' | 'pending' | 'approved'>('none');
+  const [achpiCode, setAchpiCode] = useState<string>('');
+  const [routeLimit, setRouteLimit] = useState<number>(1);
+  const [routeUsage, setRouteUsage] = useState<number>(0);
+  const [showAchpiModal, setShowAchpiModal] = useState<boolean>(false);
+  const [showAchpiAdminModal, setShowAchpiAdminModal] = useState<boolean>(false);
+  const [achpiPendingCount, setAchpiPendingCount] = useState<number>(0);
+
+  // Carga el contador de solicitudes ACHPI pendientes para el propietario (badge del header)
+  useEffect(() => {
+    if (!isOwner) {
+      setAchpiPendingCount(0);
+      return;
+    }
+    fetch('/api/achpi/inscriptions')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.success) {
+          setAchpiPendingCount(
+            Array.isArray(d.inscriptions) ? d.inscriptions.filter((i: any) => i.status === 'pending').length : 0,
+          );
+        }
+      })
+      .catch(() => setAchpiPendingCount(0));
+  }, [isOwner, showAchpiAdminModal]);
+
   const refreshUser = async () => {
     try {
       const res = await fetch('/api/auth/me');
@@ -56,11 +85,19 @@ export default function App() {
         setIsOwner(!!u.isOwner);
         setIsMember(u.memberType !== 'none');
         setMemberType(u.memberType);
+        setAchpiStatus(u.achpiStatus || 'none');
+        setAchpiCode(u.achpiCode || '');
+        setRouteLimit(u.routeLimit ?? 1);
+        setRouteUsage(u.routeUsage ?? 0);
       } else {
         setCurrentUser(null);
         setIsOwner(false);
         setIsMember(false);
         setMemberType('none');
+        setAchpiStatus('none');
+        setAchpiCode('');
+        setRouteLimit(1);
+        setRouteUsage(0);
       }
     } catch {
       setCurrentUser(null);
@@ -356,6 +393,28 @@ export default function App() {
     }
   };
 
+  const handleOpenStudio = () => {
+    // Límite gratuito de 1 ruta por cuenta (el propietario queda exento)
+    if (!isOwner && currentUser) {
+      const usage = routeUsage;
+      const limit = routeLimit;
+      if (usage >= limit) {
+        setShowAchpiModal(true);
+        return;
+      }
+    }
+    setEditingTour(null);
+    setViewMode('studio');
+  };
+
+  const handleOpenAiGenerator = () => {
+    if (!isOwner && currentUser && routeUsage >= routeLimit) {
+      setShowAchpiModal(true);
+      return;
+    }
+    setShowAiModal(true);
+  };
+
   const renderCatalogView = () => (
     <CatalogView
       tours={tours}
@@ -363,20 +422,18 @@ export default function App() {
         setSelectedTour(tour);
         setViewMode('detail');
       }}
-      onCreateNewTour={() => {
-        setEditingTour(null);
-        setViewMode('studio');
-      }}
+      onCreateNewTour={handleOpenStudio}
       onEditTour={(tour) => {
         setEditingTour(tour);
         setViewMode('studio');
       }}
       onDeleteTour={handleDeleteTour}
       onResetTours={handleResetTours}
-      onOpenAIGenerator={() => setShowAiModal(true)}
+      onOpenAIGenerator={handleOpenAiGenerator}
       onOpenConsultingModal={() => setShowConsultingModal(true)}
       onOpenMembershipModal={() => setShowMembershipModal(true)}
-      onOpenMercadoPagoModal={() => setShowMercadoPagoModal(true)}
+      onOpenAchpiModal={() => setShowAchpiModal(true)}
+      onOpenAchpiAdminModal={() => setShowAchpiAdminModal(true)}
       onOpenQRCode={(tour) => {
         setGlobalQrTour(tour);
         setGlobalQrStop(null);
@@ -384,6 +441,11 @@ export default function App() {
       }}
       isMember={isMember}
       isOwner={isOwner}
+      currentUser={currentUser}
+      achpiStatus={achpiStatus}
+      achpiCode={achpiCode}
+      routeLimit={routeLimit}
+      routeUsage={routeUsage}
     />
   );
 
@@ -487,11 +549,22 @@ export default function App() {
             <button
               onClick={() => setShowMembershipModal(true)}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all"
-              title="Hazte Miembro: fee anual $100 USD o gratis por consultoría patrimonial"
+              title="Membresía plataforma o gratis por consultoría patrimonial: sube hasta 50 rutas"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               <span className="hidden md:inline">¡Hazte Miembro!</span>
             </button>
+
+            {!isOwner && (
+              <button
+                onClick={() => setShowAchpiModal(true)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
+                title="Solicita tu inscripción a la Asociación Chilena Para La Interpretación del Patrimonio (ACHPI)"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-[#E8A58B]" />
+                <span className="hidden md:inline">ACHPI</span>
+              </button>
+            )}
 
             <button
               onClick={() => setShowEntornoModal(true)}
@@ -504,12 +577,17 @@ export default function App() {
 
             {isOwner && (
               <button
-                onClick={() => setShowPaymentHistoryModal(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-emerald-300 border border-emerald-500/30 transition-all"
-                title="Historial de Cobros (Mercado Pago Chile)"
+                onClick={() => setShowAchpiAdminModal(true)}
+                className="relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 transition-all"
+                title="Panel ACHPI: revisa solicitudes de inscripción y entrega códigos de miembro"
               >
-                <Receipt className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Historial de Cobros</span>
+                <ShieldCheck className="w-3.5 h-3.5 text-[#E8A58B]" />
+                <span className="hidden md:inline">ACHPI</span>
+                {achpiPendingCount > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold grid place-items-center border-2 border-[#14281C]">
+                    {achpiPendingCount}
+                  </span>
+                )}
               </button>
             )}
 
@@ -522,10 +600,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => {
-                setEditingTour(null);
-                setViewMode('studio');
-              }}
+              onClick={handleOpenStudio}
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/30 transition-all"
               title="Ambiente de edición: Studio de Rutas"
             >
@@ -761,6 +836,31 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* ACHPI — Solicitud de inscripción */}
+      <AchpiInscriptionModal
+        isOpen={showAchpiModal}
+        onClose={() => setShowAchpiModal(false)}
+        onSubmitted={() => {
+          refreshUser();
+          setShowConsultingModal(false);
+        }}
+        currentUser={currentUser}
+        achpiStatus={achpiStatus}
+        routeLimit={routeLimit}
+        routeUsage={routeUsage}
+        isOwner={isOwner}
+        onOpenMembership={() => setShowMembershipModal(true)}
+      />
+
+      {/* ACHPI — Panel del administrador */}
+      <AchpiAdminModal
+        isOpen={showAchpiAdminModal}
+        onClose={() => setShowAchpiAdminModal(false)}
+        onApproved={() => {
+          refreshUser();
+        }}
+      />
 
       {/* Google Authentication & Creator Credentials Modal */}
       <GoogleAuthModal

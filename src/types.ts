@@ -103,6 +103,7 @@ export interface Tour {
   distanceKm: number;
   difficulty: 'easy' | 'moderate' | 'challenging';
   author: TourAuthor;
+  authorEmail?: string;
   socialLinks: SocialLinks;
   generalDocuments: TourDocument[];
   stops: TourStop[];
@@ -146,6 +147,32 @@ export interface UserProfile {
   toursCount?: number;
   bio?: string;
   isOwner?: boolean;
+  achpiStatus?: 'none' | 'pending' | 'approved';
+  achpiCode?: string;
+  routeLimit?: number;
+  routeUsage?: number;
+}
+
+export interface AchpiInscription {
+  id: string;
+  name: string;
+  email: string;
+  region: string;
+  experience: string;
+  courseWithElViaje?: string;
+  motivation: string;
+  status: 'pending' | 'approved' | 'rejected';
+  memberCode?: string;
+  createdAt: string;
+  reviewedAt?: string;
+}
+
+export interface AdminNotification {
+  id: string;
+  recipient: string;
+  subject: string;
+  body: string;
+  createdAt: string;
 }
 
 export interface MercadoPagoConfig {
