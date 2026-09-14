@@ -29,14 +29,16 @@ La app es un único proceso Node que sirve el frontend y la API.
 Variables mínimas: `PORT`, `GEMINI_API_KEY`, `APP_URL`. Para cobros reales añade
 `MERCADOPAGO_ACCESS_TOKEN` y `MERCADOPAGO_PUBLIC_KEY`.
 
-### Voces premium (Speechify TTS, opcional)
-Si defines `SPEECHIFY_API_KEY` (obténla en https://platform.speechify.ai), los audios
-sintetizados usan las voces premium de Speechify en lugar de Gemini TTS. Opcional:
-`SPEECHIFY_VOICE_ID` fija una voz concreta (si se omite, se priorizan voces neutras
-mexicanas `es-MX` y se alternan entre sí para variar el narrador, respetando el género
-de la voz original cuando se indica); `SPEECHIFY_MODEL` (por defecto `simba-3.0`,
-multilingüe, incluye español). El endpoint público `/api/tts/audio` sintetiza las
-audioguías de muestra bajo demanda con caché en disco y un límite de peticiones por IP.
+### Voces TTS: Speechify (premium) → Edge TTS (gratis) → Gemini (respaldo)
+El motor se elige en cascada: si defines `SPEECHIFY_API_KEY` (obténla en
+https://platform.speechify.ai), los audios usan las voces premium de Speechify
+(opcional `SPEECHIFY_VOICE_ID` fija una voz concreta, ej. `mariana`).
+Si no hay key de Speechify o esta falla, se usa **Edge TTS de Microsoft** (gratuito,
+sin clave): voces neurales chilenas `es-CL-CatalinaNeural`/`es-CL-LorenzoNeural`
+(desactivable con `EDGE_TTS_DISABLED=1`; `EDGE_TTS_VOICE_ID` para fijar voz).
+Como último respaldo se usa Gemini TTS con estilo narrativo patrimonial en español.
+El endpoint público `/api/tts/audio` sintetiza las audioguías de muestra bajo demanda
+con caché en disco y un límite de peticiones por IP.
 
 ### Docker
 ```bash

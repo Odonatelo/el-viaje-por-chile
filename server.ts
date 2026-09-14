@@ -1,5 +1,6 @@
 import express from 'express';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import crypto from 'crypto';
 import session from 'express-session';
@@ -9,6 +10,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, Modality, Type } from '@google/genai';
+import { EdgeTTS } from 'node-edge-tts';
 import dotenv from 'dotenv';
 import { INITIAL_TOURS } from './src/data/sampleTours.ts';
 import { Tour } from './src/types.ts';
@@ -321,6 +323,12 @@ const SPEECHIFY_API_KEY = process.env.SPEECHIFY_API_KEY || '';
 const SPEECHIFY_VOICE_ID = process.env.SPEECHIFY_VOICE_ID || '';
 const SPEECHIFY_MODEL = process.env.SPEECHIFY_MODEL || 'simba-3.0';
 
+// Plan B: Microsoft Edge TTS (gratuito, sin API key) con voces chilenas neurales.
+const EDGE_TTS_ENABLED = process.env.EDGE_TTS_DISABLED !== '1';
+const EDGE_TTS_VOICE_ID = process.env.EDGE_TTS_VOICE_ID || '';
+const EDGE_TTS_TIMEOUT_MS = Number(process.env.EDGE_TTS_TIMEOUT_MS) || 20000;
+const EDGE_TTS_OUTPUT_FORMAT = 'audio-24khz-48kbitrate-mono-mp3';
+
 export const GEMINI_TTS_VOICES = ['Kore', 'Fenrir', 'Zephyr', 'Puck', 'Charon'];
 
 // Instrucción de estilo en español para entonar las voces Gemini (audioguía patrimonial)
@@ -416,20 +424,64 @@ async function speechifySynthesize(text: string, voiceId: string): Promise<{ bas
   };
 }
 
+function edgeVoiceFor(voiceName: string): string {
+  if (EDGE_TTS_VOICE_ID) return EDGE_TTS_VOICE_ID;
+  return voiceIsFemale(voiceName) ? 'es-CL-CatalinaNeural' : 'es-CL-LorenzoNeural';
+}
+
+function edgeVoiceDisplayName(voiceId: string): string {
+  return voiceId === 'es-CL-LorenzoNeural' ? 'Lorenzo' : 'Catalina';
+}
+
+async function edgeSynthesize(text: string, voiceId: string): Promise<{ base64: string; mimeType: string }> {
+  const lang = voiceId.split('-').slice(0, 2).join('-');
+  const tmpDir = path.join(os.tmpdir(), 'elviaje-tts');
+  await fs.promises.mkdir(tmpDir, { recursive: true });
+  const tmpFile = path.join(tmpDir, `${crypto.randomUUID()}.mp3`);
+  const tts = new EdgeTTS({ voice: voiceId, lang, outputFormat: EDGE_TTS_OUTPUT_FORMAT, timeout: EDGE_TTS_TIMEOUT_MS });
+  try {
+    await tts.ttsPromise(text, tmpFile);
+    const buf = await fs.promises.readFile(tmpFile);
+    return { base64: buf.toString('base64'), mimeType: 'audio/mpeg' };
+  } finally {
+    fs.promises.unlink(tmpFile).catch(() => {});
+  }
+}
+
 interface TtsResult {
   base64: string;
   mimeType: string;
-  engine: 'speechify' | 'gemini';
+  engine: 'speechify' | 'edge' | 'gemini';
   voiceName: string;
   voiceId?: string;
 }
 
+function currentTtsEngine(): 'speechify' | 'edge' | 'gemini' {
+  if (SPEECHIFY_API_KEY) return 'speechify';
+  if (EDGE_TTS_ENABLED) return 'edge';
+  return 'gemini';
+}
+
 async function synthesizeTts(text: string, voiceName: string): Promise<TtsResult> {
   if (SPEECHIFY_API_KEY) {
-    const voiceId = await pickSpeechifyVoice(voiceName);
-    const voiceLabel = await speechifyVoiceDisplayName(voiceId);
-    const audio = await speechifySynthesize(text, voiceId);
-    return { base64: audio.base64, mimeType: audio.mimeType, engine: 'speechify', voiceName: voiceLabel, voiceId: audio.voiceId };
+    try {
+      const voiceId = await pickSpeechifyVoice(voiceName);
+      const voiceLabel = await speechifyVoiceDisplayName(voiceId);
+      const audio = await speechifySynthesize(text, voiceId);
+      return { base64: audio.base64, mimeType: audio.mimeType, engine: 'speechify', voiceName: voiceLabel, voiceId: audio.voiceId };
+    } catch (speechifyErr) {
+      console.warn('Speechify falló, probando Edge TTS:', speechifyErr);
+      if (!EDGE_TTS_ENABLED) throw speechifyErr;
+    }
+  }
+  if (EDGE_TTS_ENABLED) {
+    try {
+      const voiceId = edgeVoiceFor(voiceName);
+      const audio = await edgeSynthesize(text, voiceId);
+      return { base64: audio.base64, mimeType: audio.mimeType, engine: 'edge', voiceName: edgeVoiceDisplayName(voiceId), voiceId };
+    } catch (edgeErr) {
+      console.warn('Edge TTS falló, probando Gemini:', edgeErr);
+    }
   }
   const ai = getAI();
   const response = await ai.models.generateContent({
@@ -1116,12 +1168,14 @@ app.get('/api/tts/voices', async (req, res) => {
     }
     res.json({
       success: true,
-      engine: SPEECHIFY_API_KEY ? 'speechify' : 'gemini',
+      engine: currentTtsEngine(),
       geminiVoices: GEMINI_TTS_VOICES,
       speechifyVoices: speechifyVoices
         .map(v => ({ id: v.id, name: v.display_name, gender: v.gender, locale: v.locale }))
         .slice(0, 100),
       defaultSpeechifyVoiceId,
+      edgeEnabled: EDGE_TTS_ENABLED,
+      edgeVoiceId: EDGE_TTS_VOICE_ID || 'es-CL-CatalinaNeural',
     });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message || 'Error al listar voces TTS' });
@@ -1144,28 +1198,30 @@ app.post('/api/tts/audio', async (req, res) => {
     }
 
     const chosenVoice = GEMINI_TTS_VOICES.includes(voiceName) ? voiceName : 'Kore';
+    const result = await synthesizeTts(text, chosenVoice);
 
     // Caché persistente en disco: mismo contenido + voz + motor => mismo audio (sin costo ni latencia)
-    const engine = SPEECHIFY_API_KEY ? 'speechify' : 'gemini';
-    const voiceId = engine === 'speechify' ? await pickSpeechifyVoice(chosenVoice) : chosenVoice;
-    const cacheKey = crypto.createHash('sha256').update(`${engine}|${voiceId}|${text}`).digest('hex');
-
-    const cachedRaw = await readBuffer(`${TTS_CACHE_DIR}/${cacheKey}.mp3`);
+    const cacheKey = crypto.createHash('sha256').update(`${result.engine}|${result.voiceId || ''}|${text}`).digest('hex');
+    let cachedRaw: Buffer | null = null;
+    const ext = result.mimeType.includes('wav') ? 'wav' : 'mp3';
+    try {
+      cachedRaw = await readBuffer(`${TTS_CACHE_DIR}/${cacheKey}.${ext}`);
+    } catch (e) {
+      cachedRaw = null;
+    }
     if (cachedRaw && cachedRaw.length > 0) {
       return res.json({
         success: true,
         audioBase64: cachedRaw.toString('base64'),
-        mimeType: 'audio/mpeg',
-        engine,
-        voiceName: engine === 'speechify' ? await speechifyVoiceDisplayName(voiceId) : chosenVoice,
-        voiceId,
+        mimeType: result.mimeType,
+        engine: result.engine,
+        voiceName: result.voiceName,
+        voiceId: result.voiceId,
         cached: true,
       });
     }
 
-    const result = await synthesizeTts(text, chosenVoice);
     try {
-      const ext = result.mimeType.includes('wav') ? 'wav' : 'mp3';
       await writeBuffer(`${TTS_CACHE_DIR}/${cacheKey}.${ext}`, Buffer.from(result.base64, 'base64'));
     } catch (e) {
       console.warn('No se pudo cachear el audio TTS:', e);
