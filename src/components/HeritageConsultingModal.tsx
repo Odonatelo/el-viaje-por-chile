@@ -215,7 +215,7 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
                 </span>
               </div>
               <h4 className="text-base sm:text-lg font-bold font-['Cormorant_Garamond',Georgia,serif]">
-                ¿Quieres una consultoría personalizada con Tienda El Viaje?
+                ¿Quieres una consultoría personalizada con El Viaje?
               </h4>
               <p className="text-xs text-emerald-100 max-w-xl">
                 Agenda tu sesión personalizada de diseño de viaje patrimonial, guías de campo y recomendaciones locales directamente en <a href="https://www.elviaje.cl" target="_blank" rel="noopener noreferrer" className="font-bold underline text-emerald-200 hover:text-white transition-colors">www.elviaje.cl</a>. También puedes consultar por los <strong className="text-emerald-100">programas de formación en interpretación del patrimonio</strong> basados en una metodología propia.
