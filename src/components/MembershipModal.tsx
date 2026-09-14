@@ -289,12 +289,12 @@ export const MembershipModal: React.FC<MembershipModalProps> = ({
                     ) : (
                       <>
                         <a
-                          href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
+                          href="https://www.elviaje.cl"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full py-3 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
                         >
-                          <span>Agendar Consultoría en Tienda El Viaje</span>
+                          <span>Agendar Consultoría en www.elviaje.cl</span>
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>
                         <button

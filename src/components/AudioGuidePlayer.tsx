@@ -44,7 +44,6 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
   const [showTranscript, setShowTranscript] = useState(false);
   const [isUsingBrowserTts, setIsUsingBrowserTts] = useState(false);
   const [premiumSrc, setPremiumSrc] = useState<string | null>(null);
-  const [ttsEngine, setTtsEngine] = useState<'speechify' | 'edge' | 'gemini' | null>(null);
   const [premiumVoiceName, setPremiumVoiceName] = useState<string | null>(null);
   const [premiumFetching, setPremiumFetching] = useState(false);
   const [premiumFailed, setPremiumFailed] = useState(false);
@@ -81,7 +80,6 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
         const url = URL.createObjectURL(new Blob([bytes], { type: data.mimeType || 'audio/mpeg' }));
         premiumSrcRef.current = url;
         setPremiumSrc(url);
-        setTtsEngine(data.engine || null);
         setPremiumVoiceName(data.voiceName || null);
         if (data.durationSeconds) setDuration(data.durationSeconds);
       })
@@ -102,7 +100,6 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
     setCurrentTime(0);
     stopBrowserTts();
     setIsUsingBrowserTts(false);
-    setTtsEngine(null);
     setPremiumVoiceName(null);
     setPremiumFetching(false);
     setPremiumFailed(false);
@@ -225,9 +222,12 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
               Audioguía Oficial
             </span>
             {audio?.type === 'ai_generated' && (
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#2F5238]/40 text-[#A3E3B8] border border-[#2F5238]/50">
+              <span
+                className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#2F5238]/40 text-[#A3E3B8] border border-[#2F5238]/50"
+                title="Narración con voz profesional generada por inteligencia artificial"
+              >
                 <Sparkles className="w-3 h-3 text-[#A3E3B8]" />
-                Voz IA ({premiumVoiceName || audio.voiceName || 'Gemini'}{ttsEngine === 'speechify' ? ' · Premium' : ttsEngine === 'edge' ? ' · Gratis' : ''})
+                Voz IA · {premiumVoiceName || audio.voiceName || 'Estudio'}
               </span>
             )}
             {isUsingBrowserTts && (

@@ -223,12 +223,12 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
             </div>
 
             <a
-              href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
+              href="https://www.elviaje.cl"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-lg transition-all whitespace-nowrap flex-shrink-0"
             >
-              <span>Ir a Tienda El Viaje</span>
+              <span>Agendar en www.elviaje.cl</span>
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>

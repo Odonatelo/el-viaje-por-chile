@@ -7,7 +7,7 @@ import {
   Globe,
   BookOpen,
   Feather,
-  Image as ImageIcon,
+  Instagram,
   Receipt
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
@@ -394,12 +394,12 @@ export default function App() {
           </button>
           <span className="text-slate-600">|</span>
           <a
-            href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
+            href="https://www.elviaje.cl"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-[#E8A58B] transition-colors"
           >
-            <span>tiendaelviaje.cl</span>
+            <span>www.elviaje.cl</span>
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
@@ -453,20 +453,19 @@ export default function App() {
             <button
               onClick={() => setShowMembershipModal(true)}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all"
-              title="Membresía Creador: Fee Anual $100 USD o Gratis por Consultoría"
+              title="Hazte Miembro: fee anual $100 USD o gratis por consultoría patrimonial"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span className="hidden lg:inline">Membresía</span>
-              <span className="text-[11px] font-mono text-emerald-300">$100/año</span>
+              <span className="hidden md:inline">¡Hazte Miembro!</span>
             </button>
 
             <button
               onClick={() => setShowEntornoModal(true)}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
-              title="Entorno El Viaje Por Chile"
+              title="Instagram @elviaje.cl — novedades, fotos y entorno"
             >
-              <ImageIcon className="w-3.5 h-3.5 text-[#D97A46]" />
-              <span className="hidden md:inline">Entorno</span>
+              <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
+              <span className="hidden md:inline">Síguenos en Instagram</span>
             </button>
 
             {isOwner && (
@@ -485,7 +484,7 @@ export default function App() {
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
             >
               <BookOpen className="w-4 h-4 text-[#E8A58B]" />
-              <span className="hidden xl:inline">Consultoría Patrimonial</span>
+              <span className="hidden xl:inline">Consulta a un Experto</span>
             </button>
 
             <button
@@ -789,12 +788,12 @@ export default function App() {
               </button>
               <span className="text-slate-600">•</span>
               <a
-                href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
+                href="https://www.elviaje.cl"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors"
               >
-                <span>tiendaelviaje.cl</span>
+                <span>www.elviaje.cl</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>

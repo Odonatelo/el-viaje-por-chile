@@ -253,7 +253,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               </button>
             )}
             <a
-              href="https://www.tiendaelviaje.cl/consultoria-para-tu-viaje-personal-en-interpretacion-del-patrimonio"
+              href="https://www.elviaje.cl"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 bg-white/15 hover:bg-white/25 text-white rounded-xl text-xs font-bold border border-white/20 transition-all flex items-center gap-1.5"
