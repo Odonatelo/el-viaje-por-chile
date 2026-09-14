@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Propuesta de Landing | Interpretación del Patrimonio Natural y Cultural · www.interpretaciondelpatrimonio.cl</title>
+<meta name="description" content="Propuesta visual de landing page para www.interpretaciondelpatrimonio.cl: nueva generación de intérpretes del patrimonio, red nacional y mosaico de Chile." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PROPUESTA DE LANDING PAGE — www.interpretaciondelpatrimonio.cl
+     HTML + CSS puro (sin frameworks). Diseño editorial "Cerros Isla".
+     Paleta: verde profundo, terracota, pergamino.
+     ============================================================ */
+
+  :root {
+    --green-900: #101F16;
+    --green-800: #14281C;
+    --green-700: #1D3626;
+    --green-600: #2E4E37;
+    --terracotta: #B04E2A;
+    --terracotta-dark: #9A3F1E;
+    --sienna: #D97A46;
+    --sand: #E8A58B;
+    --amber: #FBBF24;
+    --parchment: #F6F1E5;
+    --parchment-dark: #EBE2CC;
+    --ink: #1C1A14;
+    --slate: #5B6258;
+    --white: #FFFFFF;
+
+    --font-head: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Banner de propuesta ---------- */
+  .proposal-bar {
+    background: var(--green-900);
+    color: rgba(255,255,255,.85);
+    font-size: 12px;
+    letter-spacing: .04em;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .proposal-bar .wrap {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .proposal-bar strong { color: var(--sand); }
+  .proposal-bar a { border-bottom: 1px dotted var(--sand); color: var(--sand); }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(20,40,28,.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    padding-top: 14px; padding-bottom: 14px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .brand__logo {
+    width: 46px; height: 46px; flex-shrink: 0;
+    background: #000; border-radius: 14px; padding: 3px;
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  }
+  .brand__logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 11px; }
+  .brand__name {
+    font-family: var(--font-head);
+    font-weight: 700; font-size: 20px; color: #fff; line-height: 1.1; white-space: nowrap;
+  }
+  .brand__name em { font-style: normal; color: var(--sienna); }
+  .brand__domain { font-size: 11px; color: var(--sand); font-weight: 600; letter-spacing: .02em; }
+  .site-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .site-nav a {
+    font-size: 12px; font-weight: 700; color: rgba(255,255,255,.85);
+    padding: 9px 14px; border-radius: 12px; transition: .2s; white-space: nowrap;
+  }
+  .site-nav a:hover { background: rgba(255,255,255,.09); color: #fff; }
+  .site-nav a.primary {
+    background: linear-gradient(90deg, var(--terracotta), var(--sienna));
+    box-shadow: 0 8px 22px rgba(176,78,42,.35);
+    color: #fff;
+  }
+  .site-nav a.primary:hover { background: linear-gradient(90deg, var(--terracotta-dark), var(--terracotta)); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    color: #fff;
+    background:
+      radial-gradient(rgba(232,165,139,.9) 1.2px, transparent 1.4px) 0 0 / 22px 22px,
+      linear-gradient(135deg, var(--green-800), var(--green-700) 55%, var(--green-600));
+    padding: 96px 0 110px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(20,40,28,.25), rgba(46,78,55,.1));
+  }
+  .hero__glow {
+    position: absolute;
+    width: 420px; height: 420px; border-radius: 50%;
+    filter: blur(90px); opacity: .5; pointer-events: none;
+  }
+  .hero__glow--a { background: var(--terracotta); top: -160px; right: -120px; }
+  .hero__glow--b { background: #10b981; bottom: -180px; left: -140px; opacity: .35; }
+  .hero .wrap { position: relative; z-index: 2; }
+  .hero__eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--sand);
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(176,78,42,.45);
+    padding: 8px 18px; border-radius: 100px;
+    margin-bottom: 28px;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1.05;
+    font-weight: 700;
+    max-width: 900px;
+    margin: 0 auto 22px;
+    letter-spacing: -.01em;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(100deg, var(--sand), var(--sienna) 45%, var(--amber));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero h1 .accent { color: var(--sand); }
+  .hero p {
+    font-size: clamp(15px, 2vw, 18px);
+    color: rgba(255,255,255,.88);
+    max-width: 680px;
+    margin: 0 auto 34px;
+    font-weight: 400;
+  }
+  .hero p a { color: var(--sand); text-decoration: underline; text-underline-offset: 3px; }
+  .hero__cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    font-weight: 800; font-size: 14px;
+    padding: 15px 26px; border-radius: 16px;
+    transition: transform .18s, box-shadow .18s, background .18s;
+    border: none;
+  }
+  .btn:hover { transform: translateY(-2px) scale(1.02); }
+  .btn--solid {
+    background: var(--terracotta); color: #fff;
+    box-shadow: 0 14px 30px rgba(176,78,42,.4);
+  }
+  .btn--solid:hover { background: var(--terracotta-dark); box-shadow: 0 18px 36px rgba(176,78,42,.5); }
+  .btn--ghost {
+    background: rgba(255,255,255,.08); color: #fff;
+    border: 1px solid rgba(255,255,255,.25);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  }
+  .btn--ghost:hover { background: rgba(255,255,255,.16); }
+  .hero__stats {
+    display: flex; justify-content: center; gap: clamp(16px, 4vw, 48px); flex-wrap: wrap;
+    margin-top: 52px;
+  }
+  .stat b {
+    display: block;
+    font-family: var(--font-head); font-size: 34px; font-weight: 700; color: var(--amber);
+  }
+  .stat span { font-size: 12px; color: rgba(255,255,255,.75); letter-spacing: .05em; text-transform: uppercase; }
+
+  /* ---------- Marquee / cintillo ---------- */
+  .marquee {
+    background: var(--terracotta);
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+    border-block: 1px solid rgba(0,0,0,.15);
+  }
+  .marquee span {
+    display: inline-block;
+    font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+    padding-right: 40px;
+    animation: slide 30s linear infinite;
+  }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ---------- Sección genérica ---------- */
+  .section { padding: 88px 0; }
+  .section--parchment { background: var(--parchment); }
+  .section--dark {
+    background: linear-gradient(180deg, var(--green-800), var(--green-700));
+    color: #fff;
+  }
+  .section__head { text-align: center; max-width: 760px; margin: 0 auto 52px; }
+  .section__kicker {
+    display: inline-block;
+    font-size: 12px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+  }
+  .section__head h2 {
+    font-family: var(--font-head);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--green-800);
+  }
+  .section--dark .section__kicker { color: var(--sand); }
+  .section--dark .section__head h2 { color: #fff; }
+  .section__head p {
+    color: var(--slate); font-size: 15px; margin-top: 14px;
+  }
+  .section--dark .section__head p { color: rgba(255,255,255,.8); }
+
+  /* ---------- Mosaico de Chile ---------- */
+  .mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 220px;
+    gap: 16px;
+  }
+  .mosaic__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 3px solid #fff;
+    box-shadow: 0 18px 40px rgba(20,40,28,.16);
+  }
+  .mosaic__item--tall { grid-row: span 2; }
+  .mosaic__item img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .7s cubic-bezier(.2,.6,.2,1);
+  }
+  .mosaic__item:hover img { transform: scale(1.06); }
+  .mosaic__item::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(16,31,22,.94) 12%, rgba(16,31,22,.18) 55%, transparent);
+  }
+  .mosaic__cap {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 18px;
+    color: #fff;
+  }
+  .mosaic__tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 6px;
+  }
+  .mosaic__cap h3 { font-family: var(--font-head); font-size: 22px; font-weight: 700; line-height: 1.2; }
+  .mosaic__cap p { font-size: 12px; color: rgba(255,255,255,.85); margin-top: 4px; max-width: 300px; }
+  .mosaic__credit { text-align: center; font-size: 11px; color: #9aa294; margin-top: 18px; }
+
+  /* ---------- La red ---------- */
+  .network {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .network__copy h2 {
+    font-family: var(--font-head);
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .network__copy p { color: rgba(255,255,255,.82); font-size: 15px; }
+  .network__copy ul { margin: 22px 0 28px; list-style: none; display: grid; gap: 12px; }
+  .network__copy li {
+    display: flex; gap: 12px; align-items: center;
+    font-size: 14px; color: rgba(255,255,255,.92);
+  }
+  .network__copy li::before {
+    content: "";
+    width: 10px; height: 10px; flex-shrink: 0; border-radius: 50%;
+    background: var(--sienna);
+    box-shadow: 0 0 0 4px rgba(217,122,70,.25);
+  }
+  .network__card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 28px;
+    padding: 34px;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .network__card .contact {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 18px; padding: 14px;
+    font-size: 13px; color: rgba(255,255,255,.9);
+  }
+  .network__card .contact + .contact { margin-top: 10px; }
+  .network__card .ic {
+    width: 40px; height: 40px; flex-shrink: 0; border-radius: 12px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--terracotta), var(--sienna));
+    font-size: 18px;
+  }
+  .network__card .contact small { display: block; color: var(--sand); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .network__card .contact b { font-size: 14px; }
+
+  /* ---------- El Viaje (consultoría) ---------- */
+  .viaje {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 52px;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 32px;
+    box-shadow: 0 24px 60px rgba(20,40,28,.1);
+    overflow: hidden;
+  }
+  .viaje__media { position: relative; min-height: 340px; background: var(--green-800); }
+  .viaje__media img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .92;
+  }
+  .viaje__media::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 55%, rgba(246,241,229,.22));
+  }
+  .viaje__body { padding: 44px; }
+  .viaje__body h2 {
+    font-family: var(--font-head); font-size: clamp(26px, 3.4vw, 36px); font-weight: 700; line-height: 1.08;
+    margin: 12px 0 16px; color: var(--green-800);
+  }
+  .viaje__body p { font-size: 14px; color: var(--slate); }
+  .viaje__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+
+  /* ---------- CTA final ---------- */
+  .final-cta {
+    position: relative;
+    text-align: center;
+    background:
+      radial-gradient(rgba(232,165,139,.9) 1.4px, transparent 1.5px) 0 0 / 26px 26px,
+      linear-gradient(135deg, var(--green-800), var(--green-600));
+    color: #fff;
+    padding: 90px 0;
+    overflow: hidden;
+  }
+  .final-cta h2 {
+    font-family: var(--font-head);
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 700; line-height: 1.08;
+    margin-bottom: 16px;
+  }
+  .final-cta p { color: rgba(255,255,255,.85); max-width: 560px; margin: 0 auto 30px; font-size: 15px; }
+  .final-cta .btn { font-size: 15px; }
+
+  /* ---------- Footer ---------- */
+  .site-footer {
+    background: var(--green-900);
+    color: rgba(255,255,255,.75);
+    padding: 56px 0 40px;
+    font-size: 13px;
+  }
+  .site-footer .wrap { display: flex; gap: 40px; justify-content: space-between; flex-wrap: wrap; }
+  .site-footer h4 { font-family: var(--font-head); font-size: 18px; color: #fff; margin-bottom: 12px; }
+  .site-footer a { display: block; margin-top: 8px; opacity: .85; }
+  .site-footer a:hover { color: var(--sand); }
+  .site-footer .legal { width: 100%; text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); font-size: 12px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1024px) {
+    .mosaic { grid-template-columns: repeat(2, 1fr); }
+    .network, .viaje { grid-template-columns: 1fr; }
+    .viaje__media { min-height: 260px; }
+  }
+  @media (max-width: 760px) {
+    .site-header .wrap { flex-direction: column; align-items: flex-start; }
+    .site-nav { width: 100%; }
+    .site-nav a { flex: 1 1 auto; text-align: center; }
+    .hero { padding: 64px 0 76px; }
+    .hero__stats { gap: 20px; }
+    .mosaic { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+    .mosaic__item--tall { grid-row: span 1; }
+    .section { padding: 60px 0; }
+    .viaje__body { padding: 30px; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 0 18px; }
+    .brand__name { font-size: 18px; }
+    .hero h1 { font-size: 32px; }
+    .btn { width: 100%; }
+    .network__copy li { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Propuesta / alerta de prueba -->
+  <div class="proposal-bar">
+    <div class="wrap">
+      <span><strong>Propuesta de Landing Page</strong> · HTML + CSS puro · a definir con el equipo editorial</span>
+      <span>Plataforma: <a href="https://www.interpretaciondelpatrimonio.cl" target="_blank" rel="noopener noreferrer">www.interpretaciondelpatrimonio.cl</a></span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#inicio">
+        <span class="brand__logo">
+          <svg viewBox="0 0 40 40" role="img" aria-label="El Viaje Por Chile">
+            <rect width="40" height="40" rx="10" fill="#0C1610"/>
+            <path d="M7 27 L15 12 L20 20 L24 13 L33 27 Z" fill="#B04E2A"/>
+            <path d="M7 28 L15 15 L20 23 L24 16 L33 28 Z" fill="#E8A58B" opacity=".7"/>
+            <circle cx="30" cy="9" r="2.4" fill="#FBBF24"/>
+            <path d="M29 11 q0 4 -7 4" stroke="#FBBF24" stroke-width="1" fill="none" opacity=".8"/>
+          </svg>
+        </span>
+        <span>
+          <span class="brand__name">El Viaje <em>Por Chile</em></span><br />
+          <span class="brand__domain">interpretaciondelpatrimonio.cl</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#chile">El Chile que interpretamos</a>
+        <a href="#red">La Red</a>
+        <a href="#elviaje">El Viaje</a>
+        <a class="primary" href="#unirme">Unirme a la red</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="inicio">
+    <div class="hero__glow hero__glow--a"></div>
+    <div class="hero__glow hero__glow--b"></div>
+    <div class="wrap">
+      <span class="hero__eyebrow">✒ Nueva generación · Interpretación del Patrimonio</span>
+      <h1>
+        Sé parte de una nueva generación de
+        <span class="grad">intérpretes del patrimonio</span>
+        y <span class="accent">diseñadores de experiencias</span>
+        en El Viaje Por Chile
+      </h1>
+      <p>
+        Una <strong>red que reúne el trabajo de intérpretes de todo Chile</strong>: audioguías,
+        rutas autoguiadas, guías de campo y relatos sonoros, publicados en
+        <a href="https://www.interpretaciondelpatrimonio.cl" target="_blank" rel="noopener noreferrer">www.interpretaciondelpatrimonio.cl</a>.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="#chile">Explorar el territorio</a>
+        <a class="btn btn--ghost" href="https://www.elviaje.cl" target="_blank" rel="noopener noreferrer">Quiero sumarme &rarr;</a>
+      </div>
+      <div class="hero__stats">
+        <div class="stat"><b>4.270 km</b><span>de territorio</span></div>
+        <div class="stat"><b>16</b><span>rutas editorializadas</span></div>
+        <div class="stat"><b>75</b><span>paradas interpretadas</span></div>
+        <div class="stat"><b>1</b><span>red de intérpretes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cintillo -->
+  <div class="marquee">
+    <span>Cerros &amp; Miradores ✵ Memoria &amp; Patrimonio ✵ Bosque &amp; Cordillera ✵ Monumentos de Chile ✵ Museos &amp; Cultura ✵ Sabores del Territorio ✵ </span>
+    <span>Cerros &amp; Miradores ✵ Memoria &amp; Patrimonio ✵ Bosque &amp; Cordillera ✵ Monumentos de Chile ✵ Museos &amp; Cultura ✵ Sabores del Territorio ✵ </span>
+  </div>
+
+  <!-- Mosaico -->
+  <section class="section section--parchment" id="chile">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="section__kicker">El territorio que interpretamos</span>
+        <h2>Viajes, libélulas, animales y plantas nativas de Chile</h2>
+        <p>Rutas que enseñan a observar la vida silvestre, las especies endémicas y los paisajes que guardan la memoria del país.</p>
+      </div>
+
+      <div class="mosaic">
+        <figure class="mosaic__item mosaic__item--tall">
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/G%C3%A9iseres_del_Tatio%2C_Atacama%2C_Chile%2C_2016-02-01%2C_DD_36-38_HDR.JPG/1280px-G%C3%A9iseres_del_Tatio%2C_Atacama%2C_Chile%2C_2016-02-01%2C_DD_36-38_HDR.JPG" alt="Géiseres del Tatio, Atacama" />
+          <figcaption class="mosaic__cap">
+            <span class="mosaic__tag">◆ Viajes</span>
+            <h3>Desierto de Atacama</h3>
+            <p>Géiseres del Tatio: un paisaje que se escucha antes de verse.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="mosaic__item">
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Libellula_depressa.jpg/960px-Libellula_depressa.jpg" alt="Libélula" />
+          <figcaption class="mosaic__cap">
+            <span class="mosaic__tag">● Libélulas</span>
+            <h3>Guardianas de humedales</h3>
+            <p>Observadoras del equilibrio del ciclo del agua.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="mosaic__item">
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Andean_condor_%28Vultur_gryphus%29_male_in_flight_Farellones.jpg/1280px-Andean_condor_%28Vultur_gryphus%29_male_in_flight_Farellones.jpg" alt="Cóndor andino en vuelo sobre Farellones" />
+          <figcaption class="mosaic__cap">
+            <span class="mosaic__tag">● Fauna nativa</span>
+            <h3>Cóndor andino</h3>
+            <p>El guardián de los cielos de la cordillera de los Andes.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="mosaic__item">
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Lapageria_rosea_-_Copihue_Flor_Nacional.jpg/960px-Lapageria_rosea_-_Copihue_Flor_Nacional.jpg" alt="Copihue, flor nacional de Chile" />
+          <figcaption class="mosaic__cap">
+            <span class="mosaic__tag">● Flora nativa</span>
+            <h3>Copihue</h3>
+            <p>La flor nacional en los bosques de la cordillera de la Costa.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="mosaic__item mosaic__item--tall">
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Chile_topographic_location_map.png/640px-Chile_topographic_location_map.png" alt="Mapa topográfico de Chile" />
+          <figcaption class="mosaic__cap">
+            <span class="mosaic__tag">◈ Mapa</span>
+            <h3>Un solo país, miles de paisajes</h3>
+            <p>Del desierto de Atacama a la Patagonia: más de 4.000 km de interpretación.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="mosaic__credit">Fotografías: Wikimedia Commons (dominio público y licencias Creative Commons).</p>
+    </div>
+  </section>
+
+  <!-- La red -->
+  <section class="section section--dark" id="red">
+    <div class="wrap">
+      <div class="network">
+        <div class="network__copy">
+          <span class="section__kicker">La red de intérpretes</span>
+          <h2>El trabajo de intérpretes de todo Chile, reunido en un solo lugar</h2>
+          <p>
+            Publica tus rutas, audioguías y guías de campo en la plataforma editorial de
+            <strong>El Viaje Por Chile</strong> y conéctate con una comunidad de creadores
+            de experiencias patrimoniales.
+          </p>
+          <ul>
+            <li>Rutas autoguiadas con mapas interactivos y relatos sonoros.</li>
+            <li>Voces narradas con inteligencia artificial en español de Chile.</li>
+            <li>Guías de campo y material de interpretación descargable.</li>
+            <li>Publicación y monetización directa en www.interpretaciondelpatrimonio.cl.</li>
+          </ul>
+          <a class="btn btn--solid" href="https://www.interpretaciondelpatrimonio.cl" target="_blank" rel="noopener noreferrer">Conocer la plataforma &rarr;</a>
+        </div>
+
+        <div class="network__card">
+          <div class="contact">
+            <span class="ic">📬</span>
+            <span><small>Editorial</small><b>Quiero publicar mis rutas</b></span>
+          </div>
+          <div class="contact">
+            <span class="ic">🔖</span>
+            <span><small>Membresía</small><b>Únete a la plataforma</b></span>
+          </div>
+          <div class="contact">
+            <span class="ic">✒</span>
+            <span><small>Consultoría</small><b>Interpretación personalizada</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- El Viaje -->
+  <section class="section section--parchment" id="elviaje">
+    <div class="wrap">
+      <div class="viaje">
+        <div class="viaje__media">
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Laguna_Miscanti%2C_Chile%2C_2016-02-08%2C_DD_15-21_PAN.JPG/960px-Laguna_Miscanti%2C_Chile%2C_2016-02-08%2C_DD_15-21_PAN.JPG" alt="Laguna Miscanti, Altiplano chileno" />
+        </div>
+        <div class="viaje__body">
+          <span class="section__kicker">Consultoría · El Viaje</span>
+          <h2>Aprende a descifrar el espíritu de cada lugar</h2>
+          <p>
+            Transforma cualquier recorrido por Chile en una experiencia de asombro y significado:
+            observa la flora y fauna nativa, escucha el paisaje sonoro y comprende la memoria viva
+            de cada rincón con la metodología de <strong>El Viaje Por Chile</strong>.
+          </p>
+          <div class="viaje__btns">
+            <a class="btn btn--solid" href="https://www.elviaje.cl" target="_blank" rel="noopener noreferrer">Agendar consultoría</a>
+            <a class="btn btn--ghost" href="https://www.elviaje.cl" target="_blank" rel="noopener noreferrer">www.elviaje.cl</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="final-cta" id="unirme">
+    <div class="wrap">
+      <h2>¿Listo para construir la nueva generación de intérpretes?</h2>
+      <p>Únete a la red y publica tu primer recorrido por Chile en www.interpretaciondelpatrimonio.cl.</p>
+      <a class="btn btn--solid" href="https://www.interpretaciondelpatrimonio.cl" target="_blank" rel="noopener noreferrer">Comenzar ahora &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <h4>El Viaje Por Chile</h4>
+        <p>Interpretación del patrimonio natural y cultural. Plataforma editorial de audioguías y rutas autoguiadas.</p>
+      </div>
+      <div>
+        <h4>Plataforma</h4>
+        <a href="https://www.interpretaciondelpatrimonio.cl" target="_blank" rel="noopener noreferrer">www.interpretaciondelpatrimonio.cl</a>
+        <a href="#chile">El Chile que interpretamos</a>
+        <a href="#red">La red</a>
+      </div>
+      <div>
+        <h4>El Viaje</h4>
+        <a href="https://www.elviaje.cl" target="_blank" rel="noopener noreferrer">www.elviaje.cl</a>
+        <a href="https://www.elviaje.cl" target="_blank" rel="noopener noreferrer">Consultoría patrimonial</a>
+        <a href="https://www.mercadopago.cl" target="_blank" rel="noopener noreferrer">Pagos · Mercado Pago Chile</a>
+      </div>
+      <p class="legal">© 2026 El Viaje Por Chile · Red de intérpretes de todo Chile · Sección de demostración (propuesta de diseño). Imágenes de Wikimedia Commons.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
