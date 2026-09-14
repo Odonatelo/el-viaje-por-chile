@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import { Tour } from '../types';
 import { ShopSection } from './ShopSection';
-import { HeritageLanding } from './HeritageLanding';
 
 const FALLBACK_COVER = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
 
@@ -164,9 +163,6 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
           </div>
         </div>
       </section>
-
-      {/* Landing scroll: nueva generación de intérpretes + red + mosaico de Chile */}
-      <HeritageLanding />
 
       {/* Filter & Search Bar Container */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-7 relative z-20">
@@ -364,12 +360,12 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
       </section>
 
-{/* Main Tours Grid Section */}
-      <section id="rutas-chile" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-6">
-
+      {/* Main Tours Grid Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-6">
+        
         {/* Results Counter & Reset */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2 min-w-0">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <h2 className="text-xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
               Rutas y Audioguías de Chile
             </h2>
@@ -499,7 +495,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                     </div>
 
                     {/* Author & Action buttons */}
-                    <div className="flex flex-wrap items-center justify-between pt-1 gap-2">
+                    <div className="flex items-center justify-between pt-1">
                       <div className="flex items-center gap-2 min-w-0">
                         <img
                           src={tour.author?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80'}
@@ -513,7 +509,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                         </span>
                       </div>
 
-                      <div className="flex flex-wrap items-center justify-end gap-1.5 ml-auto">
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
                         {onOpenTourExport && (
                           <button
                             onClick={() => onOpenTourExport(tour)}
