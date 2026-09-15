@@ -6,6 +6,7 @@ import {
   Sparkles,
   LogOut,
   Key,
+  KeyRound,
   User,
   Mail,
   ExternalLink,
@@ -37,6 +38,11 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
   onDevOwnerLogin,
 }) => {
   const [isSigningIn, setIsSigningIn] = React.useState(false);
+  const [localMode, setLocalMode] = React.useState(false);
+  const [localEmail, setLocalEmail] = React.useState('');
+  const [localKey, setLocalKey] = React.useState('');
+  const [localBusy, setLocalBusy] = React.useState(false);
+  const [localError, setLocalError] = React.useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -44,6 +50,35 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
     // Real OAuth: el backend redirige a Google y vuelve a /api/auth/google/callback
     setIsSigningIn(true);
     window.location.href = '/api/auth/google';
+  };
+
+  const handleLocalLogin = async () => {
+    setLocalError(null);
+    if (!localEmail.trim() || !localKey.trim()) {
+      setLocalError('Ingresa tu correo y tu clave de acceso.');
+      return;
+    }
+    setLocalBusy(true);
+    try {
+      const res = await fetch('/api/auth/local', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: localEmail.trim(), accessKey: localKey.trim() }),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setLocalEmail('');
+        setLocalKey('');
+        setLocalMode(false);
+        onLogin(data.user);
+      } else {
+        setLocalError(data.error || 'No se pudo iniciar sesión. Verifica tus datos.');
+      }
+    } catch {
+      setLocalError('Error de conexión. Inténtalo de nuevo.');
+    } finally {
+      setLocalBusy(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -75,7 +110,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
               </svg>
             </div>
             <div>
-              <h3 className="text-base font-bold text-white font-['Cormorant_Garamond',Georgia,serif]">Cuenta Google</h3>
+              <h3 className="text-base font-bold text-white font-['Cormorant_Garamond',Georgia,serif]">Iniciar sesión</h3>
               <p className="text-xs text-slate-400">Acceso a Creadores &amp; Tienda El Viaje</p>
             </div>
           </div>
@@ -101,7 +136,13 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
                     <h4 className="text-sm font-bold text-[#14281C] truncate">{currentUser.name}</h4>
-                    <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded border border-emerald-300">Google</span>
+                    <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded border border-emerald-300">
+                      {(currentUser as any)?.authMethod === 'local'
+                        ? 'Clave de acceso'
+                        : (currentUser as any)?.authMethod === 'both'
+                          ? 'Google + Clave'
+                          : 'Google'}
+                    </span>
                   </div>
                   <p className="text-xs text-slate-600 truncate">{currentUser.email}</p>
                   <div className="flex items-center gap-2 mt-1.5">
@@ -186,6 +227,73 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
                 </svg>
                 <span>{isSigningIn ? 'Redirigiendo a Google...' : 'Continuar con Google'}</span>
               </button>
+
+              <div className="relative py-1">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-[#E4D8BF]" />
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-[#F6F1E5] px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">o</span>
+                </div>
+              </div>
+
+              {!localMode ? (
+                <button
+                  onClick={() => setLocalMode(true)}
+                  className="w-full py-3 px-4 bg-[#14281C] hover:bg-[#1D3626] text-white rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
+                >
+                  <KeyRound className="w-3.5 h-3.5 text-[#E8A58B]" />
+                  ¿Tienes una clave de acceso?
+                </button>
+              ) : (
+                <div className="rounded-2xl bg-white border-2 border-[#CDBA95] p-4 space-y-3 text-left">
+                  <div className="flex items-start gap-2 text-[#14281C]">
+                    <div className="w-8 h-8 rounded-xl bg-[#B04E2A]/10 text-[#B04E2A] grid place-items-center shrink-0">
+                      <KeyRound className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-sm">Ingreso con clave de acceso</div>
+                      <p className="text-[11px] text-slate-500 leading-relaxed">
+                        Usa el correo y la clave que te entregó el administrador de El Viaje.
+                      </p>
+                    </div>
+                  </div>
+                  <input
+                    type="email"
+                    value={localEmail}
+                    onChange={(e) => setLocalEmail(e.target.value)}
+                    placeholder="Correo"
+                    className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#CDBA95] rounded-xl text-sm font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={localKey}
+                    onChange={(e) => setLocalKey(e.target.value)}
+                    onKeyDown={(e) => (e.key === 'Enter' ? handleLocalLogin() : null)}
+                    placeholder="Clave de acceso (ej. VIAJE-XXXX-XXXX)"
+                    className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#CDBA95] rounded-xl text-sm font-semibold font-mono uppercase tracking-wider focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                  />
+                  {localError && <p className="text-xs font-semibold text-red-600">{localError}</p>}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleLocalLogin}
+                      disabled={localBusy}
+                      className="flex-1 py-2.5 px-4 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold disabled:opacity-60 transition-all"
+                    >
+                      {localBusy ? <Loader2 className="w-3.5 h-3.5 mx-auto animate-spin" /> : 'Ingresar'}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setLocalMode(false);
+                        setLocalError(null);
+                      }}
+                      className="py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all"
+                    >
+                      Volver
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {devMode && (
                 <button

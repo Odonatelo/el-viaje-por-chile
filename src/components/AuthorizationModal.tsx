@@ -150,7 +150,8 @@ export function AuthorizationModal({
             <div className="rounded-2xl bg-white border border-[#E4D8BF] px-4 py-4 text-sm text-slate-700 space-y-2">
               <p>
                 Para usar el Studio y el Generador de Rutas primero{' '}
-                <strong className="text-[#14281C]">inicia sesión con tu cuenta de Google</strong> y luego:
+                <strong className="text-[#14281C]">inicia sesión</strong> (con tu cuenta de Google o con tu clave de
+                acceso) y luego:
               </p>
               <ol className="list-decimal list-inside space-y-1 text-xs text-slate-600">
                 <li>Canjea un <strong>código de autorización</strong> que te haya entregado El Viaje.</li>
@@ -162,7 +163,7 @@ export function AuthorizationModal({
               onClick={onOpenAuthModal}
               className="w-full px-5 py-3 bg-[#14281C] hover:bg-[#1D3626] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all"
             >
-              Iniciar sesión con Google
+              Iniciar sesión
             </button>
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">

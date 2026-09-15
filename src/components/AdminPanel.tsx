@@ -13,6 +13,10 @@ import {
   RefreshCw,
   Search,
   Crown,
+  UserPlus,
+  Copy,
+  Mail,
+  X,
 } from 'lucide-react';
 import { AdminStats, AdminUser, AdminTourRow, UserProfile } from '../types';
 
@@ -29,6 +33,19 @@ const PLAN_TONES: Record<string, string> = {
   annual_paid: 'bg-[#B04E2A]/10 text-[#B04E2A] border border-[#B04E2A]/40',
   consulting_free: 'bg-amber-50 text-amber-800 border border-amber-300',
 };
+
+function accessBadge(u: AdminUser) {
+  if (u.authMethod === 'both' || (u.authMethod === 'google' && u.hasLocalKey)) {
+    return { label: 'Google + Clave', tone: 'bg-indigo-50 text-indigo-700 border border-indigo-300' };
+  }
+  if (u.authMethod === 'local' || u.hasLocalKey) {
+    return { label: 'Clave de acceso', tone: 'bg-emerald-50 text-emerald-700 border border-emerald-300' };
+  }
+  if (u.authMethod === 'google') {
+    return { label: 'Google', tone: 'bg-blue-50 text-blue-700 border border-blue-300' };
+  }
+  return { label: '—', tone: 'text-slate-400' };
+}
 
 interface AchpiRow {
   id: string;
@@ -66,6 +83,18 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
   const [notice, setNotice] = useState<string | null>(null);
   const [months, setMonths] = useState<Record<string, number>>({});
   const [plans, setPlans] = useState<Record<string, string>>({});
+
+  // Cuentas de acceso (generar cuenta + clave de acceso para entregar al usuario)
+  const [genForm, setGenForm] = useState({ email: '', name: '', memberType: 'basic_free', months: 12 });
+  const [generating, setGenerating] = useState(false);
+  const [reveal, setReveal] = useState<{
+    email: string;
+    name?: string;
+    accessKey: string;
+    planLabel: string;
+    actionLabel: string;
+  } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const loadOverview = useCallback(async () => {
     try {
@@ -222,6 +251,85 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
     } catch {}
   };
 
+  const generateAccount = async () => {
+    if (!genForm.email.trim()) {
+      setNotice('Ingresa el correo del usuario para generar la cuenta.');
+      return;
+    }
+    setGenerating(true);
+    setNotice(null);
+    try {
+      const res = await fetch('/api/admin/users/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(genForm),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setReveal({
+          email: data.account.email,
+          name: data.account.name,
+          accessKey: data.account.accessKey,
+          planLabel: PLAN_LABELS[data.account.memberType],
+          actionLabel: 'Cuenta de acceso generada',
+        });
+        setGenForm({ email: '', name: '', memberType: 'basic_free', months: 12 });
+        setCopied(false);
+        await loadUsers();
+        await loadOverview();
+        onDataChanged();
+      } else {
+        showError(data, 'No se pudo generar la cuenta.');
+      }
+    } catch {
+      showError({}, 'Error de conexión.');
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const regenerateKey = async (email: string) => {
+    if (!window.confirm(`¿Generar una nueva clave de acceso para ${email}? La clave anterior dejará de funcionar.`)) return;
+    setActingEmail(`key-${email}`);
+    setNotice(null);
+    try {
+      const res = await fetch(`/api/admin/users/${encodeURIComponent(email)}/access-key`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setUsers((prev) => prev.map((u) => (u.email === email ? data.user : u)));
+        setReveal({
+          email: data.user.email,
+          name: data.user.name || undefined,
+          accessKey: data.accessKey,
+          planLabel: PLAN_LABELS[data.user.memberType],
+          actionLabel: 'Clave de acceso regenerada',
+        });
+        setCopied(false);
+        setNotice(`Nueva clave de acceso generada para ${email}.`);
+        onDataChanged();
+      } else {
+        showError(data, 'No se pudo generar la clave de acceso.');
+      }
+    } catch {
+      showError({}, 'Error de conexión.');
+    } finally {
+      setActingEmail(null);
+    }
+  };
+
+  const copyReveal = async () => {
+    if (!reveal) return;
+    try {
+      await navigator.clipboard.writeText(
+        `El Viaje — Clave de acceso\nCuenta: ${reveal.email}\nNombre: ${reveal.name || reveal.email}\nClave de acceso: ${reveal.accessKey}\n\nIngreso: www.interpretaciondelpatrimonio.cl → "Iniciar sesión" → "¿Tienes una clave de acceso?".`,
+      );
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      /* ignore */
+    }
+  };
+
   const filteredUsers = users.filter(
     (u) => u.email.toLowerCase().includes(filter.toLowerCase()) || PLAN_LABELS[u.memberType].toLowerCase().includes(filter.toLowerCase()),
   );
@@ -373,13 +481,79 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
 
           {/* Usuarios y Miembros */}
           {activeTab === 'users' && (
-            <div className="rounded-2xl bg-white border border-[#E4D8BF] overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead>
-                    <tr className="bg-[#F6F1E5] text-slate-500 uppercase tracking-wider text-[10px]">
-                      <th className="px-4 py-3 font-bold">Usuario</th>
-                      <th className="px-4 py-3 font-bold">Plan</th>
+            <>
+              {/* Generar cuenta de acceso */}
+              <div className="rounded-2xl bg-white border border-[#E4D8BF] overflow-hidden">
+                <div className="px-4 py-3 bg-[#14281C] text-white flex items-center gap-2">
+                  <UserPlus className="w-4 h-4 text-[#E8A58B]" />
+                  <span className="font-bold text-sm">Generar cuenta de acceso para un usuario</span>
+                </div>
+                <div className="p-4 grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+                  <label className="block sm:col-span-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Correo del usuario</span>
+                    <input
+                      type="email"
+                      value={genForm.email}
+                      onChange={(e) => setGenForm((f) => ({ ...f, email: e.target.value }))}
+                      placeholder="usuario@correo.com"
+                      className="mt-1 w-full px-3 py-2 rounded-xl text-xs border border-[#CDBA95] bg-[#F6F1E5] font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                    />
+                  </label>
+                  <label className="block sm:col-span-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Nombre (opcional)</span>
+                    <input
+                      type="text"
+                      value={genForm.name}
+                      onChange={(e) => setGenForm((f) => ({ ...f, name: e.target.value }))}
+                      placeholder="Nombre del usuario"
+                      className="mt-1 w-full px-3 py-2 rounded-xl text-xs border border-[#CDBA95] bg-[#F6F1E5] font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                    />
+                  </label>
+                  <label className="block sm:col-span-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Plan</span>
+                    <select
+                      value={genForm.memberType}
+                      onChange={(e) => setGenForm((f) => ({ ...f, memberType: e.target.value }))}
+                      className="mt-1 w-full px-2.5 py-2 rounded-xl text-xs border border-[#CDBA95] bg-white font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                    >
+                      <option value="none">Gratis</option>
+                      <option value="basic_free">Básica Gratis (1)</option>
+                      <option value="consulting_free">Consultoría (50)</option>
+                      <option value="annual_paid">Membresía Plataforma (50)</option>
+                    </select>
+                  </label>
+                  <label className="block sm:col-span-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Meses</span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={60}
+                      value={genForm.months}
+                      onChange={(e) => setGenForm((f) => ({ ...f, months: parseInt(e.target.value) || 12 }))}
+                      className="mt-1 w-full px-2 py-2 rounded-xl text-xs border border-[#CDBA95] bg-white font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                    />
+                  </label>
+                  <div className="sm:col-span-2">
+                    <button
+                      onClick={generateAccount}
+                      disabled={generating}
+                      className="w-full px-3.5 py-2 rounded-xl text-xs font-bold bg-[#B04E2A] hover:bg-[#9A3F1E] text-white flex items-center justify-center gap-1.5 disabled:opacity-60 shadow-sm transition-all"
+                    >
+                      {generating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserPlus className="w-3.5 h-3.5" />}
+                      Generar cuenta + clave
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-2xl bg-white border border-[#E4D8BF] overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#F6F1E5] text-slate-500 uppercase tracking-wider text-[10px]">
+                        <th className="px-4 py-3 font-bold">Usuario</th>
+                        <th className="px-4 py-3 font-bold">Acceso</th>
+                        <th className="px-4 py-3 font-bold">Plan</th>
                       <th className="px-4 py-3 font-bold">ACHPI</th>
                       <th className="px-4 py-3 font-bold">Rutas publicadas</th>
                       <th className="px-4 py-3 font-bold">Cambiar plan (meses)</th>
@@ -389,7 +563,7 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
                   <tbody>
                     {filteredUsers.length === 0 && (
                       <tr>
-                        <td colSpan={6} className="px-4 py-8 text-center text-slate-400">
+                        <td colSpan={7} className="px-4 py-8 text-center text-slate-400">
                           Sin usuarios que coincidan con la búsqueda.
                         </td>
                       </tr>
@@ -397,6 +571,11 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
                     {filteredUsers.map((u) => (
                       <tr key={u.email} className="border-t border-[#E4D8BF]/70 align-top">
                         <td className="px-4 py-3 font-bold text-[#14281C] max-w-[220px] break-all">{u.email}</td>
+                        <td className="px-4 py-3">
+                          <span className={`px-2 py-1 rounded-lg text-[10px] font-extrabold whitespace-nowrap ${accessBadge(u).tone}`}>
+                            {accessBadge(u).label}
+                          </span>
+                        </td>
                         <td className="px-4 py-3">
                           <span className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold ${PLAN_TONES[u.memberType]}`}>
                             {PLAN_LABELS[u.memberType]}
@@ -463,12 +642,26 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
                           <div className="flex flex-col gap-1.5">
                             <button
                               onClick={() => grantAchpi(u.email)}
-                              disabled={actingEmail === u.email || u.achpiStatus === 'approved'}
+                              disabled={actingEmail === u.email || u.achpiStatus === 'approved' || u.email === (stats?.ownerEmail || '').toLowerCase()}
                               className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-40"
                             >
                               <KeyRound className="w-3 h-3" />
                               {u.achpiStatus === 'approved' ? 'Código activo' : 'Otorgar ACHPI'}
                             </button>
+                            {u.email !== (stats?.ownerEmail || '').toLowerCase() && (
+                              <button
+                                onClick={() => regenerateKey(u.email)}
+                                disabled={actingEmail === `key-${u.email}`}
+                                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#14281C] text-white hover:bg-[#2E4E37] disabled:opacity-40"
+                              >
+                                {actingEmail === `key-${u.email}` ? (
+                                  <Loader2 className="w-3 h-3 animate-spin" />
+                                ) : (
+                                  <KeyRound className="w-3 h-3 text-[#E8A58B]" />
+                                )}
+                                {u.hasLocalKey ? 'Regenerar clave' : 'Generar clave'}
+                              </button>
+                            )}
                             <button
                               onClick={() => revoke(u.email)}
                               disabled={actingEmail === u.email}
@@ -485,6 +678,7 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
                 </table>
               </div>
             </div>
+            </>
           )}
 
           {/* Inscripciones ACHPI */}
@@ -631,6 +825,87 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
             </div>
           )}
         </>
+      )}
+
+      {/* Revelado de clave de acceso (se muestra una sola vez) */}
+      {reveal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden">
+            <div className="px-6 py-4 bg-[#14281C] text-white flex items-center justify-between border-b border-[#223F2C]">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#B04E2A]/25 text-[#E8A58B] grid place-items-center">
+                  <KeyRound className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white">Clave de acceso</h3>
+                  <p className="text-xs text-slate-400">{reveal.actionLabel}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setReveal(null)}
+                className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div className="rounded-2xl bg-[#F4EEDF] border border-[#E4D8BF] p-4 space-y-1.5">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#14281C]">
+                  <Mail className="w-4 h-4 text-[#B04E2A]" />
+                  {reveal.email}
+                </div>
+                {reveal.name && <div className="text-xs text-slate-600 ml-6">{reveal.name}</div>}
+                <div className="text-[11px] text-slate-500 ml-6">{reveal.planLabel}</div>
+              </div>
+
+              <div className="rounded-2xl border-2 border-dashed border-[#B04E2A]/50 bg-[#B04E2A]/5 p-4">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-[#B04E2A] mb-1.5">
+                  Clave de acceso del usuario
+                </div>
+                <div className="font-mono text-lg font-extrabold text-[#14281C] tracking-wider break-all">
+                  {reveal.accessKey}
+                </div>
+                <button
+                  onClick={copyReveal}
+                  className="mt-3 w-full py-2.5 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-white flex items-center justify-center gap-1.5 transition-all"
+                >
+                  {copied ? (
+                    <>
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Copiada al portapapeles
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" /> Copiar credenciales
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <p className="text-[11px] leading-relaxed text-slate-500 bg-amber-50 border border-amber-200 rounded-xl px-3.5 py-3">
+                <strong className="text-amber-800">Anota y entrega esta clave al usuario.</strong> Por seguridad no
+                se vuelve a mostrar: si la pierden, genera una clave nueva con «Regenerar clave». La clave anterior
+                deja de funcionar en cuanto se genera otra.
+              </p>
+
+              <div className="flex items-center justify-between gap-3">
+                <button
+                  onClick={copyReveal}
+                  className="flex-1 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all"
+                >
+                  {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? 'Copiada' : 'Copiar'}
+                </button>
+                <button
+                  onClick={() => setReveal(null)}
+                  className="flex-1 py-2.5 px-4 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+                >
+                  Listo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -96,6 +96,7 @@ interface SessionUser {
   googleId: string;
   role: 'creator' | 'admin';
   isOwner: boolean;
+  authMethod?: 'google' | 'local' | 'both';
 }
 
 function getCurrentUser(req: any): SessionUser | null {
@@ -137,10 +138,13 @@ function saveTours() {
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 type StoredUser = {
   email: string;
+  name?: string;
   memberType: 'none' | 'basic_free' | 'annual_paid' | 'consulting_free';
   membershipExpiresAt?: string;
   achpiStatus?: 'none' | 'pending' | 'approved';
   achpiCode?: string;
+  authMethod?: 'google' | 'local' | 'both';
+  localKeyHash?: string;
 };
 let usersStore: Record<string, StoredUser> = {};
 
@@ -203,6 +207,32 @@ function generateMemberCode(): string {
   return `ACHPI-${block()}-${block()}`;
 }
 
+// Claves de acceso para cuentas locales generadas desde el panel de administración.
+// Solo se guarda el hash (scrypt + salt); la clave en claro se muestra una única vez.
+function generateAccessKey(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const block = () =>
+    Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  return `VIAJE-${block()}-${block()}`;
+}
+
+function hashAccessKey(accessKey: string): string {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(accessKey, salt, 64).toString('hex');
+  return `scrypt$${salt}$${hash}`;
+}
+
+function verifyAccessKey(accessKey: string, stored: string): boolean {
+  const [scheme, salt, hash] = (stored || '').split('$');
+  if (scheme !== 'scrypt' || !salt || !hash) return false;
+  try {
+    const candidate = crypto.scryptSync(accessKey, salt, 64).toString('hex');
+    return crypto.timingSafeEqual(Buffer.from(candidate, 'hex'), Buffer.from(hash, 'hex'));
+  } catch {
+    return false;
+  }
+}
+
 function getUserByEmail(email: string): StoredUser {
   const key = email.toLowerCase();
   return usersStore[key] || { email: key, memberType: 'none', achpiStatus: 'none' };
@@ -218,11 +248,16 @@ function getUserMembership(email: string): StoredUser {
   return usersStore[email.toLowerCase()] || { email: email.toLowerCase(), memberType: 'none' };
 }
 
-function setUserMembership(email: string, memberType: 'basic_free' | 'annual_paid' | 'consulting_free', months = 12) {
-  const key = email.toLowerCase();
+function membershipExpiry(months: number): string {
   const expires = new Date();
   expires.setMonth(expires.getMonth() + months);
-  usersStore[key] = { email: key, memberType, membershipExpiresAt: expires.toISOString() };
+  return expires.toISOString();
+}
+
+function setUserMembership(email: string, memberType: 'basic_free' | 'annual_paid' | 'consulting_free', months = 12) {
+  const key = email.toLowerCase();
+  const current = usersStore[key] || {};
+  usersStore[key] = { ...current, email: key, memberType, membershipExpiresAt: membershipExpiry(months) };
   saveUsers();
 }
 
@@ -309,7 +344,14 @@ app.get('/api/auth/google/callback', async (req, res) => {
       googleId: p.sub as string,
       role: isOwner ? 'admin' : 'creator',
       isOwner,
+      authMethod: 'google',
     };
+    const accountKey = email.toLowerCase();
+    const existing = usersStore[accountKey];
+    if (existing) {
+      usersStore[accountKey] = { ...existing, authMethod: existing.localKeyHash ? 'both' : 'google' };
+      saveUsers();
+    }
     (req.session as any).user = user;
     res.redirect(`${APP_URL}/`);
   } catch (e: any) {
@@ -336,6 +378,8 @@ app.get('/api/auth/me', (req, res) => {
       membershipExpiresAt: m.membershipExpiresAt,
       achpiStatus: m.achpiStatus || 'none',
       achpiCode: m.achpiCode,
+      authMethod: m.authMethod || u.authMethod || 'google',
+      hasLocalKey: !!m.localKeyHash,
       routeLimit: limit,
       routeUsage: routeUsageFor(u.email),
     },
@@ -357,6 +401,7 @@ app.get('/api/auth/dev-owner-login', (req, res) => {
     googleId: 'owner-dev',
     role: 'admin',
     isOwner: true,
+    authMethod: 'google',
   };
   const key = OWNER_EMAIL.toLowerCase();
   usersStore[key] = {
@@ -369,6 +414,48 @@ app.get('/api/auth/dev-owner-login', (req, res) => {
   req.session.save((err) => {
     if (err) return res.status(500).json({ success: false, error: 'session save failed' });
     res.redirect('/');
+  });
+});
+
+// Iniciar sesión con una cuenta local generada por el administrador
+// (correo + clave de acceso entregada desde el panel de administración).
+app.post('/api/auth/local', async (req, res) => {
+  const { email, accessKey } = (req.body || {}) as { email?: string; accessKey?: string };
+  const accountKey = (email || '').trim().toLowerCase();
+  if (!accountKey || !accountKey.includes('@')) {
+    return res.status(400).json({ success: false, error: 'Ingresa tu correo.' });
+  }
+  const normalizedKey = (accessKey || '').trim().toUpperCase();
+  if (!normalizedKey) {
+    return res.status(400).json({ success: false, error: 'Ingresa tu clave de acceso.' });
+  }
+  const account = usersStore[accountKey];
+  if (!account || !account.localKeyHash) {
+    return res.status(400).json({
+      success: false,
+      error: 'Cuenta no encontrada. Pide tu clave de acceso al administrador de la plataforma.',
+    });
+  }
+  if (!verifyAccessKey(normalizedKey, account.localKeyHash)) {
+    return res.status(400).json({ success: false, error: 'Clave de acceso incorrecta. Verifica e inténtalo de nuevo.' });
+  }
+  const isOwner = accountKey === OWNER_EMAIL.toLowerCase();
+  const user: SessionUser = {
+    id: `local-${accountKey}`,
+    email: accountKey,
+    name: account.name || accountKey,
+    avatar: '',
+    googleId: '',
+    role: isOwner ? 'admin' : 'creator',
+    isOwner,
+    authMethod: account.authMethod === 'google' ? 'both' : 'local',
+  };
+  usersStore[accountKey] = { ...account, authMethod: user.authMethod };
+  saveUsers();
+  (req.session as any).user = user;
+  req.session.save((err) => {
+    if (err) return res.status(500).json({ success: false, error: 'No se pudo iniciar sesión. Inténtalo de nuevo.' });
+    res.json({ success: true, user });
   });
 });
 
@@ -1233,10 +1320,13 @@ function adminUserView(email: string) {
   const m = getUserMembership(email);
   return {
     email: m.email || email,
+    name: m.name || null,
     memberType: m.memberType || 'none',
     membershipExpiresAt: m.membershipExpiresAt || null,
     achpiStatus: m.achpiStatus || 'none',
     achpiCode: m.achpiCode || null,
+    authMethod: m.authMethod || null,
+    hasLocalKey: !!m.localKeyHash,
     routeLimit: routeLimitFor(email),
     routeUsage: routeUsageFor(email),
   };
@@ -1350,13 +1440,87 @@ app.post('/api/admin/users/:email/achpi-grant', requireAuth, requireOwner, (req,
 app.post('/api/admin/users/:email/revoke', requireAuth, requireOwner, (req, res) => {
   const target = String(req.params.email).toLowerCase();
   const current = getUserMembership(target);
-  usersStore[target] = { email: target, memberType: 'none' };
+  usersStore[target] = {
+    ...current,
+    email: target,
+    memberType: 'none',
+    membershipExpiresAt: undefined,
+  };
   saveUsers();
   notifyAdmin(
     `Acceso revocado: ${target}`,
     `Se deshabilitó la cuenta ${target}. Ya no puede publicar rutas.`,
   );
   res.json({ success: true, user: adminUserView(target) });
+});
+
+// Generar una cuenta de usuario con clave de acceso (solo propietario).
+// Crea (o actualiza) la cuenta local, fija el plan y entrega la clave de acceso
+// en claro una única vez; solo se persiste el hash.
+app.post('/api/admin/users/generate', requireAuth, requireOwner, (req, res) => {
+  const { email, name, memberType = 'basic_free', months = 12 } = (req.body || {}) as {
+    email?: string;
+    name?: string;
+    memberType?: string;
+    months?: number;
+  };
+  const target = (email || '').trim().toLowerCase();
+  if (!target || !target.includes('@')) {
+    return res.status(400).json({ success: false, error: 'Ingresa un correo válido.' });
+  }
+  if (target === OWNER_EMAIL.toLowerCase()) {
+    return res.status(400).json({ success: false, error: 'El propietario ya tiene acceso, no se genera clave para esa cuenta.' });
+  }
+  const allowed = ['none', 'basic_free', 'annual_paid', 'consulting_free'];
+  const plan = allowed.includes(String(memberType)) ? String(memberType) : 'basic_free';
+  const duration = Math.max(1, Math.min(60, Number(months) || 12));
+
+  const existing = usersStore[target] || getUserByEmail(target);
+  const accessKey = generateAccessKey();
+  const stored: StoredUser = {
+    email: target,
+    name: (name || '').trim() || existing?.name || target,
+    memberType: plan as StoredUser['memberType'],
+    membershipExpiresAt: plan === 'none' ? undefined : membershipExpiry(duration),
+    achpiStatus: existing?.achpiStatus || 'none',
+    achpiCode: existing?.achpiCode,
+    authMethod: existing?.localKeyHash ? 'both' : existing?.authMethod === 'google' ? 'both' : 'local',
+    localKeyHash: hashAccessKey(accessKey),
+  };
+  usersStore[target] = stored;
+  saveUsers();
+  notifyAdmin(
+    `Cuenta generada con clave de acceso: ${target}`,
+    `Se creó la cuenta local con clave de acceso y plan ${plan} por ${duration} meses.`,
+  );
+  res.json({
+    success: true,
+    account: { email: target, name: stored.name, memberType: plan, accessKey },
+    user: adminUserView(target),
+  });
+});
+
+// (Re)generar la clave de acceso de una cuenta (solo propietario).
+// Reemplaza la clave anterior: la anteior deja de funcionar inmediatamente.
+app.post('/api/admin/users/:email/access-key', requireAuth, requireOwner, (req, res) => {
+  const target = String(req.params.email).toLowerCase();
+  const current = usersStore[target];
+  if (!current) {
+    return res.status(400).json({ success: false, error: 'Usuario no encontrado.' });
+  }
+  const accessKey = generateAccessKey();
+  usersStore[target] = {
+    ...current,
+    name: current.name || target,
+    authMethod: current.authMethod === 'google' ? 'both' : 'local',
+    localKeyHash: hashAccessKey(accessKey),
+  };
+  saveUsers();
+  notifyAdmin(
+    `Clave de acceso regenerada: ${target}`,
+    'Se generó una nueva clave de acceso para la cuenta. La anterior dejó de funcionar.',
+  );
+  res.json({ success: true, accessKey, user: adminUserView(target) });
 });
 
 // Listado de rutas con autor (solo propietario)

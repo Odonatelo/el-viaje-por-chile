@@ -151,14 +151,19 @@ export interface UserProfile {
   achpiCode?: string;
   routeLimit?: number;
   routeUsage?: number;
+  authMethod?: 'google' | 'local' | 'both';
+  hasLocalKey?: boolean;
 }
 
 export interface AdminUser {
   email: string;
+  name?: string | null;
   memberType: 'none' | 'basic_free' | 'annual_paid' | 'consulting_free';
   membershipExpiresAt?: string | null;
   achpiStatus: 'none' | 'pending' | 'approved';
   achpiCode?: string | null;
+  authMethod?: string | null;
+  hasLocalKey?: boolean;
   routeLimit: number;
   routeUsage: number;
 }
