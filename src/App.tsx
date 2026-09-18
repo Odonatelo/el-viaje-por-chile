@@ -15,7 +15,6 @@ import {
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
 import { CatalogView } from './components/CatalogView';
-import { HomeLanding } from './components/HomeLanding';
 import { TourDetailView } from './components/TourDetailView';
 import { TourStudioView } from './components/TourStudioView';
 import { FactibilidadGuide } from './components/FactibilidadGuide';
@@ -31,15 +30,13 @@ import { AdminPanel } from './components/AdminPanel';
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
-  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'admin';
+  type ViewMode = 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
       : window.location.pathname === '/admin'
         ? 'admin'
-        : window.location.pathname === '/explorar'
-          ? 'catalog'
-          : 'home',
+        : 'catalog',
   );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [editingTour, setEditingTour] = useState<Tour | null>(null);
@@ -199,9 +196,7 @@ export default function App() {
           ? 'factibilidad'
           : window.location.pathname === '/admin'
             ? 'admin'
-            : window.location.pathname === '/explorar'
-              ? 'catalog'
-              : 'home',
+            : 'catalog',
       );
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
@@ -573,7 +568,7 @@ export default function App() {
           
           {/* Logo & Platform Name */}
           <div 
-            onClick={() => navigateTo('home', '/')}
+            onClick={() => navigateTo('catalog', '/')}
             className="flex items-center gap-3 cursor-pointer group"
           >
             <div className="w-12 h-12 rounded-2xl bg-black p-1 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform border border-white/10">
@@ -601,7 +596,7 @@ export default function App() {
           {/* Navigation Tabs */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => navigateTo('catalog', '/explorar')}
+              onClick={() => navigateTo('catalog', '/')}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                 viewMode === 'catalog'
                   ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
@@ -788,30 +783,18 @@ export default function App() {
             }}
           />
         ) : viewMode === 'factibilidad' ? (
-          <FactibilidadGuide onBack={() => navigateTo('catalog', '/explorar')} />
+          <FactibilidadGuide onBack={() => navigateTo('catalog', '/')} />
         ) : viewMode === 'admin' ? (
           <AdminPanel
             currentUser={currentUser}
             isOwner={isOwner}
-            onBack={() => navigateTo('catalog', '/explorar')}
+            onBack={() => navigateTo('catalog', '/')}
             onOpenAuthModal={() => setShowAuthModal(true)}
             onDeleteTour={handleDeleteTour}
             onDataChanged={() => {
               fetchTours();
               refreshUser();
             }}
-          />
-        ) : viewMode === 'home' ? (
-          <HomeLanding
-            tours={tours}
-            onSelectTour={(tour) => {
-              setSelectedTour(tour);
-              setViewMode('detail');
-            }}
-            onExploreAll={() => navigateTo('catalog', '/explorar')}
-            onOpenConsultingModal={() => setShowConsultingModal(true)}
-            onOpenMembershipModal={() => setShowMembershipModal(true)}
-            onOpenAchpiModal={() => setShowAchpiModal(true)}
           />
         ) : (
           renderCatalogView()
