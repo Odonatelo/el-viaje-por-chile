@@ -64,7 +64,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
               Propuesta <em className="font-['Cormorant_Garamond',Georgia,serif] italic text-white">Tailor Made</em> para recorrer el
               territorio: una comunidad de intérpretes del patrimonio y una consultoría
               especializada que diseña experiencias a medida —para otros y para nosotros mismos—
-              porque el viaje no se descubre, se diseña.
+              porque el viaje no solo se descubre e interpreta, también se diseña.
             </p>
           </div>
 
