@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   Compass,
@@ -10,6 +10,8 @@ import {
   Radio,
   Instagram,
   BookOpen,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 import { Tour } from '../types';
 
@@ -43,8 +45,62 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
 }) => {
   const featured = tours.slice(0, 3);
 
+  // Marca sonora del viaje — se activa al abrir la landing
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [soundOn, setSoundOn] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const a = new window.Audio('/sound/marca-sonora.wav');
+    a.loop = true;
+    a.preload = 'auto';
+    a.volume = 0.55;
+    audioRef.current = a;
+    const attempt = () => {
+      if (!audioRef.current) return;
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().then(() => setSoundOn(true)).catch(() => undefined);
+    };
+    attempt();
+    const onFirstGesture = () => attempt();
+    window.addEventListener('pointerdown', onFirstGesture, { once: true });
+    window.addEventListener('keydown', onFirstGesture, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', onFirstGesture);
+      window.removeEventListener('keydown', onFirstGesture);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const toggleSound = () => {
+    if (!audioRef.current) return;
+    if (soundOn) {
+      audioRef.current.pause();
+      setSoundOn(false);
+    } else {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().then(() => setSoundOn(true)).catch(() => undefined);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FAF7F1] text-[#17120D] font-sans">
+
+      {/* Marca sonora: control on/off */}
+      <button
+        onClick={toggleSound}
+        className={`fixed top-4 right-4 z-50 flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-widest backdrop-blur transition-all active:scale-95 ${soundOn
+          ? 'border-[#B04E2A]/40 bg-black/60 text-[#F5F1E8] hover:border-[#B04E2A]'
+          : 'border-white/25 bg-black/40 text-[#F5F1E8] hover:border-white/60 hover:bg-black/60'}`}
+        aria-label={soundOn ? 'Apagar la marca sonora' : 'Activar la marca sonora'}
+      >
+        {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+        {soundOn ? 'Sonido on' : 'Activar sonido'}
+      </button>
 
       {/* ============================================================
           HERO — blanco y negro, diagnóstico libélula
