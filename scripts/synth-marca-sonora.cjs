@@ -6,6 +6,8 @@
  * de boca.
  * Fuente de la muestra: Wikimedia Commons — "Klangdemonstration einer
  * jakutischen Maultrommel - der Khomus aus Sibirien.wav" (mismo instrumento).
+ * El canto de chucao (tapaculo chileno) de fondo proviene del soundscape libre
+ * "Chucao" de Internet Archive (archive.org/details/Chucao, 60s).
  * Uso: node scripts/synth-marca-sonora.cjs <salida.wav>
  */
 const fs = require('fs');
@@ -76,6 +78,22 @@ function placeSample(t0, offsetSec, dur, gain, chopHz) {
   }
 }
 
+/* ---------- canto de chucao (fondo de selva valdiviana) ---------- */
+const CHUCAO = loadMono16(__dirname + '/assets/chucao-src.wav');
+function placeChucao(t0, offsetSec, dur, gain) {
+  const g = env(t0, dur, 0.03, 0.3);
+  const n0 = Math.floor(t0 * SR);
+  const n1 = Math.min(N, n0 + Math.floor(dur * SR));
+  const s0 = Math.floor(offsetSec * SR);
+  for (let i = n0; i < n1; i++) {
+    const si = s0 + (i - n0);
+    if (si >= CHUCAO.buf.length) break;
+    buf[i] += CHUCAO.buf[si] * g(i) * gain;
+    const e = i + Math.floor(SR * 0.8);
+    if (e < N && si + Math.floor(SR * 0.8) < CHUCAO.buf.length) buf[e] += CHUCAO.buf[si] * g(i) * gain * 0.4;
+  }
+}
+
 /* ---------- sintesis de instrumentos ---------- */
 function pluckAt(t0, dur, freq, gain, decay) {
   const g = env(t0, dur, 0.004, 0.012);
@@ -140,6 +158,9 @@ const eighth = 0.3;
 // trompe mapuche (arpa de boca real) — apertura orgánica sobre el pad
 placeSample(0.5, 0.3, 1.7, 0.1, 0);
 placeSample(2.7, 3.2, 1.6, 0.08, 0);
+// chucao (tapaculo chileno) — fondo de selva valdiviana
+placeChucao(1.2, 42.4, 1.6, 0.05);
+placeChucao(3.4, 50.9, 1.4, 0.045);
 // pad: Dmaj add9 (ambiental, estilo Coldplay)
 padAt(0, 14.6, [F.D4, F.Fs4, F.A4, F.E5, F.D3, F.Fs3, F.B3], 0.11, 1.4, 2.2, 0.001);
 // bajo pulsante (estilo Daft Punk)
@@ -169,15 +190,20 @@ for (let cycle = 0; cycle < 3; cycle++) {
     if (s % 4 === 3) pluckAt(t0, 0.9, f * 2, 0.1 * arpVel[s], 5.5);
   });
 }
-// campanillas tipo Coldplay
+// campanillas tipo Coldplay (bajas para dejar protagonismo al chucao y trompe)
 const bells = [
-  [4.8, F.E5, 0.1], [7.2, F.B4, 0.08], [9.6, F.E5, 0.1], [12.0, F.Fs4, 0.07],
+  [4.8, F.E5, 0.055], [7.2, F.B4, 0.045], [9.6, F.E5, 0.055], [12.0, F.Fs4, 0.04],
 ];
 bells.forEach(([t0, f, g]) => { pluckAt(t0, 3.0, f, g, 1.6); });
 // trompe real mezclado sobre el groove (llamada-respuesta con el arpegio)
 placeSample(6.2, 7.2, 1.7, 0.12, 5);
 placeSample(9.0, 4.1, 1.5, 0.11, 5);
 placeSample(11.4, 9.4, 1.6, 0.12, 0);
+// chucao de fondo sobre el groove y en la cola
+placeChucao(8.0, 54.2, 1.6, 0.035);
+placeChucao(10.8, 46.4, 1.5, 0.04);
+placeChucao(12.9, 57.6, 1.4, 0.035);
+placeChucao(14.6, 42.2, 1.5, 0.04);
 // resolución final
 padAt(13.6, 2.4, [F.D4, F.Fs4, F.A4, F.D5], 0.16, 0.12, 1.6, 0.001);
 
