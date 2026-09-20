@@ -159,8 +159,8 @@ const eighth = 0.3;
 placeSample(0.5, 0.3, 1.7, 0.1, 0);
 placeSample(2.7, 3.2, 1.6, 0.08, 0);
 // chucao (tapaculo chileno) — fondo de selva valdiviana
-placeChucao(1.2, 42.4, 1.6, 0.05);
-placeChucao(3.4, 50.9, 1.4, 0.045);
+placeChucao(1.2, 42.4, 1.8, 0.12);
+placeChucao(3.4, 50.9, 1.6, 0.1);
 // pad: Dmaj add9 (ambiental, estilo Coldplay)
 padAt(0, 14.6, [F.D4, F.Fs4, F.A4, F.E5, F.D3, F.Fs3, F.B3], 0.11, 1.4, 2.2, 0.001);
 // bajo pulsante (estilo Daft Punk)
@@ -200,10 +200,10 @@ placeSample(6.2, 7.2, 1.7, 0.12, 5);
 placeSample(9.0, 4.1, 1.5, 0.11, 5);
 placeSample(11.4, 9.4, 1.6, 0.12, 0);
 // chucao de fondo sobre el groove y en la cola
-placeChucao(8.0, 54.2, 1.6, 0.035);
-placeChucao(10.8, 46.4, 1.5, 0.04);
-placeChucao(12.9, 57.6, 1.4, 0.035);
-placeChucao(14.6, 42.2, 1.5, 0.04);
+placeChucao(8.0, 54.2, 1.8, 0.09);
+placeChucao(10.8, 46.4, 1.7, 0.1);
+placeChucao(12.9, 57.6, 1.6, 0.09);
+placeChucao(14.6, 42.2, 1.7, 0.1);
 // resolución final
 padAt(13.6, 2.4, [F.D4, F.Fs4, F.A4, F.D5], 0.16, 0.12, 1.6, 0.001);
 
