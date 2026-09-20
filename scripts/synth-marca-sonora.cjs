@@ -1,3 +1,13 @@
+/*
+ * Marca sonora del viaje (El Viaje por Chile).
+ * Mezcla un pad ambiental (Re mayor add9, al estilo Coldplay) con un arpegio
+ * sintético robótico y pulso (al estilo Daft Punk), y una grabación REAL de
+ * arpa de boca (jaw harp) para el trompe mapuche, ya que el trompe es un arpa
+ * de boca.
+ * Fuente de la muestra: Wikimedia Commons — "Klangdemonstration einer
+ * jakutischen Maultrommel - der Khomus aus Sibirien.wav" (mismo instrumento).
+ * Uso: node scripts/synth-marca-sonora.cjs <salida.wav>
+ */
 const fs = require('fs');
 const SR = 22050;
 const DUR = 16.0;
@@ -9,6 +19,7 @@ const F = {
   D4: 293.66, Fs4: 369.99, A4: 440.0, B4: 493.88, D5: 587.33, E5: 659.26, Fs5: 739.99, A5: 880.0,
 };
 
+/* ---------- utilidades ---------- */
 function env(t0, dur, att, rel) {
   return (i) => {
     const t = (i / SR) - t0;
@@ -21,6 +32,51 @@ function env(t0, dur, att, rel) {
   };
 }
 
+/* ---------- carga de la muestra real (jaw harp / trompe) mono PCM 16 bits ---------- */
+function loadMono16(rel) {
+  const src = fs.readFileSync(rel);
+  const ch = src.readUInt16LE(22);
+  const srate = src.readUInt32LE(24);
+  const bits = src.readUInt16LE(34);
+  const data = src.readUInt32LE(40);
+  if (bits !== 16) throw new Error('se necesita audio PCM de 16 bits');
+  const n = Math.floor(data / 2);
+  const mono = new Float64Array(Math.floor(n / ch));
+  for (let i = 0; i < n; i++) {
+    const v = src.readInt16LE(44 + i * 2) / 32767;
+    const c = i % ch;
+    mono[(i - c) / ch] += v / ch;
+  }
+  return { buf: mono, sr: srate };
+}
+const JAW = loadMono16(__dirname + '/assets/jawharp-src.wav');
+const nSamp = Math.floor(JAW.buf.length / (JAW.sr / SR));
+const SAMPLE_22050 = new Float64Array(nSamp);
+for (let i = 0; i < nSamp; i++) {
+  const p = i * (JAW.sr / SR);
+  const i0 = Math.floor(p);
+  const f = p - i0;
+  const a = JAW.buf[i0];
+  const b = JAW.buf[Math.min(i0 + 1, JAW.buf.length - 1)];
+  SAMPLE_22050[i] = a + (b - a) * f;
+}
+
+function placeSample(t0, offsetSec, dur, gain, chopHz) {
+  const g = env(t0, dur, 0.02, 0.16);
+  const n0 = Math.floor(t0 * SR);
+  const n1 = Math.min(N, n0 + Math.floor(dur * SR));
+  const s0 = Math.floor(offsetSec * SR);
+  for (let i = n0; i < n1; i++) {
+    const si = s0 + (i - n0);
+    if (si >= SAMPLE_22050.length) break;
+    const t = (i / SR) - t0;
+    let am = 1;
+    if (chopHz > 0) am = 0.72 + 0.28 * (((t * chopHz) % 1) < 0.5 ? 1 : -1);
+    buf[i] += SAMPLE_22050[si] * g(i) * am * gain;
+  }
+}
+
+/* ---------- sintesis de instrumentos ---------- */
 function pluckAt(t0, dur, freq, gain, decay) {
   const g = env(t0, dur, 0.004, 0.012);
   const n0 = Math.floor(t0 * SR);
@@ -40,8 +96,7 @@ function pluckAt(t0, dur, freq, gain, decay) {
 
 function padAt(t0, dur, freqs, gain, att, rel, detune) {
   const g = env(t0, dur, att, rel);
-  const beat = 0.6;
-  const swells = (t) => 0.72 + 0.28 * Math.sin(2 * Math.PI * t / 3.6);
+  const swells = (t) => 0.72 + 0.28 * Math.sin((2 * Math.PI * t) / 3.6);
   for (const f0 of freqs) {
     const n0 = Math.floor(t0 * SR);
     const n1 = Math.min(N, n0 + Math.floor(dur * SR));
@@ -80,46 +135,23 @@ function kickAt(t0, gain) {
   }
 }
 
-// Trompe mapuche (arpa de boca): zumbido metálico, púa de lengua/carrillo y brillo que abre/cierra
-function trompeAt(t0, dur, freq, gain) {
-  const g = env(t0, dur, 0.02, 0.08);
-  const n0 = Math.floor(t0 * SR);
-  const n1 = Math.min(N, n0 + Math.floor(dur * SR));
-  for (let i = n0; i < n1; i++) {
-    const t = (i / SR) - t0;
-    const bend = 0.97 + 0.06 * Math.min(1, t / dur);
-    const f = freq * bend;
-    const ph = f * t;
-    const chop = (t * 5.5) % 1 < 0.5 ? 1 : 0.2;
-    const bright = 0.55 + 0.45 * Math.sin(2 * Math.PI * t * 1.3);
-    const v =
-      0.3 * Math.sin(2 * Math.PI * ph) +
-      0.45 * Math.sin(2 * Math.PI * ph * 2) +
-      0.55 * bright * Math.sin(2 * Math.PI * ph * 3) +
-      0.3 * bright * Math.sin(2 * Math.PI * ph * 4) +
-      0.18 * Math.sin(2 * Math.PI * ph * 5) +
-      0.1 * Math.sin(2 * Math.PI * ph * 6) +
-      0.06 * Math.sin(2 * Math.PI * ph * 7.3);
-    buf[i] += v * chop * g(i) * gain;
-  }
-}
-
+/* ---------- arreglo ---------- */
 const eighth = 0.3;
-// trompe mapuche — apertura orgánica (solo con el pad)
-trompeAt(0.5, 2.0, F.D3, 0.1);
-trompeAt(2.7, 1.5, F.A2, 0.08);
-// piano pad: Dmaj add9 (Coldplay warm pad)
+// trompe mapuche (arpa de boca real) — apertura orgánica sobre el pad
+placeSample(0.5, 0.3, 1.7, 0.1, 0);
+placeSample(2.7, 3.2, 1.6, 0.08, 0);
+// pad: Dmaj add9 (ambiental, estilo Coldplay)
 padAt(0, 14.6, [F.D4, F.Fs4, F.A4, F.E5, F.D3, F.Fs3, F.B3], 0.11, 1.4, 2.2, 0.001);
-// bass pulse en 8as (daft punk groove)
+// bajo pulsante (estilo Daft Punk)
 const bassPat = [F.D3, F.D3, F.D3, F.A2, F.D3, F.D3, F.A2, F.A2, F.D3, F.D3, F.D3, F.A2, F.D3, F.D3, F.B3, F.A2];
 for (let s = 0; s < Math.floor((13.2 - 2.4) / eighth); s++) {
   const t0 = 2.4 + s * eighth;
   if (t0 > 13.4) break;
   bassAt(t0, 0.42, bassPat[s % bassPat.length], 0.16);
 }
-// kick en negras, punch suave
+// bombo en negras
 for (let t = 2.4; t <= 12.6; t += 0.6) kickAt(t, 0.5);
-// arpegio sintético robótico (Daft Punk), 2 compases
+// arpegio sintético robótico (dos compases)
 const arpNotes = [
   F.D4, F.Fs4, F.A4, F.D5, F.B4, F.A4, F.Fs4, F.A4,
   F.D4, F.Fs4, F.A4, F.D5, F.E5, F.D5, F.B4, F.Fs4,
@@ -137,19 +169,19 @@ for (let cycle = 0; cycle < 3; cycle++) {
     if (s % 4 === 3) pluckAt(t0, 0.9, f * 2, 0.1 * arpVel[s], 5.5);
   });
 }
-// campanillas tipo Coldplay (shimmer)
+// campanillas tipo Coldplay
 const bells = [
   [4.8, F.E5, 0.1], [7.2, F.B4, 0.08], [9.6, F.E5, 0.1], [12.0, F.Fs4, 0.07],
 ];
 bells.forEach(([t0, f, g]) => { pluckAt(t0, 3.0, f, g, 1.6); });
-// trompe mapuche mezclado sobre el groove (llamada-respuesta con el arpegio)
-trompeAt(6.2, 1.7, F.D3, 0.11);
-trompeAt(9.0, 1.5, F.A2, 0.1);
-trompeAt(11.4, 1.6, F.D3, 0.12);
-// resolución final (arranque de acorde mayor)
+// trompe real mezclado sobre el groove (llamada-respuesta con el arpegio)
+placeSample(6.2, 7.2, 1.7, 0.12, 5);
+placeSample(9.0, 4.1, 1.5, 0.11, 5);
+placeSample(11.4, 9.4, 1.6, 0.12, 0);
+// resolución final
 padAt(13.6, 2.4, [F.D4, F.Fs4, F.A4, F.D5], 0.16, 0.12, 1.6, 0.001);
 
-// delay espacial (una tap) + master
+/* ---------- delay espacial y master ---------- */
 const delayS = Math.floor(SR * 0.42);
 const master = new Float64Array(N);
 for (let i = 0; i < N; i++) master[i] = buf[i];
@@ -158,20 +190,13 @@ for (let i = 0; i + delayS < N; i++) master[i + delayS] += buf[i] * 0.28;
 let peak = 0;
 for (let i = 0; i < N; i++) peak = Math.max(peak, Math.abs(master[i]));
 const norm = 0.92 / (peak || 1);
-let maxAbs = 0;
 for (let i = 0; i < N; i++) {
   master[i] *= norm;
-  maxAbs = Math.max(maxAbs, Math.abs(master[i]));
-}
-// soft clip
-for (let i = 0; i < N; i++) {
-  let s = master[i];
-  if (s > 0.98) s = 0.98;
-  if (s < -0.98) s = -0.98;
-  master[i] = s;
+  if (master[i] > 0.98) master[i] = 0.98;
+  if (master[i] < -0.98) master[i] = -0.98;
 }
 
-// WAV 16-bit mono
+/* ---------- escritura WAV 16-bit mono ---------- */
 const dataSize = N * 2;
 const out = Buffer.alloc(44 + dataSize);
 out.write('RIFF', 0);
@@ -179,18 +204,14 @@ out.writeUInt32LE(36 + dataSize, 4);
 out.write('WAVE', 8);
 out.write('fmt ', 12);
 out.writeUInt32LE(16, 16);
-out.writeUInt16LE(1, 20);       // PCM
-out.writeUInt16LE(1, 22);       // mono
+out.writeUInt16LE(1, 20);
+out.writeUInt16LE(1, 22);
 out.writeUInt32LE(SR, 24);
 out.writeUInt32LE(SR * 2, 28);
 out.writeUInt16LE(2, 32);
 out.writeUInt16LE(16, 34);
 out.write('data', 36);
 out.writeUInt32LE(dataSize, 40);
-for (let i = 0; i < N; i++) {
-  out.writeInt16LE(Math.round(master[i] * 32767), 44 + i * 2);
-}
+for (let i = 0; i < N; i++) out.writeInt16LE(Math.round(master[i] * 32767), 44 + i * 2);
 fs.writeFileSync(process.argv[2], out);
-const secs = (N / SR).toFixed(1);
-const kb = (out.length / 1024).toFixed(0);
-console.log(`wav escrita: ${secs}s, ${kb}KB, peak=${maxAbs.toFixed(3)}`);
+console.log('marca sonora escrita: ' + (N / SR).toFixed(1) + 's, ' + Math.round((out.length / 1024)) + 'KB');
