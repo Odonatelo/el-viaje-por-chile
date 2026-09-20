@@ -25,6 +25,14 @@ interface HomeLandingProps {
 const FALLBACK_COVER =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
 
+// Flor de la vida: 19 círculos del patrón hexagonal sagrado (coordenadas unitarias)
+const FLOWER_CIRCLES: Array<[number, number]> = [
+  [0, 0],
+  [1, 0], [0.5, -0.866], [-0.5, -0.866], [-1, 0], [-0.5, 0.866], [0.5, 0.866],
+  [2, 0], [1.5, -0.866], [1, -1.732], [0, -1.732], [-1, -1.732], [-1.5, -0.866],
+  [-2, 0], [-1.5, 0.866], [-1, 1.732], [0, 1.732], [1, 1.732], [1.5, 0.866],
+];
+
 export const HomeLanding: React.FC<HomeLandingProps> = ({
   tours,
   onSelectTour,
@@ -43,14 +51,35 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
           ============================================================ */}
       <section className="relative bg-[#0B0A08] text-[#F5F1E8] overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(245,241,232,0.06) 1px, transparent 1px)', backgroundSize: '26px 26px' }} />
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center space-y-8">
 
-          <div className="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full bg-black border border-white/20 p-3 shadow-2xl shadow-black/60 flex items-center justify-center">
-            <img
-              src="/entorno/Recurso-6.png"
-              alt="Logo El Viaje por Chile — libélula"
-              className="w-full h-full object-contain"
-            />
+        {/* Flor de la vida — fondo sutil */}
+        <div className="absolute inset-0 flex items-start justify-center overflow-hidden pointer-events-none">
+          <svg
+            className="w-[135vw] max-w-[1500px] shrink-0 mx-auto"
+            style={{ marginTop: '-8%' }}
+            viewBox="-2.4 -2.4 4.8 4.8"
+            fill="none"
+            aria-hidden="true"
+          >
+            <g stroke="#F5F1E8" strokeWidth="0.045" opacity="0.05">
+              {FLOWER_CIRCLES.map(([cx, cy], i) => (
+                <circle key={i} cx={cx} cy={cy} r="1" />
+              ))}
+            </g>
+          </svg>
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center space-y-8">
+
+          <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(245,241,232,0.32),rgba(245,241,232,0.10)_45%,transparent_72%)] blur-xl pointer-events-none" />
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-black border border-white/20 p-3 shadow-2xl shadow-black/60 flex items-center justify-center">
+              <img
+                src="/entorno/Recurso-6.png"
+                alt="Logo El Viaje por Chile — libélula"
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
 
           <div className="space-y-3">
