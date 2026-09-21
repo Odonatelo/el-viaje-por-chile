@@ -100,13 +100,18 @@ function placeChucao(t0, offsetSec, dur, gain) {
   for (let i = n0; i < n1; i++) {
     const si = s0 + (i - n0);
     if (si >= CHUCAO.buf.length) break;
-    const v = CHUCAO.buf[si] + 1.1 * CHUCAO_HI[si];
+    const v = CHUCAO.buf[si] + 0.6 * CHUCAO_HI[si];
     CHUC_MIX[i] += v * g(i) * gain;
     ACT[i] += g(i);
-    const e = i + Math.floor(SR * 0.8);
-    if (e < N && si + Math.floor(SR * 0.8) < CHUCAO.buf.length) {
-      CHUC_MIX[e] += v * g(i) * gain * 0.3;
-      ACT[e] = Math.max(ACT[e], g(i) * 0.6);
+    const e1 = i + Math.floor(SR * 0.8);
+    if (e1 < N && si + Math.floor(SR * 0.8) < CHUCAO.buf.length) {
+      CHUC_MIX[e1] += v * g(i) * gain * 0.3;
+      ACT[e1] = Math.max(ACT[e1], g(i) * 0.6);
+    }
+    const e2 = i + Math.floor(SR * 1.6);
+    if (e2 < N && si + Math.floor(SR * 1.6) < CHUCAO.buf.length) {
+      CHUC_MIX[e2] += v * g(i) * gain * 0.18;
+      ACT[e2] = Math.max(ACT[e2], g(i) * 0.4);
     }
   }
 }
@@ -175,9 +180,12 @@ const eighth = 0.3;
 // trompe mapuche (arpa de boca real) — apertura orgánica sobre el pad
 placeSample(0.5, 0.3, 1.7, 0.1, 0);
 placeSample(2.7, 3.2, 1.6, 0.08, 0);
-// chucao (tapaculo chileno) — fondo de selva valdiviana
-placeChucao(1.2, 42.4, 1.8, 0.4);
-placeChucao(3.4, 50.9, 1.6, 0.34);
+// chucao (tapaculo chileno) — capa continua de bosque: llamadas distantes por todo el tema
+const chucaoT = [0.7, 2.0, 3.3, 4.6, 5.9, 7.2, 8.5, 9.8, 11.1, 12.4, 13.7, 15.0];
+const chucaoOff = [42.4, 50.9, 54.2, 46.4, 57.6, 23.2, 44.6, 29.2, 39.6, 12.8, 54.2, 42.4];
+chucaoT.forEach((t, k) => {
+  placeChucao(t, chucaoOff[k % chucaoOff.length], 1.4, k % 3 === 0 ? 0.2 : 0.17);
+});
 // pad: Dmaj add9 (ambiental, estilo Coldplay)
 padAt(0, 14.6, [F.D4, F.Fs4, F.A4, F.E5, F.D3, F.Fs3, F.B3], 0.11, 1.4, 2.2, 0.001);
 // bajo pulsante (estilo Daft Punk)
@@ -207,20 +215,15 @@ for (let cycle = 0; cycle < 3; cycle++) {
     if (s % 4 === 3) pluckAt(t0, 0.9, f * 2, 0.1 * arpVel[s], 5.5);
   });
 }
-// campanillas tipo Coldplay (bajas para dejar protagonismo al chucao y trompe)
+// campanillas tipo Coldplay (muy sutiles, para no competir con el bosque)
 const bells = [
-  [4.8, F.E5, 0.055], [7.2, F.B4, 0.045], [9.6, F.E5, 0.055], [12.0, F.Fs4, 0.04],
+  [4.8, F.E5, 0.028], [7.2, F.B4, 0.02], [9.6, F.E5, 0.028], [12.0, F.Fs4, 0.018],
 ];
 bells.forEach(([t0, f, g]) => { pluckAt(t0, 3.0, f, g, 1.6); });
 // trompe real mezclado sobre el groove (llamada-respuesta con el arpegio)
 placeSample(6.2, 7.2, 1.7, 0.12, 5);
 placeSample(9.0, 4.1, 1.5, 0.11, 5);
 placeSample(11.4, 9.4, 1.6, 0.12, 0);
-// chucao de fondo sobre el groove y en la cola
-placeChucao(8.0, 54.2, 1.8, 0.3);
-placeChucao(10.8, 46.4, 1.7, 0.32);
-placeChucao(12.9, 57.6, 1.6, 0.3);
-placeChucao(14.6, 42.2, 1.7, 0.32);
 // resolución final
 padAt(13.6, 2.4, [F.D4, F.Fs4, F.A4, F.D5], 0.16, 0.12, 1.6, 0.001);
 
