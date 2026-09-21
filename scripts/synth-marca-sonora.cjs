@@ -121,15 +121,11 @@ function pluckAt(t0, dur, freq, gain, decay) {
   const g = env(t0, dur, 0.004, 0.012);
   const n0 = Math.floor(t0 * SR);
   const n1 = Math.min(N, n0 + Math.floor(dur * SR));
-  const w = (phase) => {
-    const p = phase % 1;
-    return p < 0.28 ? 1 : p < 0.5 ? -0.55 : p < 0.78 ? 0.7 : -0.45;
-  };
   for (let i = n0; i < n1; i++) {
     const t = (i / SR) - t0;
     const dec = Math.exp(-t * decay);
     const ph = freq * t;
-    const v = 0.55 * w(ph) + 0.3 * Math.sin(2 * Math.PI * ph * 2) + 0.15 * Math.sin(2 * Math.PI * ph * 3);
+    const v = 0.72 * Math.sin(2 * Math.PI * ph) + 0.22 * Math.sin(2 * Math.PI * ph * 2) + 0.06 * Math.sin(2 * Math.PI * ph * 3);
     buf[i] += v * g(i) * dec * gain;
   }
 }
@@ -184,7 +180,7 @@ placeSample(2.7, 3.2, 1.6, 0.08, 0);
 const chucaoT = [0.7, 2.0, 3.3, 4.6, 5.9, 7.2, 8.5, 9.8, 11.1, 12.4, 13.7, 15.0];
 const chucaoOff = [42.4, 50.9, 54.2, 46.4, 57.6, 23.2, 44.6, 29.2, 39.6, 12.8, 54.2, 42.4];
 chucaoT.forEach((t, k) => {
-  placeChucao(t, chucaoOff[k % chucaoOff.length], 1.4, k % 3 === 0 ? 0.2 : 0.17);
+  placeChucao(t, chucaoOff[k % chucaoOff.length], 1.4, k % 3 === 0 ? 0.55 : 0.45);
 });
 // pad: Dmaj add9 (ambiental, estilo Coldplay)
 padAt(0, 14.6, [F.D4, F.Fs4, F.A4, F.E5, F.D3, F.Fs3, F.B3], 0.11, 1.4, 2.2, 0.001);
@@ -193,10 +189,10 @@ const bassPat = [F.D3, F.D3, F.D3, F.A2, F.D3, F.D3, F.A2, F.A2, F.D3, F.D3, F.D
 for (let s = 0; s < Math.floor((13.2 - 2.4) / eighth); s++) {
   const t0 = 2.4 + s * eighth;
   if (t0 > 13.4) break;
-  bassAt(t0, 0.42, bassPat[s % bassPat.length], 0.16);
+  bassAt(t0, 0.42, bassPat[s % bassPat.length], 0.12);
 }
 // bombo en negras
-for (let t = 2.4; t <= 12.6; t += 0.6) kickAt(t, 0.5);
+for (let t = 2.4; t <= 12.6; t += 0.6) kickAt(t, 0.42);
 // arpegio sintético robótico (dos compases)
 const arpNotes = [
   F.D4, F.Fs4, F.A4, F.D5, F.B4, F.A4, F.Fs4, F.A4,
@@ -211,8 +207,8 @@ for (let cycle = 0; cycle < 3; cycle++) {
   arpNotes.forEach((f, s) => {
     const t0 = base + s * eighth;
     if (t0 < 2.4 || t0 > 13.6) return;
-    pluckAt(t0, 0.9, f, 0.2 * arpVel[s], 5.5);
-    if (s % 4 === 3) pluckAt(t0, 0.9, f * 2, 0.1 * arpVel[s], 5.5);
+    pluckAt(t0, 0.9, f, 0.1 * arpVel[s], 5.5);
+    if (s % 4 === 3) pluckAt(t0, 0.9, f * 2, 0.05 * arpVel[s], 5.5);
   });
 }
 // campanillas tipo Coldplay (muy sutiles, para no competir con el bosque)
@@ -230,9 +226,14 @@ padAt(13.6, 2.4, [F.D4, F.Fs4, F.A4, F.D5], 0.16, 0.12, 1.6, 0.001);
 /* ---------- delay espacial y master ---------- */
 const delayS = Math.floor(SR * 0.42);
 const master = new Float64Array(N);
-// los instrumentos ceden 45% mientras canta el chucao; el chucao sigue intacto
-for (let i = 0; i < N; i++) master[i] = buf[i] * (1 - 0.45 * Math.min(1, ACT[i])) + CHUC_MIX[i];
+// los instrumentos ceden 55% mientras canta el chucao; el chucao sigue intacto
+for (let i = 0; i < N; i++) master[i] = buf[i] * (1 - 0.55 * Math.min(1, ACT[i])) + CHUC_MIX[i];
 for (let i = 0; i + delayS < N; i++) master[i + delayS] += buf[i] * 0.28;
+
+// diagnóstico: nivel de aves vs mezcla
+let sMix = 0, mN = 0, sChuc = 0;
+for (let i = 0; i < N; i++) { sMix += buf[i] * buf[i]; sChuc += CHUC_MIX[i] * CHUC_MIX[i]; mN++; }
+console.log('rms mezcla: ' + (Math.sqrt(sMix / mN)).toFixed(4) + ' | rms aves: ' + (Math.sqrt(sChuc / mN)).toFixed(4));
 
 let peak = 0;
 for (let i = 0; i < N; i++) peak = Math.max(peak, Math.abs(master[i]));
