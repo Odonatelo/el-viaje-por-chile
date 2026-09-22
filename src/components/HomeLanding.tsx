@@ -182,6 +182,11 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
           ============================================================ */}
       <section className="bg-[#FAF7F1] text-[#17120D]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
+          <img
+            src="/images/el-diseno-es-parte-del-viaje.png"
+            alt="El diseño es parte de nuestro viaje"
+            className="mx-auto mb-10 w-full max-w-2xl rounded-2xl shadow-sm object-contain"
+          />
           <span className="inline-block w-px h-10 bg-[#0B0A08]/30" />
           <h2 className="mt-6 font-['Cormorant_Garamond',Georgia,serif] italic text-3xl sm:text-5xl text-[#17120D] leading-snug">
             «El diseño es parte de nuestro viaje.»
