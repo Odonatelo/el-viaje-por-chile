@@ -9,6 +9,7 @@ import {
   Feather,
   Instagram,
   ShieldCheck,
+  ShieldAlert,
   ClipboardCheck,
   Settings2,
 } from 'lucide-react';
@@ -19,6 +20,7 @@ import { HomeLanding } from './components/HomeLanding';
 import { TourDetailView } from './components/TourDetailView';
 import { TourStudioView } from './components/TourStudioView';
 import { FactibilidadGuide } from './components/FactibilidadGuide';
+import { MatrizRiesgoIPER } from './components/MatrizRiesgoIPER';
 import { HeritageConsultingModal } from './components/HeritageConsultingModal';
 import { MembershipModal } from './components/MembershipModal';
 import { GoogleAuthModal } from './components/GoogleAuthModal';
@@ -31,15 +33,17 @@ import { AdminPanel } from './components/AdminPanel';
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
-  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'admin';
+  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
-      : window.location.pathname === '/admin'
-        ? 'admin'
-        : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
-          ? 'catalog'
-          : 'home',
+      : window.location.pathname === '/matrizderiesgo' || window.location.pathname.startsWith('/matrizderiesgo/')
+        ? 'matriz'
+        : window.location.pathname === '/admin'
+          ? 'admin'
+          : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
+            ? 'catalog'
+            : 'home',
   );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [editingTour, setEditingTour] = useState<Tour | null>(null);
@@ -197,11 +201,13 @@ export default function App() {
       setViewMode(
         window.location.pathname.startsWith('/factibilidad')
           ? 'factibilidad'
-          : window.location.pathname === '/admin'
-            ? 'admin'
-            : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
-              ? 'catalog'
-              : 'home',
+          : window.location.pathname === '/matrizderiesgo' || window.location.pathname.startsWith('/matrizderiesgo/')
+            ? 'matriz'
+            : window.location.pathname === '/admin'
+              ? 'admin'
+              : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
+                ? 'catalog'
+                : 'home',
       );
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
@@ -626,6 +632,19 @@ export default function App() {
             </button>
 
             <button
+              onClick={() => navigateTo('matriz', '/matrizderiesgo')}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                viewMode === 'matriz'
+                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
+              }`}
+              title="Matriz de Riesgo IPER: identificación de peligros y evaluación de riesgos en terreno"
+            >
+              <ShieldAlert className="w-4 h-4 text-[#E8A58B]" />
+              <span className="hidden lg:inline">Matriz de Riesgo</span>
+            </button>
+
+            <button
               onClick={() => setShowMembershipModal(true)}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all"
               title="Membresía plataforma o gratis por consultoría patrimonial: sube hasta 50 rutas"
@@ -789,6 +808,8 @@ export default function App() {
           />
         ) : viewMode === 'factibilidad' ? (
           <FactibilidadGuide onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'matriz' ? (
+          <MatrizRiesgoIPER onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'admin' ? (
           <AdminPanel
             currentUser={currentUser}

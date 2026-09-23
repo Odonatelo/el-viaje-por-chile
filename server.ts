@@ -1948,7 +1948,7 @@ async function startServer() {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get(['/normativas', '/normativas/'], (req, res) => {
-      res.redirect(301, 'https://www.interpretaciondelpatrimonio.cl/normativas');
+      res.redirect(301, 'https://interpretacion-del-patrimonio-mo5cb3omma-uc.a.run.app/normativas');
     });
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
