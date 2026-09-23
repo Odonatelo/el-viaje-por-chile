@@ -12,6 +12,7 @@ import {
   ShieldAlert,
   ClipboardCheck,
   Settings2,
+  History,
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
@@ -21,6 +22,8 @@ import { TourDetailView } from './components/TourDetailView';
 import { TourStudioView } from './components/TourStudioView';
 import { FactibilidadGuide } from './components/FactibilidadGuide';
 import { MatrizRiesgoIPER } from './components/MatrizRiesgoIPER';
+import { NormativasPage } from './components/NormativasPage';
+import { HistoriaInterpretacion } from './components/HistoriaInterpretacion';
 import { HeritageConsultingModal } from './components/HeritageConsultingModal';
 import { MembershipModal } from './components/MembershipModal';
 import { GoogleAuthModal } from './components/GoogleAuthModal';
@@ -33,13 +36,17 @@ import { AdminPanel } from './components/AdminPanel';
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
-  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'admin';
+  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
       : window.location.pathname === '/matrizderiesgo' || window.location.pathname.startsWith('/matrizderiesgo/')
         ? 'matriz'
-        : window.location.pathname === '/admin'
+        : window.location.pathname.startsWith('/normativas')
+          ? 'normativas'
+          : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
+            ? 'historia'
+            : window.location.pathname === '/admin'
           ? 'admin'
           : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
             ? 'catalog'
@@ -203,7 +210,11 @@ export default function App() {
           ? 'factibilidad'
           : window.location.pathname === '/matrizderiesgo' || window.location.pathname.startsWith('/matrizderiesgo/')
             ? 'matriz'
-            : window.location.pathname === '/admin'
+            : window.location.pathname.startsWith('/normativas')
+              ? 'normativas'
+              : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
+                ? 'historia'
+                : window.location.pathname === '/admin'
               ? 'admin'
               : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
                 ? 'catalog'
@@ -645,6 +656,32 @@ export default function App() {
             </button>
 
             <button
+              onClick={() => navigateTo('normativas', '/normativas')}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                viewMode === 'normativas'
+                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
+              }`}
+              title="Normativas: biblioteca técnica de normas NCh, Sernatur y el ecosistema legal del turismo en Chile"
+            >
+              <ShieldCheck className="w-4 h-4 text-[#E8A58B]" />
+              <span className="hidden lg:inline">Normativas</span>
+            </button>
+
+            <button
+              onClick={() => navigateTo('historia', '/historia')}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                viewMode === 'historia'
+                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
+              }`}
+              title="Historia de la interpretación del patrimonio: de John Muir y Enos Mills a Tilden y Cable & Beck"
+            >
+              <History className="w-4 h-4 text-[#E8A58B]" />
+              <span className="hidden lg:inline">Historia</span>
+            </button>
+
+            <button
               onClick={() => setShowMembershipModal(true)}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all"
               title="Membresía plataforma o gratis por consultoría patrimonial: sube hasta 50 rutas"
@@ -810,6 +847,10 @@ export default function App() {
           <FactibilidadGuide onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'matriz' ? (
           <MatrizRiesgoIPER onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'normativas' ? (
+          <NormativasPage onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'historia' ? (
+          <HistoriaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'admin' ? (
           <AdminPanel
             currentUser={currentUser}

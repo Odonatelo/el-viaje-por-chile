@@ -1947,8 +1947,11 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    app.get(['/normativas', '/normativas/'], (req, res) => {
-      res.redirect(301, 'https://interpretacion-del-patrimonio-mo5cb3omma-uc.a.run.app/normativas');
+    app.get(['/hitoria', '/hitoria/'], (req, res) => {
+      res.redirect(301, '/historia');
+    });
+    app.get(['/historia', '/historia/'], (req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
     });
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
