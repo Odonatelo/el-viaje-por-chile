@@ -29,6 +29,7 @@ interface StopEditorModalProps {
   cityName?: string;
   tourCity?: string;
   tourTitle?: string;
+  tourId?: string;
   onSave: (updatedStop: TourStop) => void;
   onClose: () => void;
 }
@@ -38,6 +39,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
   cityName,
   tourCity,
   tourTitle,
+  tourId,
   onSave,
   onClose,
 }) => {
@@ -1013,7 +1015,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                   
                   <div className="p-4 bg-white rounded-2xl shadow-inner inline-block">
                     <QRCodeSVG
-                      value={`https://www.interpretaciondelpatrimonio.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}&title=${encodeURIComponent(formData.title)}`}
+                      value={`https://www.interpretaciondelpatrimonio.cl/tour/${encodeURIComponent(tourId || '')}/${encodeURIComponent(formData.id)}?title=${encodeURIComponent(formData.title)}`}
                       size={180}
                       level="H"
                       includeMargin={false}
@@ -1042,7 +1044,7 @@ export const StopEditorModal: React.FC<StopEditorModalProps> = ({
                     <input
                       type="text"
                       readOnly
-                      value={`https://www.interpretaciondelpatrimonio.cl/tours?stopId=${encodeURIComponent(formData.id)}&order=${formData.order}`}
+                      value={`https://www.interpretaciondelpatrimonio.cl/tour/${encodeURIComponent(tourId || '')}/${encodeURIComponent(formData.id)}`}
                       className="w-full px-3.5 py-2.5 bg-[#F6F1E5] border border-[#E4D8BF] rounded-xl font-mono text-xs text-slate-700 select-all"
                     />
                   </div>

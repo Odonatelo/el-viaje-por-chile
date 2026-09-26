@@ -16,8 +16,8 @@ export function QRCodeModal({ isOpen, onClose, tour, selectedStop, onSelectStop 
 
   const base = (typeof window !== 'undefined' && window.location.origin) || 'https://www.interpretaciondelpatrimonio.cl';
   const url = selectedStop
-    ? `${base}/tour/${tour.id}?stop=${selectedStop.id}`
-    : `${base}/tour/${tour.id}`;
+    ? `${base}/tour/${encodeURIComponent(tour.id)}/${encodeURIComponent(selectedStop.id)}`
+    : `${base}/tour/${encodeURIComponent(tour.id)}`;
 
   return (
     <div

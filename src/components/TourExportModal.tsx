@@ -55,7 +55,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
     <author>
       <name>${escapeXml(tour.author.name)}</name>
     </author>
-    <link href="https://www.interpretaciondelpatrimonio.cl/tours/${tour.id}">
+    <link href="https://www.interpretaciondelpatrimonio.cl/tour/${tour.id}">
       <text>Audioguía en El Viaje Por Chile</text>
     </link>
     <time>${new Date().toISOString()}</time>
@@ -277,7 +277,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
 
                   <div className="p-3 bg-[#F6F1E5] rounded-2xl border border-[#E4D8BF] flex items-center gap-3">
                     <QRCodeSVG
-                      value={`https://www.interpretaciondelpatrimonio.cl/tours?tourId=${encodeURIComponent(tour.id)}`}
+                      value={`https://www.interpretaciondelpatrimonio.cl/tour/${encodeURIComponent(tour.id)}`}
                       size={64}
                       level="M"
                       fgColor="#14281C"
@@ -371,7 +371,7 @@ export const TourExportModal: React.FC<TourExportModalProps> = ({
                         {/* Stop QR Code for instant listening */}
                         <div className="flex flex-col items-center justify-center p-3 bg-white rounded-2xl border border-[#E4D8BF] flex-shrink-0 text-center w-28">
                           <QRCodeSVG
-                            value={`https://www.interpretaciondelpatrimonio.cl/tours?stopId=${encodeURIComponent(stop.id)}&order=${stop.order}`}
+                            value={`https://www.interpretaciondelpatrimonio.cl/tour/${encodeURIComponent(tour.id)}/${encodeURIComponent(stop.id)}`}
                             size={72}
                             level="M"
                             fgColor="#14281C"

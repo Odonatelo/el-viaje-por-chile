@@ -850,6 +850,7 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
       {editingStop && (
         <StopEditorModal
           stop={editingStop}
+          tourId={tour.id}
           tourCity={tour.city}
           tourTitle={tour.title}
           onSave={handleSaveStop}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -38,12 +38,14 @@ interface TourDetailViewProps {
   tour: Tour;
   onBack: () => void;
   onEditTour?: (tour: Tour) => void;
+  initialStopId?: string;
 }
 
 export const TourDetailView: React.FC<TourDetailViewProps> = ({
   tour,
   onBack,
   onEditTour,
+  initialStopId,
 }) => {
   const [activeStop, setActiveStop] = useState<TourStop | null>(null);
   const [selectedStopModal, setSelectedStopModal] = useState<TourStop | null>(null);
@@ -61,12 +63,25 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
   const [walkProgress, setWalkProgress] = useState<number[]>([]); // indexes visited
   const [tourCompleted, setTourCompleted] = useState(false);
 
-  // Initialize selected stop
+  // Initialize selected stop (deep link /tour/:id/:stopId abre esa parada directo)
+  const deepLinkAppliedRef = useRef<string | null>(null);
   useEffect(() => {
-    if (tour.stops && tour.stops.length > 0 && !activeStop) {
+    if (!tour.stops || tour.stops.length === 0) return;
+    const linkKey = `${tour.id}:${initialStopId}`;
+    if (initialStopId && deepLinkAppliedRef.current !== linkKey) {
+      const fromLink = tour.stops.find((s) => s.id === initialStopId);
+      if (fromLink) {
+        deepLinkAppliedRef.current = linkKey;
+        setActiveStop(fromLink);
+        setSelectedStopModal(fromLink);
+        return;
+      }
+    }
+    if (deepLinkAppliedRef.current !== tour.id) {
+      deepLinkAppliedRef.current = tour.id;
       setActiveStop(tour.stops[0]);
     }
-  }, [tour]);
+  }, [tour, initialStopId]);
 
   // Lock body scroll while the interactive map popup is open (mobile)
   useEffect(() => {
@@ -109,12 +124,38 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
     }
   };
 
-  const handleShare = () => {
+  const getShareUrl = () => {
+    const base = (typeof window !== 'undefined' && window.location.origin) || 'https://www.interpretaciondelpatrimonio.cl';
+    const stop = selectedStopModal || activeStop;
+    return stop
+      ? `${base}/tour/${encodeURIComponent(tour.id)}/${encodeURIComponent(stop.id)}`
+      : `${base}/tour/${encodeURIComponent(tour.id)}`;
+  };
+
+  const handleShare = async () => {
+    const url = getShareUrl();
+    const text = `${tour.title} — Audioguía interpretativa de ${tour.city}, Chile`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: tour.title, text, url });
+        return;
+      } catch {
+        // usuario cerró el diálogo nativo
+      }
+    }
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(url);
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
     }
+  };
+
+  const handleWhatsAppShare = () => {
+    const url = getShareUrl();
+    const text = encodeURIComponent(
+      `🎧 ${tour.title} — Audioguía interpretativa de ${tour.city}, Chile\n${url}`,
+    );
+    window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
   };
 
   const currentStopIndex = tour.stops.findIndex(s => s.id === selectedStopModal?.id);
@@ -165,6 +206,17 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
                 ¡Enlace copiado!
               </span>
             )}
+          </button>
+
+          <button
+            onClick={handleWhatsAppShare}
+            className="p-2 rounded-xl bg-[#25D366] text-white hover:bg-[#1ebe5b] transition-colors"
+            title="Compartir por WhatsApp"
+            aria-label="Compartir por WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.83 14.12c-.25.7-1.45 1.33-2.02 1.38-.52.05-1.17.07-1.89-.12-.43-.13-.99-.32-1.71-.63-3.01-1.3-4.98-4.33-5.13-4.53-.15-.2-1.22-1.63-1.22-3.11s.77-2.2 1.05-2.5c.27-.3.6-.37.8-.37s.44.01.63.01c.2 0 .47-.08.74.56.28.66.95 2.28 1.03 2.45.08.17.13.37.03.59-.1.23-.15.37-.3.57-.15.2-.31.44-.44.59-.15.15-.3.31-.13.61.17.3.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.45.29.15.46.13.63-.08.17-.2.73-.85.92-1.15.2-.3.39-.25.66-.15.27.1 1.73.82 2.02.97.3.15.49.22.57.35.07.13.07.75-.17 1.45z" />
+            </svg>
           </button>
         </div>
       </nav>

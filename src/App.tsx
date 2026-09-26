@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Sparkles,
   Plus,
@@ -34,8 +34,31 @@ import { AchpiAdminModal } from './components/AchpiAdminModal';
 import { AuthorizationModal } from './components/AuthorizationModal';
 import { AdminPanel } from './components/AdminPanel';
 
+// Deep link de una audioguía: /tour/:id, /tour/:id/:stopId, o legacy
+// /tours?tourId=...&stopId=... y /tours?stopId=... (QR/GPX generados antes)
+function parseTourDeepLink(pathname: string, search: string): { tourId?: string; stopId?: string } | null {
+  let match = pathname.match(/^\/tour\/([^/]+)(?:\/([^/]+))?\/?$/);
+  if (!match) match = pathname.match(/^\/tours\/([^/]+)\/?$/);
+  if (match) {
+    return {
+      tourId: decodeURIComponent(match[1]),
+      stopId: match[2] ? decodeURIComponent(match[2]) : undefined,
+    };
+  }
+  const params = new URLSearchParams(search);
+  const tourId = params.get('tourId') || undefined;
+  if (tourId) return { tourId, stopId: params.get('stopId') || undefined };
+  const stopId = params.get('stopId');
+  if (stopId) return { tourId: undefined, stopId };
+  return null;
+}
+
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
+  const toursRef = useRef<Tour[]>(sampleTours);
+  useEffect(() => {
+    toursRef.current = tours;
+  }, [tours]);
   type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
@@ -50,9 +73,14 @@ export default function App() {
           ? 'admin'
           : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
             ? 'catalog'
-            : 'home',
+            : parseTourDeepLink(window.location.pathname, window.location.search)
+              ? 'detail'
+              : 'home',
   );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
+  const [routeStopId, setRouteStopId] = useState<string | undefined>(
+    () => parseTourDeepLink(window.location.pathname, window.location.search)?.stopId,
+  );
   const [editingTour, setEditingTour] = useState<Tour | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -166,20 +194,24 @@ export default function App() {
         const data = await res.json();
         if (data.success && Array.isArray(data.data) && data.data.length > 0) {
           setTours(data.data);
+          resolveTourDeepLink(data.data);
           setApiError(null);
         } else {
           // Fallback to sample tours
           setApiError('El servidor no devolvió rutas. Mostrando el catálogo de demostración local.');
           setTours(sampleTours);
+          resolveTourDeepLink(sampleTours);
         }
       } else {
         setApiError('No se pudieron cargar las rutas desde el servidor. Mostrando el catálogo de demostración local.');
         setTours(sampleTours);
+        resolveTourDeepLink(sampleTours);
       }
     } catch (err: any) {
       console.warn('Could not connect to /api/tours, using offline sample tours', err);
       setApiError('Sin conexión con el servidor. Mostrando el catálogo de demostración local.');
       setTours(sampleTours);
+      resolveTourDeepLink(sampleTours);
     } finally {
       setIsLoading(false);
     }
@@ -202,9 +234,48 @@ export default function App() {
     setViewMode(mode);
   };
 
+  // Abre una audioguía empujando su deep link canónico (/tour/:id o /tour/:id/:stopId)
+  const openTour = (tour: Tour, stopId?: string) => {
+    const path = `/tour/${encodeURIComponent(tour.id)}` + (stopId ? `/${encodeURIComponent(stopId)}` : '');
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+    setSelectedTour(tour);
+    setRouteStopId(stopId);
+    setViewMode('detail');
+  };
+
+  // Resuelve un deep link (carga inicial o atrás/adelante) contra el pool de tours
+  const resolveTourDeepLink = (pool: Tour[]) => {
+    const dl = parseTourDeepLink(window.location.pathname, window.location.search);
+    if (!dl) return;
+    let t: Tour | undefined;
+    if (dl.tourId) {
+      t = pool.find((x) => x.id === dl.tourId);
+    } else if (dl.stopId) {
+      t = pool.find((x) => x.stops.some((s) => s.id === dl.stopId));
+    }
+    if (!t) {
+      const isLegacyTourUrl = window.location.pathname.startsWith('/tour/') || window.location.pathname.startsWith('/tours');
+      if (isLegacyTourUrl) {
+        window.history.replaceState({}, '', '/explorar');
+        setViewMode('catalog');
+      }
+      return;
+    }
+    setSelectedTour(t);
+    setRouteStopId(dl.stopId);
+    setViewMode('detail');
+  };
+
   // Sincroniza la vista cuando el usuario usa los botones atrás/adelante del navegador
   useEffect(() => {
-    const onPopState = () =>
+    const onPopState = () => {
+      const dl = parseTourDeepLink(window.location.pathname, window.location.search);
+      if (dl) {
+        resolveTourDeepLink(toursRef.current);
+        return;
+      }
       setViewMode(
         window.location.pathname.startsWith('/factibilidad')
           ? 'factibilidad'
@@ -220,6 +291,7 @@ export default function App() {
                 ? 'catalog'
                 : 'home',
       );
+    };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
@@ -251,8 +323,7 @@ export default function App() {
           }
           return [data.data, ...prev];
         });
-        setSelectedTour(data.data);
-        setViewMode('detail');
+        openTour(data.data);
       } else {
         alert(data.error || 'Error al guardar el tour');
         if (res.status === 403) {
@@ -276,8 +347,7 @@ export default function App() {
         }
         return [tour, ...prev];
       });
-      setSelectedTour(tour);
-      setViewMode('detail');
+      openTour(tour);
     }
   };
 
@@ -518,8 +588,7 @@ export default function App() {
     <CatalogView
       tours={tours}
       onSelectTour={(tour) => {
-        setSelectedTour(tour);
-        setViewMode('detail');
+        openTour(tour);
       }}
       onCreateNewTour={handleOpenStudio}
       onEditTour={handleEditTour}
@@ -830,6 +899,7 @@ export default function App() {
         ) : viewMode === 'detail' && selectedTour ? (
           <TourDetailView
             tour={selectedTour}
+            initialStopId={routeStopId}
             onBack={() => setViewMode('catalog')}
             onEditTour={handleEditTour}
           />
@@ -839,8 +909,7 @@ export default function App() {
             onSaveTour={handleSaveTour}
             onCancel={() => setViewMode('catalog')}
             onPreviewTour={(tour) => {
-              setSelectedTour(tour);
-              setViewMode('detail');
+              openTour(tour);
             }}
           />
         ) : viewMode === 'factibilidad' ? (
@@ -867,8 +936,7 @@ export default function App() {
           <HomeLanding
             tours={tours}
             onSelectTour={(tour) => {
-              setSelectedTour(tour);
-              setViewMode('detail');
+              openTour(tour);
             }}
             onExploreAll={() => navigateTo('catalog', '/explorar')}
             onOpenConsultingModal={() => setShowConsultingModal(true)}
