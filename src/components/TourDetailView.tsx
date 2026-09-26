@@ -23,6 +23,7 @@ import {
   Radio,
   QrCode,
   ExternalLink,
+  LayoutList,
   X
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -55,6 +56,17 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
   const [showQrModal, setShowQrModal] = useState(false);
   const [qrStop, setQrStop] = useState<TourStop | null>(null);
   const [showMapModal, setShowMapModal] = useState(false);
+  const stopsListRef = useRef<HTMLDivElement | null>(null);
+
+  // Cierra el episodio y regresa al menú de la audioguía (itinerario completo)
+  const handleBackToTourMenu = () => {
+    setSelectedStopModal(null);
+    setQrStop(null);
+    setShowQrModal(false);
+    setTimeout(() => {
+      stopsListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+  };
 
   // Guided Walk Simulation / GPS state
   const [isWalkMode, setIsWalkMode] = useState(false);
@@ -465,7 +477,10 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
         <div className="lg:col-span-5 space-y-6">
           
           {/* Stops List */}
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4">
+          <div
+            ref={stopsListRef}
+            className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-4"
+          >
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-extrabold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
                 Itinerario ({tour.stops.length} Paradas)
@@ -640,7 +655,8 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
         <StopDetailModal
           stop={selectedStopModal}
           tour={tour}
-          onClose={() => setSelectedStopModal(null)}
+          onClose={handleBackToTourMenu}
+          onBackToMenu={handleBackToTourMenu}
           onSelectNextStop={() => {
             if (hasNextStop) {
               const nextStop = tour.stops[currentStopIndex + 1];

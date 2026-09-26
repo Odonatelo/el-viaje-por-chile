@@ -15,7 +15,8 @@ import {
   Lightbulb, 
   Info,
   Navigation,
-  Compass
+  Compass,
+  LayoutList
 } from 'lucide-react';
 import { TourStop, Tour } from '../types';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
@@ -27,6 +28,7 @@ interface StopDetailModalProps {
   stop: TourStop;
   tour: Tour;
   onClose: () => void;
+  onBackToMenu?: () => void;
   onSelectNextStop?: () => void;
   onSelectPrevStop?: () => void;
   hasNextStop?: boolean;
@@ -37,6 +39,7 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
   stop,
   tour,
   onClose,
+  onBackToMenu,
   onSelectNextStop,
   onSelectPrevStop,
   hasNextStop = false,
@@ -99,6 +102,15 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
+
+            <button
+              onClick={onBackToMenu}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-[#F6F1E5] transition-colors text-xs font-bold"
+              title="Volver al menú principal de la audioguía"
+            >
+              <LayoutList className="w-4 h-4" />
+              <span className="hidden sm:inline">Menú</span>
+            </button>
 
             <button
               onClick={onClose}
@@ -340,9 +352,21 @@ export const StopDetailModal: React.FC<StopDetailModalProps> = ({
             <span>Parada Anterior</span>
           </button>
 
-          <span className="text-xs font-bold text-[#14281C]">
-            {stop.order} de {tour.stops.length}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:block text-xs font-bold text-[#14281C]">
+              {stop.order} de {tour.stops.length}
+            </span>
+            {onBackToMenu && (
+              <button
+                onClick={onBackToMenu}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#14281C] hover:bg-[#2F5238] text-white transition-colors shadow-sm"
+                title="Ver la propuesta completa de esta audioguía"
+              >
+                <LayoutList className="w-3.5 h-3.5 text-[#E8A58B]" />
+                <span>Ver propuesta completa</span>
+              </button>
+            )}
+          </div>
 
           <button
             onClick={onSelectNextStop}
