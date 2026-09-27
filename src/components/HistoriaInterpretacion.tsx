@@ -19,6 +19,9 @@ import {
   Magnet,
   MapPinned,
   AudioLines,
+  GraduationCap,
+  BadgeCheck,
+  MapPin,
 } from 'lucide-react';
 
 interface HistoriaInterpretacionProps {
@@ -78,6 +81,12 @@ const CRONOLOGIA = [
     texto: 'Freeman Tilden compila la práctica de los rangers en seis principios inmortales. La interpretación se formaliza como disciplina: arte de revelar, provocar y conectar el recurso con la vida del visitante.' },
   { anio: '1960s – 1990s', titulo: 'Institucionalización y profesionalización',
     texto: 'Nacen textos formativos (Grant Sharpe, “Interpreting the Environment” 1976, y Sam Ham, “Environmental Interpretation”), programas de formación y la National Association for Interpretation (1988). La interpretación se extiende de los parques a museos, zoos, sitios históricos y destinos turísticos.' },
+  { anio: '1988 – 1992', titulo: 'La interpretación llega a Iberoamérica: Morales y la FAO',
+    texto: 'La FAO organiza en Chile el Taller de Interpretación Ambiental en Áreas Silvestres Protegidas (1988) y Jorge Morales Miranda publica el “Manual para la interpretación ambiental en áreas silvestres protegidas” (FAO/PNUMA, Santiago de Chile, 1992). El método de Tilden comienza a hablarse en español, desde los parques de Sudamérica.' },
+  { anio: '1992', titulo: 'Sam Ham sistematiza la interpretación temática',
+    texto: 'El profesor de la Universidad de Idaho publica “Environmental Interpretation: A Practical Guide for People with Big Ideas and Small Budgets”, el manual de interpretación más difundido del mundo (traducido al español como “Interpretación Ambiental”). Introduce el modelo temático TORE y vuelve la disciplina una práctica profesional accesible para cualquier área protegida.' },
+  { anio: '1998 – 2008', titulo: 'La escuela hispana: la Guía Práctica de Morales',
+    texto: 'Jorge Morales publica la “Guía Práctica para la Interpretación del Patrimonio” (1998), texto de referencia en español para guías, señales y centros de interpretación; junto a Sam Ham firma “¿A qué interpretación nos referimos?” (2008). Queda sellado el puente anglo-hispano de la disciplina.' },
   { anio: '1999 – 2011', titulo: 'Beck & Cable amplían los principios',
     texto: 'Larry Beck y Ted Cable sistematizan el legado de Tilden en “Interpretation for the 21st Century” (1999) y “The Gifts of Interpretation” (2011): de 6 principios a 21, sumando audiencias, sentidos, historias, tecnología y conservación.' },
   { anio: '2016', titulo: 'Centenario del National Park Service',
@@ -132,6 +141,37 @@ const BECK_CABLE_15 = [
     a: 'Orientar la interpretación al cuidado: el visitante que ama lo que entiende, protege lo que ama.' },
   { n: 21, t: 'Mejora continua',
     a: 'La interpretación se aprende, se evalúa y se mejora en círculo: cada feedback del visitante afina la próxima experiencia.' },
+];
+
+const FIGURAS_IBEROAMERICA = [
+  {
+    icon: <MapPin className="w-5 h-5" />,
+    ambito: 'España · Iberoamérica',
+    nombre: 'Jorge Morales Miranda',
+    rol: 'El puente hacia el mundo hispano',
+    anos: 'Activo desde 1988',
+    aporte: 'Consultor y docente con base en Algeciras (Cádiz), es la gran referencia en lengua española de la interpretación del patrimonio. Formó a generaciones de intérpretes en España y América Latina, y aterrizó a Tilden al terreno práctico del guiado, las señales, los senderos y los centros de interpretación.',
+    obras: [
+      'Manual para la Interpretación Ambiental en Áreas Silvestres Protegidas (FAO/PNUMA, 1992 — Santiago de Chile)',
+      'Guía Práctica para la Interpretación del Patrimonio (1998/2001, Junta de Andalucía)',
+      '“¿A qué interpretación nos referimos?”, junto a S. Ham (Boletín de Interpretación, 2008)',
+    ],
+    dato: 'La FAO organizó en Chile (1988) el taller regional de interpretación en áreas silvestres protegidas; la sistematización de Morales (1992) sigue siendo el texto base en español para parques y reservas de toda Sudamérica.',
+  },
+  {
+    icon: <GraduationCap className="w-5 h-5" />,
+    ambito: 'Estados Unidos · El mundo',
+    nombre: 'Dr. Sam H. Ham',
+    rol: 'El sistematizador de la interpretación temática',
+    anos: 'Activo desde 1992',
+    aporte: 'Profesor emérito de la Universidad de Idaho (psicología de la comunicación). Publicó “Environmental Interpretation”, el manual de interpretación más difundido del planeta, y desarrolló el modelo TORE de comunicación temática —temática, organizada, relevante y amena— que hoy aplican áreas protegidas, museos, zoológicos y guías en más de 60 países.',
+    obras: [
+      'Environmental Interpretation: A Practical Guide for People with Big Ideas and Small Budgets (1992)',
+      'Interpretation: Making a Difference on Purpose (2013), difundido en 12 idiomas',
+      'Más de 400 publicaciones sobre interpretación y comunicación de la sostenibilidad',
+    ],
+    dato: 'Becario Fulbright y Fellow de la National Association for Interpretation; recibió el premio William C. Everhart (Clemson University) por su aporte mundial a la interpretación del patrimonio.',
+  },
 ];
 
 const TENDENCIAS = [
@@ -278,32 +318,118 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
             </div>
           </div>
           <p className="text-sm text-[#E4D8BF] max-w-3xl mt-3 mb-10 leading-relaxed">
-            Desde la cesión de Yosemite hasta los principios de Tilden y de Cable & Beck: noventa años
-            de método, y de ahí hasta hoy, de expansión global.
+            Desde la cesión de Yosemite hasta los principios de Tilden y de Cable & Beck, pasando por figuras
+            como Jorge Morales y Sam Ham que la llevaron a todo el mundo: más de un siglo de método y de
+            expansión global.
           </p>
 
           <div className="relative">
-            <div className="absolute left-[19px] sm:left-1/2 top-0 bottom-0 w-px bg-[#3A5A46] sm:-translate-x-px" />
-            <div className="space-y-6">
-              {CRONOLOGIA.map((c, i) => (
-                <div key={i} className={`relative flex gap-5 sm:gap-8 ${i % 2 === 0 ? '' : 'sm:flex-row-reverse'}`}>
-                  <div className="hidden sm:block sm:w-1/2"></div>
-                  <span className="absolute left-4 sm:left-1/2 top-3 w-2.5 h-2.5 rounded-full bg-[#E8A58B] ring-4 ring-[#1D3626] sm:-translate-x-1/2 z-10" />
-                  <div className="w-10 h-10 sm:hidden flex-shrink-0 rounded-full bg-[#B04E2A]/25 border border-[#B04E2A]/50 text-[#E8A58B] text-[10px] font-extrabold grid place-items-center grid-cols-1 text-center leading-tight p-0">
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <article className="flex-1 bg-white/[0.04] border border-white/10 rounded-3xl p-5 hover:border-[#E8A58B]/40 hover:bg-white/[0.07] transition-all">
-                    <span className="inline-block px-3 py-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold uppercase tracking-wider mb-2">
-                      {c.anio}
+            {/* Rail */}
+            <div
+              className="absolute left-[22px] md:left-1/2 top-3 bottom-3 w-[2px] rounded-full bg-gradient-to-b from-[#3A5A46] via-[#B04E2A]/50 to-[#3A5A46] md:-translate-x-1/2"
+              aria-hidden="true"
+            />
+            <div className="space-y-5 md:space-y-10">
+              {CRONOLOGIA.map((c, i) => {
+                const even = i % 2 === 0;
+                return (
+                  <div
+                    key={i}
+                    className={`relative flex items-start gap-4 sm:gap-6 md:flex-col md:gap-0 md:w-1/2 ${
+                      even ? 'md:pr-10' : 'md:ml-auto md:pl-10'
+                    }`}
+                  >
+                    {/* Nodo sobre el rail (solo escritorio) */}
+                    <span
+                      className={`absolute top-5 md:top-7 hidden md:block left-[22px] md:left-auto w-3.5 h-3.5 rounded-full bg-[#E8A58B] ring-4 ring-[#1D3626] z-10 ${
+                        even ? 'md:right-0 md:translate-x-1/2' : 'md:left-0 md:-translate-x-1/2'
+                      }`}
+                    />
+
+                    {/* Badge numérico (móvil) */}
+                    <span className="md:hidden relative z-10 w-11 h-11 flex-shrink-0 rounded-full bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white text-xs font-extrabold grid place-items-center shadow-lg">
+                      {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="text-base font-extrabold text-white font-['Cormorant_Garamond',Georgia,serif] mb-1">{c.titulo}</h3>
-                    <p className="text-xs text-[#CDD9CF] leading-relaxed">{c.texto}</p>
-                  </article>
-                  <div className="hidden sm:block sm:w-1/2"></div>
-                </div>
-              ))}
+
+                    {/* Tarjeta */}
+                    <article className="flex-1 min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 hover:border-[#E8A58B]/40 hover:bg-white/[0.07] transition-all">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold uppercase tracking-wider mb-2">
+                        {c.anio}
+                      </span>
+                      <h3 className="text-base sm:text-lg font-extrabold text-white font-['Cormorant_Garamond',Georgia,serif] mb-1 leading-snug">
+                        {c.titulo}
+                      </h3>
+                      <p className="text-xs sm:text-[13px] text-[#CDD9CF] leading-relaxed">{c.texto}</p>
+                    </article>
+                  </div>
+                );
+              })}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ===== FIGURAS CLAVE: JORGE MORALES Y SAM HAM ===== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center shadow-md">
+            <Users className="w-5 h-5" />
+          </span>
+          <div>
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Iberoamérica · El mundo</p>
+            <h2 className="text-2xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+              Las voces que la llevaron a todos: Morales y Ham
+            </h2>
+          </div>
+        </div>
+        <p className="text-sm text-slate-600 max-w-4xl leading-relaxed mt-3 mb-8">
+          Si Freeman Tilden fue su fundador y Enos Mills su primer oficio, <strong>Jorge Morales</strong> y el{' '}
+          <strong>Dr. Sam Ham</strong> fueron quienes hicieron de la interpretación una disciplina verdaderamente
+          global: uno sembró la escuela de habla hispana —con un pie en Chile desde los talleres de la FAO— y el
+          otro le dio método, alcance profesional y herramientas evaluables. Ambos firmaron juntos sus definiciones
+          más citadas.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          {FIGURAS_IBEROAMERICA.map((f, i) => (
+            <article key={i} className="bg-white rounded-3xl border border-[#E4D8BF] shadow-lg overflow-hidden flex flex-col">
+              <div className="bg-gradient-to-br from-[#14281C] to-[#2E4E37] p-5 sm:p-6 text-white relative overflow-hidden">
+                <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-[#B04E2A]/20 blur-2xl" />
+                <div className="flex items-center gap-3 relative">
+                  <span className="w-12 h-12 rounded-2xl bg-[#B04E2A]/30 border border-[#B04E2A]/50 text-[#E8A58B] grid place-items-center flex-shrink-0">
+                    {f.icon}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">{f.ambito}</p>
+                    <h3 className="text-lg font-extrabold font-['Cormorant_Garamond',Georgia,serif] leading-tight break-words">
+                      {f.nombre}
+                    </h3>
+                  </div>
+                </div>
+                <p className="mt-3 inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold">
+                  {f.rol} <span className="text-[#E8A58B]">·</span> {f.anos}
+                </p>
+              </div>
+              <div className="p-5 sm:p-6 flex flex-col gap-4 flex-1">
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">{f.aporte}</p>
+                <div>
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#14281C] mb-2">Obras clave</p>
+                  <ul className="space-y-1.5">
+                    {f.obras.map((o, j) => (
+                      <li key={j} className="flex items-start gap-2 text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+                        <CircleCheckBig className="w-3.5 h-3.5 text-[#B04E2A] flex-shrink-0 mt-0.5" />
+                        <span>{o}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="mt-auto rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] p-3.5 text-[11px] sm:text-xs text-slate-700 leading-relaxed">
+                  <BadgeCheck className="w-3.5 h-3.5 inline text-[#B04E2A] mr-1 -translate-y-0.5" />
+                  {f.dato}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -477,7 +603,12 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
             <p>
               Fuentes de referencia: F. Tilden, <em>Interpreting Our Heritage</em> (1957); L. Beck & T. Cable,
               <em> Interpretation for the 21st Century</em> (1999/2002) y <em>The Gifts of Interpretation</em> (2011);
-              National Park Service. Las citas de Muir y Mills son traducciones libres; consulta los textos originales.
+              J. Morales, <em>Manual para la Interpretación Ambiental en Áreas Silvestres Protegidas</em> (FAO/PNUMA,
+              1992) y <em>Guía Práctica para la Interpretación del Patrimonio</em> (1998/2001); S. Ham,
+              <em> Environmental Interpretation</em> (1992) e <em>Interpretation: Making a Difference on Purpose</em>
+              (2013); J. Morales & S. Ham, <em>“¿A qué interpretación nos referimos?”</em> (Boletín de Interpretación,
+              AIP España, 2008); National Park Service. Las citas de Muir y Mills son traducciones libres; consulta
+              los textos originales.
             </p>
           </div>
         </div>
