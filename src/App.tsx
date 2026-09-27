@@ -13,6 +13,9 @@ import {
   ClipboardCheck,
   Settings2,
   History,
+  BadgeCheck,
+  Landmark,
+  Users,
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
@@ -52,6 +55,20 @@ function parseTourDeepLink(pathname: string, search: string): { tourId?: string;
   if (stopId) return { tourId: undefined, stopId };
   return null;
 }
+
+// Botonera del header: cada concepto navegable con su símbolo e ícono
+type HeaderNavItem = {
+  key: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title?: string;
+  active?: boolean;
+  badge?: number;
+  iconClass?: string;
+  labelCls?: string;
+  variant: 'nav' | 'member' | 'gradient' | 'plain';
+  action: () => void;
+};
 
 export default function App() {
   const [tours, setTours] = useState<Tour[]>(sampleTours);
@@ -614,6 +631,215 @@ export default function App() {
     />
   );
 
+  // ===== Botonera del header: símbolos + texto restringido por breakpoint =====
+  const headerNavItems: HeaderNavItem[] = [
+    {
+      key: 'catalog',
+      label: 'Explorar Rutas',
+      icon: Globe,
+      title: 'Explora el catálogo de audioguías y rutas de Chile',
+      active: viewMode === 'catalog',
+      variant: 'nav',
+      labelCls: 'hidden sm:inline',
+      action: () => navigateTo('catalog', '/explorar'),
+    },
+    {
+      key: 'factibilidad',
+      label: 'Factibilidad',
+      icon: ClipboardCheck,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Guía de Factibilidad: diseña tu experiencia y prototípala con audioguías',
+      active: viewMode === 'factibilidad',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('factibilidad', '/factibilidad'),
+    },
+    {
+      key: 'matriz',
+      label: 'Matriz de Riesgo',
+      icon: ShieldAlert,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Matriz de Riesgo IPER: identificación de peligros y evaluación de riesgos en terreno',
+      active: viewMode === 'matriz',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('matriz', '/matrizderiesgo'),
+    },
+    {
+      key: 'normativas',
+      label: 'Normativas',
+      icon: ShieldCheck,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Normativas: biblioteca técnica de normas NCh, Sernatur y el ecosistema legal del turismo en Chile',
+      active: viewMode === 'normativas',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('normativas', '/normativas'),
+    },
+    {
+      key: 'historia',
+      label: 'Historia',
+      icon: History,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Historia de la interpretación del patrimonio: de John Muir y Enos Mills a Tilden y Cable & Beck',
+      active: viewMode === 'historia',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('historia', '/historia'),
+    },
+    {
+      key: 'membresia',
+      label: '¡Hazte Miembro!',
+      icon: BadgeCheck,
+      iconClass: 'text-emerald-300',
+      variant: 'member',
+      title: 'Membresía plataforma o gratis por consultoría patrimonial: sube hasta 50 rutas',
+      labelCls: 'hidden md:inline',
+      action: () => setShowMembershipModal(true),
+    },
+    ...(!isOwner
+      ? [
+          {
+            key: 'achpi',
+            label: 'ACHPI',
+            icon: Landmark as React.ComponentType<{ className?: string }>,
+            iconClass: 'text-[#E8A58B]',
+            title: 'Solicita tu inscripción a la Asociación Chilena Para La Interpretación del Patrimonio (ACHPI)',
+            variant: 'plain' as const,
+            labelCls: 'hidden md:inline',
+            action: () => setShowAchpiModal(true),
+          },
+        ]
+      : []),
+    {
+      key: 'instagram',
+      label: 'Síguenos en Instagram',
+      icon: Instagram,
+      iconClass: 'text-[#E1306C]',
+      title: 'Instagram @elviaje.cl — novedades, fotos y entorno',
+      variant: 'plain',
+      labelCls: 'hidden md:inline',
+      action: () => setShowEntornoModal(true),
+    },
+    ...(isOwner
+      ? [
+          {
+            key: 'achpi-admin',
+            label: 'ACHPI',
+            icon: Users as React.ComponentType<{ className?: string }>,
+            iconClass: 'text-[#E8A58B]',
+            title: 'Panel ACHPI: revisa solicitudes de inscripción y entrega códigos de miembro',
+            variant: 'member' as const,
+            badge: achpiPendingCount > 0 ? achpiPendingCount : undefined,
+            labelCls: 'hidden md:inline',
+            action: () => setShowAchpiAdminModal(true),
+          },
+        ]
+      : []),
+    ...(isOwner
+      ? [
+          {
+            key: 'admin',
+            label: 'Administración',
+            icon: Settings2 as React.ComponentType<{ className?: string }>,
+            iconClass: 'text-[#E8A58B]',
+            title: 'Panel de administración: usuarios, miembros, inscripciones ACHPI y rutas',
+            active: viewMode === 'admin',
+            variant: 'nav' as const,
+            labelCls: 'hidden lg:inline',
+            action: () => navigateTo('admin', '/admin'),
+          },
+        ]
+      : []),
+    {
+      key: 'consulta',
+      label: 'Consulta a un Experto',
+      icon: BookOpen,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Consultoría especializada en interpretación del patrimonio',
+      variant: 'plain',
+      labelCls: 'hidden xl:inline',
+      action: () => setShowConsultingModal(true),
+    },
+    {
+      key: 'studio',
+      label: 'Studio',
+      icon: Plus,
+      variant: 'gradient',
+      title: 'Ambiente de edición: Studio de Rutas',
+      action: handleOpenStudio,
+    },
+    {
+      key: 'ia',
+      label: 'Generar con IA',
+      icon: Sparkles,
+      iconClass: 'text-amber-200',
+      variant: 'gradient',
+      title: 'Genera una audioguía con Inteligencia Artificial',
+      labelCls: 'hidden md:inline',
+      action: handleOpenAiGenerator,
+    },
+  ];
+
+  const renderHeaderNavItem = (item: HeaderNavItem) => {
+    const Icon = item.icon;
+    const base =
+      'relative flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 ';
+    if (item.variant === 'member') {
+      return (
+        <button
+          key={item.key}
+          onClick={item.action}
+          className={
+            base +
+            'bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm'
+          }
+          title={item.title}
+        >
+          <Icon className={'w-4 h-4 ' + (item.iconClass ?? '')} />
+          <span className={item.labelCls ?? ''}>{item.label}</span>
+          {typeof item.badge === 'number' && item.badge > 0 && (
+            <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold grid place-items-center border-2 border-[#14281C]">
+              {item.badge}
+            </span>
+          )}
+        </button>
+      );
+    }
+    if (item.variant === 'gradient') {
+      return (
+        <button
+          key={item.key}
+          onClick={item.action}
+          className={
+            base +
+            'bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/30'
+          }
+          title={item.title}
+        >
+          <Icon className={'w-4 h-4 ' + (item.iconClass ?? '')} />
+          <span>{item.label}</span>
+        </button>
+      );
+    }
+    return (
+      <button
+        key={item.key}
+        onClick={item.action}
+        className={
+          base +
+          (item.active
+            ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
+            : 'text-slate-300 hover:text-white hover:bg-[#223F2C]')
+        }
+        title={item.title}
+      >
+        <Icon className={'w-4 h-4 ' + (item.iconClass ?? '')} />
+        <span className={item.labelCls ?? ''}>{item.label}</span>
+      </button>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#F6F1E5] text-slate-900 flex flex-col font-sans selection:bg-[#B04E2A] selection:text-white">
       
@@ -655,12 +881,12 @@ export default function App() {
 
       {/* Global Brand Navigation Bar - El Viaje Por Chile */}
       <header className="bg-[#14281C] text-white sticky top-0 z-40 border-b border-[#2A4533] shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:flex-wrap lg:items-center lg:justify-between gap-2 lg:gap-4">
           
           {/* Logo & Platform Name */}
           <div 
             onClick={() => navigateTo('home', '/')}
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center gap-3 cursor-pointer group flex-shrink-0"
           >
             <div className="w-12 h-12 rounded-2xl bg-black p-1 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform border border-white/10">
               <img
@@ -684,191 +910,43 @@ export default function App() {
             </div>
           </div>
 
-          {/* Navigation Tabs */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigateTo('catalog', '/explorar')}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                viewMode === 'catalog'
-                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
-                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
-              }`}
-            >
-              <Globe className="w-4 h-4" />
-              <span className="hidden sm:inline">Explorar Rutas</span>
-            </button>
+          {/* Botonera con símbolos por concepto + cuenta */}
+          <div className="flex items-center gap-2 flex-wrap justify-end shrink-0">
+          <div className="flex flex-wrap items-center justify-end gap-1.5 max-w-4xl">{headerNavItems.map(renderHeaderNavItem)}</div>
 
-            <button
-              onClick={() => navigateTo('factibilidad', '/factibilidad')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                viewMode === 'factibilidad'
-                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
-                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
-              }`}
-              title="Guía de Factibilidad: diseña tu experiencia y prototípala con audioguías"
-            >
-              <ClipboardCheck className="w-4 h-4 text-[#E8A58B]" />
-              <span className="hidden lg:inline">Factibilidad</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('matriz', '/matrizderiesgo')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                viewMode === 'matriz'
-                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
-                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
-              }`}
-              title="Matriz de Riesgo IPER: identificación de peligros y evaluación de riesgos en terreno"
-            >
-              <ShieldAlert className="w-4 h-4 text-[#E8A58B]" />
-              <span className="hidden lg:inline">Matriz de Riesgo</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('normativas', '/normativas')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                viewMode === 'normativas'
-                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
-                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
-              }`}
-              title="Normativas: biblioteca técnica de normas NCh, Sernatur y el ecosistema legal del turismo en Chile"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#E8A58B]" />
-              <span className="hidden lg:inline">Normativas</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('historia', '/historia')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                viewMode === 'historia'
-                  ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
-                  : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
-              }`}
-              title="Historia de la interpretación del patrimonio: de John Muir y Enos Mills a Tilden y Cable & Beck"
-            >
-              <History className="w-4 h-4 text-[#E8A58B]" />
-              <span className="hidden lg:inline">Historia</span>
-            </button>
-
-            <button
-              onClick={() => setShowMembershipModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 shadow-sm transition-all"
-              title="Membresía plataforma o gratis por consultoría patrimonial: sube hasta 50 rutas"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span className="hidden md:inline">¡Hazte Miembro!</span>
-            </button>
-
-            {!isOwner && (
-              <button
-                onClick={() => setShowAchpiModal(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
-                title="Solicita tu inscripción a la Asociación Chilena Para La Interpretación del Patrimonio (ACHPI)"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#E8A58B]" />
-                <span className="hidden md:inline">ACHPI</span>
-              </button>
-            )}
-
-            <button
-              onClick={() => setShowEntornoModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
-              title="Instagram @elviaje.cl — novedades, fotos y entorno"
-            >
-              <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
-              <span className="hidden md:inline">Síguenos en Instagram</span>
-            </button>
-
-            {isOwner && (
-              <button
-                onClick={() => setShowAchpiAdminModal(true)}
-                className="relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1D3626] hover:bg-[#2E4E37] text-[#E8A58B] border border-[#B04E2A]/40 transition-all"
-                title="Panel ACHPI: revisa solicitudes de inscripción y entrega códigos de miembro"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#E8A58B]" />
-                <span className="hidden md:inline">ACHPI</span>
-                {achpiPendingCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold grid place-items-center border-2 border-[#14281C]">
-                    {achpiPendingCount}
+          {/* Google Account Profile Button */}
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl bg-[#1D3626] hover:bg-[#2E4E37] border border-[#40624A] transition-all ml-1 flex-shrink-0"
+            title="Cuenta Google & Credenciales de Creador"
+          >
+            {currentUser ? (
+              <>
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  className="w-6 h-6 rounded-full object-cover border border-[#B04E2A]"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="text-left hidden lg:block">
+                  <span className="text-[11px] font-bold text-white block leading-tight truncate max-w-[100px]">
+                    {currentUser.name.split(' ')[0]}
                   </span>
-                )}
-              </button>
+                  <span className="text-[9px] text-[#E8A58B] font-semibold block leading-none">
+                    {currentUser.role === 'admin' ? 'Admin' : 'Creador'}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-[#14281C] font-bold text-xs">
+                  G
+                </div>
+                <span className="text-xs font-bold text-slate-200">Acceder</span>
+              </>
             )}
-
-            {isOwner && (
-              <button
-                onClick={() => navigateTo('admin', '/admin')}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  viewMode === 'admin'
-                    ? 'bg-[#B04E2A] text-white shadow-md shadow-[#B04E2A]/30'
-                    : 'text-slate-300 hover:text-white hover:bg-[#223F2C]'
-                }`}
-                title="Panel de administración: usuarios, miembros, inscripciones ACHPI y rutas"
-              >
-                <Settings2 className="w-4 h-4 text-[#E8A58B]" />
-                <span className="hidden lg:inline">Administración</span>
-              </button>
-            )}
-
-            <button
-              onClick={() => setShowConsultingModal(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-[#223F2C] transition-all"
-            >
-              <BookOpen className="w-4 h-4 text-[#E8A58B]" />
-              <span className="hidden xl:inline">Consulta a un Experto</span>
-            </button>
-
-            <button
-              onClick={handleOpenStudio}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/30 transition-all"
-              title="Ambiente de edición: Studio de Rutas"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Studio</span>
-            </button>
-
-            <button
-              onClick={handleOpenAiGenerator}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white shadow-md shadow-[#B04E2A]/20 transition-all"
-            >
-              <Sparkles className="w-4 h-4 text-amber-200" />
-              <span className="hidden md:inline">Generar con IA</span>
-            </button>
-
-            {/* Google Account Profile Button */}
-            <button
-              onClick={() => setShowAuthModal(true)}
-              className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl bg-[#1D3626] hover:bg-[#2E4E37] border border-[#40624A] transition-all ml-1"
-              title="Cuenta Google & Credenciales de Creador"
-            >
-              {currentUser ? (
-                <>
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser.name}
-                    className="w-6 h-6 rounded-full object-cover border border-[#B04E2A]"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="text-left hidden lg:block">
-                    <span className="text-[11px] font-bold text-white block leading-tight truncate max-w-[100px]">
-                      {currentUser.name.split(' ')[0]}
-                    </span>
-                    <span className="text-[9px] text-[#E8A58B] font-semibold block leading-none">
-                      {currentUser.role === 'admin' ? 'Admin' : 'Creador'}
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-[#14281C] font-bold text-xs">
-                    G
-                  </div>
-                  <span className="text-xs font-bold text-slate-200">Acceder</span>
-                </>
-              )}
-            </button>
+          </button>
           </div>
-
         </div>
       </header>
 
