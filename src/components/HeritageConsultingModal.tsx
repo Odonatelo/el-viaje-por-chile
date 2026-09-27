@@ -98,7 +98,7 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#E8A58B]">
-                  Tienda El Viaje • www.elviaje.cl
+                  El Viaje • www.elviaje.cl
                 </span>
                 <span className="text-[10px] bg-[#B04E2A]/30 text-[#E8A58B] px-2 py-0.5 rounded-full border border-[#B04E2A]/50">
                   Consultoría Especializada
@@ -120,6 +120,15 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
         {/* Scrollable Body */}
         <div className="overflow-y-auto flex-1 p-6 space-y-8 bg-[#F6F1E5]">
           
+          {/* Imagen de marca */}
+          <div className="rounded-3xl overflow-hidden bg-[#14281C] border border-[#E4D8BF] shadow-md">
+            <img
+              src="/images/consultoria-banner.png"
+              alt="El Viaje — Consultoría Especializada en Interpretación del Patrimonio"
+              className="w-full h-48 sm:h-64 object-contain"
+            />
+          </div>
+
           {/* Top Banner Concept */}
           <div className="bg-gradient-to-br from-[#14281C] to-[#2A4533] text-white p-6 rounded-3xl shadow-md space-y-3 relative overflow-hidden">
             <div className="absolute right-0 bottom-0 opacity-10 translate-x-8 translate-y-8">
@@ -146,7 +155,7 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
                 <h3 className="text-base font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                   Los 4 Pilares de la Interpretación del Patrimonio
                 </h3>
-                <p className="text-xs text-slate-600">Basados en los principios internacionales de Freeman Tilden y la cosmovisión de Tienda El Viaje</p>
+                <p className="text-xs text-slate-600">Basados en los principios internacionales de Freeman Tilden y la cosmovisión de El Viaje</p>
               </div>
             </div>
 
@@ -191,7 +200,7 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
                 <h3 className="text-base font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
                   ¿Cómo estructurar tu propio Viaje Personal Interpretativo?
                 </h3>
-                <p className="text-xs text-slate-600">Pasos metodológicos recomendados por los especialistas de Tienda El Viaje</p>
+                <p className="text-xs text-slate-600">Pasos metodológicos recomendados por los especialistas de El Viaje</p>
               </div>
             </div>
 
@@ -205,7 +214,7 @@ export const HeritageConsultingModal: React.FC<HeritageConsultingModalProps> = (
             </div>
           </div>
 
-          {/* Official Tienda El Viaje External Link Callout */}
+          {/* Official El Viaje External Link Callout */}
           <div className="bg-gradient-to-r from-[#2F5238] to-[#2A4A34] text-white p-6 rounded-3xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="space-y-1 text-center sm:text-left">
               <div className="flex items-center justify-center sm:justify-start gap-2">
