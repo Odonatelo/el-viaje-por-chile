@@ -1187,6 +1187,8 @@ export default function App() {
         achpiStatus={achpiStatus}
         routeLimit={routeLimit}
         routeUsage={routeUsage}
+        intent={accessRequest?.intent}
+        tourTitle={accessRequest?.tour?.title}
         onOpenAuthModal={() => setShowAuthModal(true)}
         onOpenAchpiModal={() => setShowAchpiModal(true)}
         onOpenMembershipModal={() => setShowMembershipModal(true)}

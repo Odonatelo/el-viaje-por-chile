@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Lock, KeyRound, Loader2, Sparkles, ShieldCheck, Award, Compass, CheckCircle2, X } from 'lucide-react';
+import { Lock, KeyRound, Loader2, Sparkles, ShieldCheck, Award, Compass, PenLine, CheckCircle2, X } from 'lucide-react';
 import { UserProfile } from '../types';
+
+export type AccessIntent = 'studio' | 'ai' | 'edit';
 
 interface AuthorizationModalProps {
   isOpen: boolean;
@@ -11,12 +13,35 @@ interface AuthorizationModalProps {
   achpiStatus: 'none' | 'pending' | 'approved';
   routeLimit: number;
   routeUsage: number;
+  intent?: AccessIntent;
+  tourTitle?: string;
   onOpenAuthModal: () => void;
   onOpenAchpiModal: () => void;
   onOpenMembershipModal: () => void;
   onOpenConsultingModal: () => void;
   onAccessGranted: () => void;
 }
+
+const INTENT_META: Record<AccessIntent, { icon: typeof Compass; title: string; desc: string; cta: string }> = {
+  studio: {
+    icon: Compass,
+    title: 'Acceso al Studio de Rutas',
+    desc: 'Crea y publica rutas patrimoniales con audioguías para tus visitantes.',
+    cta: 'Entrar al Studio',
+  },
+  ai: {
+    icon: Sparkles,
+    title: 'Acceso al Generador con IA',
+    desc: 'Genera contenido de interpretación del patrimonio con asistencia de inteligencia artificial.',
+    cta: 'Abrir el Generador IA',
+  },
+  edit: {
+    icon: PenLine,
+    title: 'Acceso para Editar Ruta',
+    desc: 'Usa el Studio para modificar una ruta existente y publicar los cambios.',
+    cta: 'Ir a Editar Ruta',
+  },
+};
 
 export function AuthorizationModal({
   isOpen,
@@ -27,12 +52,15 @@ export function AuthorizationModal({
   achpiStatus,
   routeLimit,
   routeUsage,
+  intent,
+  tourTitle,
   onOpenAuthModal,
   onOpenAchpiModal,
   onOpenMembershipModal,
   onOpenConsultingModal,
   onAccessGranted,
 }: AuthorizationModalProps) {
+  const meta = INTENT_META[intent || 'studio'];
   const [code, setCode] = useState('');
   const [redeeming, setRedeeming] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -84,14 +112,16 @@ export function AuthorizationModal({
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-2xl bg-[#1D3626] text-[#E8A58B]">
-              <Lock className="w-6 h-6" />
+              <meta.icon className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-[#14281C]">Acceso para Miembros</h3>
-              <p className="text-xs text-slate-600 max-w-md">
-                El Studio de Rutas y el Generador con IA están disponibles para usuarios autorizados según su
-                plan de cuenta.
-              </p>
+              <h3 className="text-lg sm:text-xl font-bold text-[#14281C]">{meta.title}</h3>
+              {intent === 'edit' && tourTitle && (
+                <p className="text-xs font-semibold text-[#B04E2A] mt-0.5 truncate max-w-md">
+                  Ruta: {tourTitle}
+                </p>
+              )}
+              <p className="text-xs text-slate-600 max-w-md">{meta.desc}</p>
             </div>
           </div>
           <button
@@ -108,7 +138,7 @@ export function AuthorizationModal({
             <div className="flex items-center gap-3 rounded-2xl bg-emerald-50 border border-emerald-300 px-4 py-3">
               <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />
               <p className="text-sm font-semibold text-emerald-800">
-                Tu cuenta ya está autorizada. ¡Puedes crear tus rutas y generar contenido con IA!
+                Tu cuenta ya está autorizada. ¡Puedes crear y editar tus rutas con IA!
               </p>
             </div>
             <div className="text-xs text-slate-600 space-y-1">
@@ -142,27 +172,37 @@ export function AuthorizationModal({
               }}
               className="w-full px-5 py-3 bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white rounded-xl text-sm font-bold shadow-lg shadow-[#B04E2A]/30 transition-all"
             >
-              Continuar al Studio
+              {meta.cta}
             </button>
           </div>
         ) : !currentUser ? (
           <div className="space-y-4">
             <div className="rounded-2xl bg-white border border-[#E4D8BF] px-4 py-4 text-sm text-slate-700 space-y-2">
               <p>
-                Para usar el Studio y el Generador de Rutas primero{' '}
+                Para usar esta herramienta primero{' '}
                 <strong className="text-[#14281C]">inicia sesión</strong> (con tu cuenta de Google o con tu clave de
-                acceso) y luego:
+                acceso) y luego elige una de estas vías de activación:
               </p>
-              <ol className="list-decimal list-inside space-y-1 text-xs text-slate-600">
-                <li>Canjea un <strong>código de autorización</strong> que te haya entregado El Viaje.</li>
-                <li>O inscríbete como <strong>miembro ACHPI</strong> para recibir tu código de miembro.</li>
-                <li>O activa una <strong>membresía / consultoría</strong> de la plataforma.</li>
-              </ol>
+              <ul className="space-y-1.5 text-xs text-slate-600 list-none">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 w-1.5 h-1.5 shrink-0 rounded-full bg-[#B04E2A]" />
+                  <span><strong>Código de autorización</strong> entregado por El Viaje → activa la Membresía Básica Gratis.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 w-1.5 h-1.5 shrink-0 rounded-full bg-[#B04E2A]" />
+                  <span><strong>Miembro ACHPI</strong> → tu código de miembro habilita hasta 10 rutas.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 w-1.5 h-1.5 shrink-0 rounded-full bg-[#B04E2A]" />
+                  <span><strong>Membresía / Consultoría</strong> de la plataforma → hasta 50 rutas por 12 meses.</span>
+                </li>
+              </ul>
             </div>
             <button
               onClick={onOpenAuthModal}
               className="w-full px-5 py-3 bg-[#14281C] hover:bg-[#1D3626] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all"
             >
+              <Lock className="w-4 h-4" />
               Iniciar sesión
             </button>
             <div className="relative py-2">
