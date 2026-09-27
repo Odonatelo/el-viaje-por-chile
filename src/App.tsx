@@ -16,6 +16,7 @@ import {
   BadgeCheck,
   Landmark,
   Users,
+  Target,
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
@@ -36,6 +37,7 @@ import { AchpiInscriptionModal } from './components/AchpiInscriptionModal';
 import { AchpiAdminModal } from './components/AchpiAdminModal';
 import { AuthorizationModal } from './components/AuthorizationModal';
 import { AdminPanel } from './components/AdminPanel';
+import { AnalisisUsuarioPage } from './components/AnalisisUsuarioPage';
 
 // Deep link de una audioguía: /tour/:id, /tour/:id/:stopId, o legacy
 // /tours?tourId=...&stopId=... y /tours?stopId=... (QR/GPX generados antes)
@@ -76,7 +78,7 @@ export default function App() {
   useEffect(() => {
     toursRef.current = tours;
   }, [tours]);
-  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'admin';
+  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'analisis' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
@@ -86,7 +88,9 @@ export default function App() {
           ? 'normativas'
           : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
             ? 'historia'
-            : window.location.pathname === '/admin'
+            : window.location.pathname.startsWith('/analisis')
+              ? 'analisis'
+              : window.location.pathname === '/admin'
           ? 'admin'
           : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
             ? 'catalog'
@@ -300,8 +304,10 @@ export default function App() {
             ? 'matriz'
             : window.location.pathname.startsWith('/normativas')
               ? 'normativas'
-              : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
-                ? 'historia'
+: window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
+              ? 'historia'
+              : window.location.pathname.startsWith('/analisis')
+                ? 'analisis'
                 : window.location.pathname === '/admin'
               ? 'admin'
               : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
@@ -688,6 +694,17 @@ export default function App() {
       action: () => navigateTo('historia', '/historia'),
     },
     {
+      key: 'analisis',
+      label: 'Análisis del Usuario',
+      icon: Target,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Análisis del usuario/destinatario: buyer personas, arquetipos y encuesta de satisfacción',
+      active: viewMode === 'analisis',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('analisis', '/analisis'),
+    },
+    {
       key: 'membresia',
       label: '¡Hazte Miembro!',
       icon: BadgeCheck,
@@ -998,6 +1015,8 @@ export default function App() {
           <NormativasPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'historia' ? (
           <HistoriaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'analisis' ? (
+          <AnalisisUsuarioPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'admin' ? (
           <AdminPanel
             currentUser={currentUser}

@@ -1933,6 +1933,34 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Descarga de la encuesta de perfil y satisfacción (Valle del Maipo y sector sur)
+// Servida con Content-Disposition attachment para que, al escanear el QR desde un
+// dispositivo móvil, el archivo se descargue directamente al dispositivo.
+app.get('/api/encuestas/encuesta-valle-del-maipo', async (_req, res) => {
+  const relPath = 'data/encuestas/encuesta-valle-del-maipo.txt';
+  // 1) Intenta GCS (persistencia duradera) si está configurado
+  try {
+    const buf = await readBuffer(relPath);
+    if (buf) {
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Content-Disposition', "attachment; filename=encuesta-valle-del-maipo.txt");
+      res.send(buf);
+      return;
+    }
+  } catch {
+    // Continúa con el archivo del contenedor
+  }
+  // 2) Fallback: archivo empaquetado en el contenedor
+  const localPath = path.join(process.cwd(), relPath);
+  if (fs.existsSync(localPath)) {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Content-Disposition', "attachment; filename=encuesta-valle-del-maipo.txt");
+    res.sendFile(localPath);
+    return;
+  }
+  res.status(404).json({ success: false, error: 'Encuesta no disponible.' });
+});
+
 // ----------------------------------------------------
 // VITE DEV MIDDLEWARE / STATIC ASSETS
 // ----------------------------------------------------
