@@ -497,8 +497,12 @@ export const AnalisisUsuarioPage: React.FC<AnalisisUsuarioPageProps> = ({ onBack
                 </div>
               </div>
               <p className="text-sm text-slate-200 leading-relaxed max-w-2xl">
-                La encuesta combina <strong>perfil de viaje y motivación</strong>, <strong>preferencias por
-                entornos y servicios</strong>, <strong>logística y ruta integrada</strong> y una
+                La encuesta parte con <strong>datos demográficos y metodológicos</strong> (fecha, lugar,
+                encuestador/a, comuna, edad, grupo de viaje) para dar rigor a la muestra; luego conecta
+                <strong> motivaciones con tendencias</strong> de viaje (enoturismo, granjas educativas,
+                gastronomía, kayak/aventura, senderismo) y las cruza con el <strong>territorio</strong> —
+                Sur de Santiago, Cajón del Maipo y Valle del Maipo—, y continúa con
+                <strong> preferencias por entornos</strong>, <strong>logística y ruta integrada</strong> y una
                 <strong> evaluación de satisfacción</strong>. Está diseñada para aplicarse en terreno —en
                 cerros isla, parques periurbanos, viñas y puntos de la ruta— tanto en papel como digital.
               </p>
@@ -543,67 +547,100 @@ export const AnalisisUsuarioPage: React.FC<AnalisisUsuarioPageProps> = ({ onBack
               <div className="bg-[#F6F1E5] text-slate-900 rounded-3xl p-5 sm:p-6 border border-[#E4D8BF] shadow-2xl">
                 <pre className="whitespace-pre-wrap text-[11px] font-mono leading-relaxed text-slate-700 max-h-[560px] overflow-y-auto">
                   {`ENCUESTA DE PERFIL Y SATISFACCIÓN: VALLE DEL MAIPO Y SECTOR SUR
-Marque con una X la opción que mejor represente su opinión.
+Marque con una X. Donde se indique "círculo", encierre TODAS las que apliquen.
 
-I. PERFIL DE VIAJE Y MOTIVACIÓN
+I. DATOS DEMOGRÁFICOS Y METODOLÓGICOS
 
-1. ¿Cuál es su principal motivación para realizar este viaje/escapada? (1)
-   [ ] Desconexión y alivio del estrés urbano
-   [ ] Contacto directo con la naturaleza y aire puro
-   [ ] Compartir tiempo en familia / esparcimiento infantil
-   [ ] Aprendizaje cultural, historia y patrimonio
-   [ ] Ejercicio físico, deporte y superación personal
+A1. Fecha de aplicación: ____ / ____ / ______
+A2. Lugar de aplicación: ______________________
+A3. Encuestador/a (si es asistida): ___________
+A4. Comuna de residencia (1)
+   [ ] Santiago centro/pericentral
+   [ ] Sur de Santiago (San Bernardo, Buin, Pirque, C. de Tango, La Pintana, El Bosque…)
+   [ ] Cordillera / Puente Alto-La Florida
+   [ ] Otra comuna de la RM / Fuera de la RM
+A5. Rango de edad (1)
+   [ ] 15-24 [ ] 25-34 [ ] 35-44 [ ] 45-54 [ ] 55-64 [ ] 65+
+A6. Género: [ ] F [ ] M [ ] No binario [ ] Prefiero no responder
+A7. Nivel educativo (1)
+   [ ] Básica/media incompleta [ ] Media completa
+   [ ] Técnico [ ] Universitaria [ ] Postgrado
+A8. Ocupación (1)
+   [ ] Estudiante [ ] Dependiente [ ] Independiente/Emprende
+   [ ] Dueña/o de casa [ ] Jubilado/a [ ] Cesante
+A9. Grupo con el que sale (1)
+   [ ] Solo/a [ ] Pareja [ ] Fam. con niños [ ] Fam. sin niños
+   [ ] Amigos [ ] Grupo organizado
 
-2. ¿Con cuál estilo de viajero se identifica más? (1)
-   [ ] Explorador de Naturaleza
-   [ ] Enoturista / Winelover
-   [ ] Familia Recreativa
-   [ ] Aventurero Activo
+II. MOTIVACIONES Y TENDENCIAS (haga un círculo)
 
-3. Actividades de su interés en la zona (múltiple)
-   [ ] Aventura (Rafting, Canopy, Escalada)
-   [ ] Fotografía de naturaleza y paisaje
-   [ ] Observación de flora y fauna / aves
-   [ ] Patrimonio histórico/cultural
-   [ ] Compras artesanales y agroecológicas
+B1. Experiencias que le interesarían en este territorio (círculo):
+   (1) Enoturismo / catas en bodegas
+   (2) Granjas educativas (huertos, animales, talleres infantiles)
+   (3) Gastronomía local y Km 0
+   (4) Kayak / turismo aventura (rafting, canopy, MTB)
+   (5) Senderismo / naturaleza (cerros isla, aves)
+   (6) Ninguna
 
-II. PREFERENCIAS POR ENTORNOS Y SERVICIOS
+B2. Tendencias que explican su motivación (círculo):
+   (1) Escapada fin de semana / turismo de proximidad
+   (2) Experiencias educativas familiares
+   (3) Desconexión y contacto con la naturaleza
+   (4) Gastronomía local Km 0
+   (5) Deporte y aventura
+   (6) Paisaje / fotografía / redes sociales
 
-4. ¿Cómo percibe los Cerros Isla (ej. Cerro Chena) y parques periurbanos? (1)
-   [ ] Espacios para el deporte
-   [ ] Contemplación y relajación
-   [ ] Educación y concientización ambiental
-   [ ] Encuentro social y familiar
+B3. Motivación × Territorio (círculo en cada fila; puede marcar varios)
+   S = Sur de Santiago · C = Cajón del Maipo · V = Valle del Maipo
 
-5. Servicios indispensables en un cerro o parque (máx. 2)
-   [ ] Senderos señalizados   [ ] Zonas de sombra/picnic
-   [ ] Seguridad/guardaparques [ ] Transporte público directo
-   [ ] Baños y agua potable   [ ] Actividades y tours guiados
+   Experiencia            |   S |   C |   V
+   -----------------------+-----+-----+-----
+   Enoturismo             | [S] | [C] | [V]
+   Granjas educativas     | [S] | [C] | [V]
+   Gastronomía local      | [S] | [C] | [V]
+   Kayak / tur. aventura  | [S] | [C] | [V]
+   Senderismo / naturaleza| [S] | [C] | [V]
 
-6. ¿Qué busca en una viña o entorno rural del Maipo? (1)
-   [ ] Lujo y exclusividad   [ ] Aprendizaje técnico del vino
-   [ ] Historia y leyendas   [ ] Ambiente familiar
-   [ ] Maridaje y gastronomía tradicional
+III. PERFIL DE VIAJE Y MOTIVACIÓN
 
-7. Nivel de dificultad preferido (1)
-   [ ] Recreativo suave / Amateur
-   [ ] Deportista técnico / Intensivo
-   [ ] No realizo actividades de aventura
+1. Motivación principal del viaje (1)
+   [ ] Desconexión del estrés urbano   [ ] Naturaleza y aire puro
+   [ ] Tiempo en familia               [ ] Aprendizaje cultural/patrimonial
+   [ ] Ejercicio y superación personal
 
-III. LOGÍSTICA, CONECTIVIDAD Y RUTA INTEGRADA
+2. Estilo de viajero (1)
+   [ ] Explorador de Naturaleza   [ ] Enoturista / Winelover
+   [ ] Familia Recreativa         [ ] Aventurero Activo
+
+3. Actividades de interés en la zona (múltiple)
+   [ ] Aventura (Rafting, Canopy…) [ ] Fotografía de naturaleza
+   [ ] Flora/fauna y aves          [ ] Patrimonio histórico/cultural
+   [ ] Artesanía y agroecología
+
+IV. PREFERENCIAS POR ENTORNOS Y SERVICIOS
+
+4. ¿Cómo percibe los Cerros Isla y parques periurbanos? (1)
+   [ ] Deporte [ ] Contemplación [ ] Educación ambiental [ ] Encuentro social
+5. Servicios indispensables (máx. 2)
+   [ ] Senderos   [ ] Sombra/picnic [ ] Seguridad   [ ] Transporte público
+   [ ] Baños/agua [ ] Tours guiados
+6. ¿Qué busca en una viña del Valle del Maipo? (1)
+   [ ] Lujo/descanso [ ] Aprendizaje del vino [ ] Historia/leyendas
+   [ ] Ambiente familiar [ ] Maridaje y gastronomía criolla
+7. Nivel de dificultad (1)
+   [ ] Recreativo / amateur   [ ] Deportista / intensivo   [ ] No hago aventura
+
+V. LOGÍSTICA, CONECTIVIDAD Y RUTA INTEGRADA
 
 8. ¿Combinaría catas en Pirque/Buin con caminata en cerro isla el mismo día?
-   [ ] Sí, totalmente     [ ] No, prefiero no mezclar
-   [ ] Solo si hay transporte coordinado
+   [ ] Sí      [ ] No      [ ] Solo con transporte coordinado
+9. Facilidad de desplazamiento entre comunas (1)
+   [ ] Muy fácil  [ ] Aceptable  [ ] Difícil  [ ] Muy difícil
+10. Experiencia INFALTABLE en la Ruta Integrada (1)
+   [ ] Senderismo cerros isla  [ ] Bodega con cata
+   [ ] Almuerzo gastronomía    [ ] Aventura (Rafting/Canopy/MTB)
 
-9. Facilidad de desplazamiento entre comunas del sector (1)
-   [ ] Muy fácil   [ ] Aceptable   [ ] Difícil   [ ] Muy difícil
-
-10. Experiencia INFALTABLE en una "Ruta Integrada del Valle del Maipo" (1)
-   [ ] Senderismo en cerros isla   [ ] Bodega con cata
-   [ ] Almuerzo gastronomía local  [ ] Aventura (Rafting/Canopy/MTB)
-
-IV. EVALUACIÓN DE SATISFACCIÓN (1 = Pésimo · 10 = Excelente)
+VI. EVALUACIÓN DE SATISFACCIÓN (1 = Pésimo · 10 = Excelente)
 
    Señalética y facilidades en cerros isla y parques …… [  ]
    Estado y limpieza de espacios naturales / parques … [  ]
@@ -612,8 +649,8 @@ IV. EVALUACIÓN DE SATISFACCIÓN (1 = Pésimo · 10 = Excelente)
    Conectividad y transporte entre comunas …………… [  ]
    Información turística antes y durante el viaje …… [  ]
 
-Gracias por su tiempo. Su opinión ayuda a diseñar experiencias de
-interpretación patrimonial para este territorio.
+Respuestas anónimas y agregadas con fines de diseño de experiencias de
+interpretación del patrimonio.
 www.interpretaciondelpatrimonio.cl`}
                 </pre>
               </div>
