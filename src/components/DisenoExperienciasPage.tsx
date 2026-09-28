@@ -144,6 +144,98 @@ function GoldenRuler({ className }: { className?: string }) {
   );
 }
 
+function goldenPoint(cx: number, cy: number, scale: number, t: number) {
+  const phi = 1.618033988749895;
+  const r = scale * Math.pow(phi, t / (Math.PI / 2));
+  return { x: cx + r * Math.cos(t - Math.PI / 2), y: cy + r * Math.sin(t - Math.PI / 2) };
+}
+
+const HITOS = [
+  {
+    n: 1,
+    fib: 1,
+    titulo: 'Anticipación',
+    frase: 'el deseo despierta antes de partir',
+    color: '#B04E2A',
+  },
+  {
+    n: 2,
+    fib: 1,
+    titulo: 'Desplazamiento',
+    frase: 'el camino es la primera estación',
+    color: '#D97706',
+  },
+  {
+    n: 3,
+    fib: 2,
+    titulo: 'Llegada',
+    frase: 'el umbral se abre: primera impresión',
+    color: '#3F6B4A',
+  },
+  {
+    n: 4,
+    fib: 3,
+    titulo: 'Inmersión',
+    frase: 'el sitio se entrega: estaciones y pausas',
+    color: '#2E4E37',
+  },
+  {
+    n: 5,
+    fib: 5,
+    titulo: 'Encuentro central',
+    frase: 'la revelación: el hito mayor del relato',
+    color: '#14281C',
+  },
+  {
+    n: 6,
+    fib: 8,
+    titulo: 'Recuerdo',
+    frase: 'la memoria que viaja de vuelta contigo',
+    color: '#B4572E',
+  },
+];
+
+const RADIOS = [45, 60, 82, 110, 140, 165];
+
+function TravelJourneySpiral({ className }: { className?: string }) {
+  const cx = 170;
+  const cy = 170;
+  const scale = 26;
+  const nodes = HITOS.map((h, i) => {
+    const p = goldenPoint(cx, cy, scale, goldenTForRadius(RADIOS[i], scale));
+    return { ...h, ...p };
+  });
+  return (
+    <svg viewBox="0 0 340 340" fill="none" className={className} aria-label="Espiral del viaje del visitante: hitos sobre la geometría de Fibonacci">
+      <circle cx={cx} cy={cy} r="150" stroke="#14281C" strokeWidth="0.8" opacity="0.15" strokeDasharray="2 8" />
+      <circle cx={cx} cy={cy} r="108" stroke="#14281C" strokeWidth="0.8" opacity="0.15" strokeDasharray="2 8" />
+      <circle cx={cx} cy={cy} r="66" stroke="#14281C" strokeWidth="0.8" opacity="0.15" strokeDasharray="2 8" />
+      <circle cx={cx} cy={cy} r="24" stroke="#14281C" strokeWidth="0.8" opacity="0.15" strokeDasharray="2 8" />
+      <path d={goldenSpiralD(cx, cy, scale, 1.98)} stroke="#B04E2A" strokeWidth="2.2" strokeLinecap="round" opacity="0.85" />
+      {nodes.map((h) => (
+        <g key={h.n}>
+          <circle cx={h.x} cy={h.y} r="15" fill={h.color} stroke="#fff" strokeWidth="2.5" />
+          <text x={h.x} y={h.y + 4.5} textAnchor="middle" fill="#fff" fontSize="12" fontWeight="800">
+            {h.n}
+          </text>
+          <g>
+            <rect x={h.x - 14} y={h.y - 40} width="28" height="16" rx="8" fill="#F6F1E5" stroke={h.color} strokeWidth="1" />
+            <text x={h.x} y={h.y - 28.5} textAnchor="middle" fill={h.color} fontSize="9" fontWeight="800">
+              φ·{h.fib}
+            </text>
+          </g>
+        </g>
+      ))}
+      <circle cx={cx} cy={cy} r="5" fill="#14281C" opacity="0.85" />
+    </svg>
+  );
+}
+
+function goldenTForRadius(r: number, scale: number) {
+  const phi = 1.618033988749895;
+  return (Math.PI / 2) * (Math.log(r / scale) / Math.log(phi));
+}
+
 function KrebsCycle() {
   const quadrants = [
     { label: 'Arte', sub: 'cuestiona el comportamiento humano', color: '#B04E2A', angle: 225 },
@@ -452,18 +544,18 @@ const EXP_CHILE: Array<{
     ],
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Termas_de_Chill%C3%A1n%2C_Chile.jpg/640px-Termas_de_Chill%C3%A1n%2C_Chile.jpg',
-    file: 'File:Termas de Chillán, Chile.jpg',
-    titulo: 'Parques termales de la Cordillera',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rio_Clarillo.jpg/640px-Rio_Clarillo.jpg',
+    file: 'File:Rio Clarillo.jpg',
+    titulo: 'Baños de naturaleza en Río Clarillo',
     plano: 'EX-4',
     principe: 'Escapismo',
     icon: Droplets,
     caption:
-      'Los parques termales andinos ofrecen el "tiempo otro" del agua y la nieve: rituales de bienestar anclados en un paisaje de alta montaña.',
+      'El bosque esclerófilo y las piscinas del río Clarillo ofrecen el "tiempo otro" del agua y el bosque: rituales de bienestar a minutos de Santiago.',
     principios: [
-      'Escapismo inmersivo: el paisaje nevado y las aguas volcánicas aíslan del cotidiano.',
-      'Ritual de bienestar: el circuito termal ordena la visita en estaciones de silencio y calor.',
-      'Placer sensorial: el contraste frío-calor conecta el cuerpo con el territorio.',
+      'Escapismo inmersivo: el refugio selvático del río aísla del cotidiano urbano.',
+      'Ritual de bienestar: el recorrido del sendero ordena la visita en estaciones de silencio y frescor.',
+      'Placer sensorial: el baño de bosque conecta el cuerpo con el territorio mediterráneo.',
     ],
   },
 ];
@@ -471,7 +563,7 @@ const EXP_CHILE: Array<{
 const SummaryNote = () => (
   <p className="mt-5 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
     Cuatro experiencias chilenas de vanguardia —{' '}
-    <strong>un tren del vino, un museo interactivo, un sendero de humedal y un parque termal</strong>{' '}
+    <strong>un tren del vino, un museo interactivo, un sendero de humedal y un baño de naturaleza en el río Clarillo</strong>{' '}
     — que ya aplican los principios de la economía de la experiencia (Pine y Gilmore, 1999) y de la
     interpretación patrimonial (Tilden, 1957): estética, escapismo, educación y entretenimiento
     aplicados al turismo, al viaje y al visitante. Son el referente para el Valle y Cajón del Maipo.
@@ -1136,6 +1228,63 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
                       rastreo, el archivo se carga directo de Commons.
                     </p>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 border-t-2 border-dashed border-[#14281C]/20 pt-6">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center shadow-md shrink-0">
+                  <Milestone className="w-4 h-4" />
+                </span>
+                <div>
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">
+                    El viaje como espiral áurea
+                  </p>
+                  <h3 className="text-lg font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+                    Los hitos del viaje del visitante
+                  </h3>
+                </div>
+              </div>
+
+              <p className="mt-3 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
+                Así como la espiral de Fibonacci ordena el espacio y Palestrina ordena el tiempo, el{' '}
+                <strong>viaje del visitante</strong> se ordena en <strong>hitos</strong> que giran en
+                espiral: cada vuelta crece en proporción áurea, y cada hito amplifica la intensidad del
+                anterior. Un travel journey bien diseñado no es una línea recta — <strong>es una espiral
+                que se expande</strong> desde la anticipación hasta el recuerdo. Los seis hitos del
+                recorrido avanzan en la escala 1, 1, 2, 3, 5, 8… de Fibonacci:
+              </p>
+
+              <div className="mt-6 grid lg:grid-cols-5 gap-6 items-start">
+                <div className="lg:col-span-2 bg-white border border-[#E4D8BF] rounded-2xl p-4">
+                  <TravelJourneySpiral className="w-full text-[#B04E2A]" />
+                  <p className="text-[10px] text-slate-500 text-center mt-2">
+                    Cada hito (φ·1 a φ·8) se acomoda sobre un punto de la espiral: el radio crece φ≈1,618
+                    veces por vuelta.
+                  </p>
+                </div>
+                <div className="lg:col-span-3 grid sm:grid-cols-2 gap-3">
+                  {HITOS.map((h) => (
+                    <div key={h.n} className="bg-white border border-[#E4D8BF] rounded-2xl p-4 flex gap-3 items-start">
+                      <span
+                        className="w-9 h-9 rounded-full text-white grid place-items-center text-sm font-extrabold shrink-0 shadow-sm"
+                        style={{ backgroundColor: h.color }}
+                      >
+                        {h.n}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-extrabold text-[#14281C] leading-tight">{h.titulo}</p>
+                        <p className="text-[11px] text-slate-600 leading-snug mt-0.5">{h.frase}</p>
+                        <span
+                          className="inline-block mt-1.5 rounded-md px-1.5 py-0.5 font-mono text-[9px] font-extrabold"
+                          style={{ backgroundColor: `${h.color}14`, color: h.color }}
+                        >
+                          escala φ·{h.fib}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
