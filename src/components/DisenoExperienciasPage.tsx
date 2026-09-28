@@ -26,6 +26,13 @@ import {
   Pause,
   Volume2,
   Pencil,
+  Ruler,
+  Landmark,
+  Download,
+  ExternalLink,
+  BookOpen,
+  FileText,
+  Brain,
 } from 'lucide-react';
 
 interface DisenoExperienciasPageProps {
@@ -58,6 +65,85 @@ function BranchPattern({ className }: { className?: string }) {
   );
 }
 
+function goldenSpiralD(cx = 160, cy = 160, scale = 3, turns = 3.5) {
+  const phi = 1.618033988749895;
+  const pts: string[] = [];
+  for (let t = 0; t <= Math.PI * 2 * turns; t += Math.PI / 120) {
+    const r = scale * Math.pow(phi, t / (Math.PI / 2));
+    const x = cx + r * Math.cos(t - Math.PI / 2);
+    const y = cy + r * Math.sin(t - Math.PI / 2);
+    pts.push(`${x.toFixed(1)} ${y.toFixed(1)}`);
+  }
+  return `M ${pts.join(' L ')}`;
+}
+
+function GoldenSpiralSVG({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 320 320" fill="none" className={className} aria-hidden="true">
+      {[140, 100, 60, 20].map((rr) => (
+        <circle
+          key={rr}
+          cx="160"
+          cy="160"
+          r={rr}
+          stroke="currentColor"
+          strokeWidth="0.8"
+          opacity="0.18"
+          strokeDasharray="2 6"
+        />
+      ))}
+      <path d={goldenSpiralD(160, 160, 3.4, 3.5)} stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" opacity="0.85" />
+      <circle cx="160" cy="160" r="6" fill="currentColor" opacity="0.9" />
+    </svg>
+  );
+}
+
+function FlowerOfLifeSVG({ className }: { className?: string }) {
+  const R = 34;
+  const centers: Array<[number, number]> = [];
+  for (let q = -2; q <= 2; q++) {
+    for (let r = -2; r <= 2; r++) {
+      if (Math.max(Math.abs(q), Math.abs(r), Math.abs(q + r)) > 2) continue;
+      centers.push([160 + 1.5 * R * q, 160 + R * Math.sqrt(3) * (r + q / 2)]);
+    }
+  }
+  return (
+    <svg viewBox="0 0 320 320" fill="none" className={className} aria-hidden="true">
+      {centers.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r={R} stroke="currentColor" strokeWidth="1.1" opacity={i === 0 ? 0.9 : 0.5} />
+      ))}
+    </svg>
+  );
+}
+
+function GoldenRuler({ className }: { className?: string }) {
+  const fib = [1, 1, 2, 3, 5, 8, 13];
+  let x = 0;
+  return (
+    <svg viewBox="0 0 660 64" fill="none" className={className} aria-hidden="true">
+      {fib.map((n, i) => {
+        const w = (n / 33) * 660;
+        const seg = (
+          <g key={`seg-${i}`}>
+            <rect x={x} y="6" width={w - 1} height="40" fill={['#B04E2A', '#D97706', '#3F6B4A', '#2E4E37', '#14281C', '#6B8F71', '#B4572E'][i]} opacity="0.85" />
+            <text x={x + (w - 1) / 2} y="31" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="800">
+              {n}
+            </text>
+            <line x1={x} y1="6" x2={x} y2="46" stroke="#14281C" strokeWidth="1" opacity="0.7" />
+          </g>
+        );
+        x += w;
+        return seg;
+      })}
+      <line x1="0" y1="46" x2="660" y2="46" stroke="#14281C" strokeWidth="1.4" />
+      <line x1={660} y1="6" x2={660} y2="46" stroke="#14281C" strokeWidth="1" opacity="0.7" />
+      <text x="0" y="61" fill="#14281C" fontSize="11" fontWeight="800">
+        Sucesión de Fibonacci 1+1+2+3+5+8+13 · φ ≈ 1,618
+      </text>
+    </svg>
+  );
+}
+
 function KrebsCycle() {
   const quadrants = [
     { label: 'Arte', sub: 'cuestiona el comportamiento humano', color: '#B04E2A', angle: 225 },
@@ -75,6 +161,8 @@ function KrebsCycle() {
       </defs>
       <circle cx="160" cy="160" r="150" fill="url(#krebsbg)" stroke="#1D3626" strokeWidth="2" />
       <circle cx="160" cy="160" r="150" fill="none" stroke="#1D3626" strokeWidth="2" strokeDasharray="3 7" opacity="0.35" transform="rotate(45 160 160)" />
+      <path d={goldenSpiralD(160, 160, 4.2, 2.4)} fill="none" stroke="#B04E2A" strokeWidth="1.2" strokeDasharray="4 8" opacity="0.55" transform="rotate(90 160 160) scale(1.02)" />
+      <circle cx="160" cy="160" r="148" fill="none" stroke="#B04E2A" strokeWidth="1" opacity="0.45" strokeDasharray="1.5 9" transform="rotate(20 160 160)" />
       <path d="M160 10 A150 150 0 0 1 310 160" fill="none" stroke="#B04E2A" strokeWidth="6" strokeLinecap="round" opacity="0.9" />
       <path d="M310 160 A150 150 0 0 1 160 310" fill="none" stroke="#2E4E37" strokeWidth="6" strokeLinecap="round" opacity="0.9" />
       <path d="M160 310 A150 150 0 0 1 10 160" fill="none" stroke="#D97706" strokeWidth="6" strokeLinecap="round" opacity="0.9" />
@@ -130,6 +218,10 @@ function DesignThinkingWheel() {
           <p className="text-sm font-extrabold text-[#14281C]">Design Thinking</p>
         </div>
       </div>
+      <svg viewBox="0 0 320 320" className="absolute inset-0 w-full h-full" aria-hidden="true">
+        <path d={goldenSpiralD(160, 160, 30, 1.1)} fill="none" stroke="#B04E2A" strokeWidth="1.2" strokeDasharray="4 8" opacity="0.35" transform="rotate(45 160 160)" />
+        <circle cx="160" cy="160" r="150" fill="none" stroke="#B04E2A" strokeWidth="1" opacity="0.3" strokeDasharray="1 10" transform="rotate(90 160 160)" />
+      </svg>
       {modes.map((m, i) => {
         const a = (i / modes.length) * Math.PI * 2 - Math.PI / 2;
         const x = 50 + 42 * Math.cos(a);
@@ -230,6 +322,79 @@ const BIBLIOGRAFIA = [
 
 const PALESTRINA_URL =
   'https://upload.wikimedia.org/wikipedia/commons/d/de/Palestrina_-_Vestiva_i_colli_-_Prima_parte.ogg';
+
+const REPOSITORIO: Array<{
+  autor: string;
+  rol: string;
+  color: string;
+  icon: React.ComponentType<{ className?: string }>;
+  desc: string;
+  textos: Array<{ titulo: string; anio: string; enlace?: string; etiqueta: string; libre: boolean }>;
+}> = [
+  {
+    autor: 'Edgar Morin',
+    rol: 'Pensamiento complejo',
+    color: 'bg-[#B04E2A]',
+    icon: Dna,
+    desc: 'Enseña a pensar la realidad como red de relaciones en lugar de partes aisladas: el visitante, el recurso y el relato son un sistema vivo, no tres archivos.',
+    textos: [
+      {
+        titulo: 'Los siete saberes necesarios para la educación del futuro',
+        anio: 'UNESCO · 1999',
+        enlace: 'https://www.ideassonline.org/public/pdf/LosSieteSaberesNecesariosParaLaEdudelFuturo.pdf',
+        etiqueta: 'PDF · descarga directa (UNESCO)',
+        libre: true,
+      },
+      {
+        titulo: 'Los siete saberes necesarios para la educación del futuro',
+        anio: 'UNESCO · espejo (UV México)',
+        enlace: 'https://www.uv.mx/dgdaie/files/2012/11/CPP-DC-Morin-Los-siete-saberes-necesarios.pdf',
+        etiqueta: 'PDF · descarga directa',
+        libre: true,
+      },
+    ],
+  },
+  {
+    autor: 'Humberto Maturana',
+    rol: 'Biología del conocer',
+    color: 'bg-[#2E4E37]',
+    icon: Brain,
+    desc: 'Explica que el lenguaje y las emociones construyen el mundo compartido: conocer es convivir. Substituir el paradigma del control por la biología del amor y la escucha.',
+    textos: [
+      {
+        titulo: 'Emociones y lenguaje en educación y política',
+        anio: 'Dolmen Ediciones · 1990',
+        enlace:
+          'https://des-juj.infd.edu.ar/sitio/upload/Maturana_Romesin_H_-_Emociones_Y_Lenguaje_En_Educacion_Y_Politica.pdf',
+        etiqueta: 'PDF · edición académica',
+        libre: true,
+      },
+    ],
+  },
+  {
+    autor: 'Yuval Noah Harari',
+    rol: 'Gran historia de la humanidad',
+    color: 'bg-[#3F6B4A]',
+    icon: Globe,
+    desc: 'Pone al homo sapiens dentro de la gran historia: ficciones compartidas, tecnología y sentido. Contexto imprescindible para entender qué busca hoy un visitante.',
+    textos: [
+      {
+        titulo: 'Sapiens: De animales a dioses',
+        anio: 'Debate · 2014',
+        enlace: 'https://www.ynharari.com/es/',
+        etiqueta: 'Libro con derechos · sitio oficial',
+        libre: false,
+      },
+      {
+        titulo: '21 lecciones para el siglo XXI',
+        anio: 'Debate · 2018',
+        enlace: 'https://www.ynharari.com/es/',
+        etiqueta: 'Libro con derechos · sitio oficial',
+        libre: false,
+      },
+    ],
+  },
+];
 
 const EXP_CHILE: Array<{
   src: string;
@@ -338,6 +503,8 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
       {/* ===== HERO BIO ===== */}
       <section className="relative bg-gradient-to-br from-[#0E2018] via-[#14281C] to-[#1D3626] text-white overflow-hidden py-14 sm:py-20 px-4 sm:px-6 border-b border-[#2A4533]">
         <BranchPattern className="absolute inset-0 w-full h-full opacity-25" />
+        <GoldenSpiralSVG className="absolute -left-14 -bottom-24 w-96 h-96 opacity-[0.14] text-[#E8A58B]" />
+        <FlowerOfLifeSVG className="absolute right-0 top-0 w-80 h-80 opacity-[0.08]" />
         <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-[#B04E2A]/25 blur-3xl" />
         <div className="absolute -left-20 bottom-0 w-72 h-72 rounded-full bg-emerald-400/10 blur-3xl" />
 
@@ -542,6 +709,8 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
       {/* ===== MIT · NERI OXMAN ===== */}
       <section className="relative bg-gradient-to-br from-[#14281C] via-[#1D3626] to-[#0E2018] text-white overflow-hidden py-14 sm:py-20 px-4 sm:px-6 border-y border-[#2A4533]">
         <BranchPattern className="absolute inset-0 w-full h-full opacity-15" />
+        <GoldenSpiralSVG className="absolute -right-20 top-6 w-80 h-80 opacity-[0.12] text-[#E8A58B]" />
+        <FlowerOfLifeSVG className="absolute left-6 bottom-6 w-72 h-72 opacity-[0.07]" />
         <div className="relative max-w-7xl mx-auto space-y-10">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B04E2A]/90 text-white text-[10px] font-extrabold uppercase tracking-widest">
@@ -767,11 +936,13 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="relative border-2 border-[#14281C] rounded-2xl overflow-hidden bg-[#FBF7EC] shadow-sm">
           <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#14281C_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
+          <GoldenSpiralSVG className="absolute bottom-4 right-4 w-56 h-56 opacity-[0.07] text-[#14281C] pointer-events-none" />
+          <FlowerOfLifeSVG className="absolute -left-10 top-1/2 w-72 h-72 opacity-[0.05] text-[#B04E2A] pointer-events-none -translate-y-1/2" />
           <div className="absolute left-3 top-3 flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white border border-[#14281C] font-mono text-[9px] font-extrabold uppercase tracking-widest text-[#14281C]">
             <Pencil className="w-3 h-3" /> Plano de paisajismo · E 1:1000
           </div>
           <div className="absolute right-3 top-3 px-2.5 py-1 rounded-lg bg-[#14281C] text-[#E8A58B] font-mono text-[9px] font-extrabold uppercase tracking-widest">
-            Lámina N.º 04
+            Lámina N.º 04 · φ 1,618
           </div>
 
           <div className="relative p-6 sm:p-10 pt-14">
@@ -789,6 +960,12 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
 
             <SummaryNote />
 
+            <div className="mt-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#14281C]">
+              <Ruler className="w-4 h-4" />
+              <span>Escala gráfica · cuadrícula áurea de Fibonacci</span>
+            </div>
+            <GoldenRuler className="mt-2 w-full max-w-2xl text-[#14281C]" />
+
             <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {EXP_CHILE.map((e, i) => (
                 <figure
@@ -802,11 +979,20 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                    <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute left-[38.2%] top-0 bottom-0 w-px bg-white/50" />
+                      <div className="absolute left-[61.8%] top-0 bottom-0 w-px bg-white/50" />
+                      <div className="absolute top-[38.2%] left-0 right-0 h-px bg-white/50" />
+                      <div className="absolute top-[61.8%] left-0 right-0 h-px bg-white/50" />
+                    </div>
                     <span className="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-white/90 text-[#14281C] text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-sm border border-[#14281C]/20">
                       {e.titulo}
                     </span>
                     <span className="absolute right-3 top-3 w-7 h-7 rounded-lg bg-[#14281C] text-[#E8A58B] font-mono text-[11px] font-extrabold grid place-items-center border border-[#E8A58B]/40">
                       {e.plano}
+                    </span>
+                    <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-[#14281C]/80 text-[#E8A58B] font-mono text-[9px] font-extrabold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      φ
                     </span>
                   </div>
                   <figcaption className="p-4 space-y-3 flex-1 flex flex-col">
@@ -840,49 +1026,119 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
         </div>
       </section>
 
-      {/* ===== AMBIENTE SONORO: PALESTRINA ===== */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-4">
-        <div className="bg-[#14281C] text-white rounded-2xl p-5 sm:p-7 border border-[#2A4533] shadow-sm overflow-hidden relative">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#E8A58B_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
-          <div className="relative flex flex-wrap items-center gap-4">
-            <button
-              onClick={toggleAudio}
-              className="w-14 h-14 rounded-full bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white grid place-items-center shadow-lg shadow-[#B04E2A]/30 transition-all cursor-pointer"
-              aria-label={playing ? 'Pausar música de ambiente' : 'Reproducir música de ambiente'}
-            >
-              {playing ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
-            </button>
-            <div className="w-14 h-14 rounded-full border border-[#E8A58B]/40 text-[#E8A58B] grid place-items-center shrink-0">
-              <Volume2 className="w-6 h-6 animate-pulse" style={{ animationDuration: playing ? '2s' : '0s' }} />
+      {/* ===== ARQUITECTURA DE LA EXPERIENCIA · FIBONACCI, GEOMETRÍA SAGRADA Y PALESTRINA ===== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="relative border-2 border-[#14281C] rounded-2xl overflow-hidden bg-[#FBF7EC] shadow-sm">
+          <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#14281C_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
+          <div className="absolute left-3 top-3 flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white border border-[#14281C] font-mono text-[9px] font-extrabold uppercase tracking-widest text-[#14281C]">
+            <Landmark className="w-3 h-3" /> Arquitectura de la experiencia
+          </div>
+          <div className="absolute right-3 top-3 px-2.5 py-1 rounded-lg bg-[#14281C] text-[#E8A58B] font-mono text-[9px] font-extrabold uppercase tracking-widest">
+            Lámina N.º 05 · φ 1,618
+          </div>
+
+          <div className="relative p-6 sm:p-10 pt-14">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md">
+                <Landmark className="w-5 h-5" />
+              </span>
+              <div>
+                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Proporción, ritmo y contrapunto</p>
+                <h2 className="text-2xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+                  La arquitectura de la experiencia
+                </h2>
+              </div>
             </div>
-            <div className="min-w-0 flex-1 space-y-1">
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] flex items-center gap-1.5">
-                <Music2 className="w-3.5 h-3.5" /> Música para ambientar el diseño
-              </p>
-              <p className="text-sm sm:text-base font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-                Giovanni Pierluigi da Palestrina — polifonía renacentista
-              </p>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Palestrina (c. 1525–1594) compuso la polifonía que por siglos definió las catedrales:
-                voces en contrapunto que se entretejen como los hilos de una red. Escuchar su música
-                sitúa el diseño de experiencias en una escala humana y atemporal — igual que este
-                valle, sus cerros isla y sus dunas.
-              </p>
-            </div>
-            <audio
-              ref={audioRef}
-              src={PALESTRINA_URL}
-              loop
-              preload="none"
-              className="hidden"
-              onEnded={() => setPlaying(false)}
-              onPause={() => setPlaying(false)}
-              onPlay={() => setPlaying(true)}
-            />
-            <p className="w-full text-[10px] font-mono text-slate-400">
-              Wikimedia Commons · dominio público · se descarga y reproduce al presionar ▶ · sin
-              rastreo, el archivo se carga directo de Commons.
+
+            <p className="mt-4 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
+              <strong>La arquitectura es música congelada</strong> (Goethe), y la música, arquitectura
+              que fluye. En esta lámina, la <strong>sucesión de Fibonacci</strong> y la{' '}
+              <strong>geometría sagrada</strong> —la espiral áurea, la flor de la vida, la sección
+              φ = 1,618— son el mismo andamiaje del que se sirve la arquitectura para ordenar espacios,
+              y del que se sirve la <strong>polifonía de Giovanni Pierluigi da Palestrina</strong> para
+              ordenar el tiempo: voces en contrapunto que se entretejen con proporción y gracia, como
+              columnas, arcos y bóvedas que articulan el silencio de una catedral.
             </p>
+
+            <div className="mt-8 grid lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white border border-[#E4D8BF] rounded-2xl p-5 space-y-3 flex flex-col">
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Espiral de Fibonacci</p>
+                  <GoldenSpiralSVG className="w-full text-[#B04E2A]" />
+                  <p className="text-[11px] text-slate-600 leading-relaxed flex-1">
+                    Cada cuarto de vuelta crece en la proporción áurea. La naturaleza la usa para
+                    conchas, galaxias y girasoles; la arquitectura la usa para fachadas y plantas.
+                    Una experiencia también necesita una escala: la del valor, la del asombro.
+                  </p>
+                </div>
+                <div className="bg-white border border-[#E4D8BF] rounded-2xl p-5 space-y-3 flex flex-col">
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Flor de la vida</p>
+                  <FlowerOfLifeSVG className="w-full text-[#2E4E37]" />
+                  <p className="text-[11px] text-slate-600 leading-relaxed flex-1">
+                    Círculos que se superponen sin perder el centro: la <em>flor de la vida</em> es el
+                    emblema de la geometría sagrada. En interpretación, es la metáfora de las{' '}
+                    <strong>experiencias entramadas</strong>: medios que se tocan y se contienen,
+                    revelando siempre el mismo centro —el territorio, el mensaje.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="bg-white border border-[#E4D8BF] rounded-2xl p-5 space-y-3">
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Regla del armonista</p>
+                  <GoldenRuler className="w-full text-[#14281C]" />
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    La sucesión 1, 1, 2, 3, 5, 8, 13… organiza la escala de una sala, de un plano o de un
+                    recorrido. En diseño de experiencias equivale a <strong>gradar las intensidades</strong>:
+                    qué se muestra primero, qué se deja para después, cuándo se abre el horizonte.
+                  </p>
+                </div>
+
+                <div className="bg-[#14281C] text-white rounded-2xl p-5 sm:p-7 border border-[#2A4533] shadow-sm overflow-hidden relative">
+                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#E8A58B_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
+                  <div className="relative flex flex-wrap items-center gap-4">
+                    <button
+                      onClick={toggleAudio}
+                      className="w-14 h-14 rounded-full bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white grid place-items-center shadow-lg shadow-[#B04E2A]/30 transition-all cursor-pointer"
+                      aria-label={playing ? 'Pausar música de Palestrina' : 'Reproducir música de Palestrina'}
+                    >
+                      {playing ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
+                    </button>
+                    <div className="w-14 h-14 rounded-full border border-[#E8A58B]/40 text-[#E8A58B] grid place-items-center shrink-0">
+                      <Volume2 className="w-6 h-6 animate-pulse" style={{ animationDuration: playing ? '2s' : '0s' }} />
+                    </div>
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] flex items-center gap-1.5">
+                        <Music2 className="w-3.5 h-3.5" /> La música de esta arquitectura
+                      </p>
+                      <p className="text-sm sm:text-base font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
+                        Giovanni Pierluigi da Palestrina — polifonía renacentista
+                      </p>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Palestrina (c. 1525–1594) compuso la polifonía que por siglos definió las
+                        catedrales y el vocabulario tonal de Occidente. Cada vez que se le escucha, se
+                        escucha la <strong>arquitectura sonora de una experiencia</strong>: voces en
+                        equilibrio como columnas, proporción áurea hecha contrapunto.
+                      </p>
+                    </div>
+                    <audio
+                      ref={audioRef}
+                      src={PALESTRINA_URL}
+                      loop
+                      preload="none"
+                      className="hidden"
+                      onEnded={() => setPlaying(false)}
+                      onPause={() => setPlaying(false)}
+                      onPlay={() => setPlaying(true)}
+                    />
+                    <p className="w-full text-[10px] font-mono text-slate-400">
+                      Wikimedia Commons · dominio público · se descarga y reproduce al presionar ▶ · sin
+                      rastreo, el archivo se carga directo de Commons.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -927,6 +1183,88 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
         </div>
       </section>
 
+      {/* ===== REPOSITORIO DE TEXTOS ===== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <div className="relative border-2 border-[#14281C] rounded-2xl overflow-hidden bg-[#FBF7EC] shadow-sm">
+          <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#14281C_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
+          <div className="absolute left-3 top-3 flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white border border-[#14281C] font-mono text-[9px] font-extrabold uppercase tracking-widest text-[#14281C]">
+            <FileText className="w-3 h-3" /> Lámina N.º 06 · Biblioteca abierta
+          </div>
+
+          <div className="relative p-6 sm:p-10 pt-14">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center shadow-md">
+                <BookOpen className="w-5 h-5" />
+              </span>
+              <div>
+                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Para ampliar el mundo interior</p>
+                <h2 className="text-2xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+                  Repositorio de textos de la experiencia humana
+                </h2>
+              </div>
+            </div>
+
+            <p className="mt-4 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
+              Diseñar experiencias es diseñar <strong>mundos interiores</strong>. Por eso este repositorio
+              reúne textos recomendados de tres pensadores que ampliaron el mundo de la experiencia
+              humana: <strong>Edgar Morin</strong> (el pensamiento complejo),{' '}
+              <strong>Yuval Harari</strong> (la gran historia de la humanidad) y{' '}
+              <strong>Humberto Maturana</strong> (la biología del conocer y del amar). Los marcados como{' '}
+              <strong>PDF</strong> se descargan directamente en su edición de libre consulta; los libros
+              comerciales se enlazan a su fuente oficial para su consulta o préstamo en bibliotecas.
+            </p>
+
+            <div className="mt-8 grid md:grid-cols-3 gap-5">
+              {REPOSITORIO.map((a) => {
+                const Icon = a.icon;
+                return (
+                  <div key={a.autor} className="bg-white border border-[#E4D8BF] rounded-2xl p-6 space-y-4 flex flex-col shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <span className={`w-11 h-11 rounded-2xl ${a.color} text-white grid place-items-center shrink-0`}>
+                        <Icon className="w-5 h-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-extrabold text-[#14281C] leading-none">{a.autor}</h3>
+                        <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A] mt-1">
+                          {a.rol}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed flex-1 text-justify">{a.desc}</p>
+                    <ul className="space-y-2.5">
+                      {a.textos.map((t) => (
+                        <li key={t.titulo + t.anio} className="rounded-xl border border-dashed border-[#B04E2A]/40 bg-[#F6F1E5] p-3 space-y-2">
+                          <p className="text-[11px] font-extrabold text-[#14281C] leading-snug">{t.titulo}</p>
+                          <p className="text-[10px] font-mono text-slate-500">{t.anio}</p>
+                          <a
+                            href={t.enlace}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest rounded-lg px-2.5 py-1.5 transition-all ${
+                              t.libre
+                                ? 'bg-[#B04E2A] text-white hover:bg-[#9A3F1E]'
+                                : 'bg-[#14281C] text-[#E8A58B] hover:bg-[#2E4E37]'
+                            }`}
+                          >
+                            {t.libre ? <Download className="w-3.5 h-3.5" /> : <ExternalLink className="w-3.5 h-3.5" />}
+                            {t.etiqueta}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+
+            <p className="mt-5 text-[10px] font-mono text-slate-500">
+              Enlaces externos verificados con fecha de acceso • contenido respectivo a sus autores y
+              editores • textos PDF en ediciones de libre consulta con fines educativos.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ===== BIBLIOGRAFÍA ===== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="flex items-center gap-3 mb-2">
@@ -936,7 +1274,7 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
           <div>
             <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Referencias</p>
             <h2 className="text-2xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-              Bibliografía (APA 7.ª edición)
+              Bibliografía
             </h2>
           </div>
         </div>
