@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   ArrowRight,
   Feather,
@@ -17,6 +17,15 @@ import {
   HeartHandshake,
   Globe,
   Map,
+  TrainFront,
+  Building2,
+  Footprints,
+  Droplets,
+  Music2,
+  Play,
+  Pause,
+  Volume2,
+  Pencil,
 } from 'lucide-react';
 
 interface DisenoExperienciasPageProps {
@@ -219,41 +228,110 @@ const BIBLIOGRAFIA = [
   'Tilden, F. (1957). Interpreting our heritage (reimpresión 2006, trad. al español). University of North Carolina Press.',
 ];
 
-const IMG_BIO = [
+const PALESTRINA_URL =
+  'https://upload.wikimedia.org/wikipedia/commons/d/de/Palestrina_-_Vestiva_i_colli_-_Prima_parte.ogg';
+
+const EXP_CHILE: Array<{
+  src: string;
+  file: string;
+  titulo: string;
+  plano: string;
+  principe: string;
+  caption: string;
+  icon: React.ComponentType<{ className?: string }>;
+  principios: string[];
+}> = [
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Spider_web_Luc_Viatour.jpg/640px-Spider_web_Luc_Viatour.jpg',
-    file: 'File:Spider_web_Luc_Viatour.jpg',
-    titulo: 'Trama de seda',
-    caption: 'Una sola fibra se organiza en una red adaptativa: la metáfora de un sistema interpretativo flexible.',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/0/02/Ramal_talca_constituci%C3%B3n_06.jpg',
+    file: 'File:Ramal talca constitución 06.jpg',
+    titulo: 'Tren del vino (EFE) · Ramal Talca-Constitución',
+    plano: 'EX-1',
+    principe: 'Escapismo',
+    icon: TrainFront,
+    caption:
+      'Los ramales patrimoniales se reinventan como experiencia: viajar lento por el Maule degustando vinos convierte el traslado en el destino.',
+    principios: [
+      'Escapismo (Pine y Gilmore, 1999): el pasajero se sumerge en un mundo de paisaje, historia y sabor.',
+      'Relevancia personal (Tilden, 1957): conecta con la memoria ferroviaria y la viticultura del Maule.',
+      'Entretenimiento activo: recorridos temáticos, cuentos del ramal, paradas que encadenan sentido.',
+    ],
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Silkworm_Cocoon_%28PSF%29.png/640px-Silkworm_Cocoon_%28PSF%29.png',
-    file: 'File:Silkworm_Cocoon (PSF).png',
-    titulo: 'Capullo de gusano de seda',
-    caption: 'Inspiración del Silk Pavilion del Mediated Matter (MIT): 6.500 gusanos co-crearon una cúpula con un hilo continuo.',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Museo_Interactivo_Mirador-01.jpg',
+    file: 'File:Museo Interactivo Mirador-01.jpg',
+    titulo: 'Museo Interactivo Mirador (MIM)',
+    plano: 'EX-2',
+    principe: 'Educación',
+    icon: Building2,
+    caption:
+      'El MIM transformó la exhibición en interacción: cada sala y su parque convierten al visitante en protagonista del aprendizaje.',
+    principios: [
+      'Educación experiencial: aprender tocando, experimentando y preguntando (Dewey, 1938).',
+      'Diseño universal: museo y parque abiertos, familiares y multigeneracionales.',
+      'Escapismo y juego: la curiosidad se vuelve el hilo conductor del recorrido.',
+    ],
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/MyHelianthus_annuus.jpg/640px-MyHelianthus_annuus.jpg',
-    file: 'File:MyHelianthus_annuus.jpg',
-    titulo: 'Filotaxis de girasol',
-    caption: 'La secuencia de Fibonacci organiza cientos de semillas en un patrón eficiente: diversidad que cabe en un solo sistema.',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Parque_Nacional_Chilo%C3%A9_-_camino_de_madera.jpg',
+    file: 'File:Parque Nacional Chiloé - camino de madera.jpg',
+    titulo: 'Senderos interpretativos (pasarelas de turbera)',
+    plano: 'EX-3',
+    principe: 'Estética',
+    icon: Footprints,
+    caption:
+      'Los senderos de CONAF en humedales chilenos enseñan a pisar suave: pasarelas que llevan al visitante adentro del paisaje sin dañarlo.',
+    principios: [
+      'Estética in situ (Pine y Gilmore, 1999): el recurso se revela a la vista del propio recurso.',
+      'Interpretación in situ (Tilden, 1957): señalética que provoca, no que abruma.',
+      'Sustentabilidad: baja intervención y capacidad de carga cuidada del sitio frágil.',
+    ],
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Shoehorn_oyster_mushroom_-_Flickr_-_CAJC%2C_in_the_PNW.jpg/640px-Shoehorn_oyster_mushroom_-_Flickr_-_CAJC%2C_in_the_PNW.jpg',
-    file: 'File:Shoehorn oyster mushroom - Flickr - CAJC, in the PNW.jpg',
-    titulo: 'Micelio',
-    caption: 'Redes subterráneas que conectan organismos: la "infraestructura invisible" de los ecosistemas, modelo de redes de actores.',
-  },
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Aerial_Roots_Mangrove_Tree_in_Grand_Bahama.jpg/640px-Aerial_Roots_Mangrove_Tree_in_Grand_Bahama.jpg',
-    file: 'File:Aerial Roots Mangrove Tree in Grand Bahama.jpg',
-    titulo: 'Raíces aéreas de mangle',
-    caption: 'Flexibilidad biológica: el mismo organismo se adapta a mareas, suelos y presiones distintas de su entorno.',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Termas_de_Chill%C3%A1n%2C_Chile.jpg/640px-Termas_de_Chill%C3%A1n%2C_Chile.jpg',
+    file: 'File:Termas de Chillán, Chile.jpg',
+    titulo: 'Parques termales de la Cordillera',
+    plano: 'EX-4',
+    principe: 'Escapismo',
+    icon: Droplets,
+    caption:
+      'Los parques termales andinos ofrecen el "tiempo otro" del agua y la nieve: rituales de bienestar anclados en un paisaje de alta montaña.',
+    principios: [
+      'Escapismo inmersivo: el paisaje nevado y las aguas volcánicas aíslan del cotidiano.',
+      'Ritual de bienestar: el circuito termal ordena la visita en estaciones de silencio y calor.',
+      'Placer sensorial: el contraste frío-calor conecta el cuerpo con el territorio.',
+    ],
   },
 ];
 
+const SummaryNote = () => (
+  <p className="mt-5 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
+    Cuatro experiencias chilenas de vanguardia —{' '}
+    <strong>un tren del vino, un museo interactivo, un sendero de humedal y un parque termal</strong>{' '}
+    — que ya aplican los principios de la economía de la experiencia (Pine y Gilmore, 1999) y de la
+    interpretación patrimonial (Tilden, 1957): estética, escapismo, educación y entretenimiento
+    aplicados al turismo, al viaje y al visitante. Son el referente para el Valle y Cajón del Maipo.
+  </p>
+);
+
 export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack }) => {
   const [activo, setActivo] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const toggleAudio = async () => {
+    const a = audioRef.current;
+    if (!a) return;
+    try {
+      if (playing) {
+        a.pause();
+        setPlaying(false);
+      } else {
+        await a.play();
+        setPlaying(true);
+      }
+    } catch {
+      setPlaying(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-20 font-sans">
@@ -685,43 +763,127 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
         </div>
       </section>
 
-      {/* ===== GALERÍA BIO ===== */}
+      {/* ===== EXPERIENCIAS CHILENAS DE REFERENCIA ===== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md">
-            <Leaf className="w-5 h-5" />
-          </span>
-          <div>
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Imaginería de inspiración</p>
-            <h2 className="text-2xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-              Estructuras biológicas como referente de diseño
-            </h2>
+        <div className="relative border-2 border-[#14281C] rounded-2xl overflow-hidden bg-[#FBF7EC] shadow-sm">
+          <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#14281C_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
+          <div className="absolute left-3 top-3 flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white border border-[#14281C] font-mono text-[9px] font-extrabold uppercase tracking-widest text-[#14281C]">
+            <Pencil className="w-3 h-3" /> Plano de paisajismo · E 1:1000
+          </div>
+          <div className="absolute right-3 top-3 px-2.5 py-1 rounded-lg bg-[#14281C] text-[#E8A58B] font-mono text-[9px] font-extrabold uppercase tracking-widest">
+            Lámina N.º 04
+          </div>
+
+          <div className="relative p-6 sm:p-10 pt-14">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md">
+                <Compass className="w-5 h-5" />
+              </span>
+              <div>
+                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Experiencias chilenas de referencia</p>
+                <h2 className="text-2xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+                  Casos que ya diseñan la experiencia del visitante
+                </h2>
+              </div>
+            </div>
+
+            <SummaryNote />
+
+            <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {EXP_CHILE.map((e, i) => (
+                <figure
+                  key={e.file}
+                  className="group relative flex flex-col bg-white border border-[#E4D8BF] rounded-2xl overflow-hidden shadow-sm"
+                >
+                  <div className="relative h-44 overflow-hidden bg-[#1D3626]">
+                    <img
+                      src={e.src}
+                      alt={e.titulo}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-white/90 text-[#14281C] text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-sm border border-[#14281C]/20">
+                      {e.titulo}
+                    </span>
+                    <span className="absolute right-3 top-3 w-7 h-7 rounded-lg bg-[#14281C] text-[#E8A58B] font-mono text-[11px] font-extrabold grid place-items-center border border-[#E8A58B]/40">
+                      {e.plano}
+                    </span>
+                  </div>
+                  <figcaption className="p-4 space-y-3 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#B04E2A]">
+                      <e.icon className="w-4 h-4" />
+                      <span className="rounded-md bg-[#B04E2A]/10 px-2 py-0.5 border border-[#B04E2A]/20">{e.principe}</span>
+                    </div>
+                    <h3 className="text-sm font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif] leading-snug">
+                      {e.titulo}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed text-justify flex-1">{e.caption}</p>
+                    <div className="rounded-xl border border-dashed border-[#B04E2A]/40 bg-[#F6F1E5] p-3 space-y-2">
+                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#14281C]">
+                        Principios de la experiencia del visitante
+                      </p>
+                      <ul className="space-y-1.5">
+                        {e.principios.map((p) => (
+                          <li key={p} className="flex gap-1.5 items-start text-[11px] text-slate-700 leading-snug">
+                            <span className="text-[#B04E2A] font-extrabold shrink-0">·</span>
+                            <span className="pl-1 border-l border-[#E4D8BF]">{p}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <p className="text-[10px] font-mono text-slate-400">Wikimedia Commons · {e.file}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {IMG_BIO.map((img, i) => (
-            <figure
-              key={img.file}
-              className={`group bg-white border border-[#E4D8BF] rounded-2xl overflow-hidden shadow-sm ${i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+      {/* ===== AMBIENTE SONORO: PALESTRINA ===== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-4">
+        <div className="bg-[#14281C] text-white rounded-2xl p-5 sm:p-7 border border-[#2A4533] shadow-sm overflow-hidden relative">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#E8A58B_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
+          <div className="relative flex flex-wrap items-center gap-4">
+            <button
+              onClick={toggleAudio}
+              className="w-14 h-14 rounded-full bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white grid place-items-center shadow-lg shadow-[#B04E2A]/30 transition-all cursor-pointer"
+              aria-label={playing ? 'Pausar música de ambiente' : 'Reproducir música de ambiente'}
             >
-              <div className="relative h-44 overflow-hidden bg-[#1D3626]">
-                <img
-                  src={img.src}
-                  alt={img.titulo}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <span className="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-[#14281C]/85 text-white text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-sm">
-                  {img.titulo}
-                </span>
-              </div>
-              <figcaption className="p-4 space-y-1.5">
-                <p className="text-xs text-slate-600 leading-relaxed">{img.caption}</p>
-                <p className="text-[10px] font-mono text-slate-400">Wikimedia Commons · {img.file}</p>
-              </figcaption>
-            </figure>
-          ))}
+              {playing ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
+            </button>
+            <div className="w-14 h-14 rounded-full border border-[#E8A58B]/40 text-[#E8A58B] grid place-items-center shrink-0">
+              <Volume2 className="w-6 h-6 animate-pulse" style={{ animationDuration: playing ? '2s' : '0s' }} />
+            </div>
+            <div className="min-w-0 flex-1 space-y-1">
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] flex items-center gap-1.5">
+                <Music2 className="w-3.5 h-3.5" /> Música para ambientar el diseño
+              </p>
+              <p className="text-sm sm:text-base font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
+                Giovanni Pierluigi da Palestrina — polifonía renacentista
+              </p>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Palestrina (c. 1525–1594) compuso la polifonía que por siglos definió las catedrales:
+                voces en contrapunto que se entretejen como los hilos de una red. Escuchar su música
+                sitúa el diseño de experiencias en una escala humana y atemporal — igual que este
+                valle, sus cerros isla y sus dunas.
+              </p>
+            </div>
+            <audio
+              ref={audioRef}
+              src={PALESTRINA_URL}
+              loop
+              preload="none"
+              className="hidden"
+              onEnded={() => setPlaying(false)}
+              onPause={() => setPlaying(false)}
+              onPlay={() => setPlaying(true)}
+            />
+            <p className="w-full text-[10px] font-mono text-slate-400">
+              Wikimedia Commons · dominio público · se descarga y reproduce al presionar ▶ · sin
+              rastreo, el archivo se carga directo de Commons.
+            </p>
+          </div>
         </div>
       </section>
 
