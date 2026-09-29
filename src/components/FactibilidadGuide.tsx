@@ -453,13 +453,21 @@ export const FactibilidadGuide: React.FC<{ onBack: () => void }> = ({ onBack }) 
             </div>
             <p className="text-sm text-slate-600 leading-relaxed">
               Descarga la planilla de <strong>Retorno de Inversión (ROI)</strong> en Excel, completa los valores
-              amarillos de demanda, costos variables, costos fijos e inversión, y obtén automáticamente: ROI, punto de
-              equilibrio, recuperación de inversión y utilidad neta.
+              amarillos de demanda, costos e inversión, y obtén automáticamente: <strong>ROI, recuperación de la
+              inversión y utilidad neta</strong>.
             </p>
             <div className="bg-[#F6F1E5] rounded-2xl p-4 border border-[#E4D8BF] text-xs text-slate-700 leading-relaxed">
-              <strong>ROI % = ( Ingresos totales − Costos totales − Inversión ) ÷ Inversión × 100</strong>
+              <strong>ROI % = ( Ingresos totales − Costos totales − Inversión ) ÷ Inversión</strong>
               <br />
               Si el ROI es mayor que 0 %, la operación recupera la inversión y genera utilidad en el período analizado.
+            </div>
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs text-emerald-900 leading-relaxed space-y-1">
+              <p className="font-extrabold uppercase tracking-widest text-[10px]">Ejemplos con costos reales</p>
+              <p>
+                • Un <strong>guía certificado en primeros auxilios</strong> cuesta alrededor de{' '}
+                <strong>$50.000 por día</strong>: repartido en un grupo de 25 personas son ~$2.000 por persona.
+              </p>
+              <p>• La planilla ya parte con valores de ejemplo; cambia solo los recuadros amarillos.</p>
             </div>
             <a
               href={roiDownloadUrl}
@@ -539,7 +547,7 @@ export const FactibilidadGuide: React.FC<{ onBack: () => void }> = ({ onBack }) 
                 </li>
                 <li className="flex gap-3 items-start">
                   <span className="mt-1 w-2.5 h-2.5 rounded-full bg-amber-400 flex-shrink-0" />
-                  Punto de equilibrio: visitantes mínimos para no perder dinero.
+                  ROI menor a 0 %: todavía no recuperas la inversión.
                 </li>
                 <li className="flex gap-3 items-start">
                   <span className="mt-1 w-2.5 h-2.5 rounded-full bg-[#E8A58B] flex-shrink-0" />
