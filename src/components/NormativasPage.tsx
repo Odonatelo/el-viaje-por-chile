@@ -86,6 +86,13 @@ const DOCS = [
     tags: ['Operadores', 'Agencias'],
     pdf: '/pdf/NCh3068_Agencias_de_Viajes_Requisitos.pdf',
   },
+  {
+    nr: 'Guía',
+    titulo: 'Servicio de Alcohol y Degustaciones de Vino en Tours — Guía Normativa',
+    meta: 'Síntesis normativa · Ley 19.925, Ley 21.363, Ley 18.455 y Ley 20.423 aplicadas al enoturismo en Chile',
+    tags: ['Enoturismo', 'Vino', 'Alcohol', 'Sernatur'],
+    pdf: '/pdf/Guia_Servicio_Alcohol_Degustacion_Vino_Tours.pdf',
+  },
 ];
 
 const CATEGORIAS = [
@@ -145,9 +152,9 @@ const CATEGORIAS = [
   },
   {
     icon: <UtensilsCrossed className="w-5 h-5" />,
-    titulo: 'Alimentos y sanidad',
-    desc: 'Servicios de alimentación, agua y manipulación de alimentos siguen el reglamento sanitario; claves en turismo rural, campamentos y operación de lodge o picnics patrimoniales.',
-    ejemplos: ['DS 977/96 (Reglamento Sanitario de Alimentos)', 'Manipulación y transporte de alimentos', 'Etiquetado (Ley 20.606)', 'Agua potable en faenas'],
+    titulo: 'Alimentos, bebidas alcohólicas y sanidad',
+    desc: 'Servicios de alimentación, agua y manipulación de alimentos siguen el reglamento sanitario; el servicio y la degustación de vino u otras bebidas alcohólicas se rigen por la Ley de Alcoholes (patentes, horarios y prohibiciones) y la normativa de etiquetado.',
+    ejemplos: ['DS 977/96 (Reglamento Sanitario de Alimentos)', 'Ley 19.925 (Expendio de Bebidas Alcohólicas)', 'Ley 21.363 (etiquetado y publicidad)', 'Manipulación y transporte de alimentos', 'Etiquetado (Ley 20.606)', 'Agua potable en faenas'],
   },
   {
     icon: <Bus className="w-5 h-5" />,
