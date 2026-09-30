@@ -1,8 +1,10 @@
 import { Tour } from '../types';
 import { tourFelinosChile } from './tourFelinosChile';
+import { tourJardinBotanicoUACh } from './tourJardinBotanicoUACh';
 
 export const INITIAL_TOURS: Tour[] = [
   tourFelinosChile,
+  tourJardinBotanicoUACh,
   {
     id: 'tour-patagonia-carrerabaker',
     title: 'Travesía Carretera Austral & Capillas de Mármol: La Joya de Aysén',
