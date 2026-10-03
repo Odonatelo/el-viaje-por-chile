@@ -90,15 +90,65 @@ const ORGS: Org[] = [
     ],
   },
   {
+    id: 'ipal',
+    nombre: 'I-PAL · Interpretación del Patrimonio América Latina y el Caribe',
+    region: 'América Latina y el Caribe',
+    fundada: '2020',
+    enfoque: 'Red profesional de intérpretes',
+    sitio: 'https://www.i-pal.net/',
+    logo: '/images/organizaciones/ipal.png',
+    descripcion:
+      'Organización profesional dedicada a respaldar y fortalecer la labor de los intérpretes del patrimonio de la región. Reúne a intérpretes, guías, educadores y profesionales de museos, parques nacionales, jardines botánicos, acuarios, sitios históricos, áreas protegidas, parques temáticos y espacios afines; fomenta la colaboración, ofrece recursos especializados (biblioteca, glosario, videoteca y boletín) y promueve el reconocimiento de la interpretación del patrimonio como una profesión especializada y esencial para la gestión y valorización del patrimonio en América Latina y el Caribe.',
+    docs: [
+      {
+        titulo: 'Definiciones de Interpretación del Patrimonio',
+        desc: 'Los referentes de la disciplina recogidos por I-PAL, desde Alderson & Low hasta la formulación propia de la organización.',
+        ano: '2025',
+        tipo: 'web',
+        url: 'https://www.i-pal.net/post/definiciones-de-interpretaci%C3%B3n-del-patrimonio',
+      },
+      {
+        titulo: 'Blog I-PAL',
+        desc: 'Artículos del Comité Editorial: interpretación dialógica, planificación interpretativa, innovación y tecnología al servicio del patrimonio.',
+        tipo: 'web',
+        url: 'https://www.i-pal.net/blog',
+      },
+      {
+        titulo: 'Biblioteca',
+        desc: 'Publicaciones, artículos y materiales especializados que apoyan la práctica profesional de la interpretación del patrimonio.',
+        tipo: 'web',
+        url: 'https://www.i-pal.net/biblioteca',
+      },
+      {
+        titulo: 'Glosario',
+        desc: 'Términos y conceptos del campo de la interpretación del patrimonio construidos por la comunidad I-PAL.',
+        tipo: 'web',
+        url: 'https://www.i-pal.net/glosario',
+      },
+      {
+        titulo: 'Videoteca',
+        desc: 'Conferencias, entrevistas y recursos audiovisuales de la red profesional de I-PAL.',
+        tipo: 'web',
+        url: 'https://www.i-pal.net/videoteca',
+      },
+      {
+        titulo: 'Newsletter',
+        desc: 'Boletín informativo de la organización profesional de intérpretes del patrimonio de América Latina y el Caribe.',
+        tipo: 'web',
+        url: 'https://www.i-pal.net/newsletter',
+      },
+    ],
+  },
+  {
     id: 'aip',
     nombre: 'Asociación para la Interpretación del Patrimonio',
-    region: 'España e Iberoamérica',
+    region: 'España',
     fundada: '1993',
     enfoque: 'La interpretación en castellano',
     sitio: 'https://www.interpretaciondelpatrimonio.com/',
     logo: '/images/organizaciones/aip.png',
     descripcion:
-      'La asociación pionera de la interpretación del patrimonio en lengua española. Publica el Boletín de Interpretación, la revista donde la disciplina debate su teoría y su práctica en castellano desde la década de 1990, y organiza encuentros, cursos y el Festival de Intérpretes del Patrimonio. Su trabajo es el puente anglo-hispano del método y un referente para la museografía, la mediación cultural y el turismo patrimonial en España y América Latina.',
+      'La asociación pionera de la interpretación del patrimonio en lengua española. Publica el Boletín de Interpretación, la revista donde la disciplina debate su teoría y su práctica en castellano desde la década de 1990, y organiza encuentros, cursos y el Festival de Intérpretes del Patrimonio. Su trabajo es el puente anglo-hispano del método y un referente para la museografía, la mediación cultural y el turismo patrimonial desde España hacia Iberoamérica.',
     docs: [
       {
         titulo: 'Boletín de Interpretación N.º 33',
@@ -383,8 +433,8 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
             {[
-              { n: '4', t: 'organizaciones de referencia' },
-              { n: '25+', t: 'boletines y publicaciones' },
+              { n: '5', t: 'organizaciones de referencia' },
+              { n: '30+', t: 'boletines y publicaciones' },
               { n: '4', t: 'continentes' },
               { n: '1', t: 'disciplina con método' },
             ].map((s) => (
@@ -436,12 +486,13 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
             La red mundial de intérpretes
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-            Cuatro organizaciones, una misma disciplina
+            Cinco organizaciones, una misma disciplina
           </h2>
           <p className="text-sm text-slate-600 max-w-3xl">
-            Estas organizaciones reúnen a intérpretes del patrimonio de todo el mundo, publican sus
-            investigaciones y definen los estándares de la profesión. Cada una conserva su logotipo,
-            su sitio oficial y su acervo documental.
+            Estas organizaciones reúnen a intérpretes del patrimonio de Norteamérica, América Latina y
+            el Caribe, España, Europa y la red global; publican sus investigaciones y definen los
+            estándares de la profesión. Cada una conserva su logotipo, su sitio oficial y su acervo
+            documental.
           </p>
         </div>
 
