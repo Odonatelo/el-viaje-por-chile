@@ -7,6 +7,7 @@ import {
   ShoppingCart,
   Store,
   Compass,
+  BookOpen,
 } from 'lucide-react';
 import {
   shopProducts,
@@ -237,14 +238,13 @@ const MapProjectCard: React.FC<{ project: TourMapProject }> = ({ project }) => (
   </a>
 );
 
-// Mini strip de "relacionados" para el detalle de cada ruta
+// Mini strip de libros y mapas recomendados para el detalle de cada ruta
 export const RelatedShopStrip: React.FC<{ tourId: string }> = ({ tourId }) => {
-  const relatedProducts = shopProducts.filter((p) => p.tourRefs.includes(tourId));
-  const relatedMaps = tourmapProjects.filter((p) => p.tourRefs.includes(tourId));
+  const picks: ShopProduct[] = shopProducts
+    .filter((p) => p.tourRefs.includes(tourId))
+    .slice(0, 3);
 
-  const picks: ShopProduct[] = relatedProducts.slice(0, 3);
-  const mapPicks: TourMapProject[] = relatedMaps.slice(0, 2);
-  const hasAny = picks.length > 0 || mapPicks.length > 0;
+  const hasAny = picks.length > 0;
 
   if (!hasAny) return null;
 
@@ -253,9 +253,9 @@ export const RelatedShopStrip: React.FC<{ tourId: string }> = ({ tourId }) => {
       <div className="bg-white rounded-3xl border border-[#E4D8BF] shadow-sm overflow-hidden">
         <div className="px-4 sm:px-6 py-4 border-b border-[#E4D8BF] bg-[#F6F1E5]/70 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-4 h-4 text-[#B04E2A]" />
+            <BookOpen className="w-4 h-4 text-[#B04E2A]" />
             <h3 className="font-bold text-sm text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
-              Relacionado en Tienda El Viaje
+              Para profundizar esta ruta
             </h3>
           </div>
           <a
@@ -264,7 +264,7 @@ export const RelatedShopStrip: React.FC<{ tourId: string }> = ({ tourId }) => {
             rel="noopener noreferrer"
             className="text-xs font-bold text-[#B04E2A] hover:text-[#9A3F1E] inline-flex items-center gap-1"
           >
-            Ver tienda completa
+            Ver todo en tiendaelviaje.cl
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
@@ -272,9 +272,6 @@ export const RelatedShopStrip: React.FC<{ tourId: string }> = ({ tourId }) => {
         <div className="p-4 sm:p-6 flex gap-4 overflow-x-auto snap-x pb-2">
           {picks.map((product) => (
             <ProductCard key={product.id} product={product} />
-          ))}
-          {mapPicks.map((project) => (
-            <MapProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>
