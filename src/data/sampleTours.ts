@@ -2,6 +2,7 @@ import { Tour } from '../types';
 import { tourFelinosChile } from './tourFelinosChile';
 import { tourJardinBotanicoUACh } from './tourJardinBotanicoUACh';
 import { tourParqueNacionalPatagonia } from './tourParqueNacionalPatagonia';
+import { tourIglesiasDeChiloe } from './tourIglesiasDeChiloe';
 
 export const INITIAL_TOURS: Tour[] = [
   tourParqueNacionalPatagonia,
@@ -1557,6 +1558,7 @@ export const INITIAL_TOURS: Tour[] = [
       }
     ],
   },
+  tourIglesiasDeChiloe,
   {
     id: 'tour-lota-carbon',
     title: 'Lota y la Epopeya del Carbón: Chiflón del Diablo y Parque Cousiño',

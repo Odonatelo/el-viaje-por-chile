@@ -39,6 +39,7 @@ const T = {
   COLCHAGUA: 'tour-valle-colchagua',
   ALERCE: 'tour-alerce-costero',
   CHILOE: 'tour-chiloe-magico',
+  IGLESIAS: 'tour-iglesias-de-chiloe',
   LOTA: 'tour-lota-carbon',
   ELQUI: 'tour-valle-elqui',
   CHENA: 'tour-santiago-cerro-chena',
@@ -214,7 +215,7 @@ export const shopProducts: ShopProduct[] = [
     url: `${STORE_BASE}/mapa-chile-y-el-mar-de-tourmaps`,
     tag: 'Mapa Desplegable',
     zones: ['Todo Chile'],
-    tourRefs: [T.VALPARAISO, T.CHILOE, T.PESCA, T.LOTA, T.PUERTO_MONTT],
+    tourRefs: [T.VALPARAISO, T.CHILOE, T.IGLESIAS, T.PESCA, T.LOTA, T.PUERTO_MONTT],
   },
   {
     id: 'prod-mapa-sorprende',
@@ -269,7 +270,7 @@ export const shopProducts: ShopProduct[] = [
     url: `${STORE_BASE}/aves-de-chile-desplegable`,
     tag: 'Guía Desplegable',
     zones: ['Todo Chile'],
-    tourRefs: [T.PNP, T.TORRES, T.ALERCE, T.CHILOE, T.FELINOS],
+    tourRefs: [T.PNP, T.TORRES, T.ALERCE, T.CHILOE, T.IGLESIAS, T.FELINOS],
   },
   {
     id: 'prod-trekking-libro',
@@ -291,7 +292,7 @@ export const shopProducts: ShopProduct[] = [
     url: `${STORE_BASE}/monstruos-marinos-fresia-grimberg`,
     tag: 'Guía Visual',
     zones: ['Chile Insular', 'Mar de Chile'],
-    tourRefs: [T.PUERTO_MONTT, T.CHILOE, T.VALPARAISO, T.PESCA],
+    tourRefs: [T.PUERTO_MONTT, T.CHILOE, T.IGLESIAS, T.VALPARAISO, T.PESCA],
   },
   {
     id: 'prod-desierto-florece',
