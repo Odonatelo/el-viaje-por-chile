@@ -235,7 +235,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-20T14:30:00Z',
     author: {
       name: 'Rodrigo Astudillo & Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Especialista en Patrimonio y Rutas de Chile (CMS 37121)',
       bio: 'Divulgador del patrimonio porteño y cartografía ilustrada de Chile en Tienda El Viaje.',
       verified: true
@@ -399,7 +399,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-15T09:15:00Z',
     author: {
       name: 'Equipo Cartografía Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Investigadores de Historia y Geografía (CMS 37121)',
       bio: 'Creadores de mapas patrimoniales y guías de viaje por Chile.',
       verified: true
@@ -550,7 +550,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-18T16:45:00Z',
     author: {
       name: 'Guías del Altiplano & Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Guías Especializados en Desierto y Astronomía (CMS 37121)',
       bio: 'Divulgadores de la naturaleza, geología y saberes ancestrales atacameños.',
       verified: true
@@ -701,7 +701,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-09-12T10:00:00Z',
     author: {
       name: 'Expedición Tienda El Viaje Patagonia',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Guías de Montaña & Guardaparques (CMS 37121)',
       bio: 'Apasionados por la preservación de los Campos de Hielo Sur y la fauna patagónica. Colaboran con CONAF y los operadores del parque: Las Torres Patagonia y Vertice Patagonia, validando información 2025–2026 sobre entradas, refugios y trazados de los circuitos W y O.',
       verified: true
@@ -1147,7 +1147,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-24T10:00:00Z',
     author: {
       name: 'Tienda El Viaje • Rutas del Vino',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Sommeliers e Investigadores del Patrimonio Agrícola (CMS 37121)',
       bio: 'Especialistas en enoturismo, paisajes rurales y cultura campesina chilena.',
       verified: true
@@ -1291,7 +1291,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-25T11:20:00Z',
     author: {
       name: 'Guardaparques & Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Conservacionistas de Bosque Nativo (CMS 37121)',
       bio: 'Divulgadores de la flora endémica y humedales de la Selva Valdiviana.',
       verified: true
@@ -1435,7 +1435,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-26T14:10:00Z',
     author: {
       name: 'Culturas del Sur & Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Investigadores de Tradición Chilota (CMS 37121)',
       bio: 'Promotores de la carpintería de ribera y la mitología de Chiloé.',
       verified: true
@@ -1580,7 +1580,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-27T15:30:00Z',
     author: {
       name: 'Memoria del Carbón & Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Historiadores y Guías de Lota (CMS 37121)',
       bio: 'Preservadores del patrimonio industrial y la novela Sub Terra de Baldomero Lillo.',
       verified: true
@@ -1724,7 +1724,7 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-02-28T09:00:00Z',
     author: {
       name: 'Astro-Turismo & Tienda El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: '/entorno/Recurso-6.png',
       role: 'Divulgadores Astronómicos y Literarios (CMS 37121)',
       bio: 'Guías de los cielos oscuros protegidos y la poesía mistraliana.',
       verified: true
@@ -1874,9 +1874,9 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-04-30T17:00:00Z',
     author: {
       name: 'Fundación Cerros Isla & Equipo Cartografía El Viaje',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      avatar: '/images/fundacion-cerros-isla.svg',
       role: 'Interpretación del Patrimonio Natural y Arqueológico de los Cerros Isla de Santiago',
-      bio: 'Investigación y proyectos para la conservación de los 26 cerros isla de Santiago. www.fundacioncerrosisla.cl y www.elviaje.cl.',
+      bio: 'Investigación y proyectos para la conservación de los 26 cerros isla de Santiago. www.cerrosisla.cl y www.elviaje.cl.',
       verified: true
     },
     socialLinks: {
@@ -2095,7 +2095,7 @@ export const INITIAL_TOURS: Tour[] = [
     id: 'tour-santiago-cerro-la-cantera',
     title: 'Cerro Escuela La Cantera: el aula al aire libre de San Bernardo',
     tagline: '7 hectáreas de bosque, cuatro canteras y la memoria del corredor ecológico junto al Chena y el Quimey',
-    description: 'Audioguía de interpretación del Cerro La Cantera —también conocido como Cerro Hasbún— en San Bernardo (51 msnm y 7 hectáreas). Descubre el eslabón del corredor verde que vincula los cerros Chena, Quimey, Negro, Los Morros y el río Maipo: caminos accesibles, canteras ocultas bajo la fronda, la flora de huilli y lirio de campo, el canto del chercán y el sueño de la Fundación Cerro Escuela La Cantera de transformar esta loma en un parque educativo abierto a toda la comunidad.',
+    description: 'Ruta creada por la Fundación Cerro Escuela La Cantera (cerroescuelalacantera.cl), con la cartografía y la audioguía de El Viaje Por Chile (www.elviaje.cl). Audioguía de interpretación del Cerro La Cantera —también conocido como Cerro Hasbún— en San Bernardo (51 msnm y 7 hectáreas). Descubre el eslabón del corredor verde que vincula los cerros Chena, Quimey, Negro, Los Morros y el río Maipo: caminos accesibles, canteras ocultas bajo la fronda, la flora de huilli y lirio de campo, el canto del chercán y el sueño de la Fundación Cerro Escuela La Cantera de transformar esta loma en un parque educativo abierto a toda la comunidad.',
     coverImage: 'https://static.wixstatic.com/media/8e4003_4bd1b4a81db1482381362d81dca4c75a~mv2.jpg/v1/fill/w_1200,h_750,al_c,q_80/cantera-cover.jpg',
     city: 'San Bernardo',
     country: 'Chile',
@@ -2112,13 +2112,13 @@ export const INITIAL_TOURS: Tour[] = [
     updatedAt: '2026-04-25T12:30:00Z',
     author: {
       name: 'Fundación Cerro Escuela La Cantera & El Viaje Por Chile',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: '/images/cerro-escuela-la-cantera.png',
       role: 'Educación ambiental y diseño participativo de senderos (Cerros Isla)',
-      bio: 'Proyecto educativo, social y ecológico para conservar, restaurar y valorar el Cerro La Cantera. www.fundacioncerrosisla.cl/cerroescuelalacantera.',
+      bio: 'Proyecto educativo, social y ecológico para conservar, restaurar y valorar el Cerro La Cantera. Sitio web oficial del proyecto: cerroescuelalacantera.cl.',
       verified: true
     },
     socialLinks: {
-      website: 'https://www.fundacioncerrosisla.cl/cerroescuelalacantera',
+      website: 'https://cerroescuelalacantera.cl',
       instagram: 'https://www.instagram.com/cerrosisla/'
     },
     generalDocuments: [
@@ -2137,6 +2137,14 @@ export const INITIAL_TOURS: Tour[] = [
         url: '/pdf/doc-guia-florafauna-cantera.pdf',
         size: '72 KB',
         description: 'Fichas ilustradas de las especies que se protegerán y propagarán en el vivero del cerro.'
+      },
+      {
+        id: 'doc-web-cantera',
+        name: 'Sitio web oficial del proyecto: cerroescuelalacantera.cl',
+        type: 'guide',
+        url: 'https://cerroescuelalacantera.cl',
+        size: '—',
+        description: 'El nuevo sitio de la Fundación Cerro Escuela La Cantera: el cerro y su biodiversidad, la historia del proyecto, cómo participar y el estado del parque educativo.'
       }
     ],
     stops: [
