@@ -1,8 +1,10 @@
 import { Tour } from '../types';
 import { tourFelinosChile } from './tourFelinosChile';
 import { tourJardinBotanicoUACh } from './tourJardinBotanicoUACh';
+import { tourParqueNacionalPatagonia } from './tourParqueNacionalPatagonia';
 
 export const INITIAL_TOURS: Tour[] = [
+  tourParqueNacionalPatagonia,
   tourFelinosChile,
   tourJardinBotanicoUACh,
   {
