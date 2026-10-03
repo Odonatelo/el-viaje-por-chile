@@ -1,4 +1,13 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+  useReducedMotion,
+} from 'motion/react';
 import {
   ArrowRight,
   History,
@@ -22,6 +31,11 @@ import {
   GraduationCap,
   BadgeCheck,
   MapPin,
+  ChevronDown,
+  X,
+  Expand,
+  Sparkles,
+  MousePointerClick,
 } from 'lucide-react';
 
 interface HistoriaInterpretacionProps {
@@ -193,47 +207,351 @@ const TENDENCIAS = [
     a: 'ECMPO, turismo de base comunitaria y pueblos originarios: la interpretación de hoy es colaborativa. El conocimiento local se convierte en autoría, y el visitante transita de observador a invitado del territorio.' },
 ];
 
+const CINTA = [
+  '1864 · Yosemite Grant Act',
+  '1872 · Yellowstone, primer parque nacional',
+  '1892 · Nace el Sierra Club',
+  '1903 · Muir acampa con Roosevelt',
+  '1916 · National Park Service',
+  '1920 · Guías naturalistas',
+  '1957 · Tilden publica su método',
+  '1988 · FAO, taller en Chile',
+  '1992 · Morales y Ham',
+  'Hoy · Audioguías y mapas ilustrados',
+];
+
+const ESTADISTICAS = [
+  { v: 3, suf: '', l: 'Figuras fundadoras' },
+  { v: 17, suf: '', l: 'Jalones de la cronología' },
+  { v: 160, suf: '+', l: 'Años de método' },
+  { v: 21, suf: '', l: 'Principios (Tilden + 15)' },
+];
+
+const SECCIONES = [
+  { id: 'inicio', label: 'Inicio' },
+  { id: 'nacimiento', label: 'Nacimiento' },
+  { id: 'cronologia', label: 'Cronología' },
+  { id: 'iberoamerica', label: 'Morales & Ham' },
+  { id: 'principios', label: 'Principios' },
+  { id: 'tourmaps', label: 'Chile ilustrado' },
+  { id: 'cierre', label: 'Cierre' },
+];
+
+const TOURMAPS_GALERIA = [
+  { src: '/images/historia/tourmaps/mapa-puerto-montt.jpg',
+    alt: 'Mapa ilustrado e interpretativo de Puerto Montt, de Tourmaps',
+    t: 'Puerto Montt',
+    d: 'Mar, volcanes y patrimonio en la capital de Los Lagos: un mapa-ilustrado que invita a caminar con asombro por la ciudad y su fiordo.',
+    tag: 'Mapa ilustrado' },
+  { src: '/images/historia/tourmaps/mapa-rio-san-pedro.jpg',
+    alt: 'Mapa ilustrado e interpretativo de la Ruta del Río San Pedro, de Tourmaps',
+    t: 'Ruta del Río San Pedro',
+    d: '“Los Lagos Invita”: la cuenca narrada con hitos, relieves y señales — interpretación territorial hecha diseño.',
+    tag: 'Mapa ilustrado' },
+  { src: '/images/historia/tourmaps/mapa-maullin.jpg',
+    alt: 'Mapa ilustrado e interpretativo de Maullín, de Tourmaps',
+    t: 'Maullín · Naturaleza y entretención',
+    d: 'Un estuario, su gente y sus historias convertidos en material de interpretación: el patrimonio como ribete del mapa.',
+    tag: 'Mapa ilustrado' },
+  { src: '/images/historia/tourmaps/mapa-valdivia.jpg',
+    alt: 'Mapa ilustrado e interpretativo de Valdivia, de Tourmaps',
+    t: 'Valdivia · la ciudad de los ríos',
+    d: 'Ríos, fortificaciones españolas y bosque valdiviano en clave interpretativa: la historia como invitación a recorrer.',
+    tag: 'Mapa ilustrado' },
+  { src: '/images/historia/tourmaps/mapa-mural.jpg',
+    alt: 'Mapa mural regional y comunal de la Oficina de Turismo de Puerto Montt, realizado por Tourmaps',
+    t: 'Mapa mural en la oficina de turismo',
+    d: 'Un mapa regional y comunal instalado como pieza de interpretación a gran escala en la Oficina de Turismo de Puerto Montt.',
+    tag: 'En el terreno' },
+  { src: '/images/historia/tourmaps/mapa-navimag.jpg',
+    alt: 'Entrega de mapas ilustrados de Tourmaps a la empresa Navimag',
+    t: 'De Tourmaps a la bahía',
+    d: 'La interpretación viaja también en la empresa: entrega de mapas ilustrados que llevan el territorio a bordo.',
+    tag: 'En el terreno' },
+];
+
+function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    let raf = 0;
+    const start = performance.now();
+    const dur = 1500;
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(value * e));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value]);
+  return (
+    <div ref={ref} className="text-center">
+      <p className="font-['Cormorant_Garamond',Georgia,serif] text-4xl sm:text-5xl font-extrabold text-[#E8A58B] tabular-nums">
+        {n}
+        <span className="text-[#D97706]">{suffix}</span>
+      </p>
+      <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#CDD9CF] mt-1">{label}</p>
+    </div>
+  );
+}
+
+function GaleriaModal({
+  item,
+  onClose,
+}: {
+  item: (typeof TOURMAPS_GALERIA)[number];
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+  return (
+    <motion.div
+      className="fixed inset-0 z-[90] bg-[#14281C]/85 backdrop-blur-sm flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+    >
+      <motion.div
+        className="relative bg-white rounded-3xl overflow-hidden max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-[#E4D8BF]"
+        initial={{ scale: 0.9, y: 30, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.92, y: 20, opacity: 0 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img src={item.src} alt={item.alt} className="w-full object-cover max-h-[58vh]" />
+        <div className="p-5 sm:p-6 bg-[#F6F1E5]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14281C] text-[#E8A58B] text-[10px] font-extrabold uppercase tracking-widest mb-3">
+            <Expand className="w-3 h-3" />
+            {item.tag}
+          </span>
+          <h3 className="text-xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">{item.t}</h3>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2">{item.d}</p>
+          <p className="text-[10px] text-slate-500 mt-3">
+            Imagen: Tourmaps · Diseño y Marketing Turístico (www.tourmaps.cl)
+          </p>
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="Cerrar imagen"
+          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[#14281C]/80 backdrop-blur text-white grid place-items-center hover:bg-[#14281C] transition-colors"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ onBack }) => {
+  const reduce = useReducedMotion();
+
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const yDecorA = useTransform(heroProgress, (v) => (reduce ? 0 : v * 120));
+  const yDecorB = useTransform(heroProgress, (v) => (reduce ? 0 : v * 260));
+  const heroFade = useTransform(heroProgress, [0, 0.8], [1, 0.25]);
+
+  const { scrollYProgress: pageProgress } = useScroll();
+  const barScale = useSpring(pageProgress, { stiffness: 120, damping: 30 });
+
+  const cronRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: cronProgress } = useScroll({ target: cronRef, offset: ['start 80%', 'end 55%'] });
+  const cronFill = useSpring(cronProgress, { stiffness: 90, damping: 30 });
+
+  const [activeSec, setActiveSec] = useState('inicio');
+  const [activeCrono, setActiveCrono] = useState(CRONOLOGIA[0].anio);
+  const [openQuote, setOpenQuote] = useState<number | null>(null);
+  const [modalIdx, setModalIdx] = useState<number | null>(null);
+
+  useEffect(() => {
+    const ids = SECCIONES.map((s) => s.id);
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveSec(e.target.id);
+        });
+      },
+      { rootMargin: '-25% 0px -65% 0px' },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const els = document.querySelectorAll('[data-cronojal]');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveCrono(e.target.getAttribute('data-anio') || CRONOLOGIA[0].anio);
+        });
+      },
+      { rootMargin: '-30% 0px -55% 0px' },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  };
+
   return (
     <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-20 font-sans">
+      {/* ===== BARRA DE PROGRESO + NAV STICKY ===== */}
+      <div className="sticky top-0 z-40 bg-[#F6F1E5]/85 backdrop-blur-md border-b border-[#E4D8BF]/70">
+        <div className="h-[3px] bg-[#E4D8BF]">
+          <motion.div
+            className="h-full bg-gradient-to-r from-[#B04E2A] via-[#D97706] to-[#E8A58B] origin-left"
+            style={{ scaleX: barScale }}
+          />
+        </div>
+        <nav className="no-scrollbar flex items-center gap-1.5 overflow-x-auto px-3 sm:px-6 py-2" aria-label="Secciones de la historia de la interpretación">
+          {SECCIONES.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => scrollToSection(s.id)}
+              className={`whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider transition-all ${
+                activeSec === s.id
+                  ? 'bg-[#14281C] text-[#E8A58B] shadow-md'
+                  : 'text-[#5A6B5E] hover:bg-white hover:text-[#14281C] border border-transparent'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </nav>
+      </div>
 
       {/* ===== HERO ===== */}
-      <section className="relative bg-gradient-to-br from-[#14281C] via-[#1D3626] to-[#2E4E37] text-white overflow-hidden py-14 sm:py-20 px-4 sm:px-6 border-b border-[#2A4533]">
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#E8A58B_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
-        <div className="absolute -right-12 -top-12 w-56 h-56 rounded-full bg-[#B04E2A]/25 blur-3xl" />
+      <section
+        id="inicio"
+        ref={heroRef}
+        className="relative bg-gradient-to-br from-[#14281C] via-[#1D3626] to-[#2E4E37] text-white overflow-hidden py-14 sm:py-24 px-4 sm:px-6 border-b border-[#2A4533]"
+      >
+        <motion.div className="absolute inset-0 opacity-15 bg-[radial-gradient(#E8A58B_1.4px,transparent_1.4px)] [background-size:22px_22px]" style={{ y: yDecorA }} />
+        <motion.div className="absolute -right-12 -top-12 w-56 h-56 rounded-full bg-[#B04E2A]/25 blur-3xl" style={{ y: yDecorB }} />
+        <motion.div className="absolute -left-20 bottom-0 w-72 h-72 rounded-full bg-[#D97706]/15 blur-3xl" style={{ y: yDecorB }} />
 
-        <div className="relative max-w-5xl mx-auto space-y-6">
+        <div className="relative max-w-5xl mx-auto space-y-8" style={{ opacity: heroFade }}>
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-[#E8A58B] border border-[#B04E2A]/40 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+            <motion.span
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-[#E8A58B] border border-[#B04E2A]/40 text-xs font-bold uppercase tracking-widest backdrop-blur-md"
+            >
               <History className="w-4 h-4" />
               100 años diseñando experiencias para visitantes
-            </span>
-            <button
+            </motion.span>
+            <motion.button
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               onClick={onBack}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold border border-white/15 transition-all"
             >
               <ArrowRight className="w-3.5 h-3.5 rotate-180" />
               Volver a la plataforma
-            </button>
+            </motion.button>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight font-['Cormorant_Garamond',Georgia,serif]">
-            La historia de la{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8A58B] via-[#D97A46] to-[#FBBF24]">
-              interpretación del patrimonio
-            </span>
-          </h1>
-          <p className="text-sm sm:text-lg text-slate-200 max-w-3xl leading-relaxed">
-            Del campamento de John Muir y Theodore Roosevelt en Yosemite a las audioguías que recorren los
-            cerros de Chile: el nacimiento de una disciplina que, durante más de un siglo, ha diseñado
-            experiencias para visitantes — y que hoy dialoga directamente con las tendencias del turismo moderno.
-          </p>
+          <div className="space-y-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight font-['Cormorant_Garamond',Georgia,serif]"
+            >
+              La historia de la{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8A58B] via-[#D97A46] to-[#FBBF24]">
+                interpretación del patrimonio
+              </span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.28 }}
+              className="text-sm sm:text-lg text-slate-200 max-w-3xl leading-relaxed"
+            >
+              Del campamento de John Muir y Theodore Roosevelt en Yosemite a las audioguías que recorren los
+              cerros de Chile: el nacimiento de una disciplina que, durante más de un siglo, ha diseñado
+              experiencias para visitantes — y que hoy dialoga directamente con las tendencias del turismo moderno.
+            </motion.p>
+          </div>
+
+          {/* Cinta marquee */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.45 }}
+            className="marquee-mask overflow-hidden py-1"
+          >
+            <div className="flex gap-10 w-max animate-marquee whitespace-nowrap">
+              {[...CINTA, ...CINTA].map((c, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-10 text-[11px] sm:text-xs font-extrabold uppercase tracking-widest text-[#E8A58B]/80"
+                >
+                  {c}
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B04E2A]" />
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Sobre-línea de contadores + indicador de scroll */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full sm:w-auto">
+              {ESTADISTICAS.map((s) => (
+                <div key={s.l}>
+                  <Stat value={s.v} suffix={s.suf} label={s.l} />
+                </div>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9 }}
+              className="self-center sm:self-end flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-widest text-[#E4D8BF]/80"
+            >
+              Sigue la línea
+              <motion.span animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}>
+                <ChevronDown className="w-4 h-4 text-[#E8A58B]" />
+              </motion.span>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ===== NACIMIENTO EN EE.UU ===== */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <div className="flex items-center gap-3 mb-2">
+      <section id="nacimiento" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-3 mb-2"
+        >
           <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md">
             <Flag className="w-5 h-5" />
           </span>
@@ -243,7 +561,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               El nacimiento de una disciplina
             </h2>
           </div>
-        </div>
+        </motion.div>
         <p className="text-sm text-slate-600 max-w-4xl leading-relaxed mt-3 mb-8">
           La interpretación del patrimonio nace en los parques nacionales de Estados Unidos, donde la
           naturaleza protegida se volvió territorio de experiencia pública. Tres figuras trazaron su camino:
@@ -252,7 +570,13 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
           significativas para visitantes</strong>.
         </p>
 
-        <div className="hidden md:block mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7 }}
+          className="hidden md:block mb-8"
+        >
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#E4D8BF] group">
             <img
               src="/images/historia/muir-roosevelt-yosemite-1903.jpg"
@@ -268,7 +592,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
         <div className="md:hidden mb-4 rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-lg">
           <img
             src="/images/historia/muir-roosevelt-yosemite-1903.jpg"
@@ -279,7 +603,14 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
 
         <div className="grid md:grid-cols-3 gap-5">
           {FUNDADORES.map((f, i) => (
-            <article key={i} className="bg-white rounded-3xl border border-[#E4D8BF] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col">
+            <motion.article
+              key={i}
+              initial={{ opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: i * 0.09, duration: 0.55, ease: 'easeOut' }}
+              className="relative bg-white rounded-3xl border border-[#E4D8BF] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col"
+            >
               <div className="relative h-56 overflow-hidden">
                 <img src={f.img} alt={f.alt} className="w-full h-full object-cover object-top" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
@@ -291,22 +622,79 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               <div className="p-5 flex flex-col gap-3 flex-1">
                 <p className="text-xs font-extrabold uppercase tracking-wider text-[#B04E2A]">{f.rol}</p>
                 <p className="text-xs text-slate-600 leading-relaxed">{f.aporte}</p>
-                <blockquote className="mt-auto rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] p-3.5">
-                  <p className="text-[11px] italic text-slate-700 leading-relaxed">
-                    <Quote className="w-3 h-3 inline text-[#B04E2A] mr-1 -translate-y-0.5" />
-                    {f.cita}
-                  </p>
-                </blockquote>
+                <button
+                  onClick={() => setOpenQuote(openQuote === i ? null : i)}
+                  className="mt-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#14281C] hover:bg-[#1D3626] text-[#E8A58B] text-[11px] font-extrabold uppercase tracking-wider transition-colors"
+                >
+                  <Quote className="w-3.5 h-3.5" />
+                  {openQuote === i ? 'Ocultar su cita' : 'Leer su cita'}
+                  <Sparkles className="w-3 h-3" />
+                </button>
               </div>
-            </article>
+
+              {/* Popover emergente: la cita en una tarjeta que brota sobre la foto */}
+              <AnimatePresence>
+                {openQuote === i && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 14 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.92, y: 10 }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+                    className="absolute inset-0 z-20 flex flex-col justify-between gap-3 bg-[#14281C]/[0.97] backdrop-blur-sm p-5 rounded-3xl overflow-hidden"
+                  >
+                    <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-[#B04E2A]/25 blur-2xl" />
+                    <div>
+                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] mb-2">
+                        {f.nombre} · {f.anios}
+                      </p>
+                      <blockquote className="relative">
+                        <Quote className="w-6 h-6 text-[#B04E2A]/60 mb-2" />
+                        <p className="text-sm italic text-[#F6F1E5] leading-relaxed relative">{f.cita}</p>
+                      </blockquote>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#CDD9CF] uppercase tracking-widest font-bold">Cita de archivo</span>
+                      <button
+                        onClick={() => setOpenQuote(null)}
+                        aria-label="Cerrar cita"
+                        className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-[#E8A58B] grid place-items-center transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.article>
           ))}
         </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]"
+        >
+          <MousePointerClick className="w-3.5 h-3.5" />
+          Toca cada tarjeta para ver la cita que brota
+        </motion.p>
       </section>
 
       {/* ===== CRONOLOGÍA ===== */}
-      <section className="bg-gradient-to-b from-[#14281C] to-[#1D3626] text-white py-14 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3 mb-2">
+      <section id="cronologia" className="relative bg-gradient-to-b from-[#14281C] to-[#1D3626] text-white py-14 px-4 sm:px-6 scroll-mt-24 overflow-hidden">
+        <motion.div
+          className="absolute -left-24 top-1/3 w-72 h-72 rounded-full bg-[#B04E2A]/10 blur-3xl"
+          animate={reduce ? undefined : { y: [0, -24, 0] }}
+          transition={{ repeat: Infinity, duration: 9, ease: 'easeInOut' }}
+        />
+        <div ref={cronRef} className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 mb-2"
+          >
             <span className="w-11 h-11 rounded-2xl bg-white/10 text-[#E8A58B] border border-[#B04E2A]/40 grid place-items-center">
               <Clock className="w-5 h-5" />
             </span>
@@ -316,25 +704,41 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
                 Cronología de la interpretación
               </h2>
             </div>
-          </div>
+          </motion.div>
           <p className="text-sm text-[#E4D8BF] max-w-3xl mt-3 mb-10 leading-relaxed">
-            Desde la cesión de Yosemite hasta los principios de Tilden y de Cable & Beck, pasando por figuras
+            Desde la cesión de Yosemite hasta los principios de Tilden y de Cable &amp; Beck, pasando por figuras
             como Jorge Morales y Sam Ham que la llevaron a todo el mundo: más de un siglo de método y de
-            expansión global.
+            expansión global. El rail se va llenando a medida que desciendes.
           </p>
 
+          {/* Año activo flotante (escritorio) */}
+          <div className="hidden lg:flex sticky top-24 z-10 justify-end mb-2 -mt-6 pointer-events-none">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8A58B]/10 border border-[#B04E2A]/40 text-[#E8A58B] font-['Cormorant_Garamond',Georgia,serif] font-extrabold text-xl backdrop-blur-md shadow-lg">
+              {activeCrono}
+              <span className="w-1.5 h-1.5 rounded-full bg-[#B04E2A] animate-pulse" />
+            </span>
+          </div>
+
           <div className="relative">
-            {/* Rail */}
+            {/* Rail base + relleno que crece con el scroll */}
             <div
-              className="absolute left-[22px] md:left-1/2 top-3 bottom-3 w-[2px] rounded-full bg-gradient-to-b from-[#3A5A46] via-[#B04E2A]/50 to-[#3A5A46] md:-translate-x-1/2"
+              className="absolute left-[22px] md:left-1/2 top-3 bottom-3 w-[2px] rounded-full bg-gradient-to-b from-[#3A5A46] via-[#B04E2A]/30 to-[#3A5A46] md:-translate-x-1/2"
               aria-hidden="true"
-            />
+            >
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-b from-[#E8A58B] via-[#D97706] to-[#B04E2A] origin-top"
+                style={{ scaleY: cronFill }}
+              />
+            </div>
+
             <div className="space-y-5 md:space-y-10">
               {CRONOLOGIA.map((c, i) => {
                 const even = i % 2 === 0;
                 return (
                   <div
                     key={i}
+                    data-cronojal
+                    data-anio={c.anio}
                     className={`relative flex items-start gap-4 sm:gap-6 md:flex-col md:gap-0 md:w-1/2 ${
                       even ? 'md:pr-10' : 'md:ml-auto md:pl-10'
                     }`}
@@ -347,12 +751,26 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
                     />
 
                     {/* Badge numérico (móvil) */}
-                    <span className="md:hidden relative z-10 w-11 h-11 flex-shrink-0 rounded-full bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white text-xs font-extrabold grid place-items-center shadow-lg">
+                    <motion.span
+                      initial={{ scale: 0.6, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true, margin: '-40px' }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                      className="md:hidden relative z-10 w-11 h-11 flex-shrink-0 rounded-full bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white text-xs font-extrabold grid place-items-center shadow-lg"
+                    >
                       {String(i + 1).padStart(2, '0')}
-                    </span>
+                    </motion.span>
 
                     {/* Tarjeta */}
-                    <article className="flex-1 min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 hover:border-[#E8A58B]/40 hover:bg-white/[0.07] transition-all">
+                    <motion.article
+                      initial={{ opacity: 0, y: 30, x: even ? -14 : 14 }}
+                      whileInView={{ opacity: 1, y: 0, x: 0 }}
+                      viewport={{ once: true, margin: '-50px' }}
+                      transition={{ duration: 0.55, ease: 'easeOut' }}
+                      className={`flex-1 min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 hover:border-[#E8A58B]/40 hover:bg-white/[0.07] transition-all ${
+                        i === CRONOLOGIA.length - 1 ? 'border-[#B04E2A]/50' : ''
+                      }`}
+                    >
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold uppercase tracking-wider mb-2">
                         {c.anio}
                       </span>
@@ -360,7 +778,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
                         {c.titulo}
                       </h3>
                       <p className="text-xs sm:text-[13px] text-[#CDD9CF] leading-relaxed">{c.texto}</p>
-                    </article>
+                    </motion.article>
                   </div>
                 );
               })}
@@ -370,8 +788,14 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
       </section>
 
       {/* ===== FIGURAS CLAVE: JORGE MORALES Y SAM HAM ===== */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <div className="flex items-center gap-3 mb-2">
+      <section id="iberoamerica" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-3 mb-2"
+        >
           <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center shadow-md">
             <Users className="w-5 h-5" />
           </span>
@@ -381,7 +805,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               Las voces que la llevaron a todos: Morales y Ham
             </h2>
           </div>
-        </div>
+        </motion.div>
         <p className="text-sm text-slate-600 max-w-4xl leading-relaxed mt-3 mb-8">
           Si Freeman Tilden fue su fundador y Enos Mills su primer oficio, <strong>Jorge Morales</strong> y el{' '}
           <strong>Dr. Sam Ham</strong> fueron quienes hicieron de la interpretación una disciplina verdaderamente
@@ -392,9 +816,21 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
 
         <div className="grid md:grid-cols-2 gap-5">
           {FIGURAS_IBEROAMERICA.map((f, i) => (
-            <article key={i} className="bg-white rounded-3xl border border-[#E4D8BF] shadow-lg overflow-hidden flex flex-col">
+            <motion.article
+              key={i}
+              initial={{ opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: i * 0.1, duration: 0.55, ease: 'easeOut' }}
+              whileHover={{ y: -4 }}
+              className="bg-white rounded-3xl border border-[#E4D8BF] shadow-lg overflow-hidden flex flex-col"
+            >
               <div className="bg-gradient-to-br from-[#14281C] to-[#2E4E37] p-5 sm:p-6 text-white relative overflow-hidden">
-                <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-[#B04E2A]/20 blur-2xl" />
+                <motion.div
+                  className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-[#B04E2A]/20 blur-2xl"
+                  animate={reduce ? undefined : { scale: [1, 1.35, 1] }}
+                  transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
+                />
                 <div className="flex items-center gap-3 relative">
                   <span className="w-12 h-12 rounded-2xl bg-[#B04E2A]/30 border border-[#B04E2A]/50 text-[#E8A58B] grid place-items-center flex-shrink-0">
                     {f.icon}
@@ -428,14 +864,20 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
                   {f.dato}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>
 
       {/* ===== LOS 6 DE TILDEN ===== */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <div className="flex items-center gap-3 mb-2">
+      <section id="principios" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-3 mb-2"
+        >
           <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md">
             <Feather className="w-5 h-5" />
           </span>
@@ -445,34 +887,47 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               Los 6 principios de Tilden
             </h2>
           </div>
-        </div>
+        </motion.div>
         <p className="text-sm text-slate-600 max-w-4xl leading-relaxed mt-3 mb-8">
           Publicados en <em>Interpreting Our Heritage</em> (1957), siguen vigentes y son el punto de
           partida de toda formación interpretativa. Adaptados al español a partir del texto original:
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {TILDEN_6.map((p, i) => (
-            <article key={i} className="bg-white rounded-3xl border border-[#E4D8BF] shadow-sm hover:shadow-lg hover:border-[#B04E2A]/40 transition-all p-5">
+            <motion.article
+              key={i}
+              initial={{ opacity: 0, y: 24, rotate: -1.5 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: 'easeOut' }}
+              className="bg-white rounded-3xl border border-[#E4D8BF] shadow-sm hover:shadow-lg hover:border-[#B04E2A]/40 transition-all p-5"
+            >
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center font-extrabold font-['Cormorant_Garamond',Georgia,serif]">{p.n}</span>
                 <h3 className="text-sm font-extrabold text-[#14281C] leading-snug">{p.t}</h3>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">{p.a}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>
 
       {/* ===== LOS 21 DE BECK & CABLE ===== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-xl bg-white">
+        <motion.div
+          initial={{ opacity: 0, y: 34 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          className="rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-xl bg-white"
+        >
           <div className="bg-gradient-to-r from-[#14281C] to-[#2E4E37] text-white p-6 sm:p-8">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B04E2A]/30 text-[#E8A58B] text-[10px] font-extrabold uppercase tracking-widest border border-[#B04E2A]/50 mb-3">
               <BookOpen className="w-3 h-3" />
               Larry Beck · Ted Cable
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-              Los 21 principios: Tilden + 15 (Beck & Cable)
+              Los 21 principios: Tilden + 15 (Beck &amp; Cable)
             </h2>
             <p className="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed">
               Beck y Cable conservaron los seis de Tilden y los ampliaron en <em>Interpretation for the 21st Century</em>
@@ -483,17 +938,24 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
 
           <div className="p-5 sm:p-8">
             <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#14281C] mb-4">
-              Los 6 de Tilden, reafirmados <span className="text-[#B04E2A]">(ver arriba)</span> · los 15 complementarios de Beck & Cable:
+              Los 6 de Tilden, reafirmados <span className="text-[#B04E2A]">(ver arriba)</span> · los 15 complementarios de Beck &amp; Cable:
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {BECK_CABLE_15.map((p, i) => (
-                <article key={i} className="rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] hover:border-[#B04E2A]/50 hover:shadow-md transition-all p-4 flex gap-3">
+                <motion.article
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ delay: (i % 3) * 0.06, duration: 0.45, ease: 'easeOut' }}
+                  className="rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] hover:border-[#B04E2A]/50 hover:shadow-md transition-all p-4 flex gap-3"
+                >
                   <span className="w-8 h-8 rounded-xl bg-[#1D3626] text-[#E8A58B] grid place-items-center font-extrabold text-xs flex-shrink-0">{p.n}</span>
                   <div>
                     <h3 className="text-[13px] font-extrabold text-[#14281C] leading-snug">{p.t}</h3>
                     <p className="text-[11px] text-slate-600 leading-relaxed mt-1">{p.a}</p>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
             <p className="text-[10px] text-slate-500 mt-5 max-w-3xl leading-relaxed">
@@ -502,12 +964,18 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               consulta los textos originales para el desarrollo completo de cada principio.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ===== TENDENCIAS / EXPERIENCIA TURÍSTICA ===== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="flex items-center gap-3 mb-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-3 mb-2"
+        >
           <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center shadow-md">
             <Rocket className="w-5 h-5" />
           </span>
@@ -517,12 +985,12 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               La interpretación y el diseño de experiencias turísticas
             </h2>
           </div>
-        </div>
+        </motion.div>
         <div className="mt-3 mb-8 space-y-4 max-w-5xl">
           <p className="text-sm text-slate-600 leading-relaxed">
             Antes del <em>experience design</em>, antes del <em>storytelling</em> de marca y antes del turismo
             experiencial, existió la interpretación del patrimonio. Durante más de cien años -desde los guías
-            naturalistas de 1918 hasta los principios de Tilden y de Beck & Cable- esta disciplina ha sido un
+            naturalistas de 1918 hasta los principios de Tilden y de Beck &amp; Cable- esta disciplina ha sido un
             <strong> laboratorio de diseño de experiencias para visitantes</strong>: define audiencias, provoca emociones,
             estructura momentos, cuenta historias y evalúa el impacto de cada encuentro con el territorio.
           </p>
@@ -533,18 +1001,32 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
 
         <div className="grid md:grid-cols-2 gap-4">
           {TENDENCIAS.map((t, i) => (
-            <article key={i} className="bg-white rounded-3xl border border-[#E4D8BF] shadow-sm hover:shadow-lg hover:border-[#B04E2A]/40 transition-all p-5 flex gap-4">
+            <motion.article
+              key={i}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: (i % 4) * 0.07, duration: 0.5, ease: 'easeOut' }}
+              whileHover={{ y: -3 }}
+              className="bg-white rounded-3xl border border-[#E4D8BF] shadow-sm hover:shadow-lg hover:border-[#B04E2A]/40 transition-all p-5 flex gap-4"
+            >
               <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md flex-shrink-0 mt-0.5">{t.icon}</span>
               <div>
                 <h3 className="text-sm font-extrabold text-[#14281C]">{t.t}</h3>
                 <p className="text-xs text-slate-600 leading-relaxed mt-1.5">{t.a}</p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 
         {/* Puente con esta plataforma */}
-        <div className="mt-8 rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-xl bg-white">
+        <motion.div
+          initial={{ opacity: 0, y: 34 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          className="mt-8 rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-xl bg-white"
+        >
           <div className="bg-gradient-to-r from-[#B04E2A] to-[#D97706] text-white p-6 sm:p-8">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/20 text-white text-[10px] font-extrabold uppercase tracking-widest border border-white/25 mb-3">
               <Magnet className="w-3 h-3" />
@@ -556,63 +1038,199 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
           </div>
           <div className="p-6 sm:p-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: <Waypoints className="w-5 h-5" />, t: 'Paradas interpretativas', a: 'Cada parada es una unidad de provocación: un eje temático, un guion y un momento de asombro — como los “stops” de un ranger de Yosemite.' },
+              { icon: <Waypoints className="w-5 h-5" />, t: 'Paradas interpretativas', a: 'Cada parada es una unidad de provocación: un eje temático, un guion y un momento de asombro — como los "stops" de un ranger de Yosemite.' },
               { icon: <AudioLines className="w-5 h-5" />, t: 'Narrativa sonora', a: 'La voz, los silencios y la música despliegan el recurso con arte: información al servicio de la revelación (principio 2).' },
               { icon: <MapPinned className="w-5 h-5" />, t: 'Despliegue territorial', a: 'El paisaje real es el guion: orientación, distancia y contexto conectan cada relato con la experiencia corporal del lugar.' },
               { icon: <CircleCheckBig className="w-5 h-5" />, t: 'Seguridad y ética', a: 'Matriz IPER, normativas y protocolos de interpretación aseguran que el asombro no dañe el patrimonio que lo origina.' },
             ].map((m, i) => (
-              <div key={i} className="rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] p-4">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                className="rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] p-4"
+              >
                 <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center mb-2">{m.icon}</span>
                 <h4 className="text-[13px] font-extrabold text-[#14281C]">{m.t}</h4>
                 <p className="text-[11px] text-slate-600 leading-relaxed mt-1">{m.a}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
+        </motion.div>
+      </section>
+
+      {/* ===== EL PATRIMONIO CHILENO ILUSTRADO · TOURMAPS ===== */}
+      <section id="tourmaps" className="bg-gradient-to-b from-[#14281C] to-[#1D3626] text-white py-14 px-4 sm:px-6 scroll-mt-24">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 mb-2"
+          >
+            <span className="w-11 h-11 rounded-2xl bg-white/10 text-[#E8A58B] border border-[#B04E2A]/40 grid place-items-center">
+              <Compass className="w-5 h-5" />
+            </span>
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Chile · 2022 — Hoy</p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
+                El patrimonio chileno ilustrado: Tourmaps
+              </h2>
+            </div>
+            <img
+              src="/images/historia/tourmaps/TOURMAPS-LOGO-2022-wh.png"
+              alt="Logo de Tourmaps, Diseño y Marketing Turístico"
+              className="h-7 sm:h-8 ml-auto opacity-90 hidden sm:block"
+            />
+          </motion.div>
+          <p className="text-sm text-[#E4D8BF] max-w-3xl mt-3 mb-8 leading-relaxed">
+            El método de Tilden no llegó a Chile solo en libros: llegó dibujado en mapas. <strong>Tourmaps</strong>
+            (&ldquo;Conectamos personas con territorios&rdquo;) diseñó los mapas ilustrados e interpretativos de
+            Puerto Montt, la Ruta del Río San Pedro, Maullín y Valdivia, y es el estudio detrás de la audioguía
+            oficial <em>Iglesias de Chiloé</em> de esta plataforma. Toca las tarjetas: cada imagen emerge en grande.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TOURMAPS_GALERIA.map((g, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: 'easeOut' }}
+                whileHover={{ y: -6 }}
+                onClick={() => setModalIdx(i)}
+                className="group relative text-left rounded-3xl overflow-hidden border border-white/10 shadow-lg h-56 hover:border-[#E8A58B]/50 transition-colors"
+              >
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent group-hover:from-black/90 transition-colors" />
+                <span className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[#E8A58B] text-[#14281C] grid place-items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                  <Expand className="w-4 h-4" />
+                </span>
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold uppercase tracking-wider">
+                  {g.tag}
+                </span>
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 className="font-['Cormorant_Garamond',Georgia,serif] text-lg font-extrabold leading-tight">{g.t}</h3>
+                  <p className="text-[11px] text-[#E4D8BF]/90 mt-1 line-clamp-2">{g.d}</p>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Tarjeta aliado emergente */}
+          <motion.div
+            initial={{ opacity: 0, y: 34 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6 }}
+            className="mt-8 rounded-3xl overflow-hidden border border-[#B04E2A]/40 bg-white/[0.05] backdrop-blur-sm"
+          >
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-6 sm:p-8">
+              <div className="flex-1 space-y-2">
+                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">El método en el territorio</p>
+                <h3 className="text-xl sm:text-2xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] max-w-xl">
+                  De las secuoyas de 1903 a los mapas ilustrados de Chiloé
+                </h3>
+                <p className="text-xs text-[#CDD9CF] leading-relaxed max-w-2xl">
+                  Tourmaps y El Viaje por Chile comparten ese mismo oficio centenario: diseñar la experiencia de
+                  visitar un territorio, con mapa, señalética y audioguía. La interpretación del patrimonio, hoy,
+                  se imprime y se escucha a lo largo de todo Chile.
+                </p>
+              </div>
+              <a
+                href="https://www.tourmaps.cl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
+              >
+                Conocer Tourmaps
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ===== CIERRE ===== */}
-      <section className="bg-[#14281C] text-[#F6F1E5] py-12 px-4 sm:px-6">
+      <section id="cierre" className="bg-[#14281C] text-[#F6F1E5] py-12 px-4 sm:px-6 scroll-mt-24">
         <div className="max-w-7xl mx-auto space-y-5">
-          <h3 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] max-w-lg">
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] max-w-lg"
+          >
             Un siglo de método, ahora en tus manos
-          </h3>
-          <p className="text-sm text-[#E4D8BF] max-w-2xl leading-relaxed">
+          </motion.h3>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-sm text-[#E4D8BF] max-w-2xl leading-relaxed"
+          >
             Diseñar una experiencia turística hoy es, en gran parte, interpretar un territorio: saber qué
             contar, a quién, con qué tono y para despertar qué emoción. La interpretación del patrimonio no es
             una tendencia más: es la disciplina base que llevó más de cien años diseñando experiencias para
             visitantes, y que ahora se encuentra con el turismo del siglo XXI.
-          </p>
-          <button
+          </motion.p>
+          <motion.button
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ scale: 1.03 }}
             onClick={onBack}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold uppercase tracking-wider transition-colors"
           >
             Volver a la plataforma
             <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          </motion.button>
 
           <div className="pt-6 border-t border-[#2A4533] text-[10px] text-slate-400 leading-relaxed space-y-1 max-w-4xl">
             <p>
               Imágenes de archivo de uso libre · dominio público: retrato de John Muir (Biblioteca del Congreso de
-              EE. UU., colección Prints & Photographs, digital ID cph.3b51655); John Muir y Theodore Roosevelt en
+              EE. UU., colección Prints &amp; Photographs, digital ID cph.3b51655); John Muir y Theodore Roosevelt en
               Yosemite, 1903 (Biblioteca del Congreso de EE. UU., digital ID cph.3g04698); John Muir entre los pinos
               (Sierra Club Bulletin, vol. 10, n.º 1, enero 1916); Enos Mills junto a su cabaña en Longs Peak y papel
               fotográfico de Freeman Tilden (Servicio de Parques Nacionales de EE. UU.); Old Faithful (óleo de Albert
               Bierstadt, dominio público). Imágenes obtenidas de Wikimedia Commons.
             </p>
             <p>
-              Fuentes de referencia: F. Tilden, <em>Interpreting Our Heritage</em> (1957); L. Beck & T. Cable,
+              Mapas ilustrados y fotografías de terreno: © Tourmaps, Diseño y Marketing Turístico
+              (www.tourmaps.cl) — mapas ilustrados e interpretativos de Puerto Montt, Ruta del Río San Pedro,
+              Maullín y Valdivia; mapa mural de la Oficina de Turismo de Puerto Montt; entrega institucional de
+              mapas. Reproducidos con fines divulgativos sobre la historia de la interpretación del patrimonio.
+            </p>
+            <p>
+              Fuentes de referencia: F. Tilden, <em>Interpreting Our Heritage</em> (1957); L. Beck &amp; T. Cable,
               <em> Interpretation for the 21st Century</em> (1999/2002) y <em>The Gifts of Interpretation</em> (2011);
               J. Morales, <em>Manual para la Interpretación Ambiental en Áreas Silvestres Protegidas</em> (FAO/PNUMA,
               1992) y <em>Guía Práctica para la Interpretación del Patrimonio</em> (1998/2001); S. Ham,
               <em> Environmental Interpretation</em> (1992) e <em>Interpretation: Making a Difference on Purpose</em>
-              (2013); J. Morales & S. Ham, <em>“¿A qué interpretación nos referimos?”</em> (Boletín de Interpretación,
+              (2013); J. Morales &amp; S. Ham, <em>"¿A qué interpretación nos referimos?"</em> (Boletín de Interpretación,
               AIP España, 2008); National Park Service. Las citas de Muir y Mills son traducciones libres; consulta
               los textos originales.
             </p>
           </div>
         </div>
       </section>
+
+      {/* ===== MODAL DE GALERÍA (imágenes emergentes de Tourmaps) ===== */}
+      <AnimatePresence>
+        {modalIdx !== null && (
+          <GaleriaModal item={TOURMAPS_GALERIA[modalIdx]} onClose={() => setModalIdx(null)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -82,6 +82,31 @@
   animation: radarPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Cinta marquee (cero escuelas cantera style) */
+@keyframes marqueeX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marqueeX 36s linear infinite;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* Ocultar barra de scroll en tiras horizontales */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Respeto a usuarios con movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation-duration: 90s; }
+  * { scroll-behavior: auto !important; }
+}
+
 /* Custom scrollbar matching the earthy "Cerros Isla" palette */
 ::-webkit-scrollbar {
   width: 8px;
