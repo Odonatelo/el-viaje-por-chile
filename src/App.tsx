@@ -29,6 +29,7 @@ import { FactibilidadGuide } from './components/FactibilidadGuide';
 import { MatrizRiesgoIPER } from './components/MatrizRiesgoIPER';
 import { NormativasPage } from './components/NormativasPage';
 import { HistoriaInterpretacion } from './components/HistoriaInterpretacion';
+import { OrganizacionesPage } from './components/OrganizacionesPage';
 import { HeritageConsultingModal } from './components/HeritageConsultingModal';
 import { MembershipModal } from './components/MembershipModal';
 import { GoogleAuthModal } from './components/GoogleAuthModal';
@@ -80,7 +81,7 @@ export default function App() {
   useEffect(() => {
     toursRef.current = tours;
   }, [tours]);
-  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'analisis' | 'diseno' | 'admin';
+  type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'organizaciones' | 'analisis' | 'diseno' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
@@ -89,8 +90,10 @@ export default function App() {
         : window.location.pathname.startsWith('/normativas')
           ? 'normativas'
           : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
-            ? 'historia'
-: window.location.pathname.startsWith('/analisis')
+? 'historia'
+            : window.location.pathname.startsWith('/organizaciones')
+              ? 'organizaciones'
+              : window.location.pathname.startsWith('/analisis')
             ? 'analisis'
             : window.location.pathname.startsWith('/disenodeexperiencias')
               ? 'diseno'
@@ -310,7 +313,9 @@ export default function App() {
               ? 'normativas'
 : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
               ? 'historia'
-: window.location.pathname.startsWith('/analisis')
+            : window.location.pathname.startsWith('/organizaciones')
+              ? 'organizaciones'
+              : window.location.pathname.startsWith('/analisis')
             ? 'analisis'
             : window.location.pathname.startsWith('/disenodeexperiencias')
               ? 'diseno'
@@ -700,6 +705,17 @@ export default function App() {
       action: () => navigateTo('historia', '/historia'),
     },
     {
+      key: 'organizaciones',
+      label: 'Organizaciones',
+      icon: Globe,
+      iconClass: 'text-[#E8A58B]',
+      title: 'La Interpretación del Patrimonio en el Mundo: NAI, AIP, Interpret Europe y el PUP Consortium',
+      active: viewMode === 'organizaciones',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('organizaciones', '/organizaciones'),
+    },
+    {
       key: 'analisis',
       label: 'Análisis del Usuario',
       icon: Target,
@@ -1032,6 +1048,8 @@ export default function App() {
           <NormativasPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'historia' ? (
           <HistoriaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'organizaciones' ? (
+          <OrganizacionesPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'analisis' ? (
           <AnalisisUsuarioPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'diseno' ? (
