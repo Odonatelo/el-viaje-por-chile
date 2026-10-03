@@ -262,6 +262,56 @@ const ORGS: Org[] = [
     ],
   },
   {
+    id: 'ia',
+    nombre: 'Interpretation Australia',
+    region: 'Oceanía · Australia y Nueva Zelanda',
+    fundada: '1992',
+    enfoque: 'Asociación profesional nacional',
+    sitio: 'https://interpretationaustralia.asn.au/',
+    logo: '/images/organizaciones/ia.png',
+    descripcion:
+      'La asociación profesional (peak body) de la interpretación en Australia, formada en 1992 con más de 400 miembros en Australia, Nueva Zelanda y otros países. Agrupa a guardaparques, museólogos, intérpretes de comunidades originarias y diseñadores de experiencias; publica su boletín eNews, organiza la conferencia nacional anual y entrega los Premios Nacionales IA — incluido el Georgie Waterman desde 1999 — que reconocen la excelencia en proyectos interpretativos de interior, exterior y digitales.',
+    docs: [
+      {
+        titulo: 'Artículos y publicaciones',
+        desc: 'Textos, artículos y publicaciones de la disciplina reunidos por Interpretation Australia para su comunidad profesional.',
+        tipo: 'web',
+        url: 'https://interpretationaustralia.asn.au/resources/articles-publications/',
+      },
+      {
+        titulo: 'Ponencias de conferencias',
+        desc: 'Archivo de ponencias presentadas en las conferencias nacionales de la asociación.',
+        tipo: 'web',
+        url: 'https://interpretationaustralia.asn.au/resources/conference-papers/',
+      },
+      {
+        titulo: 'Archivo de eNews',
+        desc: 'Boletín electrónico mensual de IA con noticias, convocatorias y experiencias de la interpretación en Oceanía.',
+        tipo: 'web',
+        url: 'https://interpretationaustralia.asn.au/resources/enews-archives/',
+      },
+      {
+        titulo: 'Serie de webinars IA',
+        desc: 'Seminarios en línea y su archivo de grabaciones para la formación continua de los intérpretes.',
+        tipo: 'web',
+        url: 'https://interpretationaustralia.asn.au/ia-webinar-series/',
+      },
+      {
+        titulo: 'Premios Nacionales IA',
+        desc: 'Categorías oficiales de los premios nacionales, criterios de evaluación y ganadores por año desde 2018.',
+        tipo: 'web',
+        url: 'https://interpretationaustralia.asn.au/ia-awards/',
+      },
+      {
+        titulo: 'Ganadores 2025',
+        desc: 'Los proyectos premiados en los National Awards 2025 de IA, reconocidos por su aporte a la práctica interpretativa.',
+        ano: '2025',
+        tipo: 'web',
+        url: 'https://interpretationaustralia.asn.au/ias-2025-awards-recipients/',
+      },
+    ],
+  },
+  {
     id: 'pup',
     nombre: 'PUP Consortium · PUP Global Heritage Consortium',
     region: 'Global (con foco iberoamericano)',
@@ -408,8 +458,8 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
             La interpretación del patrimonio es una{' '}
             <strong className="text-white">disciplina profesional y académica</strong> con estándares
             internacionales, un acervo metodológico propio y una historia en común que une a intérpretes
-            de todo el planeta. Mucho antes de la «narración», los intérpretes ya diseñaban experiencias
-            con método: hoy esa disciplina{' '}
+            de todo el planeta. Mucho antes del «diseño de experiencias» para visitantes y turistas, los
+            intérpretes ya lo practicaban con método: hoy esa disciplina{' '}
             <strong className="text-white">influye en la museografía, la mediación cultural y el diseño de experiencias</strong>{' '}
             en museos, parques y ciudades de Chile y del mundo.
           </p>
@@ -433,9 +483,9 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
             {[
-              { n: '5', t: 'organizaciones de referencia' },
+              { n: '6', t: 'organizaciones de referencia' },
               { n: '30+', t: 'boletines y publicaciones' },
-              { n: '4', t: 'continentes' },
+              { n: '5', t: 'continentes' },
               { n: '1', t: 'disciplina con método' },
             ].map((s) => (
               <div key={s.t} className="rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-center backdrop-blur-md">
@@ -465,16 +515,30 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {PILARES.map((p) => (
-            <div key={p.titulo} className="group bg-white rounded-3xl border border-[#E4D8BF] shadow-sm hover:shadow-lg hover:border-[#B04E2A]/40 transition-all p-6">
-              <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md mb-4">
-                <p.icon className="w-5 h-5" />
-              </span>
-              <h3 className="font-bold text-slate-900 mb-2">{p.titulo}</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">{p.texto}</p>
-            </div>
-          ))}
+        <div className="grid lg:grid-cols-[2fr_3fr] gap-6 items-start">
+          <figure className="relative rounded-3xl overflow-hidden border border-[#E4D8BF] shadow-lg">
+            <img
+              src="/images/organizaciones/ranger-interpretive-hike.jpg"
+              alt="Guardaparque del Servicio de Parques Nacionales de Estados Unidos guiando a un grupo de visitantes en una caminata interpretativa"
+              className="w-full h-full object-cover aspect-[4/3]"
+              loading="lazy"
+            />
+            <figcaption className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent text-white/90 text-[11px] px-4 pt-8 pb-3 leading-snug">
+              Guardaparques guiando a visitantes en una caminata interpretativa · Servicio de Parques
+              Nacionales de EE. UU. · imagen de dominio público (Wikimedia Commons)
+            </figcaption>
+          </figure>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {PILARES.map((p) => (
+              <div key={p.titulo} className="group bg-white rounded-3xl border border-[#E4D8BF] shadow-sm hover:shadow-lg hover:border-[#B04E2A]/40 transition-all p-6">
+                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#14281C] to-[#2E4E37] text-[#E8A58B] grid place-items-center shadow-md mb-4">
+                  <p.icon className="w-5 h-5" />
+                </span>
+                <h3 className="font-bold text-slate-900 mb-2">{p.titulo}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{p.texto}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -486,12 +550,12 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
             La red mundial de intérpretes
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-            Cinco organizaciones, una misma disciplina
+            Seis organizaciones, una misma disciplina
           </h2>
           <p className="text-sm text-slate-600 max-w-3xl">
             Estas organizaciones reúnen a intérpretes del patrimonio de Norteamérica, América Latina y
-            el Caribe, España, Europa y la red global; publican sus investigaciones y definen los
-            estándares de la profesión. Cada una conserva su logotipo, su sitio oficial y su acervo
+            el Caribe, España, Europa, Oceanía y la red global; publican sus investigaciones y definen
+            los estándares de la profesión. Cada una conserva su logotipo, su sitio oficial y su acervo
             documental.
           </p>
         </div>
@@ -667,7 +731,9 @@ export const OrganizacionesPage: React.FC<OrganizacionesPageProps> = ({ onBack }
         <p className="text-xs text-slate-500 leading-relaxed text-center">
           Logotipos, nombres y sitios pertenecen a cada organización. Los documentos aquí alojados se
           incluyen con fines educativos y de difusión de la interpretación del patrimonio, citando su
-          autoría original; los enlaces externos abren el sitio oficial de cada organización.
+          autoría original; los enlaces externos abren el sitio oficial de cada organización. La
+          fotografía del guardaparque guiando a visitantes se reproduce bajo dominio público (Servicio
+          de Parques Nacionales de los Estados Unidos, vía Wikimedia Commons).
         </p>
       </div>
     </div>
