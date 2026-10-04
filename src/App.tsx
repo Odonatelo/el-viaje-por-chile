@@ -30,6 +30,7 @@ import { FactibilidadGuide } from './components/FactibilidadGuide';
 import { MatrizRiesgoIPER } from './components/MatrizRiesgoIPER';
 import { NormativasPage } from './components/NormativasPage';
 import { HistoriaInterpretacion } from './components/HistoriaInterpretacion';
+import { TematicaInterpretacion } from './components/TematicaInterpretacion';
 import { MediosInterpretativos } from './components/MediosInterpretativos';
 import { OrganizacionesPage } from './components/OrganizacionesPage';
 import { HeritageConsultingModal } from './components/HeritageConsultingModal';
@@ -83,7 +84,7 @@ export default function App() {
   useEffect(() => {
     toursRef.current = tours;
   }, [tours]);
-type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'medios' | 'organizaciones' | 'analisis' | 'diseno' | 'admin';
+type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
@@ -95,8 +96,10 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
 ? 'historia'
             : window.location.pathname.startsWith('/medios')
               ? 'medios'
-              : window.location.pathname.startsWith('/organizaciones')
-                ? 'organizaciones'
+              : window.location.pathname.startsWith('/tematica')
+                ? 'tematica'
+                : window.location.pathname.startsWith('/organizaciones')
+                  ? 'organizaciones'
                 : window.location.pathname.startsWith('/analisis')
             ? 'analisis'
             : window.location.pathname.startsWith('/disenodeexperiencias')
@@ -319,6 +322,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
               ? 'historia'
             : window.location.pathname.startsWith('/medios')
               ? 'medios'
+            : window.location.pathname.startsWith('/tematica')
+              ? 'tematica'
             : window.location.pathname.startsWith('/organizaciones')
               ? 'organizaciones'
               : window.location.pathname.startsWith('/analisis')
@@ -722,6 +727,17 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       action: () => navigateTo('medios', '/medios'),
     },
     {
+      key: 'tematica',
+      label: 'Temática',
+      icon: BookOpen,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Interpretación temática: la metodología de Sam Ham, los componentes del tema según Jorge Morales y el marco interpretativo de Mayorga y Kohl',
+      active: viewMode === 'tematica',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('tematica', '/tematica'),
+    },
+    {
       key: 'organizaciones',
       label: 'Organizaciones',
       icon: Globe,
@@ -1067,6 +1083,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           <HistoriaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'medios' ? (
           <MediosInterpretativos onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'tematica' ? (
+          <TematicaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'organizaciones' ? (
           <OrganizacionesPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'analisis' ? (
