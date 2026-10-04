@@ -29,6 +29,9 @@ import {
   Pin,
   Heart,
   Puzzle,
+  ShoppingBag,
+  MapPin,
+  BookOpen,
 } from 'lucide-react';
 
 interface TematicaInterpretacionProps {
@@ -575,6 +578,101 @@ export const TematicaInterpretacion: React.FC<TematicaInterpretacionProps> = ({ 
                   Volver a la plataforma
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ===== RECOMENDACIÓN DE LECTURA ===== */}
+      <section className="bg-[#F6F1E5] py-14 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 mb-2"
+          >
+            <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#D97706] text-white grid place-items-center shadow-md">
+              <ShoppingBag className="w-5 h-5" />
+            </span>
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A]">Recomendación de lectura</p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
+                Para comprender la metodología en profundidad
+              </h2>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6 }}
+            className="mt-8 rounded-3xl overflow-hidden border border-[#E4D8BF] bg-white shadow-lg hover:shadow-2xl transition-shadow"
+          >
+            <div className="grid md:grid-cols-[300px_1fr]">
+              <div className="relative p-0">
+                <img
+                  src="https://cdnx.jumpseller.com/el-viaje/image/71659863/thumb/1440/1889?1767901498"
+                  alt="Portada de Esencia de la Interpretación del Patrimonio, de Marisol Mayorga y Jon Kohl"
+                  className="w-full h-full object-cover min-h-[320px]"
+                  loading="lazy"
+                />
+                <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#14281C]/90 text-[#E8A58B] text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-sm">
+                  <MapPin className="w-3.5 h-3.5" />
+                  Exclusivo en Chile
+                </span>
+              </div>
+              <div className="p-6 sm:p-8 flex flex-col gap-5">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] text-[#14281C]">
+                    Esencia de la Interpretación del Patrimonio
+                  </h3>
+                  <p className="text-sm text-slate-600 mt-1">
+                    <strong>Marisol Mayorga</strong> y <strong>Jon Kohl</strong> · Editorial EUNED, Costa Rica · Edición 2021 ·
+                    distribución exclusiva en Chile en <a href="https://www.tiendaelviaje.cl" target="_blank" rel="noopener noreferrer" className="text-[#B04E2A] hover:underline font-bold">Tienda El Viaje</a>.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {['Tapa blanda', '20 × 26,5 cm', '518 páginas', '1,1 kg', 'Español'].map((c) => (
+                    <span key={c} className="px-3 py-1.5 rounded-full bg-[#F6F1E5] border border-[#E4D8BF] text-[11px] font-extrabold text-[#2E4E37]">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  La obra latinoamericana que da cuerpo al <strong>marco interpretativo</strong>: recorre los cuatro bloques que
+                  estructuran el método —<em>fundamentos</em>, <em>análisis interpretativo</em> del recurso, diseño del{' '}
+                  <em>experiencia del público</em> y <em>gestión de medios</em>— con ejercicios de autoevaluación, actividades de
+                  campo y el hilo didáctico de <strong>“Armando y Lucía”</strong>, dos intérpretes que diseñan un producto real en
+                  el transcurso del libro. Es el complemento ideal a esta página: donde aquí se resume la metodología, el libro la
+                  profundiza con la base pedagógica del <strong>Consorcio PUP</strong>, con el respaldo mencionado por Ted Cable.
+                </p>
+
+                <div className="mt-auto flex flex-wrap gap-3">
+                  <a
+                    href="https://www.tiendaelviaje.cl/esencia-de-la-interpretacion-del-patrimonio-marisol-mayorga-jon-kohl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold uppercase tracking-wider transition-colors"
+                  >
+                    Adquirir en Tienda El Viaje
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                  <a
+                    href="https://www.tiendaelviaje.cl/esencia-de-la-interpretacion-del-patrimonio-marisol-mayorga-jon-kohl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#14281C] hover:bg-[#1D3626] text-[#E8A58B] text-xs font-bold uppercase tracking-wider transition-colors"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    Ver ficha completa
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
