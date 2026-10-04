@@ -94,6 +94,7 @@ export interface Tour {
   title: string;
   tagline: string;
   description: string;
+  theme?: string;
   coverImage: string;
   city: string;
   country: string;

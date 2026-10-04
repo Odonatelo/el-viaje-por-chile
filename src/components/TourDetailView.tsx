@@ -270,6 +270,15 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
             </p>
           )}
 
+          {tour.theme && (
+            <blockquote className="max-w-2xl px-4 py-3 rounded-2xl bg-white/10 backdrop-blur-md border-l-4 border-[#E8A58B] text-white/95 italic text-sm sm:text-base leading-relaxed">
+              “{tour.theme}”
+              <span className="block mt-1 text-[#E8A58B] text-xs font-semibold not-italic uppercase tracking-wider">
+                Tema interpretativo del recorrido
+              </span>
+            </blockquote>
+          )}
+
           {/* Quick Metrics Bar & Start Button */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#2A4533]">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-300">

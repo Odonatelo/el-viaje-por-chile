@@ -7,6 +7,8 @@ export const tourRamalTalcaConstitucion: Tour = {
     'Audioguía Oficial El Viaje Por Chile • Un Monumento Histórico que viaja: 88 kilómetros de bosque, viñedos de secano y río Maule a bordo del buscarril más querido de Chile',
   description:
     'Audioguía producida por el Equipo El Viaje Por Chile (www.elviaje.cl). El Ramal Talca–Constitución es uno de los últimos viajes en tren patrimonial del país: un Monumento Histórico Nacional de 88 kilómetros que une la ciudad de Talca con la costa de Constitución cruzando el secano vitivinícola del Maule, los parronales de Corinto y el puente sobre el río Maule. Este circuito de siete paradas te acompaña a bordo del buscarril Ferrostaal mientras el paisaje desacelera: historia ferroviaria, la tierra del poeta González Bastías, los viñedos de secano y la desembocadura del Maule. El recorrido interpreta cómo EFE transformó un ramal centenario en una experiencia lenta y sensorial, y reúne los momentos claves para planificar tu viaje: horarios, paradas y consejos del área protegida.',
+  theme:
+    'El último tren patrimonial de Chile nos recuerda que la lentitud es la única velocidad verdadera para encontrar el paisaje.',
   coverImage:
     'https://upload.wikimedia.org/wikipedia/commons/0/02/Ramal_talca_constituci%C3%B3n_06.jpg',
   city: 'Talca – Constitución, Región del Maule',

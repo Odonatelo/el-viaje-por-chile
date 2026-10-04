@@ -7,6 +7,8 @@ export const tourMuseoInteractivoMirador: Tour = {
     'Audioguía Oficial El Viaje Por Chile • Salas, péndulos, un planetario y un parque de ciencia: la educación experiencial hecha museo en la comuna de La Granja',
   description:
     'Audioguía producida por el Equipo El Viaje Por Chile (www.elviaje.cl). El Museo Interactivo Mirador (MIM) es el primer museo interactivo de Chile y el más visitado de su tipo: siete mil metros cuadrados de salas, alrededor de trescientos módulos y un parque de trece hectáreas que invitan a aprender tocando, experimentando y equivocándose con alegría. Inaugurado en marzo del año 2000 gracias a la Fundación Tiempos Nuevos y al trabajo de arquitectos como Juan Ignacio Baixas y Enrique del Río, el MIM convirtió el aprendizaje en un juego donde cada visitante es protagonista. Este circuito de ocho paradas —explanada, salas de Tierra, Energía y Vida, el Museo Interactivo de Astronomía, la Plaza Solar Cruz del Sur, los Penetrables y el parque— interpreta cómo el museo diseña la experiencia del visitante y reúne las claves para planificar tu visita familiar.',
+  theme:
+    'En el MIM nada se mira sin tocarse: la curiosidad se experimenta porque aprender es un juego con las manos.',
   coverImage:
     'https://upload.wikimedia.org/wikipedia/commons/c/c1/Museo_Interactivo_Mirador-01.jpg',
   city: 'La Granja, Santiago de Chile',

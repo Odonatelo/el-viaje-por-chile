@@ -7,6 +7,8 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
     'Audioguía Oficial El Viaje Por Chile • Pasarelas sobre el bosque pantanoso, la turbera de sphagnum y la playa del Pacífico: cómo la estética del paisaje educa sin destruir',
   description:
     'Audioguía producida por el Equipo El Viaje Por Chile (www.elviaje.cl). El sector Cucao del Parque Nacional Chiloé resguarda uno de los ecosistemas más frágiles y bellos del sur de Chile: el bosque pantanoso de tepú (el tepual) y las grandes turberas de musgo Sphagnum magellanicum, que cubren una parte importante del territorio chilote. Creado en 1982, con cerca de 42.567 hectáreas, el parque administrado por CONAF protege, en su ribera occidental del lago Cucao, dos senderos emblemáticos: El Tepual y Dunas–Playa Cucao, ambos con pasarelas de madera que permiten caminar sobre el humedal sin dañarlo. Este circuito de siete paradas interpreta cómo un espacio altamente sensible se convierte en experiencia estética sin dejar huella, y reúne las claves para tu visita: control de acceso, tejido de pasarelas, mirador del lago Huelde, la ciencia de la turbera, dunas, playa y el cierre en el Desaguadero.',
+  theme:
+    'Pisar suave sobre la turbera es la lección de Chiloé: el paisaje más frágil enseña a caminar sin dejar huella.',
   coverImage:
     'https://upload.wikimedia.org/wikipedia/commons/9/9b/Parque_Nacional_Chilo%C3%A9_-_camino_de_madera.jpg',
   city: 'Sector Cucao, comuna de Chonchi, Chiloé',
