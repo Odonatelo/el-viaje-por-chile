@@ -33,7 +33,6 @@ import {
   MapPin,
   ChevronDown,
   X,
-  Expand,
   Sparkles,
   MousePointerClick,
 } from 'lucide-react';
@@ -93,6 +92,8 @@ const CRONOLOGIA = [
     texto: 'El Civilian Conservation Corps construye senderos, miradores y museos de sitio. La interpretación comienza a institucionalizarse con pantallas, paneles y primeros textos guiados para el visitante.' },
   { anio: '1957', titulo: 'Tilden publica “Interpreting Our Heritage”',
     texto: 'Freeman Tilden compila la práctica de los rangers en seis principios inmortales. La interpretación se formaliza como disciplina: arte de revelar, provocar y conectar el recurso con la vida del visitante.' },
+  { anio: '1971 – 1979', titulo: 'Chile pionero: Oltremari, Puyehue y los primeros centros de visitantes',
+    texto: 'En el Parque Nacional Puyehue, la Corporación Nacional Forestal (CONAF) pone en marcha el centro de visitantes Aguas Calientes (1971) y sus senderos autoguiados, entre los primeros de Chile (Lovelady, 1972; FAO, 1974). Juan Oltremari, de la Facultad de Ciencias Forestales de la Universidad Austral de Chile, documenta y difunde esta experiencia en la Revista BOSQUE — “La interpretación y el desarrollo de los parques nacionales” (1975) y “Los usuarios y las instalaciones interpretativas del centro de visitantes Aguas Calientes, Parque Nacional Puyehue” (1979) —, incorporando la disciplina a la gestión de las áreas silvestres protegidas.' },
   { anio: '1960s – 1990s', titulo: 'Institucionalización y profesionalización',
     texto: 'Nacen textos formativos (Grant Sharpe, “Interpreting the Environment” 1976, y Sam Ham, “Environmental Interpretation”), programas de formación y la National Association for Interpretation (1988). La interpretación se extiende de los parques a museos, zoos, sitios históricos y destinos turísticos.' },
   { anio: '1988 – 1992', titulo: 'La interpretación llega a Iberoamérica: Morales y la FAO',
@@ -233,41 +234,8 @@ const SECCIONES = [
   { id: 'cronologia', label: 'Cronología' },
   { id: 'iberoamerica', label: 'Morales & Ham' },
   { id: 'principios', label: 'Principios' },
-  { id: 'tourmaps', label: 'Chile ilustrado' },
+  { id: 'chile', label: 'Chile pionero' },
   { id: 'cierre', label: 'Cierre' },
-];
-
-const TOURMAPS_GALERIA = [
-  { src: '/images/historia/tourmaps/mapa-puerto-montt.jpg',
-    alt: 'Mapa ilustrado e interpretativo de Puerto Montt, de Tourmaps',
-    t: 'Puerto Montt',
-    d: 'Mar, volcanes y patrimonio en la capital de Los Lagos: un mapa-ilustrado que invita a caminar con asombro por la ciudad y su fiordo.',
-    tag: 'Mapa ilustrado' },
-  { src: '/images/historia/tourmaps/mapa-rio-san-pedro.jpg',
-    alt: 'Mapa ilustrado e interpretativo de la Ruta del Río San Pedro, de Tourmaps',
-    t: 'Ruta del Río San Pedro',
-    d: '“Los Lagos Invita”: la cuenca narrada con hitos, relieves y señales — interpretación territorial hecha diseño.',
-    tag: 'Mapa ilustrado' },
-  { src: '/images/historia/tourmaps/mapa-maullin.jpg',
-    alt: 'Mapa ilustrado e interpretativo de Maullín, de Tourmaps',
-    t: 'Maullín · Naturaleza y entretención',
-    d: 'Un estuario, su gente y sus historias convertidos en material de interpretación: el patrimonio como ribete del mapa.',
-    tag: 'Mapa ilustrado' },
-  { src: '/images/historia/tourmaps/mapa-valdivia.jpg',
-    alt: 'Mapa ilustrado e interpretativo de Valdivia, de Tourmaps',
-    t: 'Valdivia · la ciudad de los ríos',
-    d: 'Ríos, fortificaciones españolas y bosque valdiviano en clave interpretativa: la historia como invitación a recorrer.',
-    tag: 'Mapa ilustrado' },
-  { src: '/images/historia/tourmaps/mapa-mural.jpg',
-    alt: 'Mapa mural regional y comunal de la Oficina de Turismo de Puerto Montt, realizado por Tourmaps',
-    t: 'Mapa mural en la oficina de turismo',
-    d: 'Un mapa regional y comunal instalado como pieza de interpretación a gran escala en la Oficina de Turismo de Puerto Montt.',
-    tag: 'En el terreno' },
-  { src: '/images/historia/tourmaps/mapa-navimag.jpg',
-    alt: 'Entrega de mapas ilustrados de Tourmaps a la empresa Navimag',
-    t: 'De Tourmaps a la bahía',
-    d: 'La interpretación viaja también en la empresa: entrega de mapas ilustrados que llevan el territorio a bordo.',
-    tag: 'En el terreno' },
 ];
 
 function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
@@ -299,66 +267,6 @@ function Stat({ value, suffix, label }: { value: number; suffix: string; label: 
   );
 }
 
-function GaleriaModal({
-  item,
-  onClose,
-}: {
-  item: (typeof TOURMAPS_GALERIA)[number];
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose]);
-  return (
-    <motion.div
-      className="fixed inset-0 z-[90] bg-[#14281C]/85 backdrop-blur-sm flex items-center justify-center p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-    >
-      <motion.div
-        className="relative bg-white rounded-3xl overflow-hidden max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-[#E4D8BF]"
-        initial={{ scale: 0.9, y: 30, opacity: 0 }}
-        animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.92, y: 20, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <img src={item.src} alt={item.alt} className="w-full object-cover max-h-[58vh]" />
-        <div className="p-5 sm:p-6 bg-[#F6F1E5]">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14281C] text-[#E8A58B] text-[10px] font-extrabold uppercase tracking-widest mb-3">
-            <Expand className="w-3 h-3" />
-            {item.tag}
-          </span>
-          <h3 className="text-xl font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">{item.t}</h3>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2">{item.d}</p>
-          <p className="text-[10px] text-slate-500 mt-3">
-            Imagen: Tourmaps · Diseño y Marketing Turístico (www.tourmaps.cl)
-          </p>
-        </div>
-        <button
-          onClick={onClose}
-          aria-label="Cerrar imagen"
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[#14281C]/80 backdrop-blur text-white grid place-items-center hover:bg-[#14281C] transition-colors"
-        >
-          <X className="w-4 h-4" />
-        </button>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ onBack }) => {
   const reduce = useReducedMotion();
 
@@ -378,7 +286,6 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
   const [activeSec, setActiveSec] = useState('inicio');
   const [activeCrono, setActiveCrono] = useState(CRONOLOGIA[0].anio);
   const [openQuote, setOpenQuote] = useState<number | null>(null);
-  const [modalIdx, setModalIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const ids = SECCIONES.map((s) => s.id);
@@ -581,7 +488,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
             <img
               src="/images/historia/muir-roosevelt-yosemite-1903.jpg"
               alt="John Muir y Theodore Roosevelt acampando en Yosemite en 1903 - Biblioteca del Congreso de EE. UU."
-              className="w-full h-72 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700"
+              className="w-full h-72 sm:h-96 object-cover object-top group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
@@ -597,7 +504,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
           <img
             src="/images/historia/muir-roosevelt-yosemite-1903.jpg"
             alt="John Muir y Theodore Roosevelt en 1903 - Biblioteca del Congreso"
-            className="w-full h-48 object-cover"
+            className="w-full h-48 object-cover object-top"
           />
         </div>
 
@@ -1060,8 +967,8 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
         </motion.div>
       </section>
 
-      {/* ===== EL PATRIMONIO CHILENO ILUSTRADO · TOURMAPS ===== */}
-      <section id="tourmaps" className="bg-gradient-to-b from-[#14281C] to-[#1D3626] text-white py-14 px-4 sm:px-6 scroll-mt-24">
+      {/* ===== CHILE PIONERO · OLTREMARI Y CONAF ===== */}
+      <section id="chile" className="bg-gradient-to-b from-[#14281C] to-[#1D3626] text-white py-14 px-4 sm:px-6 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1071,91 +978,100 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
             className="flex items-center gap-3 mb-2"
           >
             <span className="w-11 h-11 rounded-2xl bg-white/10 text-[#E8A58B] border border-[#B04E2A]/40 grid place-items-center">
-              <Compass className="w-5 h-5" />
+              <Flag className="w-5 h-5" />
             </span>
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Chile · 2022 — Hoy</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Iberoamérica · 1971 — Pioneros</p>
               <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-                El patrimonio chileno ilustrado: Tourmaps
+                Chile pionero: Oltremari, Puyehue y la CONAF
               </h2>
             </div>
-            <img
-              src="/images/historia/tourmaps/TOURMAPS-LOGO-2022-wh.png"
-              alt="Logo de Tourmaps, Diseño y Marketing Turístico"
-              className="h-7 sm:h-8 ml-auto opacity-90 hidden sm:block"
-            />
           </motion.div>
           <p className="text-sm text-[#E4D8BF] max-w-3xl mt-3 mb-8 leading-relaxed">
-            El método de Tilden no llegó a Chile solo en libros: llegó dibujado en mapas. <strong>Tourmaps</strong>
-            (&ldquo;Conectamos personas con territorios&rdquo;) diseñó los mapas ilustrados e interpretativos de
-            Puerto Montt, la Ruta del Río San Pedro, Maullín y Valdivia, y es el estudio detrás de la audioguía
-            oficial <em>Iglesias de Chiloé</em> de esta plataforma. Toca las tarjetas: cada imagen emerge en grande.
+            Antes del taller de la FAO de 1988 y de los manuales de Morales, la disciplina ya tenía registro
+            institucional en Chile. En 1971, la <strong>Corporación Nacional Forestal (CONAF)</strong> puso en
+            marcha el centro de visitantes <strong>Aguas Calientes</strong>, en el Parque Nacional Puyehue, junto
+            con sus senderos autoguiados: entre los primeros del país (Lovelady, 1972; FAO, 1974). Juan Oltremari,
+            de la Facultad de Ciencias Forestales de la <strong>Universidad Austral de Chile</strong>, documentó esa
+            experiencia y la incorporó a la gestión de las áreas silvestres protegidas, convirtiéndose en el primer
+            registro de la interpretación del patrimonio como práctica de conservación en Chile.
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {TOURMAPS_GALERIA.map((g, i) => (
-              <motion.button
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { anio: '1975', a: '“La interpretación y el desarrollo de los parques nacionales”',
+                d: 'Artículo publicado en la Revista BOSQUE de la Universidad Austral de Chile: vincula la interpretación con el desarrollo y la gestión de los parques nacionales.' },
+              { anio: '1979', a: '“Los usuarios y las instalaciones interpretativas del centro de visitantes Aguas Calientes, Parque Nacional Puyehue”',
+                d: 'Publicado también en la Revista BOSQUE: analiza a los visitantes y las instalaciones interpretativas del centro de visitantes — usuarios, senderos autoguiados y paneles.' },
+            ].map((pub, i) => (
+              <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: 'easeOut' }}
-                whileHover={{ y: -6 }}
-                onClick={() => setModalIdx(i)}
-                className="group relative text-left rounded-3xl overflow-hidden border border-white/10 shadow-lg h-56 hover:border-[#E8A58B]/50 transition-colors"
+                transition={{ delay: i * 0.12, duration: 0.5 }}
+                className="rounded-3xl border border-[#E8A58B]/20 bg-white/[0.05] backdrop-blur-sm p-5 sm:p-6"
               >
-                <img
-                  src={g.src}
-                  alt={g.alt}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent group-hover:from-black/90 transition-colors" />
-                <span className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[#E8A58B] text-[#14281C] grid place-items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
-                  <Expand className="w-4 h-4" />
-                </span>
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#B04E2A] text-white text-[10px] font-extrabold uppercase tracking-wider">
-                  {g.tag}
-                </span>
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="font-['Cormorant_Garamond',Georgia,serif] text-lg font-extrabold leading-tight">{g.t}</h3>
-                  <p className="text-[11px] text-[#E4D8BF]/90 mt-1 line-clamp-2">{g.d}</p>
+                <div className="flex items-start gap-4">
+                  <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#B04E2A] to-[#2E4E37] text-[#E8A58B] grid place-items-center shrink-0">
+                    <BookOpen className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Oltremari, J. · Revista BOSQUE · {pub.anio}</p>
+                    <h3 className="text-base font-extrabold mt-1 leading-snug">{pub.a}</h3>
+                    <p className="text-xs text-[#CDD9CF] leading-relaxed mt-2">{pub.d}</p>
+                  </div>
                 </div>
-              </motion.button>
+              </motion.div>
             ))}
           </div>
 
-          {/* Tarjeta aliado emergente */}
+          {/* Tarjeta destacada: Oltremari */}
           <motion.div
             initial={{ opacity: 0, y: 34 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
-            className="mt-8 rounded-3xl overflow-hidden border border-[#B04E2A]/40 bg-white/[0.05] backdrop-blur-sm"
+            className="mt-6 rounded-3xl overflow-hidden border border-[#B04E2A]/40 bg-white/[0.05] backdrop-blur-sm"
           >
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-6 sm:p-8">
               <div className="flex-1 space-y-2">
-                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">El método en el territorio</p>
-                <h3 className="text-xl sm:text-2xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] max-w-xl">
-                  De las secuoyas de 1903 a los mapas ilustrados de Chiloé
+                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Juan Oltremari · Facultad de Ciencias Forestales, U. Austral de Chile</p>
+                <h3 className="text-xl sm:text-2xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] max-w-2xl">
+                  El primer registro de CONAF: la disciplina llega a las áreas silvestres protegidas de Chile
                 </h3>
                 <p className="text-xs text-[#CDD9CF] leading-relaxed max-w-2xl">
-                  Tourmaps y El Viaje por Chile comparten ese mismo oficio centenario: diseñar la experiencia de
-                  visitar un territorio, con mapa, señalética y audioguía. La interpretación del patrimonio, hoy,
-                  se imprime y se escucha a lo largo de todo Chile.
+                  La obra de Oltremari es destacada en la investigación que Jorge Morales Miranda ha dedicado a la
+                  historia de la disciplina (recogida en el artículo de Juan C. Castaing en el legado de la
+                  National Association for Interpretation, AIP): sitúa a Chile entre los primeros países en adoptar
+                  la interpretación como herramienta de gestión institucional, junto a los centros de visitantes y
+                  los senderos autoguiados de Puyehue.
                 </p>
               </div>
               <a
-                href="https://www.tourmaps.cl"
+                href="https://national-association-for-interpretation.foleon.com/legacy/legacy-en-espanol-2/juan-c-castaing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
               >
-                Conocer Tourmaps
+                La investigación de Morales
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </div>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-8 text-xs text-[#E4D8BF]/80 leading-relaxed max-w-3xl"
+          >
+            Este hito chileno se conecta con la historia global de la disciplina: el mismo año de Puyehue, el mundo
+            seguía sistematizando la obra de Tilden en centros de visitantes y senderos autoguiados, y poco después
+            la FAO llevaría el método a Iberoamérica con la publicación del Manual de Interpretación Ambiental en
+            1992, también desde Chile.
+          </motion.p>
         </div>
       </section>
 
@@ -1206,10 +1122,11 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
               Bierstadt, dominio público). Imágenes obtenidas de Wikimedia Commons.
             </p>
             <p>
-              Mapas ilustrados y fotografías de terreno: © Tourmaps, Diseño y Marketing Turístico
-              (www.tourmaps.cl) — mapas ilustrados e interpretativos de Puerto Montt, Ruta del Río San Pedro,
-              Maullín y Valdivia; mapa mural de la Oficina de Turismo de Puerto Montt; entrega institucional de
-              mapas. Reproducidos con fines divulgativos sobre la historia de la interpretación del patrimonio.
+              Referencia chilena: J. Oltremari, <em>La interpretación y el desarrollo de los parques nacionales</em>
+              (Revista BOSQUE, Universidad Austral de Chile, 1975) y <em>Los usuarios y las instalaciones
+              interpretativas del centro de visitantes Aguas Calientes, Parque Nacional Puyehue</em> (Revista BOSQUE,
+              1979); Lovelady (1972) y FAO (1974) citados en la investigación de J. Morales Miranda recogida por
+              J. C. Castaing en el legado en español de la National Association for Interpretation.
             </p>
             <p>
               Fuentes de referencia: F. Tilden, <em>Interpreting Our Heritage</em> (1957); L. Beck &amp; T. Cable,
@@ -1224,13 +1141,6 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
           </div>
         </div>
       </section>
-
-      {/* ===== MODAL DE GALERÍA (imágenes emergentes de Tourmaps) ===== */}
-      <AnimatePresence>
-        {modalIdx !== null && (
-          <GaleriaModal item={TOURMAPS_GALERIA[modalIdx]} onClose={() => setModalIdx(null)} />
-        )}
-      </AnimatePresence>
     </div>
   );
 };
