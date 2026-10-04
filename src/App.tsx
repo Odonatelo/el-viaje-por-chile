@@ -64,20 +64,6 @@ function parseTourDeepLink(pathname: string, search: string): { tourId?: string;
   return null;
 }
 
-// Cada audioguía tiene su propio subdominio bajo www.interpretaciondelpatrimonio.cl
-// (patrón de los trabajos anteriores): el hostname abre directamente ese tour.
-const SUBDOMAIN_TOUR_IDS: Record<string, string> = {
-  'ramal.www.interpretaciondelpatrimonio.cl': 'tour-ramal-talca-constitucion-tren-del-vino',
-  'mim.www.interpretaciondelpatrimonio.cl': 'tour-museo-interactivo-mirador',
-  'chiloe.www.interpretaciondelpatrimonio.cl': 'tour-parque-nacional-chiloe-turberas',
-  'rioclarillo.www.interpretaciondelpatrimonio.cl': 'tour-parque-nacional-rio-clarillo',
-};
-
-function tourIdFromSubdomain(hostname: string): string | null {
-  const h = (hostname || '').toLowerCase();
-  return SUBDOMAIN_TOUR_IDS[h] ?? null;
-}
-
 // Botonera del header: cada concepto navegable con su símbolo e ícono
 type HeaderNavItem = {
   key: string;
@@ -124,9 +110,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             ? 'catalog'
             : parseTourDeepLink(window.location.pathname, window.location.search)
               ? 'detail'
-              : tourIdFromSubdomain(window.location.hostname)
-                ? 'detail'
-                : 'home',
+              : 'home',
   );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [routeStopId, setRouteStopId] = useState<string | undefined>(
@@ -296,25 +280,9 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
     setViewMode('detail');
   };
 
-  // Resuelve un deep link (carga inicial o atrás/adelante) contra el pool de tours.
-  // Si no hay deep link en la URL pero el hostname es un subdominio de audioguía,
-  // abre directamente ese tour (patrón de los trabajos anteriores similares).
+  // Resuelve un deep link (carga inicial o atrás/adelante) contra el pool de tours
   const resolveTourDeepLink = (pool: Tour[]) => {
-    const subdomainTourId = tourIdFromSubdomain(window.location.hostname);
     const dl = parseTourDeepLink(window.location.pathname, window.location.search);
-    if (!dl && subdomainTourId) {
-      const t = pool.find((x) => x.id === subdomainTourId);
-      if (t) {
-        const path = `/tour/${encodeURIComponent(t.id)}`;
-        if (window.location.pathname !== path) {
-          window.history.replaceState({}, '', path);
-        }
-        setSelectedTour(t);
-        setRouteStopId(undefined);
-        setViewMode('detail');
-      }
-      return;
-    }
     if (!dl) return;
     let t: Tour | undefined;
     if (dl.tourId) {
