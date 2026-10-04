@@ -33,10 +33,12 @@ import {
   BookOpen,
   FileText,
   Brain,
+  Headphones,
 } from 'lucide-react';
 
 interface DisenoExperienciasPageProps {
   onBack: () => void;
+  onOpenTour?: (tourId: string) => void;
 }
 
 /* Estructuras biológicas procedimentales (diseño generativo SVG, estilo Material Ecology) */
@@ -497,6 +499,7 @@ const EXP_CHILE: Array<{
   caption: string;
   icon: React.ComponentType<{ className?: string }>;
   principios: string[];
+  tourId: string;
 }> = [
   {
     src: 'https://upload.wikimedia.org/wikipedia/commons/0/02/Ramal_talca_constituci%C3%B3n_06.jpg',
@@ -512,6 +515,7 @@ const EXP_CHILE: Array<{
       'Relevancia personal (Tilden, 1957): conecta con la memoria ferroviaria y la viticultura del Maule.',
       'Entretenimiento activo: recorridos temáticos, cuentos del ramal, paradas que encadenan sentido.',
     ],
+    tourId: 'tour-ramal-talca-constitucion-tren-del-vino',
   },
   {
     src: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Museo_Interactivo_Mirador-01.jpg',
@@ -527,6 +531,7 @@ const EXP_CHILE: Array<{
       'Diseño universal: museo y parque abiertos, familiares y multigeneracionales.',
       'Escapismo y juego: la curiosidad se vuelve el hilo conductor del recorrido.',
     ],
+    tourId: 'tour-museo-interactivo-mirador',
   },
   {
     src: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Parque_Nacional_Chilo%C3%A9_-_camino_de_madera.jpg',
@@ -542,6 +547,7 @@ const EXP_CHILE: Array<{
       'Interpretación in situ (Tilden, 1957): señalética que provoca, no que abruma.',
       'Sustentabilidad: baja intervención y capacidad de carga cuidada del sitio frágil.',
     ],
+    tourId: 'tour-parque-nacional-chiloe-turberas',
   },
   {
     src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rio_Clarillo.jpg/640px-Rio_Clarillo.jpg',
@@ -557,6 +563,7 @@ const EXP_CHILE: Array<{
       'Ritual de bienestar: el recorrido del sendero ordena la visita en estaciones de silencio y frescor.',
       'Placer sensorial: el baño de bosque conecta el cuerpo con el territorio mediterráneo.',
     ],
+    tourId: 'tour-parque-nacional-rio-clarillo',
   },
 ];
 
@@ -570,7 +577,7 @@ const SummaryNote = () => (
   </p>
 );
 
-export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack }) => {
+export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack, onOpenTour }) => {
   const [activo, setActivo] = useState(0);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -1109,6 +1116,17 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
                         ))}
                       </ul>
                     </div>
+                    {onOpenTour && (
+                      <button
+                        type="button"
+                        onClick={() => onOpenTour(e.tourId)}
+                        className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#14281C] text-[#E8A58B] text-[11px] font-extrabold uppercase tracking-widest border border-[#14281C] hover:bg-[#B04E2A] hover:border-[#B04E2A] transition-colors"
+                      >
+                        <Headphones className="w-3.5 h-3.5" />
+                        Escuchar la audioguía
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                     <p className="text-[10px] font-mono text-slate-400">Wikimedia Commons · {e.file}</p>
                   </figcaption>
                 </figure>

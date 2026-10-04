@@ -1090,7 +1090,10 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
         ) : viewMode === 'analisis' ? (
           <AnalisisUsuarioPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'diseno' ? (
-          <DisenoExperienciasPage onBack={() => navigateTo('catalog', '/explorar')} />
+          <DisenoExperienciasPage
+            onBack={() => navigateTo('catalog', '/explorar')}
+            onOpenTour={(tourId) => navigateTo('detail', '/tour/' + tourId)}
+          />
         ) : viewMode === 'admin' ? (
           <AdminPanel
             currentUser={currentUser}

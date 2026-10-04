@@ -3,11 +3,19 @@ import { tourFelinosChile } from './tourFelinosChile';
 import { tourJardinBotanicoUACh } from './tourJardinBotanicoUACh';
 import { tourParqueNacionalPatagonia } from './tourParqueNacionalPatagonia';
 import { tourIglesiasDeChiloe } from './tourIglesiasDeChiloe';
+import { tourRamalTalcaConstitucion } from './tourRamalTalcaConstitucion';
+import { tourMuseoInteractivoMirador } from './tourMuseoInteractivoMirador';
+import { tourParqueNacionalChiloeTurberas } from './tourParqueNacionalChiloeTurberas';
+import { tourParqueNacionalRioClarillo } from './tourParqueNacionalRioClarillo';
 
 export const INITIAL_TOURS: Tour[] = [
   tourParqueNacionalPatagonia,
   tourFelinosChile,
   tourJardinBotanicoUACh,
+  tourRamalTalcaConstitucion,
+  tourMuseoInteractivoMirador,
+  tourParqueNacionalChiloeTurberas,
+  tourParqueNacionalRioClarillo,
   {
     id: 'tour-patagonia-carrerabaker',
     title: 'Travesía Carretera Austral & Capillas de Mármol: La Joya de Aysén',
