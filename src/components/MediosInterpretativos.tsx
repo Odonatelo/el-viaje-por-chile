@@ -24,6 +24,9 @@ import {
   QrCode,
   Frame,
   Handshake,
+  Clock,
+  Zap,
+  GraduationCap,
 } from 'lucide-react';
 
 interface MediosInterpretativosProps {
@@ -363,7 +366,7 @@ export const MediosInterpretativos: React.FC<MediosInterpretativosProps> = ({ on
               <Compass className="w-5 h-5" />
             </span>
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Stewart (1981) · Morales · Ham</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B]">Stewart (1981) · Morales · Guerra · NPS</p>
               <h2 className="text-2xl sm:text-3xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
                 Personales frente a no personales
               </h2>
@@ -371,9 +374,12 @@ export const MediosInterpretativos: React.FC<MediosInterpretativosProps> = ({ on
           </motion.div>
           <p className="text-sm text-[#E4D8BF] max-w-3xl mt-3 mb-3 leading-relaxed">
             La clasificación clásica —desde Lillian Stewart (1981), sistematizada en español por Jorge Morales y
-            actualizada por Guerra, Sureda y Castells— separa los medios <strong>atendidos por personas</strong> de los{' '}
-            <strong>no atendidos o autónomos</strong>. Ninguno es superior: en un lugar un medio es básico y en otro
-            complementario (Guerra y Morales, 1996).
+            actualizada por Guerra, Sureda y Castells (2008)— separa los medios <strong>atendidos por personas</strong>{' '}
+            de los <strong>no atendidos o autónomos</strong>. Es el mismo criterio que usa el Servicio de Parques
+            Nacionales de EE. UU. en sus Management Policies (§7.3): <em>personal services</em> frente a{' '}
+            <em>non-personal services</em> — publicaciones, películas, exhibiciones y medios web que no requieren
+            personal presente. Ninguno es superior: en un lugar un medio es básico y en otro complementario
+            (Guerra y Morales, 1996).
           </p>
 
           <div className="grid md:grid-cols-2 gap-4 mt-6">
@@ -428,6 +434,35 @@ export const MediosInterpretativos: React.FC<MediosInterpretativosProps> = ({ on
             </div>
           </div>
 
+          {/* Sub-tipos no personales según el NPS */}
+          <div className="mt-5 rounded-2xl border border-[#E8A58B]/20 bg-white/[0.04] p-4 sm:p-5">
+            <p className="text-[11px] font-extrabold uppercase tracking-widest text-[#E8A58B] mb-2">
+              Sub-tipos no personales · Harpers Ferry Center (NPS, 2019)
+            </p>
+            <p className="text-[12px] text-[#CDD9CF] leading-relaxed mb-3">
+              El centro de medios del NPS agrupa los medios autónomos en seis familias: <strong>publicaciones</strong>{' '}
+              (mapas y folletos), <strong>exhibiciones de museo</strong>, <strong>waysides</strong> (paneles de
+              terreno que "titulan el paisaje"), <strong>señalética</strong>, <strong>audiovisuales</strong> y{' '}
+              <strong>medios digitales</strong> (apps, web, audiotours, realidad aumentada). Cada familia tiene
+              fortalezas y límites propios: los waysides trabajan 24 horas y cuestan poco; el audiovisual logra
+              impacto emocional pero exige mantenimiento permanente y puede percibirse impersonal.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                'Publicaciones (mapas, folletos)',
+                'Exhibiciones de museo',
+                'Waysides (paneles in situ)',
+                'Señalética',
+                'Audiovisuales',
+                'Digital / apps / web',
+              ].map((s, i) => (
+                <span key={i} className="px-3 py-1.5 rounded-full bg-[#2E4E37] text-[#CDD9CF] text-[11px] font-bold border border-[#E8A58B]/20">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Físicos · virtuales · híbridos */}
           <div className="mt-6 grid sm:grid-cols-3 gap-3">
             <motion.div
@@ -460,6 +495,66 @@ export const MediosInterpretativos: React.FC<MediosInterpretativosProps> = ({ on
               <h3 className="text-[12px] font-extrabold uppercase tracking-wider text-[#D97706]">Medios híbridos</h3>
               <p className="text-[11px] text-[#CDD9CF] leading-relaxed mt-1">El QR que abre la audioguía del hito que estás tocando: lo físico y lo virtual entrelazados.</p>
             </motion.div>
+          </div>
+
+          {/* Más ejes de clasificación */}
+          <div className="mt-8">
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] mb-3">
+              Otros ejes complementan la clasificación
+            </p>
+            <div className="grid sm:grid-cols-3 gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45 }}
+                className="rounded-2xl bg-white/[0.04] border border-white/10 p-4"
+              >
+                <span className="w-9 h-9 rounded-xl bg-[#B04E2A]/30 text-[#E8A58B] grid place-items-center mb-2">
+                  <Clock className="w-4 h-4" />
+                </span>
+                <h3 className="text-[12px] font-extrabold uppercase tracking-wider text-[#E8A58B]">Ciclo de la visita</h3>
+                <p className="text-[11px] text-[#CDD9CF] leading-relaxed mt-1">
+                  <strong>Antes</strong> (web y folletos para planificar), <strong>durante</strong> (guía, paneles,
+                  audioguías, mapa) y <strong>después</strong> (publicaciones-recuerdo y apps para prolongar la
+                  visita). El NPS usa este eje "antes-durante-después" al seleccionar la mezcla de medios.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45, delay: 0.08 }}
+                className="rounded-2xl bg-white/[0.04] border border-white/10 p-4"
+              >
+                <span className="w-9 h-9 rounded-xl bg-[#B04E2A]/30 text-[#E8A58B] grid place-items-center mb-2">
+                  <Zap className="w-4 h-4" />
+                </span>
+                <h3 className="text-[12px] font-extrabold uppercase tracking-wider text-[#E8A58B]">Estáticos · electrónicos</h3>
+                <p className="text-[11px] text-[#CDD9CF] leading-relaxed mt-1">
+                  Medios <strong>de bajo mantenimiento</strong> —carteles, exhibiciones, publicaciones— frente a{' '}
+                  <strong>electrónicos y digitales</strong> —audio, audiovisual, apps— que exigen energía, respaldo,
+                  actualización y monitoreo (NPS, 2019): de una decisión de costos depende una decisión de permanencia.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45, delay: 0.16 }}
+                className="rounded-2xl bg-white/[0.04] border border-white/10 p-4"
+              >
+                <span className="w-9 h-9 rounded-xl bg-[#B04E2A]/30 text-[#E8A58B] grid place-items-center mb-2">
+                  <GraduationCap className="w-4 h-4" />
+                </span>
+                <h3 className="text-[12px] font-extrabold uppercase tracking-wider text-[#E8A58B]">Servicios educativos</h3>
+                <p className="text-[11px] text-[#CDD9CF] leading-relaxed mt-1">
+                  Una tercera familia en la guía de planificación interpretativa del NPS: <strong>planes de clase</strong>,
+                  maletas didácticas (<em>traveling trunks</em>) y aprendizaje a distancia, al lado de los servicios
+                  personales y de los medios no personales.
+                </p>
+              </motion.div>
+            </div>
           </div>
 
           {/* Criterios */}
@@ -808,10 +903,17 @@ export const MediosInterpretativos: React.FC<MediosInterpretativosProps> = ({ on
               <em> Medios para la interpretación del patrimonio. Planificación y gestión</em> (Junta de Andalucía,
               2022); J. Morales, <em>Los medios interpretativos</em> (1988) y <em>Guía práctica para la interpretación del
               patrimonio</em> (1998/2001); S. Ham, <em>Interpretación Ambiental</em> (1992) e <em>Interpretación</em> (2014);
-              L. Beck &amp; T. Cable, <em>The Gifts of Interpretation</em> (2011). Los textos de Oltremari están citados en la
-              investigación de J. C. Castaing, “Juan C. Castaing” (Legacy, National Association for Interpretation,
-              2024/2025), que recoge la valoración de Jorge Morales sobre el Centro de Visitantes Aguas Calientes,
-              P.N. Puyehue (Lovelady, 1972; FAO, 1974).
+              L. Beck &amp; T. Cable, <em>The Gifts of Interpretation</em> (2011); J. Morales &amp; S. Ham,
+              <em> ¿A qué interpretación nos referimos?</em> (2008).
+            </p>
+            <p>
+              Clasificación institucional: National Park Service, <em>Management Policies</em>, cap. 7.3
+              (Personal and Non-personal Services); Harpers Ferry Center, <em>Interpretive Media Selection</em>
+              (NPS, 2019) y <em>Planning for Interpretation and Visitor Experience</em>; NPS, <em>Comprehensive
+              Interpretive Planning Guide</em> (CIP). Los textos de Oltremari están citados en la investigación de
+              J. C. Castaing, "Juan C. Castaing" (Legacy, National Association for Interpretation, 2024/2025), que
+              recoge la valoración de Jorge Morales sobre el Centro de Visitantes Aguas Calientes, P.N. Puyehue
+              (Lovelady, 1972; FAO, 1974).
             </p>
             <p>
               Mapas ilustrados y fotografías de terreno: © Tourmaps, Diseño y Marketing Turístico
