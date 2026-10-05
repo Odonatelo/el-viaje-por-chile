@@ -35,6 +35,8 @@ import {
   Brain,
   Headphones,
 } from 'lucide-react';
+import { VideoPopup } from './VideoPopup';
+import { VideoTrigger } from './VideoTrigger';
 
 interface DisenoExperienciasPageProps {
   onBack: () => void;
@@ -577,9 +579,29 @@ const SummaryNote = () => (
   </p>
 );
 
+interface MethodologyVideo {
+  clave: string;
+  videoIdOrUrl: string;
+  titulo: string;
+  subtitulo: string;
+}
+
+/* Videos que ilustran cada metodología de diseño de experiencias.
+   Suma nuevas entradas para incorporar más videos. */
+const VIDEOS_METODOLOGIAS: MethodologyVideo[] = [
+  {
+    clave: 'neri-oxman',
+    videoIdOrUrl: 'QTWbAYYaxso',
+    titulo: 'Neri Oxman: ecología material',
+    subtitulo: 'MIT Media Lab · Mediated Matter',
+  },
+];
+
 export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack, onOpenTour }) => {
   const [activo, setActivo] = useState(0);
   const [playing, setPlaying] = useState(false);
+  // Videos emergentes que ilustran cada metodología de diseño de experiencias
+  const [videoAbierto, setVideoAbierto] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const toggleAudio = async () => {
     const a = audioRef.current;
@@ -836,6 +858,12 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               </strong>
               : son un continuo que se adapta, como un organismo, al entorno y al visitante.
             </p>
+            <div className="pt-1">
+              <VideoTrigger
+                onClick={() => setVideoAbierto('neri-oxman')}
+                label="Ver a Neri Oxman explicar su metodología"
+              />
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -1461,6 +1489,21 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
           </p>
         </div>
       </section>
+
+      {/* ===== VIDEOS EMERGENTES DE LAS METODOLOGÍAS =====
+          Para sumar un video: agrega su entrada a VIDEOS_METODOLOGIAS y un
+          VideoTrigger con setVideoAbierto('<clave>') junto al texto de la
+          metodología correspondiente. */}
+      {VIDEOS_METODOLOGIAS.filter((v) => v.clave === videoAbierto).map((v) => (
+        <VideoPopup
+          key={v.clave}
+          videoIdOrUrl={v.videoIdOrUrl}
+          title={v.titulo}
+          subtitle={v.subtitulo}
+          isOpen={videoAbierto === v.clave}
+          onClose={() => setVideoAbierto(null)}
+        />
+      ))}
     </div>
   );
 };
