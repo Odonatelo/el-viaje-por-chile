@@ -601,6 +601,12 @@ const VIDEOS_METODOLOGIAS: MethodologyVideo[] = [
     titulo: 'Neri Oxman: ecología material',
     subtitulo: 'MIT Media Lab · Mediated Matter',
   },
+  {
+    clave: 'arquitectura-experiencia',
+    videoIdOrUrl: 'hjbfuZC2b88',
+    titulo: 'La arquitectura de la experiencia',
+    subtitulo: 'Proporción, ritmo y contrapunto · Lámina N.º 05 (φ 1,618)',
+  },
 ];
 
 export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack, onOpenTour }) => {
@@ -1209,6 +1215,13 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               ordenar el tiempo: voces en contrapunto que se entretejen con proporción y gracia, como
               columnas, arcos y bóvedas que articulan el silencio de una catedral.
             </p>
+
+            <div className="mt-4">
+              <VideoTrigger
+                onClick={() => setVideoAbierto('arquitectura-experiencia')}
+                label="Ver cómo se ordena la arquitectura de una experiencia"
+              />
+            </div>
 
             <div className="mt-8 grid lg:grid-cols-2 gap-6">
               <div className="grid grid-cols-2 gap-4">
