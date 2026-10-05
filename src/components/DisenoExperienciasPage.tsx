@@ -601,6 +601,12 @@ const VIDEOS_METODOLOGIAS: MethodologyVideo[] = [
     titulo: 'La arquitectura de la experiencia',
     subtitulo: 'Proporción, ritmo y contrapunto · Lámina N.º 05 (φ 1,618)',
   },
+  {
+    clave: 'vangelis-musica',
+    videoIdOrUrl: '24LIl1bW3ho',
+    titulo: 'Vangelis: la música como experiencia',
+    subtitulo: 'Un artista habla de lo que la música provoca',
+  },
 ];
 
 export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack, onOpenTour }) => {
@@ -1259,6 +1265,29 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
                     <p className="pt-1 text-[10px] font-mono text-slate-400">
                       Hesperion XXI · desde 1959 · la polifonía recuperada como experiencia sensible.
                     </p>
+                  </div>
+                </div>
+
+                <div className="bg-white border border-[#E4D8BF] rounded-2xl p-5 space-y-3">
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#B04E2A] flex items-center gap-1.5">
+                    <Music2 className="w-3.5 h-3.5" /> La experiencia de la música
+                  </p>
+                  <p className="text-sm font-extrabold text-[#14281C] font-['Cormorant_Garamond',Georgia,serif]">
+                    Un artista que habla de lo que la música provoca
+                  </p>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Vangelis (1943–2022) hablaba de la música no como una estructura, sino como una{' '}
+                    <strong>experiencia</strong>: qué ocurre en el cuerpo y en la memoria cuando un
+                    sonido organiza el espacio alrededor de quien escucha. En{' '}
+                    <strong>Blade Runner</strong> o <strong>Chariots of Fire</strong> cada tema arma un
+                    lugar propio, y quien entra queda dentro de él. Es el ejemplo de que una experiencia
+                    envolvente no exige más que un material bien elegido y una intención clara.
+                  </p>
+                  <div className="pt-1">
+                    <VideoTrigger
+                      onClick={() => setVideoAbierto('vangelis-musica')}
+                      label="Ver a Vangelis hablar de la música"
+                    />
                   </div>
                 </div>
               </div>
