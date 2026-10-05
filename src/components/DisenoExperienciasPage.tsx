@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ArrowRight,
   Feather,
@@ -22,9 +22,6 @@ import {
   Footprints,
   Droplets,
   Music2,
-  Play,
-  Pause,
-  Volume2,
   Pencil,
   Ruler,
   Landmark,
@@ -416,9 +413,6 @@ const BIBLIOGRAFIA = [
   'Tilden, F. (1957). Interpreting our heritage (reimpresión 2006, trad. al español). University of North Carolina Press.',
 ];
 
-const PALESTRINA_URL =
-  'https://upload.wikimedia.org/wikipedia/commons/d/de/Palestrina_-_Vestiva_i_colli_-_Prima_parte.ogg';
-
 const REPOSITORIO: Array<{
   autor: string;
   rol: string;
@@ -607,29 +601,18 @@ const VIDEOS_METODOLOGIAS: MethodologyVideo[] = [
     titulo: 'La arquitectura de la experiencia',
     subtitulo: 'Proporción, ritmo y contrapunto · Lámina N.º 05 (φ 1,618)',
   },
+  {
+    clave: 'vangelis-musica',
+    videoIdOrUrl: '24LIl1bW3ho',
+    titulo: 'Vangelis: la música que dibuja el espacio',
+    subtitulo: 'La arquitectura sonora de una experiencia',
+  },
 ];
 
 export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ onBack, onOpenTour }) => {
   const [activo, setActivo] = useState(0);
-  const [playing, setPlaying] = useState(false);
   // Videos emergentes que ilustran cada metodología de diseño de experiencias
   const [videoAbierto, setVideoAbierto] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const toggleAudio = async () => {
-    const a = audioRef.current;
-    if (!a) return;
-    try {
-      if (playing) {
-        a.pause();
-        setPlaying(false);
-      } else {
-        await a.play();
-        setPlaying(true);
-      }
-    } catch {
-      setPlaying(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-20 font-sans">
@@ -1182,7 +1165,7 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
         </div>
       </section>
 
-      {/* ===== ARQUITECTURA DE LA EXPERIENCIA · FIBONACCI, GEOMETRÍA SAGRADA Y PALESTRINA ===== */}
+      {/* ===== ARQUITECTURA DE LA EXPERIENCIA · FIBONACCI, GEOMETRÍA SAGRADA Y VANGELIS ===== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="relative border-2 border-[#14281C] rounded-2xl overflow-hidden bg-[#FBF7EC] shadow-sm">
           <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#14281C_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
@@ -1211,8 +1194,8 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               que fluye. En esta lámina, la <strong>sucesión de Fibonacci</strong> y la{' '}
               <strong>geometría sagrada</strong> —la espiral áurea, la flor de la vida, la sección
               φ = 1,618— son el mismo andamiaje del que se sirve la arquitectura para ordenar espacios,
-              y del que se sirve la <strong>polifonía de Giovanni Pierluigi da Palestrina</strong> para
-              ordenar el tiempo: voces en contrapunto que se entretejen con proporción y gracia, como
+              y del que se sirve la <strong>música de Vangelis</strong> para
+              ordenar el tiempo: armonías y capas que se entretejen con proporción y gracia, como
               columnas, arcos y bóvedas que articulan el silencio de una catedral.
             </p>
 
@@ -1259,45 +1242,29 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
 
                 <div className="bg-[#14281C] text-white rounded-2xl p-5 sm:p-7 border border-[#2A4533] shadow-sm overflow-hidden relative">
                   <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#E8A58B_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
-                  <div className="relative flex flex-wrap items-center gap-4">
-                    <button
-                      onClick={toggleAudio}
-                      className="w-14 h-14 rounded-full bg-gradient-to-r from-[#B04E2A] to-[#D97706] hover:from-[#9A3F1E] hover:to-[#B45309] text-white grid place-items-center shadow-lg shadow-[#B04E2A]/30 transition-all cursor-pointer"
-                      aria-label={playing ? 'Pausar música de Palestrina' : 'Reproducir música de Palestrina'}
-                    >
-                      {playing ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
-                    </button>
-                    <div className="w-14 h-14 rounded-full border border-[#E8A58B]/40 text-[#E8A58B] grid place-items-center shrink-0">
-                      <Volume2 className="w-6 h-6 animate-pulse" style={{ animationDuration: playing ? '2s' : '0s' }} />
-                    </div>
-                    <div className="min-w-0 flex-1 space-y-1">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] flex items-center gap-1.5">
-                        <Music2 className="w-3.5 h-3.5" /> La música de esta arquitectura
-                      </p>
-                      <p className="text-sm sm:text-base font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-                        Giovanni Pierluigi da Palestrina — polifonía renacentista
-                      </p>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        Palestrina (c. 1525–1594) compuso la polifonía que por siglos definió las
-                        catedrales y el vocabulario tonal de Occidente. Cada vez que se le escucha, se
-                        escucha la <strong>arquitectura sonora de una experiencia</strong>: voces en
-                        equilibrio como columnas, proporción áurea hecha contrapunto.
-                      </p>
-                    </div>
-                    <audio
-                      ref={audioRef}
-                      src={PALESTRINA_URL}
-                      loop
-                      preload="none"
-                      className="hidden"
-                      onEnded={() => setPlaying(false)}
-                      onPause={() => setPlaying(false)}
-                      onPlay={() => setPlaying(true)}
-                    />
-                    <p className="w-full text-[10px] font-mono text-slate-400">
-                      Wikimedia Commons · dominio público · se descarga y reproduce al presionar ▶ · sin
-                      rastreo, el archivo se carga directo de Commons.
+                  <div className="relative space-y-3">
+                    <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8A58B] flex items-center gap-1.5">
+                      <Music2 className="w-3.5 h-3.5" /> La música de esta arquitectura
                     </p>
+                    <p className="text-sm sm:text-base font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
+                      Vangelis — la música que dibuja el espacio
+                    </p>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Vangelis (1943–2022) compuso música que se escucha como un lugar: en{' '}
+                      <strong className="text-white">Blade Runner</strong>,{' '}
+                      <strong className="text-white">1492: La conquista del paraíso</strong> o{' '}
+                      <strong className="text-white">Chariots of Fire</strong>, cada tema construye un
+                      espacio propio. Al escucharlo se escucha la{' '}
+                      <strong className="text-white">arquitectura sonora de una experiencia</strong>:
+                      capas y armonías que ordenan el tiempo como las columnas ordenan el espacio, y
+                      levantan el paisaje sonoro donde el visitante entra.
+                    </p>
+                    <div className="pt-1">
+                      <VideoTrigger
+                        onClick={() => setVideoAbierto('vangelis-musica')}
+                        label="Ver a Vangelis hablar de la música"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1319,7 +1286,8 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               </div>
 
               <p className="mt-3 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
-                Así como la espiral de Fibonacci ordena el espacio y Palestrina ordena el tiempo, el{' '}
+                Así como la espiral de Fibonacci ordena el espacio y la música de Vangelis ordena el
+                tiempo, el{' '}
                 <strong>viaje del visitante</strong> se ordena en <strong>hitos</strong> que giran en
                 espiral: cada vuelta crece en proporción áurea, y cada hito amplifica la intensidad del
                 anterior. Un travel journey bien diseñado no es una línea recta — <strong>es una espiral
