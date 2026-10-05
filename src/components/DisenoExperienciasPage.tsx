@@ -590,6 +590,12 @@ interface MethodologyVideo {
    Suma nuevas entradas para incorporar más videos. */
 const VIDEOS_METODOLOGIAS: MethodologyVideo[] = [
   {
+    clave: 'design-thinking',
+    videoIdOrUrl: 'slHP58WCXbc',
+    titulo: 'Design Thinking: cinco modos para diseñar con el usuario',
+    subtitulo: 'Hasso Plattner Institute of Design (d.school) · Stanford',
+  },
+  {
     clave: 'neri-oxman',
     videoIdOrUrl: 'QTWbAYYaxso',
     titulo: 'Neri Oxman: ecología material',
@@ -781,6 +787,12 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               <strong>sesgo a la acción</strong> — aprender haciendo— y la creatividad con empatía
               profunda por el usuario real.
             </p>
+            <div className="mt-4">
+              <VideoTrigger
+                onClick={() => setVideoAbierto('design-thinking')}
+                label="Ver el design thinking en acción"
+              />
+            </div>
           </div>
           <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4 content-start">
             {D_SCHOOL_MODES.map((m, i) => {
