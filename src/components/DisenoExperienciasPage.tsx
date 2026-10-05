@@ -546,7 +546,7 @@ const EXP_CHILE: Array<{
     tourId: 'tour-parque-nacional-chiloe-turberas',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rio_Clarillo.jpg/640px-Rio_Clarillo.jpg',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rio_Clarillo.jpg/1280px-Rio_Clarillo.jpg',
     file: 'File:Rio Clarillo.jpg',
     titulo: 'Baños de naturaleza en Río Clarillo',
     plano: 'EX-4',
@@ -600,12 +600,6 @@ const VIDEOS_METODOLOGIAS: MethodologyVideo[] = [
     videoIdOrUrl: 'hjbfuZC2b88',
     titulo: 'La arquitectura de la experiencia',
     subtitulo: 'Proporción, ritmo y contrapunto · Lámina N.º 05 (φ 1,618)',
-  },
-  {
-    clave: 'vangelis-musica',
-    videoIdOrUrl: '24LIl1bW3ho',
-    titulo: 'Vangelis: la música que dibuja el espacio',
-    subtitulo: 'La arquitectura sonora de una experiencia',
   },
 ];
 
@@ -1165,7 +1159,7 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
         </div>
       </section>
 
-      {/* ===== ARQUITECTURA DE LA EXPERIENCIA · FIBONACCI, GEOMETRÍA SAGRADA Y VANGELIS ===== */}
+      {/* ===== ARQUITECTURA DE LA EXPERIENCIA · FIBONACCI, GEOMETRÍA SAGRADA Y MÚSICA ANTIGUA ===== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="relative border-2 border-[#14281C] rounded-2xl overflow-hidden bg-[#FBF7EC] shadow-sm">
           <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#14281C_1.4px,transparent_1.4px)] [background-size:22px_22px]" />
@@ -1194,9 +1188,11 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               que fluye. En esta lámina, la <strong>sucesión de Fibonacci</strong> y la{' '}
               <strong>geometría sagrada</strong> —la espiral áurea, la flor de la vida, la sección
               φ = 1,618— son el mismo andamiaje del que se sirve la arquitectura para ordenar espacios,
-              y del que se sirve la <strong>música de Vangelis</strong> para
-              ordenar el tiempo: armonías y capas que se entretejen con proporción y gracia, como
-              columnas, arcos y bóvedas que articulan el silencio de una catedral.
+              y del que se sirve la <strong>música antigua y el Renacimiento</strong> —que Jordi Savall
+              devolvió al mundo con Hesperion XXI— para ordenar el tiempo: el nacimiento de la{' '}
+              <strong>polifonía</strong> fue el primer intento de Occidente por envolver los sentidos en
+              una sola experiencia envolvente, y la catedral, <strong>a la vez a escala humana y
+              divina</strong>, articuló ese espacio con columnas, arcos y bóvedas.
             </p>
 
             <div className="mt-4">
@@ -1247,24 +1243,22 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
                       <Music2 className="w-3.5 h-3.5" /> La música de esta arquitectura
                     </p>
                     <p className="text-sm sm:text-base font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
-                      Vangelis — la música que dibuja el espacio
+                      Jordi Savall y Hesperion XXI — la polifonía recuperada
                     </p>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      Vangelis (1943–2022) compuso música que se escucha como un lugar: en{' '}
-                      <strong className="text-white">Blade Runner</strong>,{' '}
-                      <strong className="text-white">1492: La conquista del paraíso</strong> o{' '}
-                      <strong className="text-white">Chariots of Fire</strong>, cada tema construye un
-                      espacio propio. Al escucharlo se escucha la{' '}
-                      <strong className="text-white">arquitectura sonora de una experiencia</strong>:
-                      capas y armonías que ordenan el tiempo como las columnas ordenan el espacio, y
-                      levantan el paisaje sonoro donde el visitante entra.
+                      La música antigua y el Renacimiento fueron los primeros intentos de Occidente
+                      por crear una <strong className="text-white">experiencia envolvente para los
+                      sentidos</strong>: al nacer la polifonía, varias voces dejan de cantar una tras
+                      otra y se <strong className="text-white">entretejen en un mismo espacio-tiempo</strong>,
+                      igual que los visitantes de una catedral. Savall lo devolvió con Hesperion XXI
+                      (desde 1959). El resultado es una arquitectura sonora{' '}
+                      <strong className="text-white">a escala humana y divina al mismo tiempo</strong>:
+                      la misma lógica que ordena el espacio con columnas y arcos ordena el tiempo con
+                      voces y gracia.
                     </p>
-                    <div className="pt-1">
-                      <VideoTrigger
-                        onClick={() => setVideoAbierto('vangelis-musica')}
-                        label="Ver a Vangelis hablar de la música"
-                      />
-                    </div>
+                    <p className="pt-1 text-[10px] font-mono text-slate-400">
+                      Hesperion XXI · desde 1959 · la polifonía recuperada como experiencia sensible.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1286,8 +1280,8 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               </div>
 
               <p className="mt-3 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
-                Así como la espiral de Fibonacci ordena el espacio y la música de Vangelis ordena el
-                tiempo, el{' '}
+                Así como la espiral de Fibonacci ordena el espacio y la polifonía del Renacimiento
+                ordena el tiempo, el{' '}
                 <strong>viaje del visitante</strong> se ordena en <strong>hitos</strong> que giran en
                 espiral: cada vuelta crece en proporción áurea, y cada hito amplifica la intensidad del
                 anterior. Un travel journey bien diseñado no es una línea recta — <strong>es una espiral
