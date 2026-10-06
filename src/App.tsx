@@ -29,6 +29,7 @@ import { TourStudioView } from './components/TourStudioView';
 import { FactibilidadGuide } from './components/FactibilidadGuide';
 import { MatrizRiesgoIPER } from './components/MatrizRiesgoIPER';
 import { NormativasPage } from './components/NormativasPage';
+import { TesteoPage } from './components/TesteoPage';
 import { HistoriaInterpretacion } from './components/HistoriaInterpretacion';
 import { TematicaInterpretacion } from './components/TematicaInterpretacion';
 import { MediosInterpretativos } from './components/MediosInterpretativos';
@@ -84,7 +85,7 @@ export default function App() {
   useEffect(() => {
     toursRef.current = tours;
   }, [tours]);
-type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'admin';
+type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'testeo' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
@@ -92,8 +93,10 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
         ? 'matriz'
         : window.location.pathname.startsWith('/normativas')
           ? 'normativas'
+          : window.location.pathname.startsWith('/testeo')
+            ? 'testeo'
           : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
-? 'historia'
+ ? 'historia'
             : window.location.pathname.startsWith('/medios')
               ? 'medios'
               : window.location.pathname.startsWith('/tematica')
@@ -318,6 +321,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             ? 'matriz'
             : window.location.pathname.startsWith('/normativas')
               ? 'normativas'
+              : window.location.pathname.startsWith('/testeo')
+                ? 'testeo'
 : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
               ? 'historia'
             : window.location.pathname.startsWith('/medios')
@@ -705,6 +710,17 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       action: () => navigateTo('normativas', '/normativas'),
     },
     {
+      key: 'testeo',
+      label: 'Testeo',
+      icon: FlaskConical,
+      iconClass: 'text-[#E8A58B]',
+      title: 'Testeo: herramientas de evaluación y medición de una experiencia turística',
+      active: viewMode === 'testeo',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('testeo', '/testeo'),
+    },
+    {
       key: 'historia',
       label: 'Historia',
       icon: History,
@@ -1079,6 +1095,13 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           <MatrizRiesgoIPER onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'normativas' ? (
           <NormativasPage onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'testeo' ? (
+          <TesteoPage
+            onBack={() => navigateTo('catalog', '/explorar')}
+            onOpenTour={(tourId) => navigateTo('detail', '/tour/' + tourId)}
+            onOpenMatriz={() => navigateTo('matriz', '/matrizderiesgo')}
+            onOpenNormativas={() => navigateTo('normativas', '/normativas')}
+          />
         ) : viewMode === 'historia' ? (
           <HistoriaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'medios' ? (
