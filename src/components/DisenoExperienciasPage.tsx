@@ -1195,10 +1195,16 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
               <strong>geometría sagrada</strong> —la espiral áurea, la flor de la vida, la sección
               φ = 1,618— son el mismo andamiaje del que se sirve la arquitectura para ordenar espacios,
               y del que se sirve la <strong>música antigua y el Renacimiento</strong> —que Jordi Savall
-              devolvió al mundo con Hesperion XXI— para ordenar el tiempo: el nacimiento de la{' '}
-              <strong>polifonía</strong> fue el primer intento de Occidente por envolver los sentidos en
-              una sola experiencia envolvente, y la catedral, <strong>a la vez a escala humana y
-              divina</strong>, articuló ese espacio con columnas, arcos y bóvedas.
+              devolvió al mundo con Hesperion XXI— para construir{' '}
+              <strong>la arquitectura del tiempo</strong>. Si la arquitectura distribuye la materia, la
+              música distribuye el tiempo de la experiencia: lo fragmenta, lo ordena y le da forma, igual
+              que un patio, una nave o un umbral ordenan el cuerpo del visitante. Por eso el nacimiento
+              de la <strong>polifonía</strong> fue el primer intento de Occidente por envolver los
+              sentidos en una sola experiencia envolvente: varias voces dejan de turnarse y se tejen en un
+              mismo espacio-tiempo, y la música se vuelve <em>el verbo que se materializa en el eco de
+              la vida</em>. La catedral, <strong>a la vez a escala humana y divina</strong>, articuló ese
+              espacio con columnas, arcos y bóvedas: una morada del tiempo, habitada por quien la
+              escucha.
             </p>
 
             <div className="mt-4">
@@ -1310,7 +1316,7 @@ export const DisenoExperienciasPage: React.FC<DisenoExperienciasPageProps> = ({ 
 
               <p className="mt-3 text-sm text-slate-700 leading-relaxed text-justify max-w-4xl border-l-4 border-[#B04E2A] pl-4">
                 Así como la espiral de Fibonacci ordena el espacio y la polifonía del Renacimiento
-                ordena el tiempo, el{' '}
+                construye la arquitectura del tiempo, el{' '}
                 <strong>viaje del visitante</strong> se ordena en <strong>hitos</strong> que giran en
                 espiral: cada vuelta crece en proporción áurea, y cada hito amplifica la intensidad del
                 anterior. Un travel journey bien diseñado no es una línea recta — <strong>es una espiral
