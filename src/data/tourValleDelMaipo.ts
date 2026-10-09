@@ -53,7 +53,16 @@ export const tourValleDelMaipo: Tour = {
     youtube: 'https://youtube.com/@elviajecl',
     website: 'https://www.elviaje.cl'
   },
-  generalDocuments: [],
+  generalDocuments: [
+    {
+      id: 'doc-guia-definitiva-valle-del-maipo',
+      name: 'Guía Definitiva del Valle del Maipo - El Viaje del Explorador por la Cuna del Vino Chileno.pdf',
+      type: 'guide',
+      url: '/pdf/guia-definitiva-valle-del-maipo.pdf',
+      size: '237 KB',
+      description: 'Guía oficial de la plataforma: terroir del Alto Maipo, Central y Pacific Maipo, la historia de la cuna del vino chileno y las 36 viñas abiertas al enoturismo.'
+    }
+  ],
   stops: [
     {
       id: 'stop-maipo-portal',
