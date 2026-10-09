@@ -24,7 +24,8 @@ import {
   QrCode,
   ExternalLink,
   LayoutList,
-  X
+  X,
+  Route
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Tour, TourStop } from '../types';
@@ -40,6 +41,8 @@ interface TourDetailViewProps {
   onBack: () => void;
   onEditTour?: (tour: Tour) => void;
   initialStopId?: string;
+  relatedTours?: Tour[];
+  onOpenTour?: (tourId: string) => void;
 }
 
 export const TourDetailView: React.FC<TourDetailViewProps> = ({
@@ -47,6 +50,8 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
   onBack,
   onEditTour,
   initialStopId,
+  relatedTours,
+  onOpenTour,
 }) => {
   const [activeStop, setActiveStop] = useState<TourStop | null>(null);
   const [selectedStopModal, setSelectedStopModal] = useState<TourStop | null>(null);
@@ -574,6 +579,39 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
             </p>
           </div>
 
+          {/* Criterio TORA del guion interpretativo */}
+          {tour.tora && (
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
+              <h3 className="text-xs font-bold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
+                Criterio TORA del guion interpretativo
+              </h3>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                Cada parada se redacta según el modelo de Sam Ham (Temática · Organizada · Relevante · Amena), el mismo criterio con que la plataforma evalúa un tema interpretativo.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {[
+                  { key: 'Temática', letter: 'T', color: '#B04E2A', text: tour.tora.tematica },
+                  { key: 'Organizada', letter: 'O', color: '#2F5238', text: tour.tora.organizada },
+                  { key: 'Relevante', letter: 'R', color: '#8A6A2F', text: tour.tora.relevante },
+                  { key: 'Amena', letter: 'A', color: '#3D6B8C', text: tour.tora.amena },
+                ].map((t) => (
+                  <div key={t.key} className="rounded-2xl bg-[#F6F1E5] border border-[#E4D8BF] p-3 flex gap-3">
+                    <span
+                      className="w-7 h-7 rounded-lg text-white font-extrabold text-sm flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: t.color }}
+                    >
+                      {t.letter}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-[#14281C] uppercase tracking-wide">{t.key}</p>
+                      <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">{t.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Downloadable Documents */}
           {tour.generalDocuments && tour.generalDocuments.length > 0 && (
             <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
@@ -655,6 +693,48 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
         </div>
 
       </main>
+
+      {/* Related Tours · Rutas conectadas de la colección */}
+      {relatedTours && relatedTours.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+          <div className="rounded-3xl bg-[#14281C] p-5 sm:p-7 shadow-lg border border-[#2A4533] space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2 font-['Cormorant_Garamond',Georgia,serif]">
+                <Route className="w-4 h-4 text-[#E8A58B]" />
+                Rutas conectadas de la Colección Valle del Maipo
+              </h2>
+              <span className="hidden sm:block text-[11px] text-white/60 font-semibold">
+                {relatedTours.length} audioguías más para completar la colección
+              </span>
+            </div>
+            <p className="text-xs text-white/70 leading-relaxed max-w-3xl">
+              Esta audioguía forma parte de una colección de 6 recorridos interpretativos del valle del Maipo. Enlaza con la audioguía central y las demás rutas para armar tu propia travesía por la cuna del vino chileno.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {relatedTours.map((rt) => (
+                <button
+                  key={rt.id}
+                  onClick={() => onOpenTour && onOpenTour(rt.id)}
+                  className="group flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#E8A58B]/50 transition-all text-left cursor-pointer"
+                >
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 shadow-inner">
+                    <img src={rt.coverImage} alt={rt.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-bold text-white text-xs leading-snug line-clamp-2 font-['Cormorant_Garamond',Georgia,serif] group-hover:text-[#E8A58B] transition-colors">
+                      {rt.title}
+                    </h3>
+                    <p className="text-[10px] text-white/60 mt-1">
+                      {rt.stops.length} paradas · {rt.durationMinutes} min
+                    </p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-[#E8A58B] flex-shrink-0 transition-colors" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related Store Items - Publicidad directa relacionada con esta ruta */}
       <RelatedShopStrip tourId={tour.id} />

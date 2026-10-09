@@ -7,8 +7,20 @@ import { tourRamalTalcaConstitucion } from './tourRamalTalcaConstitucion';
 import { tourMuseoInteractivoMirador } from './tourMuseoInteractivoMirador';
 import { tourParqueNacionalChiloeTurberas } from './tourParqueNacionalChiloeTurberas';
 import { tourParqueNacionalRioClarillo } from './tourParqueNacionalRioClarillo';
+import { tourValleDelMaipo } from './tourValleDelMaipo';
+import { tourMaipoAltoAndino } from './tourMaipoAltoAndino';
+import { tourMaipoMedioHistorico } from './tourMaipoMedioHistorico';
+import { tourMaipoCosta } from './tourMaipoCosta';
+import { tourMaipoGrandesCasas } from './tourMaipoGrandesCasas';
+import { tourMaipoBoutiqueAutor } from './tourMaipoBoutiqueAutor';
 
 export const INITIAL_TOURS: Tour[] = [
+  tourValleDelMaipo,
+  tourMaipoAltoAndino,
+  tourMaipoMedioHistorico,
+  tourMaipoCosta,
+  tourMaipoGrandesCasas,
+  tourMaipoBoutiqueAutor,
   tourParqueNacionalPatagonia,
   tourFelinosChile,
   tourJardinBotanicoUACh,

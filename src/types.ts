@@ -89,12 +89,20 @@ export interface TourAuthor {
   email?: string;
 }
 
+export interface ToraCriterion {
+  tematica: string;
+  organizada: string;
+  relevante: string;
+  amena: string;
+}
+
 export interface Tour {
   id: string;
   title: string;
   tagline: string;
   description: string;
   theme?: string;
+  tora?: ToraCriterion;
   coverImage: string;
   city: string;
   country: string;
@@ -115,6 +123,7 @@ export interface Tour {
   rating: number;
   reviewsCount: number;
   featured?: boolean;
+  relatedTourIds?: string[];
 }
 
 export interface AIScriptRequest {

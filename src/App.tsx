@@ -1079,6 +1079,13 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             initialStopId={routeStopId}
             onBack={() => setViewMode('catalog')}
             onEditTour={handleEditTour}
+            relatedTours={(selectedTour.relatedTourIds || [])
+              .map((id) => tours.find((t) => t.id === id))
+              .filter((t): t is Tour => Boolean(t))}
+            onOpenTour={(tourId) => {
+              const t = tours.find((x) => x.id === tourId);
+              if (t) openTour(t);
+            }}
           />
         ) : viewMode === 'studio' ? (
           <TourStudioView
