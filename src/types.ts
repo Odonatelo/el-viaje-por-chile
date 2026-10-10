@@ -78,6 +78,7 @@ export interface TourStop {
   tips?: string;
   trivia?: string;
   estimatedStayMinutes: number;
+  routeId?: string;
 }
 
 export interface TourAuthor {
@@ -94,6 +95,15 @@ export interface ToraCriterion {
   organizada: string;
   relevante: string;
   amena: string;
+}
+
+export interface TourRoute {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  order?: number;
+  coverImage?: string;
 }
 
 export interface Tour {
@@ -116,6 +126,7 @@ export interface Tour {
   socialLinks: SocialLinks;
   generalDocuments: TourDocument[];
   stops: TourStop[];
+  routes?: TourRoute[];
   wikilocRoutes?: Array<{ name: string; url: string }>;
   createdAt: string;
   updatedAt: string;

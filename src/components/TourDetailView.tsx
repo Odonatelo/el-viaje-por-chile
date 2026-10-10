@@ -179,6 +179,65 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
   const hasNextStop = currentStopIndex !== -1 && currentStopIndex < tour.stops.length - 1;
   const hasPrevStop = currentStopIndex > 0;
 
+  const renderStopCard = (stop: TourStop, idx: number) => {
+    const isActive = stop.id === activeStop?.id;
+    const isVisited = walkProgress.includes(idx);
+    const thumb = stop.images[0]?.url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
+
+    return (
+      <div
+        key={stop.id}
+        onClick={() => {
+          setActiveStop(stop);
+          setSelectedStopModal(stop);
+        }}
+        className={`flex items-center gap-3.5 p-3 rounded-2xl border cursor-pointer transition-all ${
+          isActive
+            ? 'bg-[#F1EAD9] border-[#B04E2A] shadow-md ring-2 ring-[#B04E2A]/30'
+            : 'bg-white border-[#E4D8BF] hover:border-slate-400 hover:bg-[#F6F1E5]'
+        }`}
+      >
+        <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 shadow-inner">
+          <img src={thumb} alt={stop.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
+          <span className={`absolute top-1 left-1 w-5 h-5 rounded-full text-white font-bold text-[10px] flex items-center justify-center shadow ${
+            isVisited ? 'bg-[#2F5238]' : 'bg-[#B04E2A]'
+          }`}>
+            {isVisited ? '✓' : stop.order}
+          </span>
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <h4 className="font-bold text-[#14281C] text-sm truncate leading-tight font-['Cormorant_Garamond',Georgia,serif]">
+            {stop.title}
+          </h4>
+          {stop.subtitle && (
+            <p className="text-xs text-slate-600 truncate mt-0.5">{stop.subtitle}</p>
+          )}
+          <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-1">
+            <span className="capitalize font-semibold text-[#14281C]">{stop.category}</span>
+            <span>• ⏱️ {stop.estimatedStayMinutes || 15}m</span>
+            {stop.audio && <span className="text-[#B04E2A] font-semibold">🎧 Audioguía</span>}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setQrStop(stop);
+              setShowQrModal(true);
+            }}
+            className="p-1.5 rounded-lg bg-slate-100 hover:bg-[#B04E2A]/10 text-slate-500 hover:text-[#B04E2A] transition-colors"
+            title={`Generar Código QR para ${stop.title}`}
+          >
+            <QrCode className="w-4 h-4" />
+          </button>
+          <ChevronRight className="w-4 h-4 text-slate-400" />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#F6F1E5] text-slate-900 pb-20 font-sans">
       
@@ -297,7 +356,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
               </div>
               <div className="flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-emerald-400" />
-                <span>{tour.stops.length} paradas con audioguía</span>
+                <span>{tour.stops.length} paradas con audioguía{tour.routes && tour.routes.length ? ` · ${tour.routes.length} rutas` : ''}</span>
               </div>
             </div>
 
@@ -497,72 +556,46 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           >
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-extrabold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
-                Itinerario ({tour.stops.length} Paradas)
+                {tour.routes && tour.routes.length ? `Itinerario (${tour.stops.length} Paradas · ${tour.routes.length} Rutas)` : `Itinerario (${tour.stops.length} Paradas)`}
               </h2>
               <span className="text-xs font-semibold text-[#B04E2A]">
                 {tour.durationMinutes} min aprox.
               </span>
             </div>
 
-            <div className="space-y-3">
-              {tour.stops.map((stop, idx) => {
-                const isActive = stop.id === activeStop?.id;
-                const isVisited = walkProgress.includes(idx);
-                const thumb = stop.images[0]?.url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Palafitos_de_Castro%2C_Chilo%C3%A9.jpg/1280px-Palafitos_de_Castro%2C_Chilo%C3%A9.jpg';
-
+            <div className="space-y-5">
+              {(tour.routes && tour.routes.length > 0
+                ? tour.routes
+                : [{ id: '__flat', title: '', subtitle: '', description: '', order: 0 }]
+              ).map((route) => {
+                const routeStops = route.id === '__flat'
+                  ? tour.stops
+                  : tour.stops.filter((s) => s.routeId === route.id);
+                if (routeStops.length === 0) return null;
                 return (
-                  <div
-                    key={stop.id}
-                    onClick={() => {
-                      setActiveStop(stop);
-                      setSelectedStopModal(stop);
-                    }}
-                    className={`flex items-center gap-3.5 p-3 rounded-2xl border cursor-pointer transition-all ${
-                      isActive
-                        ? 'bg-[#F1EAD9] border-[#B04E2A] shadow-md ring-2 ring-[#B04E2A]/30'
-                        : 'bg-white border-[#E4D8BF] hover:border-slate-400 hover:bg-[#F6F1E5]'
-                    }`}
-                  >
-                    {/* Thumbnail Image with Order Badge */}
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 shadow-inner">
-                      <img src={thumb} alt={stop.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
-                      <span className={`absolute top-1 left-1 w-5 h-5 rounded-full text-white font-bold text-[10px] flex items-center justify-center shadow ${
-                        isVisited ? 'bg-[#2F5238]' : 'bg-[#B04E2A]'
-                      }`}>
-                        {isVisited ? '✓' : stop.order}
-                      </span>
-                    </div>
-
-                    {/* Info */}
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-bold text-[#14281C] text-sm truncate leading-tight font-['Cormorant_Garamond',Georgia,serif]">
-                        {stop.title}
-                      </h4>
-                      {stop.subtitle && (
-                        <p className="text-xs text-slate-600 truncate mt-0.5">{stop.subtitle}</p>
-                      )}
-                      <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-1">
-                        <span className="capitalize font-semibold text-[#14281C]">{stop.category}</span>
-                        <span>• ⏱️ {stop.estimatedStayMinutes || 15}m</span>
-                        {stop.audio && <span className="text-[#B04E2A] font-semibold">🎧 Audioguía</span>}
+                  <div key={route.id} className="space-y-3">
+                    {route.id !== '__flat' && (
+                      <div className="rounded-2xl border border-[#2A4533] bg-[#14281C] text-white p-4 space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded-full bg-[#B04E2A] text-white text-[10px] font-bold uppercase tracking-wider">
+                            {route.order === 0 ? 'Bienvenida' : `Ruta ${route.order}`}
+                          </span>
+                          <span className="text-[10px] font-semibold text-white/60">
+                            {routeStops.length} paradas con audioguía
+                          </span>
+                        </div>
+                        <h3 className="font-extrabold text-white text-sm font-['Cormorant_Garamond',Georgia,serif]">
+                          {route.title}
+                        </h3>
+                        {route.subtitle && (
+                          <p className="text-[11px] text-white/70">{route.subtitle}</p>
+                        )}
+                        {route.description && (
+                          <p className="text-[11px] text-white/50 leading-relaxed">{route.description}</p>
+                        )}
                       </div>
-                    </div>
-
-                    {/* Action buttons on stop */}
-                    <div className="flex items-center gap-1 flex-shrink-0">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setQrStop(stop);
-                          setShowQrModal(true);
-                        }}
-                        className="p-1.5 rounded-lg bg-slate-100 hover:bg-[#B04E2A]/10 text-slate-500 hover:text-[#B04E2A] transition-colors"
-                        title={`Generar Código QR para ${stop.title}`}
-                      >
-                        <QrCode className="w-4 h-4" />
-                      </button>
-                      <ChevronRight className="w-4 h-4 text-slate-400" />
-                    </div>
+                    )}
+                    {routeStops.map((stop) => renderStopCard(stop, tour.stops.findIndex((s) => s.id === stop.id)))}
                   </div>
                 );
               })}
