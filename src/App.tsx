@@ -12,6 +12,7 @@ import {
   ShieldAlert,
   ClipboardCheck,
   Settings2,
+  Compass,
   History,
   BadgeCheck,
   Landmark,
@@ -31,6 +32,7 @@ import { MatrizRiesgoIPER } from './components/MatrizRiesgoIPER';
 import { NormativasPage } from './components/NormativasPage';
 import { TesteoPage } from './components/TesteoPage';
 import { HistoriaInterpretacion } from './components/HistoriaInterpretacion';
+import { FilosofiaPage } from './components/FilosofiaPage';
 import { TematicaInterpretacion } from './components/TematicaInterpretacion';
 import { MediosInterpretativos } from './components/MediosInterpretativos';
 import { OrganizacionesPage } from './components/OrganizacionesPage';
@@ -85,7 +87,7 @@ export default function App() {
   useEffect(() => {
     toursRef.current = tours;
   }, [tours]);
-type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'testeo' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'admin';
+type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'testeo' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'filosofia' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
@@ -107,7 +109,9 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             ? 'analisis'
             : window.location.pathname.startsWith('/disenodeexperiencias')
               ? 'diseno'
-              : window.location.pathname === '/admin'
+              : window.location.pathname.startsWith('/filosofia')
+                ? 'filosofia'
+                : window.location.pathname === '/admin'
           ? 'admin'
           : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
             ? 'catalog'
@@ -335,7 +339,9 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             ? 'analisis'
             : window.location.pathname.startsWith('/disenodeexperiencias')
               ? 'diseno'
-              : window.location.pathname === '/admin'
+              : window.location.pathname.startsWith('/filosofia')
+                ? 'filosofia'
+                : window.location.pathname === '/admin'
               ? 'admin'
               : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
                 ? 'catalog'
@@ -732,6 +738,17 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       action: () => navigateTo('historia', '/historia'),
     },
     {
+      key: 'filosofia',
+      label: 'Filosofía',
+      icon: Compass,
+      iconClass: 'text-[#E8A58B]',
+      title: 'De la interpretación del patrimonio al co-diseño de la experiencia: filosofía, pedagogía y restauración ecológica',
+      active: viewMode === 'filosofia',
+      variant: 'nav',
+      labelCls: 'hidden lg:inline',
+      action: () => navigateTo('filosofia', '/filosofia'),
+    },
+    {
       key: 'medios',
       label: 'Medios',
       icon: Frame,
@@ -1111,6 +1128,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           />
         ) : viewMode === 'historia' ? (
           <HistoriaInterpretacion onBack={() => navigateTo('catalog', '/explorar')} />
+        ) : viewMode === 'filosofia' ? (
+          <FilosofiaPage onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'medios' ? (
           <MediosInterpretativos onBack={() => navigateTo('catalog', '/explorar')} />
         ) : viewMode === 'tematica' ? (
@@ -1389,6 +1408,14 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
               >
                 <ClipboardCheck className="w-3.5 h-3.5" />
                 <span>Guía de Factibilidad</span>
+              </button>
+              <span className="text-slate-600">•</span>
+              <button
+                onClick={() => navigateTo('filosofia', '/filosofia')}
+                className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <Compass className="w-3.5 h-3.5" />
+                <span>Filosofía</span>
               </button>
               <span className="text-slate-600">•</span>
               <a
