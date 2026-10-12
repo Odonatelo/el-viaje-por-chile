@@ -30,6 +30,9 @@ const __filename = (() => {
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.disable('x-powered-by');
+app.set('trust proxy', true);
+
 const PORT = Number(process.env.PORT) || 3000;
 
 // ----------------------------------------------------
@@ -39,6 +42,22 @@ const PORT = Number(process.env.PORT) || 3000;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || 'juancarlos.castaing@gmail.com';
 const OWNER_NAME = process.env.OWNER_NAME || 'El Viaje SPA';
 const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
+
+// ----------------------------------------------------
+// CANONICAL / SEO — una sola versión indexable: https://www.interpretaciondelpatrimonio.cl
+// ----------------------------------------------------
+const CANONICAL_HOST = 'www.interpretaciondelpatrimonio.cl';
+const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
+// Dominios que deben resolverse por redirección 301 a la versión canónica (apex -> www, http -> https).
+const CANONICAL_REDIRECT_HOSTS = new Set(['interpretaciondelpatrimonio.cl', CANONICAL_HOST]);
+
+app.use((req, res, next) => {
+  const host = String(req.headers.host || '').toLowerCase().split(':')[0];
+  if (!CANONICAL_REDIRECT_HOSTS.has(host)) return next();
+  const proto = String(req.headers['x-forwarded-proto'] || req.protocol || 'https').split(',')[0].trim();
+  if (host === CANONICAL_HOST && proto === 'https') return next();
+  return res.redirect(301, `${CANONICAL_ORIGIN}${req.originalUrl}`);
+});
 
 // Dev-only conveniences (auto-disabled in production builds / NODE_ENV=production)
 const DEV_MODE = process.env.NODE_ENV !== 'production';
@@ -1962,6 +1981,50 @@ app.get('/api/encuestas/encuesta-valle-del-maipo', async (_req, res) => {
 });
 
 // ----------------------------------------------------
+// SEO: robots.txt y sitemap.xml (URLs canónicas de la plataforma)
+// ----------------------------------------------------
+const PUBLIC_ROUTES: Array<{ path: string; changefreq: string; priority: string }> = [
+  { path: '/', changefreq: 'weekly', priority: '1.0' },
+  { path: '/explorar', changefreq: 'weekly', priority: '0.9' },
+  { path: '/disenodeexperiencias', changefreq: 'monthly', priority: '0.8' },
+  { path: '/analisis', changefreq: 'monthly', priority: '0.8' },
+  { path: '/factibilidad', changefreq: 'monthly', priority: '0.8' },
+  { path: '/normativas', changefreq: 'monthly', priority: '0.7' },
+  { path: '/matrizderiesgo', changefreq: 'monthly', priority: '0.7' },
+  { path: '/testeo', changefreq: 'monthly', priority: '0.7' },
+  { path: '/medios', changefreq: 'monthly', priority: '0.6' },
+  { path: '/tematica', changefreq: 'monthly', priority: '0.6' },
+  { path: '/organizaciones', changefreq: 'monthly', priority: '0.6' },
+  { path: '/historia', changefreq: 'monthly', priority: '0.6' },
+  { path: '/filosofia', changefreq: 'monthly', priority: '0.6' },
+];
+
+app.get('/robots.txt', (_req, res) => {
+  res.type('text/plain').send(
+    [
+      'User-agent: *',
+      'Allow: /',
+      'Disallow: /admin',
+      'Disallow: /api/',
+      '',
+      `Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml`,
+      '',
+    ].join('\n'),
+  );
+});
+
+app.get('/sitemap.xml', (_req, res) => {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = PUBLIC_ROUTES.map(
+    (r) =>
+      `  <url>\n    <loc>${CANONICAL_ORIGIN}${r.path}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`,
+  ).join('\n');
+  res.type('application/xml').send(
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+  );
+});
+
+// ----------------------------------------------------
 // VITE DEV MIDDLEWARE / STATIC ASSETS
 // ----------------------------------------------------
 
@@ -1974,16 +2037,45 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
+    const indexHtmlPath = path.join(distPath, 'index.html');
     app.use(express.static(distPath));
-    app.get(['/hitoria', '/hitoria/'], (req, res) => {
+
+    // Normaliza la ruta usada en la URL canónica: sin barra final (salvo la raíz) y sin query.
+    const canonicalPathFor = (rawPath: string): string => {
+      let p = (rawPath || '/').split('?')[0];
+      if (!p.startsWith('/')) p = '/' + p;
+      if (p.length > 1) p = p.replace(/\/+$/, '');
+      return p || '/';
+    };
+
+    // Sirve la SPA inyectando el canonical (y og:url) de la ruta solicitada.
+    // Google lee este HTML directamente, por lo que cada URL declara su propia versión canónica.
+    const renderSpa = (req: express.Request, res: express.Response) => {
+      fs.readFile(indexHtmlPath, 'utf8', (err, html) => {
+        if (err) {
+          res.status(500).send('Error al cargar la aplicación.');
+          return;
+        }
+        const canonical = `${CANONICAL_ORIGIN}${canonicalPathFor(req.path)}`;
+        const canonicalTag = `<link rel="canonical" href="${canonical}" />`;
+        const ogUrlTag = `<meta property="og:url" content="${canonical}" />`;
+
+        let out = /<meta\s+property=["']og:url["'][^>]*>/i.test(html)
+          ? html.replace(/<meta\s+property=["']og:url["'][^>]*>/i, ogUrlTag)
+          : html.replace('</head>', `  ${ogUrlTag}\n</head>`);
+        out = /<link[^>]+rel=["']canonical["'][^>]*>/i.test(out)
+          ? out.replace(/<link[^>]+rel=["']canonical["'][^>]*>/i, canonicalTag)
+          : out.replace('</head>', `  ${canonicalTag}\n</head>`);
+
+        res.status(200).type('html').send(out);
+      });
+    };
+
+    app.get(['/hitoria', '/hitoria/'], (_req, res) => {
       res.redirect(301, '/historia');
     });
-    app.get(['/historia', '/historia/'], (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
+    app.get(['/historia', '/historia/'], renderSpa);
+    app.get('*', renderSpa);
   }
 
   await initData();
