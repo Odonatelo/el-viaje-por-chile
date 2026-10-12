@@ -17,6 +17,12 @@ import {
   Copy,
   Mail,
   X,
+  Pencil,
+  Ban,
+  UserCheck,
+  Eye,
+  LayoutDashboard,
+  Save,
 } from 'lucide-react';
 import { AdminStats, AdminUser, AdminTourRow, UserProfile } from '../types';
 
@@ -67,11 +73,13 @@ interface AdminPanelProps {
   onOpenAuthModal: () => void;
   onDeleteTour: (tourId: string) => void;
   onDataChanged: () => void;
+  viewAs?: 'admin' | 'user';
+  onChangeViewAs?: (mode: 'admin' | 'user') => void;
 }
 
 type Tab = 'users' | 'achpi' | 'tours';
 
-export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDeleteTour, onDataChanged }: AdminPanelProps) {
+export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDeleteTour, onDataChanged, viewAs = 'admin', onChangeViewAs }: AdminPanelProps) {
   const [activeTab, setActiveTab] = useState<Tab>('users');
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -317,6 +325,84 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
     }
   };
 
+  // Cuenta: editar nombre / suspender / eliminar
+  const [editingUser, setEditingUser] = useState<AdminUser | null>(null);
+  const [editName, setEditName] = useState('');
+  const [editBusy, setEditBusy] = useState(false);
+
+  const openEditUser = (u: AdminUser) => {
+    setEditingUser(u);
+    setEditName(u.name || '');
+  };
+
+  const saveEditUser = async () => {
+    if (!editingUser) return;
+    setEditBusy(true);
+    setNotice(null);
+    try {
+      const res = await fetch(`/api/admin/users/${encodeURIComponent(editingUser.email)}/update`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: editName }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsers((prev) => prev.map((u) => (u.email === editingUser.email ? data.user : u)));
+        setNotice(`Datos de ${editingUser.email} actualizados.`);
+        setEditingUser(null);
+        onDataChanged();
+      } else showError(data, 'No se pudo actualizar la cuenta.');
+    } catch {
+      showError({}, 'Error de conexión.');
+    } finally {
+      setEditBusy(false);
+    }
+  };
+
+  const toggleSuspend = async (u: AdminUser) => {
+    const next = !u.suspended;
+    if (!window.confirm(next ? `¿Suspender la cuenta de ${u.email}? No podrá iniciar sesión ni publicar rutas.` : `¿Reactivar la cuenta de ${u.email}?`)) return;
+    setActingEmail(u.email);
+    setNotice(null);
+    try {
+      const res = await fetch(`/api/admin/users/${encodeURIComponent(u.email)}/update`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ suspended: next }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsers((prev) => prev.map((row) => (row.email === u.email ? data.user : row)));
+        setNotice(next ? `Cuenta ${u.email} suspendida.` : `Cuenta ${u.email} reactivada.`);
+        onDataChanged();
+      } else showError(data, 'No se pudo cambiar el estado de la cuenta.');
+    } catch {
+      showError({}, 'Error de conexión.');
+    } finally {
+      setActingEmail(null);
+    }
+  };
+
+  const deleteUser = async (u: AdminUser) => {
+    if (!window.confirm(`¿Eliminar definitivamente la cuenta de ${u.email}? Sus rutas publicadas se conservan.`)) return;
+    setActingEmail(`del-${u.email}`);
+    setNotice(null);
+    try {
+      const res = await fetch(`/api/admin/users/${encodeURIComponent(u.email)}/delete`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setUsers((prev) => prev.filter((row) => row.email !== u.email));
+        setNotice(`Cuenta ${u.email} eliminada.`);
+        await loadOverview();
+        onDataChanged();
+      } else showError(data, 'No se pudo eliminar la cuenta.');
+    } catch {
+      showError({}, 'Error de conexión.');
+    } finally {
+      setActingEmail(null);
+    }
+  };
+
   const copyReveal = async () => {
     if (!reveal) return;
     try {
@@ -398,6 +484,28 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {onChangeViewAs && (
+            <div className="flex items-center rounded-xl border border-[#E4D8BF] bg-white p-0.5 mr-1" title="Alterna cómo se ve el sitio para ti">
+              <button
+                onClick={() => onChangeViewAs('admin')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  viewAs === 'admin' ? 'bg-[#14281C] text-white' : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                <LayoutDashboard className="w-3.5 h-3.5" />
+                Administrador
+              </button>
+              <button
+                onClick={() => onChangeViewAs('user')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  viewAs === 'user' ? 'bg-[#B04E2A] text-white' : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                <Eye className="w-3.5 h-3.5" />
+                Usuario
+              </button>
+            </div>
+          )}
           <button
             onClick={reloadActive}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all"
@@ -575,6 +683,14 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
                           <span className={`px-2 py-1 rounded-lg text-[10px] font-extrabold whitespace-nowrap ${accessBadge(u).tone}`}>
                             {accessBadge(u).label}
                           </span>
+                          {u.name && <div className="text-[10px] text-slate-500 mt-1 truncate max-w-[160px]">{u.name}</div>}
+                          {u.suspended && (
+                            <div className="mt-1">
+                              <span className="px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-red-100 text-red-700 border border-red-300">
+                                Suspendida
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td className="px-4 py-3">
                           <span className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold ${PLAN_TONES[u.memberType]}`}>
@@ -670,6 +786,37 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
                               <XCircle className="w-3 h-3" />
                               Revocar
                             </button>
+                            {u.email !== (stats?.ownerEmail || '').toLowerCase() && (
+                              <>
+                                <button
+                                  onClick={() => openEditUser(u)}
+                                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100"
+                                >
+                                  <Pencil className="w-3 h-3" />
+                                  Editar
+                                </button>
+                                <button
+                                  onClick={() => toggleSuspend(u)}
+                                  disabled={actingEmail === u.email}
+                                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold border disabled:opacity-40 ${
+                                    u.suspended
+                                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                                      : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
+                                  }`}
+                                >
+                                  {u.suspended ? <UserCheck className="w-3 h-3" /> : <Ban className="w-3 h-3" />}
+                                  {u.suspended ? 'Reactivar' : 'Suspender'}
+                                </button>
+                                <button
+                                  onClick={() => deleteUser(u)}
+                                  disabled={actingEmail === `del-${u.email}`}
+                                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-red-600 text-white hover:bg-red-700 disabled:opacity-40"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                  Eliminar
+                                </button>
+                              </>
+                            )}
                           </div>
                         </td>
                       </tr>
@@ -825,6 +972,59 @@ export function AdminPanel({ currentUser, isOwner, onBack, onOpenAuthModal, onDe
             </div>
           )}
         </>
+      )}
+
+      {/* Editar cuenta de usuario (nombre) */}
+      {editingUser && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-[#E4D8BF] overflow-hidden">
+            <div className="px-6 py-4 bg-[#14281C] text-white flex items-center justify-between border-b border-[#223F2C]">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#B04E2A]/25 text-[#E8A58B] grid place-items-center">
+                  <Pencil className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white">Editar cuenta</h3>
+                  <p className="text-xs text-slate-400 break-all">{editingUser.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setEditingUser(null)}
+                className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <label className="block">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Nombre del usuario</span>
+                <input
+                  type="text"
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  placeholder="Nombre del usuario"
+                  className="mt-1 w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#CDBA95] bg-[#F6F1E5] font-semibold focus:ring-2 focus:ring-[#B04E2A] focus:outline-none"
+                />
+              </label>
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E4D8BF]">
+                <button
+                  onClick={() => setEditingUser(null)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={saveEditUser}
+                  disabled={editBusy}
+                  className="flex items-center gap-1.5 px-5 py-2.5 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#B04E2A]/30 disabled:opacity-50 transition-all"
+                >
+                  {editBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                  Guardar cambios
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Revelado de clave de acceso (se muestra una sola vez) */}

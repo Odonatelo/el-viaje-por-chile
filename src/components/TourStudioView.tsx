@@ -32,7 +32,7 @@ import { TourExportModal } from './TourExportModal';
 
 interface TourStudioViewProps {
   initialTour?: Tour | null;
-  onSaveTour: (tour: Tour) => Promise<void>;
+  onSaveTour: (tour: Tour, opts?: { publish?: boolean }) => Promise<void>;
   onCancel: () => void;
   onPreviewTour: (tour: Tour) => void;
 }
@@ -224,11 +224,15 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
   };
 
   // Save Tour to DB / State
-  const handleSave = async () => {
+  const handleSave = async (publish: boolean) => {
     setIsSaving(true);
     try {
-      await onSaveTour(tour);
-      alert('✅ ¡Ruta guardada y publicada exitosamente en El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)!');
+      await onSaveTour({ ...tour, published: publish }, { publish });
+      alert(
+        publish
+          ? '✅ ¡Ruta guardada y publicada exitosamente en El Viaje Por Chile (www.interpretaciondelpatrimonio.cl)!'
+          : '💾 Borrador guardado. Puedes publicarlo cuando estés listo desde "Mis Rutas".',
+      );
     } catch (e) {
       console.error(e);
       alert('Error al guardar la ruta.');
@@ -405,7 +409,18 @@ export const TourStudioView: React.FC<TourStudioViewProps> = ({
             </button>
 
             <button
-              onClick={handleSave}
+              onClick={() => handleSave(false)}
+              disabled={isSaving}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 transition-all disabled:opacity-50"
+              title="Guardar como borrador (no se muestra en el catálogo público)"
+            >
+              {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              <span className="hidden sm:inline">Guardar borrador</span>
+              <span className="sm:hidden">Borrador</span>
+            </button>
+
+            <button
+              onClick={() => handleSave(true)}
               disabled={isSaving}
               className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold bg-[#B04E2A] hover:bg-[#9A3F1E] text-white shadow-lg shadow-[#B04E2A]/30 transition-all disabled:opacity-50"
             >

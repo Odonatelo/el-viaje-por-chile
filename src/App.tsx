@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   Sparkles,
   Plus,
@@ -20,6 +20,7 @@ import {
   Target,
   FlaskConical,
   Frame,
+  Eye,
 } from 'lucide-react';
 import { Tour, UserProfile, TourStop } from './types';
 import { sampleTours } from './data/sampleTours';
@@ -45,6 +46,7 @@ import { AchpiInscriptionModal } from './components/AchpiInscriptionModal';
 import { AchpiAdminModal } from './components/AchpiAdminModal';
 import { AuthorizationModal } from './components/AuthorizationModal';
 import { AdminPanel } from './components/AdminPanel';
+import { MyToursView } from './components/MyToursView';
 import { AnalisisUsuarioPage } from './components/AnalisisUsuarioPage';
 import { DisenoExperienciasPage } from './components/DisenoExperienciasPage';
 
@@ -87,7 +89,7 @@ export default function App() {
   useEffect(() => {
     toursRef.current = tours;
   }, [tours]);
-type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'matriz' | 'normativas' | 'testeo' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'filosofia' | 'admin';
+type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibilidad' | 'matriz' | 'normativas' | 'testeo' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'filosofia' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
     window.location.pathname.startsWith('/factibilidad')
       ? 'factibilidad'
@@ -111,7 +113,11 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
               ? 'diseno'
               : window.location.pathname.startsWith('/filosofia')
                 ? 'filosofia'
-                : window.location.pathname === '/admin'
+                : window.location.pathname.startsWith('/estudio')
+                  ? 'studio'
+                  : window.location.pathname.startsWith('/mis-rutas')
+                    ? 'myTours'
+                    : window.location.pathname === '/admin'
           ? 'admin'
           : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
             ? 'catalog'
@@ -132,6 +138,20 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
 
   // Owner check (exclusive monetization config & collections)
   const [isOwner, setIsOwner] = useState<boolean>(false);
+
+  // "Ver como": el propietario puede simular la vista de un usuario normal.
+  // Se cambia desde el panel de administración. No altera permisos reales del servidor.
+  const [viewAs, setViewAs] = useState<'admin' | 'user'>('admin');
+  const effectiveIsOwner = isOwner && viewAs === 'admin';
+
+  // El catálogo público (y la portada) sólo muestran rutas publicadas.
+  // Cada autor ve además sus propios borradores mientras está en sesión.
+  const visibleTours = useMemo(() => {
+    const email = (currentUser?.email || '').toLowerCase();
+    return tours.filter(
+      (t) => t.published !== false || effectiveIsOwner || (email && (t.authorEmail || '').toLowerCase() === email),
+    );
+  }, [tours, currentUser, effectiveIsOwner]);
 
   // Dev-only flag (lets you auto-login as owner locally; disabled in production)
   const [devMode, setDevMode] = useState<boolean>(false);
@@ -341,7 +361,11 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
               ? 'diseno'
               : window.location.pathname.startsWith('/filosofia')
                 ? 'filosofia'
-                : window.location.pathname === '/admin'
+                : window.location.pathname.startsWith('/estudio')
+                  ? 'studio'
+                  : window.location.pathname.startsWith('/mis-rutas')
+                    ? 'myTours'
+                    : window.location.pathname === '/admin'
               ? 'admin'
               : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
                 ? 'catalog'
@@ -355,7 +379,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
   // ----------------------------------------------------
   // Save or Update Tour
   // ----------------------------------------------------
-  const handleSaveTour = async (tour: Tour) => {
+  const handleSaveTour = async (tour: Tour, opts?: { publish?: boolean }) => {
     try {
       const res = await fetch('/api/tours', {
         method: 'POST',
@@ -379,7 +403,13 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           }
           return [data.data, ...prev];
         });
-        openTour(data.data);
+        if (opts?.publish === false) {
+          // Borrador: volver al panel "Mis Rutas" en lugar de abrir la vista de turista.
+          setEditingTour(null);
+          navigateTo('myTours', '/mis-rutas');
+        } else {
+          openTour(data.data);
+        }
       } else {
         alert(data.error || 'Error al guardar el tour');
         if (res.status === 403) {
@@ -424,6 +454,22 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       setSelectedTour(null);
       setViewMode('catalog');
     }
+  };
+
+  // ----------------------------------------------------
+  // Duplicate Tour (creates a private draft copy)
+  // ----------------------------------------------------
+  const handleDuplicateTour = (tour: Tour) => {
+    const copy: Tour = {
+      ...JSON.parse(JSON.stringify(tour)),
+      id: `tour-${Date.now()}`,
+      title: `${tour.title} (copia)`,
+      published: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setEditingTour(copy);
+    navigateTo('studio', '/estudio');
   };
 
   // ----------------------------------------------------
@@ -549,7 +595,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
         setTours(prev => [newGeneratedTour, ...prev]);
         setEditingTour(newGeneratedTour);
         setShowAiModal(false);
-        setViewMode('studio');
+        navigateTo('studio', '/estudio');
       } else {
         alert(data.error || 'Error al generar tour');
       }
@@ -594,7 +640,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       }
     }
     setEditingTour(null);
-    setViewMode('studio');
+    navigateTo('studio', '/estudio');
   };
 
   const handleOpenAiGenerator = () => {
@@ -617,7 +663,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       return;
     }
     setEditingTour(tour);
-    setViewMode('studio');
+    navigateTo('studio', '/estudio');
   };
 
   const handleAccessGranted = () => {
@@ -630,19 +676,19 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       if (!req) return;
       if (req.intent === 'studio') {
         setEditingTour(null);
-        setViewMode('studio');
+        navigateTo('studio', '/estudio');
       } else if (req.intent === 'ai') {
         setShowAiModal(true);
       } else if (req.intent === 'edit' && req.tour) {
         setEditingTour(req.tour);
-        setViewMode('studio');
+        navigateTo('studio', '/estudio');
       }
     }, 120);
   };
 
   const renderCatalogView = () => (
     <CatalogView
-      tours={tours}
+      tours={visibleTours}
       onSelectTour={(tour) => {
         openTour(tour);
       }}
@@ -661,7 +707,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
         setShowGlobalQrModal(true);
       }}
       isMember={isMember}
-      isOwner={isOwner}
+      isOwner={effectiveIsOwner}
       currentUser={currentUser}
       achpiStatus={achpiStatus}
       achpiCode={achpiCode}
@@ -813,7 +859,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       labelCls: 'hidden md:inline',
       action: () => setShowMembershipModal(true),
     },
-    ...(!isOwner
+    ...(!effectiveIsOwner
       ? [
           {
             key: 'achpi',
@@ -837,7 +883,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       labelCls: 'hidden md:inline',
       action: () => setShowEntornoModal(true),
     },
-    ...(isOwner
+    ...(effectiveIsOwner
       ? [
           {
             key: 'achpi-admin',
@@ -852,7 +898,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           },
         ]
       : []),
-    ...(isOwner
+    ...(effectiveIsOwner
       ? [
           {
             key: 'admin',
@@ -877,6 +923,21 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       labelCls: 'hidden xl:inline',
       action: () => setShowConsultingModal(true),
     },
+    ...(currentUser
+      ? [
+          {
+            key: 'myTours',
+            label: 'Mis Rutas',
+            icon: Frame as React.ComponentType<{ className?: string }>,
+            iconClass: 'text-[#E8A58B]',
+            title: 'Administra tus audioguías: borradores, publicadas, editar, duplicar y eliminar',
+            active: viewMode === 'myTours',
+            variant: 'nav' as const,
+            labelCls: 'hidden lg:inline',
+            action: () => navigateTo('myTours', '/mis-rutas'),
+          },
+        ]
+      : []),
     {
       key: 'studio',
       label: 'Studio',
@@ -1049,7 +1110,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
                     {currentUser.name.split(' ')[0]}
                   </span>
                   <span className="text-[9px] text-[#E8A58B] font-semibold block leading-none">
-                    {currentUser.role === 'admin' ? 'Admin' : 'Creador'}
+                    {effectiveIsOwner ? 'Admin' : currentUser.role === 'admin' ? 'Admin (vista usuario)' : 'Creador'}
                   </span>
                 </div>
               </>
@@ -1083,6 +1144,30 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
         </div>
       )}
 
+      {/* Banner de simulación: el propietario está viendo el sitio como usuario */}
+      {isOwner && viewAs === 'user' && (
+        <div className="bg-[#B04E2A] text-white text-xs px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-3 shadow-md">
+          <span className="font-bold flex items-center gap-1.5">
+            <Eye className="w-4 h-4" />
+            Estás viendo el sitio como un USUARIO (simulación). Los controles de administración están ocultos.
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setViewAs('admin')}
+              className="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 font-bold transition-colors"
+            >
+              Volver a vista Administrador
+            </button>
+            <button
+              onClick={() => navigateTo('admin', '/admin')}
+              className="px-3 py-1.5 rounded-lg bg-white text-[#B04E2A] hover:bg-slate-100 font-bold transition-colors"
+            >
+              Ir al Panel
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Main Views Switcher */}
       <div className="flex-1">
         {isLoading ? (
@@ -1097,7 +1182,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             onBack={() => setViewMode('catalog')}
             onEditTour={handleEditTour}
             relatedTours={(selectedTour.relatedTourIds || [])
-              .map((id) => tours.find((t) => t.id === id))
+              .map((id) => visibleTours.find((t) => t.id === id))
               .filter((t): t is Tour => Boolean(t))}
             onOpenTour={(tourId) => {
               const t = tours.find((x) => x.id === tourId);
@@ -1105,13 +1190,52 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
             }}
           />
         ) : viewMode === 'studio' ? (
-          <TourStudioView
-            initialTour={editingTour}
-            onSaveTour={handleSaveTour}
-            onCancel={() => setViewMode('catalog')}
-            onPreviewTour={(tour) => {
-              openTour(tour);
-            }}
+          canUseStudio ? (
+            <TourStudioView
+              initialTour={editingTour}
+              onSaveTour={handleSaveTour}
+              onCancel={() => navigateTo('myTours', '/mis-rutas')}
+              onPreviewTour={(tour) => {
+                openTour(tour);
+              }}
+            />
+          ) : (
+            <div className="max-w-3xl mx-auto px-4 py-16 text-center space-y-5">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-[#B04E2A]/10 grid place-items-center">
+                <Sparkles className="w-8 h-8 text-[#B04E2A]" />
+              </div>
+              <h2 className="text-2xl font-bold text-[#14281C]">Studio de Rutas</h2>
+              <p className="text-sm text-slate-600">
+                Inicia sesión con Google o canjea un código de autorización / inscríbete en ACHPI para crear y publicar
+                tus audioguías.
+              </p>
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="px-5 py-2.5 bg-[#14281C] hover:bg-[#1D3626] text-white rounded-xl text-sm font-bold transition-all"
+              >
+                Iniciar sesión
+              </button>
+              <div>
+                <button
+                  onClick={() => navigateTo('catalog', '/explorar')}
+                  className="text-sm font-semibold text-[#B04E2A] hover:text-[#9A3F1E]"
+                >
+                  ← Volver a Explorar Rutas
+                </button>
+              </div>
+            </div>
+          )
+        ) : viewMode === 'myTours' ? (
+          <MyToursView
+            tours={tours}
+            currentUser={currentUser}
+            isOwner={isOwner}
+            onBack={() => navigateTo('catalog', '/explorar')}
+            onCreateNew={handleOpenStudio}
+            onEdit={handleEditTour}
+            onDuplicate={handleDuplicateTour}
+            onDelete={handleDeleteTour}
+            onOpen={(tour) => openTour(tour)}
           />
         ) : viewMode === 'factibilidad' ? (
           <FactibilidadGuide onBack={() => navigateTo('catalog', '/explorar')} />
@@ -1147,6 +1271,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           <AdminPanel
             currentUser={currentUser}
             isOwner={isOwner}
+            viewAs={viewAs}
+            onChangeViewAs={setViewAs}
             onBack={() => navigateTo('catalog', '/explorar')}
             onOpenAuthModal={() => setShowAuthModal(true)}
             onDeleteTour={handleDeleteTour}
@@ -1157,7 +1283,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
           />
         ) : viewMode === 'home' ? (
           <HomeLanding
-            tours={tours}
+            tours={visibleTours}
             onSelectTour={(tour) => {
               openTour(tour);
             }}
@@ -1302,15 +1428,6 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'factibilidad' | 'mat
       />
 
       {/* ACHPI — Panel del administrador */}
-      <AchpiAdminModal
-        isOpen={showAchpiAdminModal}
-        onClose={() => setShowAchpiAdminModal(false)}
-        onApproved={() => {
-          refreshUser();
-        }}
-      />
-
-      {/* Inscripción ACHPI — Panel del administrador */}
       <AchpiAdminModal
         isOpen={showAchpiAdminModal}
         onClose={() => setShowAchpiAdminModal(false)}

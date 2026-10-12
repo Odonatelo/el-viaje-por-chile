@@ -174,6 +174,7 @@ export interface UserProfile {
   routeUsage?: number;
   authMethod?: 'google' | 'local' | 'both';
   hasLocalKey?: boolean;
+  suspended?: boolean;
 }
 
 export interface AdminUser {
@@ -187,6 +188,7 @@ export interface AdminUser {
   hasLocalKey?: boolean;
   routeLimit: number;
   routeUsage: number;
+  suspended?: boolean;
 }
 
 export interface AdminStats {

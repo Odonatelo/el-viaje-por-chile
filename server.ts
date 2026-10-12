@@ -123,10 +123,24 @@ function getCurrentUser(req: any): SessionUser | null {
 }
 
 function requireAuth(req: any, res: any, next: any) {
-  if (!getCurrentUser(req)) {
+  const user = getCurrentUser(req);
+  if (!user) {
     return res.status(401).json({ success: false, error: 'Debes iniciar sesión para realizar esta acción.' });
   }
+  if (isSuspended(user.email)) {
+    return res.status(403).json({
+      success: false,
+      error: 'Tu cuenta está suspendida. Contacta al administrador de la plataforma para reactivarla.',
+    });
+  }
   next();
+}
+
+// ¿La cuenta está suspendida por el administrador?
+function isSuspended(email: string): boolean {
+  const key = (email || '').toLowerCase();
+  if (key === OWNER_EMAIL.toLowerCase()) return false;
+  return !!usersStore[key]?.suspended;
 }
 
 
@@ -164,6 +178,8 @@ type StoredUser = {
   achpiCode?: string;
   authMethod?: 'google' | 'local' | 'both';
   localKeyHash?: string;
+  suspended?: boolean;
+  createdAt?: string;
 };
 let usersStore: Record<string, StoredUser> = {};
 
@@ -399,6 +415,7 @@ app.get('/api/auth/me', (req, res) => {
       achpiCode: m.achpiCode,
       authMethod: m.authMethod || u.authMethod || 'google',
       hasLocalKey: !!m.localKeyHash,
+      suspended: !!m.suspended,
       routeLimit: limit,
       routeUsage: routeUsageFor(u.email),
     },
@@ -453,6 +470,12 @@ app.post('/api/auth/local', async (req, res) => {
     return res.status(400).json({
       success: false,
       error: 'Cuenta no encontrada. Pide tu clave de acceso al administrador de la plataforma.',
+    });
+  }
+  if (account.suspended) {
+    return res.status(403).json({
+      success: false,
+      error: 'Tu cuenta está suspendida. Contacta al administrador de la plataforma para reactivarla.',
     });
   }
   if (!verifyAccessKey(normalizedKey, account.localKeyHash)) {
@@ -1152,6 +1175,25 @@ app.post('/api/tours', requireAuth, (req, res) => {
       socialLinks: tourData.socialLinks || {},
     };
 
+    // Upsert: si la ruta ya existe (misma id) se actualiza en su lugar en vez de duplicarla.
+    // Solo el autor de esa ruta (o el propietario) puede sobrescribirla.
+    const existingIndex = toursDatabase.findIndex((t) => t.id === newId);
+    if (existingIndex >= 0) {
+      const owner = toursDatabase[existingIndex];
+      const ownsTour = (owner.authorEmail || '').toLowerCase() === user.email.toLowerCase();
+      if (!user.isOwner && !ownsTour) {
+        return res.status(403).json({ success: false, error: 'No puedes editar una ruta de otro autor.' });
+      }
+      toursDatabase[existingIndex] = {
+        ...owner,
+        ...newTour,
+        authorEmail: owner.authorEmail || user.email,
+        createdAt: owner.createdAt || newTour.createdAt,
+      };
+      saveTours();
+      return res.json({ success: true, data: toursDatabase[existingIndex] });
+    }
+
     toursDatabase.unshift(newTour);
     saveTours();
     res.status(201).json({ success: true, data: newTour });
@@ -1346,6 +1388,8 @@ function adminUserView(email: string) {
     achpiCode: m.achpiCode || null,
     authMethod: m.authMethod || null,
     hasLocalKey: !!m.localKeyHash,
+    suspended: !!m.suspended,
+    createdAt: m.createdAt || null,
     routeLimit: routeLimitFor(email),
     routeUsage: routeUsageFor(email),
   };
@@ -1505,6 +1549,7 @@ app.post('/api/admin/users/generate', requireAuth, requireOwner, (req, res) => {
     achpiCode: existing?.achpiCode,
     authMethod: existing?.localKeyHash ? 'both' : existing?.authMethod === 'google' ? 'both' : 'local',
     localKeyHash: hashAccessKey(accessKey),
+    createdAt: existing?.createdAt || new Date().toISOString(),
   };
   usersStore[target] = stored;
   saveUsers();
@@ -1540,6 +1585,48 @@ app.post('/api/admin/users/:email/access-key', requireAuth, requireOwner, (req, 
     'Se generó una nueva clave de acceso para la cuenta. La anterior dejó de funcionar.',
   );
   res.json({ success: true, accessKey, user: adminUserView(target) });
+});
+
+// Editar una cuenta de usuario: nombre y estado (suspender/reactivar). Solo propietario.
+app.post('/api/admin/users/:email/update', requireAuth, requireOwner, (req, res) => {
+  const target = String(req.params.email).toLowerCase();
+  if (target === OWNER_EMAIL.toLowerCase()) {
+    return res.status(400).json({ success: false, error: 'No puedes modificar la cuenta del propietario.' });
+  }
+  const current = usersStore[target];
+  if (!current) {
+    return res.status(404).json({ success: false, error: 'Usuario no encontrado.' });
+  }
+  const { name, suspended } = (req.body || {}) as { name?: string; suspended?: boolean };
+  const updated: StoredUser = { ...current, email: target };
+  if (typeof name === 'string') updated.name = name.trim() || current.name || target;
+  if (typeof suspended === 'boolean') updated.suspended = suspended;
+
+  usersStore[target] = updated;
+  saveUsers();
+  notifyAdmin(
+    `Cuenta actualizada: ${target}`,
+    `Nombre: ${updated.name || target}. Estado: ${updated.suspended ? 'suspendida' : 'activa'}.`,
+  );
+  res.json({ success: true, user: adminUserView(target) });
+});
+
+// Eliminar una cuenta de usuario (solo propietario). Las rutas publicadas se conservan.
+app.post('/api/admin/users/:email/delete', requireAuth, requireOwner, (req, res) => {
+  const target = String(req.params.email).toLowerCase();
+  if (target === OWNER_EMAIL.toLowerCase()) {
+    return res.status(400).json({ success: false, error: 'No puedes eliminar la cuenta del propietario.' });
+  }
+  if (!usersStore[target]) {
+    return res.status(404).json({ success: false, error: 'Usuario no encontrado.' });
+  }
+  delete usersStore[target];
+  saveUsers();
+  notifyAdmin(
+    `Cuenta eliminada: ${target}`,
+    'Se eliminó la cuenta de usuario. Sus rutas publicadas se conservan en el catálogo.',
+  );
+  res.json({ success: true, email: target });
 });
 
 // Listado de rutas con autor (solo propietario)
@@ -2005,6 +2092,8 @@ app.get('/robots.txt', (_req, res) => {
       'User-agent: *',
       'Allow: /',
       'Disallow: /admin',
+      'Disallow: /estudio',
+      'Disallow: /mis-rutas',
       'Disallow: /api/',
       '',
       `Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml`,
