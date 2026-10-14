@@ -429,9 +429,10 @@ export function FilosofiaPage({ onBack }: Props) {
             entre personas y lugares. Tim Merriman, director ejecutivo de la NAI durante diecisiete
             años, y Lisa Brochu sumaban más de cinco décadas de oficio entre ambos (NAI/InterpPress,
             2008), y esa experiencia se tradujo en libros que son, literalmente, diseño de
-            experiencias aplicado a museos, parques, zoológicos y sitios patrimoniales. El «paraguas»
-            del que habla este ensayo no es una promesa: es una escuela con manuales, planos y
-            evaluación.
+            experiencias aplicado a museos, parques, zoológicos, sitios patrimoniales, centros
+            de visitantes y —por extensión lógica— a cualquier espacio que quiera que alguien
+            perciba, comprenda y recuerde. El «paraguas» del que habla este ensayo no es una
+            promesa: es una escuela con manuales, planos y evaluación.
           </p>
           <p className="text-[15px] leading-relaxed text-slate-700">
             Desde América Latina, ese mismo impulso toma forma holística en <em>Esencia de la
@@ -439,7 +440,8 @@ export function FilosofiaPage({ onBack }: Props) {
             «escrito desde América Latina para América Latina» y articulado con el Consorcio PUP para
             el Patrimonio Global, del que Kohl es fundador. La planificación interpretativa, verá el
             lector, no es un detalle administrativo: es la columna vertebral de cualquier metodología
-            de co-diseño de medios y experiencias.
+            de co-diseño de medios y experiencias —ya sea en un sendero, en una sala de museo, en
+            una bodega, en un restaurante o en cualquier otro espacio de hospitalidad.
           </p>
         </div>
       </section>
@@ -554,7 +556,9 @@ export function FilosofiaPage({ onBack }: Props) {
             <p className="text-[13px] text-slate-700 leading-relaxed">
               «Empieza donde están tus aprendices, no donde estás tú» — <em>Start where your learners
               are, not where you are</em>. La regla de Van Matre que convierte a cualquier medio
-              interpretativo en una puerta, en vez de una clase (Van Matre, 1974).
+              interpretativo en una puerta, en vez de una clase (Van Matre, 1974). Ese criterio no
+              solo sirve en un parque: sirve para hablarle a un visitante de museo, a un comensal de
+              restaurante o a un huésped de una bodega.
             </p>
           </div>
           <p className="text-[15px] leading-relaxed text-slate-700">
@@ -654,7 +658,9 @@ La ecología profunda de Arne Naess resuena aquí como eco intertextual: los eco
             iberoamericana (Morales; Mayorga y Kohl) y aterrizó en el sur, donde la interpretación ya
             tiene genealogía propia —del <em>Manual</em> de Morales, gestado entre Chile y la FAO, al
             legado de Castaing en la NAI ({' '}
-            {link('/historia', 'historia de la disciplina en Chile')} ).
+            {link('/historia', 'historia de la disciplina en Chile')} ). El mismo principio vale para
+            un sendero, para una sala de museo, para una bodega, para un restaurante o para un espacio
+            de hospitalidad: toda experiencia de calidad nace de una historia que se deja contar.
           </p>
         </div>
       </section>
@@ -672,7 +678,8 @@ La ecología profunda de Arne Naess resuena aquí como eco intertextual: los eco
           <p className="text-[15px] sm:text-base text-[#E4D8BF] leading-relaxed max-w-3xl">
             Reunidos los movimientos, el canon entrega, en vasos comunicantes, una metodología
             completa. No la inventa este ensayo: la hace explícita, para que cualquier equipo —parque,
-            museo, comunidad, operador turístico— pueda aplicarla sobre el terreno. Cinco tiempos:
+            museo, comunidad, operador turístico, bodega, restaurante u hotel— pueda aplicarla sobre
+            el terreno. Cinco tiempos:
           </p>
           <ol className="space-y-4 max-w-3xl">
             {[
@@ -699,10 +706,24 @@ La ecología profunda de Arne Naess resuena aquí como eco intertextual: los eco
             Cable), la conducta se diseña para reducir el impacto (Van Matre), y el co-diseño garantiza
             que la comunidad —y el visitante— se reconozcan en el relato (Chihuailaf; Morin). El
             pensamiento complejo de Edgar Morin es la cinta que une los cinco tiempos: religa
-            pedagogía, ecología, diseño y memoria en un solo sistema, sin que ninguna disciplina
-            reclame supremacía (Morin, 1990/1999). El paraguas interpretativo está abierto; solo falta
-            que cada proyecto lo sostenga.
+            pedagogía, ecología, diseño, memoria y <strong>hospitalidad</strong> en un solo sistema,
+            sin que ninguna disciplina reclame supremacía (Morin, 1990/1999). El paraguas
+            interpretativo está abierto; solo falta que cada proyecto lo sostenga —desde un circuito
+            natural hasta una sala de museo o el salón de un restaurante.
           </p>
+          <div className="rounded-2xl border border-[#2A4533] bg-[#14281C]/70 p-6 space-y-3 max-w-3xl">
+            <p className="font-extrabold text-white text-sm uppercase tracking-wider text-[#E8A58B]">
+              Aplicación práctica (ejemplos)
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px] text-[#E4D8BF] leading-relaxed">
+              <li className="flex gap-2"><span className="text-[#E8A58B]">•</span><span><strong>Museos:</strong> tema por exposición, audio por zonas, conexión entre objeto y visitante (Caputo, Merriman & Brochu).</span></li>
+              <li className="flex gap-2"><span className="text-[#E8A58B]">•</span><span><strong>Restaurantes:</strong> origen del plato/ingrediente, historia del cocinero/localidad, hilo narrativo que trasciende la carta (Beck & Cable).</span></li>
+              <li className="flex gap-2"><span className="text-[#E8A58B]">•</span><span><strong>Bodegas:</strong> cepa, terroir, trabajo, recorrido que conecta tierra-copa sin didactismo.</span></li>
+              <li className="flex gap-2"><span className="text-[#E8A58B]">•</span><span><strong>Hoteles:</strong> sentido de lugar, barrio, memoria viva, experiencia de bienvenida.</span></li>
+              <li className="flex gap-2"><span className="text-[#E8A58B]">•</span><span><strong>Parques/Áreas protegidas:</strong> conducta/restauración (Van Matre) + tema (Ham).</span></li>
+              <li className="flex gap-2"><span className="text-[#E8A58B]">•</span><span><strong>Patrimonio urbano:</strong> oralitura (Chihuailaf) + planificación (Brochu).</span></li>
+            </ul>
+          </div>
         </div>
       </section>
 
