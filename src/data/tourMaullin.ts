@@ -83,7 +83,7 @@ export const tourMaullin: Tour = {
       ],
       documents: [],
       tips: 'El casco urbano se recorre a pie sin dificultad. Lleva calzado cómodo y agua: el clima de la comuna cambia rápido, con lloviznas frecuentes. Respeta el ritmo del pueblo y su vida cotidiana.',
-      trivia: 'El territorio que hoy es Maullín formó parte del antiguo Partido de Carelmapu, uno de los asientos coloniales del Chiloé continental, y su centro administrativo fue desplazándose hacia el estuario del río Maullín a lo largo del siglo XIX.',
+      trivia: '¿Sabías que la comuna de Maullín nació de un antiguo Partido colonial llamado Carelmapu? Ese asiento del Chiloé continental fue durante siglos el centro administrativo de la zona, con su vida atada a la navegación y al comercio por agua. A lo largo del siglo XIX ese centro se fue desplazando hacia el estuario del río Maullín, hasta que el pueblo quedó donde hoy lo ves. No eligió su lugar al azar: siguió el rumbo del río.',
       estimatedStayMinutes: 12
     },
     {
@@ -135,7 +135,7 @@ export const tourMaullin: Tour = {
       ],
       documents: [],
       tips: 'Observa las aves a distancia y en silencio, con binoculares si puedes. No alimentes a la fauna, no salgas de los senderos ni pises las zonas de juncal: son frágiles. Evita el acceso en vehículo motorizado por las planicies de marea.',
-      trivia: 'Los hualves son bosques pantanosos nativos muy poco frecuentes en Chile: formaciones anegadas que originalmente se extendían entre Coquimbo y la Isla Grande de Chiloé y que hoy sobreviven como remanentes amenazados.',
+      trivia: '¿Sabías que los hualves son bosques pantanosos casi únicos en el mundo? Son formaciones de árboles que crecen con los pies metidos en el agua, y en Chile se extendían originalmente desde Coquimbo hasta la Isla Grande de Chiloé. Hoy sobreviven apenas como fragmentos, muchos amenazados por el drenaje y la pérdida de humedales. Verlos en el estuario del Maullín es ver una reliquia viva del paisaje del sur.',
       estimatedStayMinutes: 20
     },
     {
@@ -169,7 +169,7 @@ export const tourMaullin: Tour = {
       ],
       documents: [],
       tips: 'La disponibilidad de mariscos cambia con la temporada y con las vedas sanitarias; pregunta en el local qué trae el día. Prefiere cocinerías y productores locales: así el sabor y la economía quedan en el territorio.',
-      trivia: 'La empanada de mariscos comparte con la empanada de pino el gesto de hornear el relleno dentro de la masa, pero cambia la carne por productos del estuario, un rasgo típico del litoral de la Región de Los Lagos.',
+      trivia: '¿Sabías que la empanada de mariscos guarda la historia del estuario en cada bocado? Comparte con la empanada de pino el gesto de encerrar el relleno en la masa y hornearlo, pero cambia la carne por lo que el río y la marea entregan según la temporada. Es una receta nacida de la pesca artesanal y de la cocina de casa, típica del litoral de la Región de Los Lagos. Al probarla, en realidad estás probando el territorio.',
       estimatedStayMinutes: 15
     },
     {
@@ -203,7 +203,7 @@ export const tourMaullin: Tour = {
       ],
       documents: [],
       tips: 'Si te quedan ganas de caminar, recorre la ribera del río al atardecer y cierra el recorrido en silencio, mirando el agua. Antes de irte, deja el lugar mejor de como lo encontraste.',
-      trivia: 'El río Maullín es el principal emisario del lago Llanquihue hacia el mar: el agua que aquí termina es la misma que miles de visitantes ven nacer a los pies del volcán Osorno.',
+      trivia: '¿Sabías que el río Maullín es la salida del lago Llanquihue hacia el mar? Toda el agua que ves correr frente al pueblo es la misma que miles de visitantes ven nacer a los pies del volcán Osorno, muy al interior de la cuenca. Ese largo viaje entre lagos, bosques y humedales es lo que ha dado forma al paisaje y a la vida de la comuna. Por eso, mirar el río aquí es asomarse al final de una larga historia de agua.',
       estimatedStayMinutes: 10
     }
   ]

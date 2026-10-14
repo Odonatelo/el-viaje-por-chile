@@ -99,8 +99,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.santarita.com' },
       documents: [],
       tips: 'Reserva con antelación el paseo en carruaje y la visita al Museo Andino: son las experiencias más demandadas y de cupo limitado.',
-      trivia:
-        'El vino «120» conmemora a los patriotas que se refugiaron en las bodegas de Santa Rita durante la independencia de Chile.',
+      trivia: '¿Sabías que este vino honra a los patriotas de la independencia? El «120» conmemora a quienes se refugiaron en las bodegas de Santa Rita durante aquellos años de lucha. Aquellas paredes sirvieron de escondite en tiempos peligrosos. Hoy, cada botella recuerda ese episodio de la historia de Chile.',
       estimatedStayMinutes: 120
     },
     {
@@ -141,8 +140,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.carmen.cl' },
       documents: [],
       tips: 'Pide una cata enfocada en Carmenère: entender el redescubrimiento de 1994 cambia por completo la forma de probar esta cepa.',
-      trivia:
-        'Antes de 1994, en Chile el Carmenère solía confundirse con el Merlot por su parecido: el redescubrimiento en estos viñedos reescribió la ampelografía chilena.',
+      trivia: '¿Sabías que durante años el Carmenère se confundió con otra uva en Chile? Antes de 1994, sus racimos se parecían tanto al Merlot que nadie los distinguía, y se vendían bajo el mismo nombre. El redescubrimiento en estos viñedos obligó a reescribir la historia de las variedades chilenas. Desde entonces, el Carmenère recuperó su propia identidad.',
       estimatedStayMinutes: 70
     },
     {
@@ -183,8 +181,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.undurraga.cl' },
       documents: [],
       tips: 'El parque merece tiempo aparte: calcula al menos 30 minutos solo para el jardín antes o después de la cata.',
-      trivia:
-        'George Henry Dubois, autor del parque, fue un paisajista francés que dejó en Undurraga una de las colecciones botánicas más ricas de la zona central de Chile.',
+      trivia: '¿Sabías que un paisajista francés diseñó el parque de esta viña? George Henry Dubois llegó desde Francia y dejó en Undurraga una de las colecciones de árboles y plantas más ricas de la zona central. Su trabajo convirtió el lugar en un jardín que aún hoy sorprende. Fue un regalo de la jardinería europea al paisaje chileno.',
       estimatedStayMinutes: 90
     },
     {
@@ -219,8 +216,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.tarapaca.cl' },
       documents: [],
       tips: 'Isla de Maipo es ideal al mediodía: combina la visita a Tarapacá con un almuerzo maridado en la casona o en los restaurantes del pueblo.',
-      trivia:
-        'El estilo toscano de la casona es una rareza arquitectónica en el valle: imita las villas del centro de Italia, región de origen de muchas tradiciones vitícolas.',
+      trivia: '¿Sabías que en este valle hay una casona que imita las villas italianas? Su estilo toscano es una rareza arquitectónica en el Maipo y recuerda a las casas señoriales del centro de Italia. Precisamente de esa región llegaron muchas tradiciones del vino. La construcción es, de algún modo, un homenaje a ese origen lejano.',
       estimatedStayMinutes: 80
     },
     {
@@ -255,8 +251,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Los proyectos boutique suelen atender con reserva previa y horarios acotados: confirma por teléfono antes de sumar la parada a tu ruta.',
-      trivia:
-        'El valle de Talagante conserva canales y potreros que recuerdan su pasado agrícola previo a la expansión urbana de Santiago.',
+      trivia: '¿Sabías que Talagante fue tierra de campo antes de que creciera Santiago? El valle conserva canales y potreros que todavía recuerdan su pasado agrícola. Poco a poco, la ciudad fue acercándose y cambiando el paisaje. Los surcos y acequias que quedan son como fotos de lo que fue esta zona.',
       estimatedStayMinutes: 45
     },
     {
@@ -291,8 +286,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Si viajas en grupo, pregunta por catas guiadas: en proyectos pequeños la experiencia suele adaptarse al número de visitantes.',
-      trivia:
-        'Los proyectos de «autor» se caracterizan por firmar un estilo propio: el enólogo asume el rol de intérprete del terroir más que de productor industrial.',
+      trivia: '¿Sabías que hay vinos que llevan la marca personal de quien los hace? En los proyectos de «autor», el enólogo firma un estilo propio y trabaja más como artesano que como industrial. Su meta no es producir en grandes cantidades, sino plasmar un carácter único en cada botella. Así, el vino se vuelve una obra con nombre y apellido.',
       estimatedStayMinutes: 45
     },
     {
@@ -327,8 +321,7 @@ export const tourMaipoMedioHistorico: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Buin, Paine y Talagante quedan próximos entre sí: define el orden de visita según los horarios de reserva de cada viña para aprovechar el día.',
-      trivia:
-        'El nombre Ricardo Lowick pertenece a un enólogo que ha trabajado en varias casas del valle: uno de esos hilos humanos que conectan proyectos grandes y pequeños.',
+      trivia: '¿Sabías que una sola persona puede unir a varias viñas del valle? El nombre Ricardo Lowick pertenece a un enólogo que ha trabajado en distintas casas, grandes y pequeñas. Su trayectoria es uno de esos hilos humanos que conectan proyectos que parecen muy distintos. Detrás de muchas etiquetas hay historias compartidas como esta.',
       estimatedStayMinutes: 45
     }
   ]

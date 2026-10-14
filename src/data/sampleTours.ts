@@ -110,7 +110,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Realiza la navegación temprano por la mañana cuando el viento puelche amaina y las aguas del lago están en calma de espejo.',
-        trivia: 'El yacimiento contiene más de 5.000 millones de toneladas de mármol de alta pureza.',
+        trivia: '¿Sabías que este yacimiento guarda más de cinco mil millones de toneladas de mármol? Es mármol de alta pureza, uno de los mayores depósitos del mundo. La roca se formó hace millones de años y hoy es el sustento de la zona. Su escala es difícil de imaginar hasta que se ve en persona.',
         estimatedStayMinutes: 45
       },
       {
@@ -145,7 +145,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Sigue el sendero señalizado de 800 metros entre bosques de lengas y ñirres hasta el mirador de la pasarela.',
-        trivia: 'El río Baker nace directamente en el Lago Bertrand y desemboca en el Océano Pacífico cerca de Caleta Tortel.',
+        trivia: '¿Sabías que el río Baker nace en el lago Bertrand y llega hasta el Pacífico? Desemboca cerca de Caleta Tortel, en plena Patagonia. Es un río joven y torrentoso, alimentado por glaciares y lluvias del sur. Su curso es una de las grandes rutas de agua de Chile.',
         estimatedStayMinutes: 30
       },
       {
@@ -180,7 +180,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Lleva capa impermeable para la lluvia; Queulat es una de las zonas con mayor precipitación anual del sur de Chile.',
-        trivia: 'El explorador jesuita Nicolás Mascardi avistó por primera vez este ventisquero en el siglo XVII en busca de la mítica Ciudad de los Césares.',
+        trivia: '¿Sabías que un jesuita buscó aquí una ciudad mítica? En el siglo XVII, el explorador Nicolás Mascardi avistó por primera vez este ventisquero mientras buscaba la legendaria Ciudad de los Césares. Aquella búsqueda nunca dio con la ciudad, pero sí con uno de los paisajes más sobrecogedores del sur. Su nombre quedó unido para siempre a este hielo.',
         estimatedStayMinutes: 40
       },
       {
@@ -215,7 +215,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Camina despacio en días lluviosos ya que las maderas húmedas pueden ser resbaladizas; utiliza calzado con suela de buen agarre.',
-        trivia: 'El pueblo fue fundado en 1955 para explotar la madera de ciprés, y hasta hace pocas décadas solo se podía acceder por mar o hidroavión.',
+        trivia: '¿Sabías que este pueblo nació hace apenas unas décadas? Fue fundado en 1955 para explotar la madera de ciprés, y hasta hace pocos años solo se podía llegar por mar o en hidroavión. Esa lejanía lo mantuvo aislado y lo marcó. Hoy su historia sigue contada por sus casas y sus muelles.',
         estimatedStayMinutes: 35
       }
     ],
@@ -311,7 +311,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Ten a mano monedas en efectivo para pagar el boleto de ascenso (aprox. $100-$300 CLP).',
-        trivia: 'Valparaíso llegó a tener más de 30 ascensores en funcionamiento simultáneo; hoy 16 de ellos son Monumentos Históricos Nacionales.',
+        trivia: '¿Sabías que Valparaíso llegó a tener más de treinta ascensores funcionando a la vez? Estos funiculares subían a los cerros y se volvieron parte del alma porteña. Hoy dieciséis de ellos son Monumentos Históricos Nacionales, protegidos como piezas únicas. Subir en uno es viajar en el tiempo.',
         estimatedStayMinutes: 15
       },
       {
@@ -346,7 +346,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'La luz de la tarde (Golden Hour) ilumina las fachadas de calamina con tonos dorados excepcionales para fotografía.',
-        trivia: 'Muchas casonas de este cerro fueron construidas con maderas de pino oregón importadas desde Norteamérica.',
+        trivia: '¿Sabías que varias casonas de este cerro se construyeron con madera traída de Norteamérica? El pino oregón llegó en barcos y se usó para levantar viviendas de gran calidad. Su resistencia y belleza explican por qué aún se mantienen en pie. La madera cuenta la historia del comercio marítimo del puerto.',
         estimatedStayMinutes: 20
       },
       {
@@ -379,7 +379,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Camina dos cuadras hacia el mar para asomarte al Muelle Prat y observar a los pescadores artesanales y reconocerse en el monumento.',
-        trivia: 'El Monumento a los Héroes de Iquique, inaugurado en 1886, custodia en su cripta subterránea los restos del comandante Arturo Prat.',
+        trivia: '¿Sabías que el Monumento a los Héroes de Iquique guarda una cripta? Fue inaugurado en 1886 y en su interior subterráneo descansan los restos del comandante Arturo Prat. El monumento es uno de los más significativos del puerto. Bajo la estatua hay memoria y homenaje.',
         estimatedStayMinutes: 20
       }
     ],
@@ -464,7 +464,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Sube hasta la Torre Mirador del Castillo Hidalgo al mediodía para escuchar el cañonazo de las 12:00 hrs.',
-        trivia: 'Bajo el cerro descansan los restos de Benjamín Vicuña Mackenna en la capilla que él mismo mandó edificar.',
+        trivia: '¿Sabías que bajo este cerro descansan los restos de Benjamín Vicuña Mackenna? Fue un historiador, político y gran impulsor del desarrollo de Santiago. La capilla donde reposa la mandó edificar él mismo. El cerro que hoy recorres lleva su huella.',
         estimatedStayMinutes: 30
       },
       {
@@ -497,7 +497,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'La plaza se llena de vida al atardecer con payadores, mimos y ajedrecistas; observa además la estatua de Pedro de Valdivia al centro.',
-        trivia: 'La Catedral guarda bajo sus naves los restos de varios gobernadores coloniales y del propio Benjamín Vicuña Mackenna.',
+        trivia: '¿Sabías que la Catedral guarda restos de gobernadores coloniales? Bajo sus naves descansan figuras del período colonial y también Benjamín Vicuña Mackenna. Es un lugar donde la historia de la ciudad se conserva literalmente bajo los pies. Caminar por sus naves es caminar sobre siglos de memoria.',
         estimatedStayMinutes: 25
       },
       {
@@ -530,7 +530,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Asiste al cambio de guardia de los Carabineros de Chile, los días hábiles a las 10:00 hrs frente a la puerta norte.',
-        trivia: 'En sus patios interiores crecen naranjos y camelias, y sus subterráneos albergan el Centro Cultural Palacio La Moneda.',
+        trivia: '¿Sabías que en los patios interiores de este palacio crecen naranjos y camelias? Son un pequeño jardín escondido dentro de la ciudad. Y en sus subterráneos funciona hoy el Centro Cultural Palacio La Moneda. Un mismo edificio reúne historia, naturaleza y cultura.',
         estimatedStayMinutes: 25
       }
     ],
@@ -615,7 +615,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Mantente muy bien hidratado y utiliza sombrero y bloqueador solar en todo momento.',
-        trivia: 'El pueblo fue un enclave estratégico de las caravanas que comerciaban entre el altiplano boliviano y la costa del Pacífico.',
+        trivia: '¿Sabías que este pueblo fue un punto clave para las caravanas? Por aquí pasaban los comerciantes que unían el altiplano boliviano con la costa del Pacífico. Era un lugar de paso, descanso e intercambio. Su ubicación lo convirtió en un enclave estratégico del desierto.',
         estimatedStayMinutes: 20
       },
       {
@@ -648,7 +648,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Camina solo por los senderos demarcados: la sal es blanda y cualquier desvío degrada estas frágiles esculturas.',
-        trivia: 'La sal de esta cordillera fue explotada por los pueblos atacameños durante siglos y abasteció a los minerales de plata bolivianos.',
+        trivia: '¿Sabías que la sal de esta cordillera se explota desde hace siglos? Los pueblos atacameños la trabajaron durante mucho tiempo y abastecieron incluso a los minerales de plata de Bolivia. Ese comercio unió tierras muy lejanas. La sal fue, en su tiempo, una riqueza tan valiosa como el metal.',
         estimatedStayMinutes: 20
       },
       {
@@ -681,7 +681,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Llega dos horas antes del ocaso: el sendero se cierra al anochecer y debes portar agua y chaqueta para la caída de temperatura.',
-        trivia: 'El Valle de la Luna fue declarado Santuario de la Naturaleza y su sendero de atardecer admite un cupo diario reducido de visitantes.',
+        trivia: '¿Sabías que el Valle de la Luna es Santuario de la Naturaleza? Para cuidarlo, su famoso sendero de atardecer admite un cupo diario limitado de visitantes. Esa restricción protege un paisaje frágil de millones de años. Reservar con antelación es la forma de cuidarlo.',
         estimatedStayMinutes: 40
       }
     ],
@@ -787,7 +787,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Compra tu entrada online antes de salir de Puerto Natales: en vacaciones los cupos por sector se agotan con días de anticipación y la portada móvil del ticket es válida en cada guardería.',
-        trivia: 'El parque recibe entre 250 y 300 mil visitantes por temporada; la entrada de Laguna Amarga concentra la mayor parte del flujo del sector noreste.',
+        trivia: '¿Sabías que este parque recibe entre 250 y 300 mil visitantes por temporada? La mayoría entra por Laguna Amarga, que concentra el flujo del sector noreste. Tanta visita exige cuidar muy bien los senderos y los servicios. El gran desafío es recibir a todos sin dañar el paisaje.',
         estimatedStayMinutes: 30
       },
       {
@@ -822,7 +822,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Planifícate para salir al amanecer: la ida y vuelta a Base Torres toma todo el día y conviene marchar con luz de sobra.',
-        trivia: 'Los nombres "Torre Sur, Central y Norte" corresponden a las tres agujas de granito que dominan el circo del valle del Ascencio, de 2.600 a 2.850 msnm.',
+        trivia: '¿Sabías que las torres Sur, Central y Norte son tres agujas de granito? Se levantan entre 2.600 y 2.850 metros sobre el mar, dominando el circo del valle del Ascencio. Son el símbolo del parque y una meta para andinistas de todo el mundo. Cada una tiene su propia forma y su propia dificultad.',
         estimatedStayMinutes: 60
       },
       {
@@ -857,7 +857,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Si quieres amanecer en Base Torres sin salir de madrugada, duerme en Chileno; si no, puedes partir desde Central a las 5:30 dejando el equipo pesado en el refugio.',
-        trivia: 'El refugio toma su nombre del puente colgante que cruza el río Ascensio, construido en su día por la familia chilena que dio origen al topónimo.',
+        trivia: '¿Sabías que este refugio toma su nombre de un puente colgante? El puente cruza el río Ascensio y fue construido por la familia chilena que dio origen al topónimo. La obra permitió cruzar el río con seguridad. Su nombre recuerda a quienes hicieron posible el paso.',
         estimatedStayMinutes: 40
       },
       {
@@ -893,7 +893,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Lleva microspikes en noviembre y principios de diciembre: la morrena puede conservar hielo a la sombra de la mañana.',
-        trivia: 'La cumbre que se ve más alta es la Central, con 2.800 metros, aunque la Sur (2.850) es la frontera: las tres fueron coronadas recién en la década de 1970.',
+        trivia: '¿Sabías que la torre que parece más alta no es la más alta? La Central alcanza unos 2.800 metros, pero la Sur, con unos 2.850, marca la frontera. Las tres cumbres fueron coronadas recién en la década de 1970. Hasta entonces habían sido un desafío casi imposible.',
         estimatedStayMinutes: 120
       },
       {
@@ -928,7 +928,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Haz el tramo del lago en la mañana: a mediodía el viento del sudoeste convierte el sendero abierto en la sección más cansada de toda la W.',
-        trivia: 'La franja clara de los Cuernos corresponde a una capa de arenisca del Cretácico, distinta del granito basal del macizo, y da al cerro su doble color característico.',
+        trivia: '¿Sabías que la franja clara de los Cuernos es una capa de arenisca? Esa roca es del período Cretácico y es distinta del granito oscuro del resto del macizo. El contraste entre ambas da al cerro su doble color característico. La geología explica la postal.',
         estimatedStayMinutes: 90
       },
       {
@@ -963,7 +963,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Consulta con la guardería el estado del sendero del Francés: tras nevadas o viento extremo, el tramo alto puede cerrarse temporalmente por desprendimientos de seracs.',
-        trivia: 'El valle fue nombrado por la cordada franco-chilena que exploró la zona a inicios del siglo XX; el glaciar del Francés cuelga a casi 1.000 metros sobre el valle.',
+        trivia: '¿Sabías que este valle debe su nombre a una cordada franco-chilena? Fue nombrado por los exploradores que recorrieron la zona a comienzos del siglo XX. El glaciar del Francés cuelga a casi mil metros sobre el valle. Su nombre homenajea a quienes se aventuraron primeros.',
         estimatedStayMinutes: 40
       },
       {
@@ -998,7 +998,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Sube temprano y baja antes de las 15:00: la nube que sube por el valle cada tarde te quitará la vista justo en las mejores horas de luz.',
-        trivia: 'El Valle del Francés alberga el salto de agua más alto del parque y es casa del tordo colorado y del cóndor andino, que sobrevuela el circo en las tardes despejadas.',
+        trivia: '¿Sabías que el Valle del Francés alberga el salto de agua más alto del parque? Además es hogar del tordo colorado y del cóndor andino. En las tardes despejadas, el cóndor sobrevuela el circo. Es un lugar donde la fuerza del agua y el vuelo de las aves se encuentran.',
         estimatedStayMinutes: 150
       },
       {
@@ -1038,7 +1038,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Aprovecha el mercado de Paine Grande para provisionarte antes del Grey: luego los precios suben y la oferta se reduce a lo esencial.',
-        trivia: 'El lago Pehoé, además de postal, es el escenario del famoso mirador de las "primeras luces" del macizo, y su color lechoso viene de las rocas molidas por los glaciares.',
+        trivia: '¿Sabías que el color lechoso del lago Pehoé viene del hielo? Son las rocas finamente molidas por los glaciares las que le dan ese tono. Además, desde aquí se ve el famoso mirador de las primeras luces del macizo. Es una de las postales más queridas del parque.',
         estimatedStayMinutes: 90
       },
       {
@@ -1078,7 +1078,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'El mejor horario es mediodía o última hora: con sol bajo, el spray del salto forma arcoíris que se fotografían de frente contra el macizo.',
-        trivia: 'El Salto Grande fue bautizado por la expedición italiana de 1986 que recorría la zona, en homenaje a la caída homónima de los Campos de Hielo Sur.',
+        trivia: '¿Sabías que el Salto Grande fue bautizado por una expedición italiana de 1986? Los exploradores que recorrían la zona le dieron ese nombre en homenaje a una caída homónima de los Campos de Hielo Sur. Así, un salto lejano quedó recordado en este otro. Los nombres también viajan con los exploradores.',
         estimatedStayMinutes: 30
       },
       {
@@ -1123,7 +1123,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Reserva Refugio Grey con meses de anticipación (disponibilidad desde octubre a abril); la navegación de Lago Grey se reserva en el refugio y los turnos de mañana se llenan primero.',
-        trivia: 'En el frente de Grey arriba también la gran navegación de los vértices: es el acceso norte del Circuito O, que continúa por Los Perros y el Paso John Gardner (1.200 msnm), cerrado unidireccionalmente y por climas extremos en lo más crudo del invierno.',
+        trivia: '¿Sabías que en el frente de Grey comienza una gran travesía? Es el acceso norte del Circuito O, que continúa por Los Perros y el Paso John Gardner, a unos 1.200 metros. El circuito se recorre en un solo sentido y puede cerrarse por climas extremos en lo más crudo del invierno. Es una ruta solo para muy preparados.',
         estimatedStayMinutes: 150
       }
     ],
@@ -1211,7 +1211,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Degusta una copa de Carménère reserva maridada con empanadas de pino en los restaurantes locales.',
-        trivia: 'La cepa Carménère, originaria de Burdeos y extinguida por la filoxera en Europa en el siglo XIX, fue redescubierta intacta en Chile en 1994.',
+        trivia: '¿Sabías que la cepa Carménère se creía extinta? Es originaria de Burdeos y la filoxera la arrasó en Europa en el siglo XIX. Sin embargo, en 1994 fue redescubierta intacta en Chile, donde se había confundido con otra variedad. Hoy es uno de los tesoros de nuestra viticultura.',
         estimatedStayMinutes: 30
       },
       {
@@ -1244,7 +1244,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Visita los talleres de artesanos en cestería de mimbre y cantería en piedra.',
-        trivia: 'El nombre Lolol proviene del mapudungun "lolo", que significa tierra de zanjas o cangrejeras.',
+        trivia: '¿Sabías que el nombre Lolol viene del mapudungun? La palabra lolo significa tierra de zanjas o cangrejeras. El nombre describe el terreno y su humedad. Así, el topónimo guarda la memoria del paisaje original.',
         estimatedStayMinutes: 25
       },
       {
@@ -1277,7 +1277,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Reserva las visitas de vendimia entre marzo y abril para participar de la cosecha y la molienda del vino artesanal.',
-        trivia: 'La bodega de Viña Santa Cruz atesora además una muestra de carruajes históricos y una colección paleontológica dedicada a los niños.',
+        trivia: '¿Sabías que esta bodega guarda más que vinos? Atesora una muestra de carruajes históricos y una colección paleontológica dedicada especialmente a los niños. Es a la vez viña, museo y espacio de aprendizaje. Visitar sus salas es viajar por la historia y la naturaleza.',
         estimatedStayMinutes: 25
       }
     ],
@@ -1355,7 +1355,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Camina exclusivamente por las pasarelas de madera elevadas para no compactar las raíces superficiales del árbol.',
-        trivia: 'El alerce crece a un ritmo extremadamente lento: tan solo 1 milímetro de diámetro por año.',
+        trivia: '¿Sabías que el alerce crece apenas un milímetro por año? Es un ritmo extremadamente lento, por eso un ejemplar grande puede tener siglos o incluso milenios. Su crecimiento pausado lo vuelve especialmente vulnerable. Cada alerce es una obra de paciencia.',
         estimatedStayMinutes: 40
       },
       {
@@ -1388,7 +1388,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Lleva impermeable y bastones: las pasarelas permanecen húmedas casi todo el año a causa de las lluvias constantes.',
-        trivia: 'Cada alerce puede albergar en su corteza todo un ecosistema en miniatura de musgos, líquenes y helechos epífitos.',
+        trivia: '¿Sabías que un solo alerce puede ser todo un ecosistema? En su corteza viven musgos, líquenes y helechos que encuentran allí su hogar. Es como un pequeño bosque dentro del árbol. Proteger un alerce es proteger a muchas especies a la vez.',
         estimatedStayMinutes: 25
       },
       {
@@ -1421,7 +1421,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'No toques ni retires las plántulas que crecen sobre los troncos caídos: forman parte del sucesivo ciclo del bosque.',
-        trivia: 'La madera del alerce puede conservarse más de mil años en el suelo; en la zona protegida se han hallado incluso bosques fósiles sumergidos.',
+        trivia: '¿Sabías que la madera del alerce puede conservarse más de mil años en el suelo? Es tan resistente que no se descompone con facilidad. En la zona protegida se han hallado incluso bosques fósiles sumergidos. Son testigos de tiempos muy antiguos.',
         estimatedStayMinutes: 20
       }
     ],
@@ -1499,7 +1499,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Prueba la gastronomía tradicional en los cafés y bistrós ubicados dentro de los propios palafitos.',
-        trivia: 'Las tejuelas de alerce en las fachadas tienen diseños decorativos variados: punta de flecha, cola de castor y media luna.',
+        trivia: '¿Sabías que las tejuelas de alerce llevan diseños decorativos? En las fachadas se ven figuras como punta de flecha, cola de castor y media luna. Cada diseño es una seña de identidad de los carpinteros y sus familias. La geometría decora y a la vez cuenta quién construyó.',
         estimatedStayMinutes: 30
       },
       {
@@ -1532,7 +1532,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Desde el pasaje Gamboa, detrás del templo, obtendrás una postal que reúne la torre de la iglesia y los palafitos a la vez.',
-        trivia: 'El conjunto de iglesias de madera de Chiloé fue inscrito en la lista del Patrimonio Mundial de la UNESCO el año 2000.',
+        trivia: '¿Sabías que las iglesias de madera de Chiloé son Patrimonio Mundial? El conjunto fue inscrito por la UNESCO el año 2000. No se protegió solo cada templo, sino todo un sistema de fe y comunidad en madera. Es un reconocimiento a una cultura única.',
         estimatedStayMinutes: 20
       },
       {
@@ -1565,7 +1565,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Cruza a Quinchao en la lancha del canal: en 10 minutos llegarás a la iglesia de Santa María de Loreto de Achao, una de las más antiguas de Chiloé.',
-        trivia: 'La iglesia de Dalcahue está construida enteramente en maderas nativas unidas a caja y espiga, sin clavos de metal.',
+        trivia: '¿Sabías que la iglesia de Dalcahue no usa clavos de metal? Está construida enteramente en maderas nativas unidas a caja y espiga, un ensamble tradicional de carpintería. Los maestros chilotas dominan esta técnica desde hace generaciones. La unión sin clavos es más flexible y resistente.',
         estimatedStayMinutes: 25
       }
     ],
@@ -1644,7 +1644,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Usa calzado cómodo y cerrado con buena adherencia para caminar por las galerías húmedas.',
-        trivia: 'El Chiflón del Diablo no sufrió derrumbes catastróficos debido a la excelente calidad de la roca y la ingeniería de soporte en madera.',
+        trivia: '¿Sabías que el Chiflón del Diablo no sufrió derrumbes catastróficos? La excelente calidad de la roca y la ingeniería de soporte en madera lo mantuvieron en pie. Los mineros conocían bien cómo apuntalar los túneles. Su técnica fue tan buena que desafiaba el peligro.',
         estimatedStayMinutes: 45
       },
       {
@@ -1677,7 +1677,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'El sendero hacia el mirador de la costa es corto y empinado: desciende con cuidado, el suelo de tierra puede estar blando.',
-        trivia: 'El parque llegó a albergar más de mil especies vegetales, entre ellas robles americanos y coníferas traídas por los barcos carboneros.',
+        trivia: '¿Sabías que este parque llegó a albergar más de mil especies vegetales? Entre ellas había robles americanos y coníferas traídas por los barcos carboneros. La navegación trajo semillas de tierras lejanas. El jardín se volvió un cruce de continentes.',
         estimatedStayMinutes: 40
       },
       {
@@ -1710,7 +1710,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Aprovecha las visitas guiadas conjuntas: el circuito abarca el museo histórico, el pique y el parque con mineros jubilados como guías.',
-        trivia: 'El escritor Baldomero Lillo conoció la vida de estas faenas antes de escribir "Sub Terra", la denuncia social más célebre de la literatura minera chilena.',
+        trivia: '¿Sabías que Baldomero Lillo conoció estas faenas antes de escribir? Vivió de cerca la vida de los mineros antes de publicar Sub Terra, la denuncia social más célebre de la literatura minera chilena. Su obra mostró al país las duras condiciones del trabajo bajo tierra. Escribió con conocimiento y con conciencia.',
         estimatedStayMinutes: 30
       }
     ],
@@ -1788,7 +1788,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Planifica una sesión nocturna de observación telescópica en el Observatorio Mamalluca en Vicuña.',
-        trivia: 'El Valle del Elqui ostenta más de 300 noches despejadas al año, siendo declarado el primer Santuario Internacional de Cielos Oscuros.',
+        trivia: '¿Sabías que el Valle del Elqui tiene más de 300 noches despejadas al año? Esa claridad lo llevó a ser declarado el primer Santuario Internacional de Cielos Oscuros. Sus noches son un espectáculo natural. Es un lugar ideal para mirar las estrellas.',
         estimatedStayMinutes: 30
       },
       {
@@ -1821,7 +1821,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Las mejores observaciones se logran en noches de luna nueva; reserva con varios días de anticipación durante la temporada alta.',
-        trivia: 'Astrónomos de Chile, Europa y Estados Unidos instalan observatorios científicos en las cumbres cercanas por la calidad única del cielo.',
+        trivia: '¿Sabías que astrónomos de varios países instalan observatorios en estas cumbres? Vienen de Chile, Europa y Estados Unidos atraídos por la calidad única del cielo. El aire limpio y la altura permiten ver el universo con gran nitidez. La ciencia encuentra aquí su ventana al cosmos.',
         estimatedStayMinutes: 60
       },
       {
@@ -1854,7 +1854,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Combina la visita con una cata de pisco en alguno de los pisqueros que rodean el pueblo y guarda un momento para la biblioteca del museo.',
-        trivia: 'Antes de adoptar el seudónimo definitivo en 1914, Gabriela Mistral firmó sus primeros versos como "Alondra".',
+        trivia: '¿Sabías que Gabriela Mistral firmó sus primeros versos con otro nombre? Antes de adoptar su seudónimo definitivo en 1914, publicó como Alondra. Ese primer nombre también era un homenaje a un pájaro cantor. La poeta se buscaba a sí misma en cada firma.',
         estimatedStayMinutes: 30
       }
     ],
@@ -1947,7 +1947,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Lleva agua y protector solar: en verano la ladera norte supera con facilidad los 30 °C al mediodía.',
-        trivia: 'El menor Índice de Calidad de Vida Urbana (ICVU) de la región hizo de esta zona la prioridad número uno para áreas verdes.',
+        trivia: '¿Sabías que esta zona fue prioridad para crear áreas verdes? Tenía el menor Índice de Calidad de Vida Urbana de la región, lo que la puso al tope de las necesidades. Crear parques pasó a ser una urgencia social. La naturaleza también mejora la vida de las personas.',
         estimatedStayMinutes: 35
       },
       {
@@ -1980,7 +1980,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Los atardeceres de primavera, cuando el cerro florece tras las lluvias invernales, son imperdibles.',
-        trivia: 'Los circuitos de motocross iniciados en los años 70 degradaron amplias laderas; hoy los senderos buscan recuperar el suelo y la vegetación.',
+        trivia: '¿Sabías que los circuitos de motocross de los años 70 degradaron estas laderas? Las ruedas dejaron el suelo desnudo y dañaron la vegetación. Hoy los senderos buscan recuperar poco a poco el terreno. Es un ejemplo de cómo reparar lo que se deterioró.',
         estimatedStayMinutes: 30
       },
       {
@@ -2013,7 +2013,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Consulta el calendario parroquial de San Bernardo antes de tu visita: en Semana Santa el acceso se llena.',
-        trivia: 'El nombre Chena proviene de la familia de Don José de Perochena, regidor del cabildo de Santiago en 1722.',
+        trivia: '¿Sabías que el nombre Chena proviene de una familia antigua? Viene de Don José de Perochena, regidor del cabildo de Santiago en 1722. Su nombre quedó ligado a estas tierras. La historia familiar se volvió nombre de cerro.',
         estimatedStayMinutes: 20
       },
       {
@@ -2048,7 +2048,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'El tramo final es pedregoso; calzado de trekking y bastones recomendados en verano.',
-        trivia: 'La prominencia es de apenas 111 m respecto a Cerros San Jorge, su vecino occidental de 954 msnm.',
+        trivia: '¿Sabías que este cerro apenas se levanta sobre su vecino? Su prominencia es de solo 111 metros respecto a los Cerros San Jorge, de 954 metros, al oeste. Aun así, tiene su propia identidad y su propio nombre. No hace falta ser el más alto para ser especial.',
         estimatedStayMinutes: 40
       },
       {
@@ -2092,7 +2092,7 @@ export const INITIAL_TOURS: Tour[] = [
           }
         ],
         tips: 'Respeta el vallado y no muevas piedras: el sitio sufre abandono y vandalismo y requiere protección.',
-        trivia: 'Aunque se escribió "pucará", significa "fortaleza"; la comunidad científica prefiere "huaca" (waka), lugar sagrado.',
+        trivia: '¿Sabías que la palabra que se usó aquí quizá no era la correcta? Aunque se escribió pucará, que significa fortaleza, la comunidad científica prefiere el término huaca, que designa un lugar sagrado. Ambas palabras revelan distintas formas de entender el sitio. La precisión del lenguaje también es patrimonio.',
         estimatedStayMinutes: 45
       }
     ],
@@ -2190,7 +2190,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'El ascenso es de baja dificultad y apto para familias; el circuito completo demora cerca de una hora.',
-        trivia: 'El cerro también se conoce como Cerro Hasbún, el cerrillo que la Carretera Panamericana segregó del Chena en 1960.',
+        trivia: '¿Sabías que este cerro tiene otro nombre? También se le conoce como Cerro Hasbún, el cerrillo que la Carretera Panamericana separó del Chena en 1960. La obra de la ruta cambió la geografía del lugar. A veces una carretera divide dos mundos.',
         estimatedStayMinutes: 15
       },
       {
@@ -2235,7 +2235,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'No arranques bulbos: la restauración ecológica depende de cada ejemplar de flora nativa.',
-        trivia: 'Una alstroemeria roja adorna el billete chileno; estas flores son el orgullo de la flora mediterránea de Chile.',
+        trivia: '¿Sabías que una alstroemeria roja adorna un billete chileno? Estas flores son el orgullo de la flora mediterránea de Chile. Crecen de manera silvestre en los cerros y también se cultivan. Su belleza nos representa ante el mundo.',
         estimatedStayMinutes: 25
       },
       {
@@ -2270,7 +2270,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'El sector de canteras puede estar lleno de hojas sueltas; pisa con cuidado.',
-        trivia: 'Cada cantera conserva marcas de corte que cuentan la historia de la construcción de San Bernardo.',
+        trivia: '¿Sabías que cada cantera conserva marcas de corte? Esas huellas cuentan la historia de la construcción de San Bernardo. Los picapedreros dejaron en la piedra la memoria de su oficio. Las canteras son, en realidad, archivos al aire libre.',
         estimatedStayMinutes: 20
       },
       {
@@ -2303,7 +2303,7 @@ export const INITIAL_TOURS: Tour[] = [
         socialLinks: {},
         documents: [],
         tips: 'Atardecer recomendado: la luz dorada baja del cordón de la Costa hacia el corredor verde.',
-        trivia: 'La Fundación prevé un parque educativo de 8 hectáreas que integra el cerro y su entorno inmediato.',
+        trivia: '¿Sabías que se proyecta un parque educativo de ocho hectáreas? La Fundación prevé integrarlo con el cerro y su entorno inmediato. El objetivo es unir naturaleza, historia y aprendizaje. Un lugar donde la ciudad y el paisaje se encuentren.',
         estimatedStayMinutes: 30
       },
       {
@@ -2338,7 +2338,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'En horarios de alta demanda riega el canal; mantén la distancia de seguridad en el borde.',
-        trivia: 'El Corredor Verde de San Bernardo nació como concurso de arquitectura en 2015, ganando el primer lugar en Cerros Isla.',
+        trivia: '¿Sabías que el Corredor Verde de San Bernardo nació de un concurso? Se propuso como certamen de arquitectura en 2015 y obtuvo el primer lugar en Cerros Isla. Ese proyecto buscó recuperar los cerros como espacios verdes. La idea ganadora se convirtió en un plan para la ciudad.',
         estimatedStayMinutes: 15
       }
     ],
@@ -2425,7 +2425,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Visita la Plaza de Armas y la parroquia: la historia de la comuna se lee en sus calles.',
-        trivia: 'Los Muermos fue creada como comuna autónoma el 1 de enero de 1962, desligándose de Maullín.',
+        trivia: '¿Sabías que Los Muermos se creó como comuna en 1962? El 1 de enero de ese año se desligó de Maullín. La autonomía le permitió manejar su propio desarrollo. Su historia reciente está marcada por esa decisión.',
         estimatedStayMinutes: 40
       },
       {
@@ -2460,7 +2460,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'En julio se celebra la Fiesta del Loco: es la mejor fecha para conocer la tradición pesquera de la caleta.',
-        trivia: 'El "loco" (Concholepas concholepas) convirtió a Estaquilla en el polo pesquero y costero más dinámico de la provincia de Llanquihue.',
+        trivia: '¿Sabías que el loco convirtió a Estaquilla en el polo pesquero más dinámico de Llanquihue? El molusco, muy apreciado, sostuvo la economía local. Su captura dio trabajo a pescadores y familias. El mar se volvió el motor de la provincia.',
         estimatedStayMinutes: 55
       },
       {
@@ -2495,7 +2495,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Mantén el silencio y no te acerques a las rocas donde rompen las olas: el chungungo cría en el borde costero.',
-        trivia: 'Hua-Huar significa "lugar de animales indómitos" (huahuales); la localidad costera tiene menos de 150 habitantes dedicados a la pesca.',
+        trivia: '¿Sabías que Hua-Huar significa lugar de animales indómitos? El nombre viene de los huahuales, y describe un paisaje salvaje. La localidad costera tiene menos de 150 habitantes dedicados a la pesca. Allí el mar sigue siendo la vida.',
         estimatedStayMinutes: 65
       },
       {
@@ -2530,7 +2530,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Prueba el congrio "con agallas" en Los Muermos: es la especialidad insignia de la cocina local.',
-        trivia: 'La ruta une más de veinte mesas y cafeterías entre la costa de Estaquilla y el centro de Los Muermos.',
+        trivia: '¿Sabías que esta ruta une más de veinte mesas y cafeterías? Van desde la costa de Estaquilla hasta el centro de Los Muermos. Son paradas de sabor y de encuentro. La comida se convierte en parte del viaje.',
         estimatedStayMinutes: 80
       }
     ],
@@ -2614,7 +2614,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Sitúa tu mirada en el borde costero: en 1853 la bahía llegaba casi hasta la Plaza de Armas y las embarcaciones varaban en la playa del Astillero.',
-        trivia: 'El 12 de febrero de 1853, Vicente Pérez Rosales fundó Puerto Montt en la playa de Melipulli, acompañado por José Ramírez, Buenaventura Martínez, el párroco Miguel Sevilla y el alemán Santiago Foltz.',
+        trivia: '¿Sabías que Puerto Montt se fundó en la playa de Melipulli? El 12 de febrero de 1853, Vicente Pérez Rosales fundó la ciudad, acompañado por José Ramírez, Buenaventura Martínez, el párroco Miguel Sevilla y el alemán Santiago Foltz. Aquel pequeño grupo dio origen a una ciudad clave del sur. Su fundación abrió una nueva etapa de colonización.',
         estimatedStayMinutes: 30
       },
       {
@@ -2654,7 +2654,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Detente frente al grupo de bronce y busca a Pichi Juan: lleva un hacha y acompaña a un pequeño perro.',
-        trivia: 'La leyenda de Pichi Juan, el talador mapuche guía de los colonos, fue recogida por el folclorólogo Oreste Plath en su obra sobre mitos del sur de Chile.',
+        trivia: '¿Sabías que la leyenda de Pichi Juan fue recogida por Oreste Plath? Pichi Juan fue el talador mapuche que guio a los colonos por estos bosques. El folclorólogo Plath incluyó su historia en sus obras sobre mitos del sur. Su figura une el mundo mapuche y la colonización.',
         estimatedStayMinutes: 35
       },
       {
@@ -2694,7 +2694,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Es un edificio público: puedes asomarte a su planta baja para conocer el patrimonio institucional de la provincia.',
-        trivia: 'La Plaza de Armas de Puerto Montt fue la primera plaza pública de Chile en tener jardín, según lo registró el propio Vicente Pérez Rosales.',
+        trivia: '¿Sabías que esta plaza fue la primera de Chile en tener jardín? Así lo registró Vicente Pérez Rosales, testigo directo de su creación. La plaza se volvió un modelo para otras ciudades. Un jardín público fue, en su tiempo, toda una novedad.',
         estimatedStayMinutes: 30
       },
       {
@@ -2734,7 +2734,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Busca la glorieta que data de 2003: desde ese año la plaza recuperó oficialmente el nombre de Buenaventura Martínez.',
-        trivia: 'Desde la declaración de independencia, esta plaza es la que ha sufrido más remodelaciones en todo el territorio nacional.',
+        trivia: '¿Sabías que esta plaza es la que más remodelaciones ha sufrido en Chile? Desde la declaración de independencia ha cambiado una y otra vez. Cada generación dejó su marca en el espacio. Su historia es un reflejo de la ciudad que la rodea.',
         estimatedStayMinutes: 35
       },
       {
@@ -2774,7 +2774,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Entra a la catedral y observa las 12 columnas de alerce: las maderas nativas sostienen todo el peso del edificio.',
-        trivia: 'El caso de la "endemoniada puertomontina" (2004) llegó a inspirar programas de televisión como El Día Menos Pensado, de Carlos Pinto.',
+        trivia: '¿Sabías que el caso de la endemoniada puertomontina llamó la atención de la televisión? Ocurrido en 2004, inspiró programas como El Día Menos Pensado, de Carlos Pinto. El episodio mezcló creencias populares y suspenso. La historia quedó en la memoria colectiva de la ciudad.',
         estimatedStayMinutes: 35
       },
       {
@@ -2814,7 +2814,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Hoy es un centro cultural de acceso público: revisa la programación de salas de exposiciones y de la sala de conciertos.',
-        trivia: 'Claudio Arrau tocó la Marcha Fúnebre de Chopin en Casa Pauly en honor a Ostrudis, la hija del matrimonio fallecida envenenada el día de su boda.',
+        trivia: '¿Sabías que Claudio Arrau tocó en Casa Pauly? El gran pianista interpretó la Marcha Fúnebre de Chopin en honor a Ostrudis, la hija del matrimonio fallecida envenenada el día de su boda. La música se volvió un homenaje cargado de dolor. Casa Pauly guarda esa memoria.',
         estimatedStayMinutes: 40
       },
       {
@@ -2854,7 +2854,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Recorre el paseo del muelle hacia el mar: en días despejados verás la isla Tenglo y, hacia el sur, el golfo de Reloncaví.',
-        trivia: 'El sitio de Monte Verde, al sur de Puerto Montt, sugirió presencia humana en América de unos 14.500 años, probablemente navegantes del Pacífico.',
+        trivia: '¿Sabías que el sitio de Monte Verde cambió lo que sabíamos del poblamiento de América? Está al sur de Puerto Montt y sugirió presencia humana de unos 14.500 años. Sus hallazgos apuntan a navegantes llegados por el Pacífico. Es uno de los yacimientos más importantes del continente.',
         estimatedStayMinutes: 40
       },
       {
@@ -2894,7 +2894,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Súmate a la foto clásica: es la escultura más fotografiada de la ciudad, incluso por celebridades internacionales.',
-        trivia: 'La canción "Puerto Montt" de Los Iracundos se llamó originalmente "Por tu amor"; su autor, Eduardo Franco, murió sin haber visitado nunca la ciudad.',
+        trivia: '¿Sabías que la canción Puerto Montt se llamó primero Por tu amor? La popularizaron Los Iracundos y su autor, Eduardo Franco, murió sin haber visitado nunca la ciudad. Aun así, le cantó como si la conociera. La música puede enamorarse de un lugar sin verlo.',
         estimatedStayMinutes: 30
       },
       {
@@ -2934,7 +2934,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Entra y pregunta por los Temporales Teatrales: es la fiesta de las artes escénicas más tradicional del sur de Chile.',
-        trivia: 'Donde hoy está el Mall Paseo Costanera funcionó hasta 1960 la estación de trenes más austral de Chile, construida en 1913.',
+        trivia: '¿Sabías que donde hoy está el Mall Paseo Costanera funcionó una estación de trenes? Fue la más austral de Chile, construida en 1913 y activa hasta 1960. Por sus andenes pasó la vida ferroviaria de la zona. Hoy el comercio ocupa el sitio de aquel recuerdo.',
         estimatedStayMinutes: 40
       },
       {
@@ -2974,7 +2974,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Camina el tramo de Varas entre Chillán y la subida de Vicente Pérez Rosales: hasta 1930 esta zona se llamó Callenel.',
-        trivia: 'Según la leyenda, Cayenel proviene de un lonko mapuche-huilliche que vivió en este sector a fines del siglo XVI.',
+        trivia: '¿Sabías que Cayenel proviene, según la leyenda, de un lonko mapuche-huilliche? Se dice que vivió en este sector a fines del siglo XVI. Su nombre quedó unido al lugar a través de los siglos. La memoria del territorio se guarda en sus topónimos.',
         estimatedStayMinutes: 35
       },
       {
@@ -3014,7 +3014,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Es un edificio público: aprecia su arquitectura desde la vereda y solicita autorización para cualquier actividad especial.',
-        trivia: 'El hospital de 1938 tenía la morgue en el subterráneo; fue abandonado en febrero de 1972 y la Intendencia se instaló aquí en los años ochenta.',
+        trivia: '¿Sabías que el hospital de 1938 tenía la morgue en el subterráneo? Fue abandonado en febrero de 1972 y después la Intendencia se instaló aquí en los años ochenta. El edificio cambió de vida y de propósito. Sus muros guardan historias intensas.',
         estimatedStayMinutes: 35
       },
       {
@@ -3054,7 +3054,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Recorre el sendero peatonal que antiguamente unía la línea férrea: el borde costero a Pelluco es ideal para el atardecer.',
-        trivia: 'El caso llegó al programa OVNIS de TVN (1999-2000), con los testimonios de un carabinero y un veterinario que vivía en el sector.',
+        trivia: '¿Sabías que un caso de este sector llegó al programa OVNIS de TVN? Emitido entre 1999 y 2000, incluyó testimonios de un carabinero y de un veterinario que vivía en la zona. El relato despertó gran interés en la época. El misterio siempre atrae la atención.',
         estimatedStayMinutes: 45
       },
       {
@@ -3094,7 +3094,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Si vienes desde el terminal de buses, los colectivos Bellavista-Miraflores te dejan en el sector de la animita.',
-        trivia: 'Bastó que alguien pidiera un favor al espíritu en pena para que su hogar se colmara de casitas, placas y velas: la devoción popular crece con cada milagro.',
+        trivia: '¿Sabías que bastó pedir un favor al espíritu en pena? Desde entonces, su hogar se colmó de casitas, placas y velas. La devoción popular crece con cada milagro atribuido. La fe de la gente transforma un lugar en un santuario.',
         estimatedStayMinutes: 30
       }
     ],
@@ -3187,7 +3187,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Madruga o ven al atardecer: con luz rasante el volcán se pinta de rosado y el lago alcanza un azul profundo. El viento del oeste levanta oleaje por la tarde, así que la mejor hora para fotografiar la costa es por la mañana.',
-        trivia: 'El lago Llanquihue es el segundo más grande de Chile con unos 860 km², y el volcán Osorno es un estratovolcán de 2.652 m cuya erupción de 1835 fue registrada por Charles Darwin.',
+        trivia: '¿Sabías que el lago Llanquihue es el segundo más grande de Chile? Tiene unos 860 kilómetros cuadrados. Junto a él se alza el volcán Osorno, un estratovolcán de 2.652 metros cuya erupción de 1835 fue registrada por Charles Darwin. Ciencia y paisaje se encuentran en este rincón.',
         estimatedStayMinutes: 30
       },
       {
@@ -3227,7 +3227,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'La iglesia es un templo activo: visítala en horario de misa o consulta los horarios de visita para no interrumpir las celebraciones de la comunidad.',
-        trivia: 'La iglesia fue construida en 1918 en alerce y raulí, está declarada Monumento Nacional y es el emblema de Puerto Varas, la ciudad de las rosas fundada por colonos alemanes en 1854.',
+        trivia: '¿Sabías que la iglesia de Puerto Varas fue construida en 1918? Se levantó en alerce y raulí, y hoy es Monumento Nacional. Es el emblema de la ciudad de las rosas, fundada por colonos alemanes en 1854. Su silueta corona el paisaje urbano.',
         estimatedStayMinutes: 25
       },
       {
@@ -3267,7 +3267,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Combina la visita con un paseo por el Museo Colonial Alemán y una parada en los cafés de la costanera; pregunta por el kuchen recién horneado.',
-        trivia: 'El Teatro del Lago se inauguró en 2010 y el Festival Internacional de Música de Frutillar, heredero de la Semana Musical, es uno de los encuentros clásicos más importantes de Sudamérica.',
+        trivia: '¿Sabías que el Teatro del Lago se inauguró en 2010? Su escenario ha acogido el Festival Internacional de Música de Frutillar, heredero de la Semana Musical. Es uno de los encuentros clásicos más importantes de Sudamérica. La música convirtió a Frutillar en un referente cultural.',
         estimatedStayMinutes: 40
       },
       {
@@ -3307,7 +3307,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Visita el muelle a media tarde: la luz del oeste ilumina el volcán Osorno y el lago queda en calma de espejo, ideal para fotos sin multitudes.',
-        trivia: 'En su auge, Puerto Octay fue el principal puerto del circuito lacustre: el trigo de Osorno y Río Negro cruzaba el lago en barcos a vapor antes de que el ferrocarril y las carreteras le quitaran su rol.',
+        trivia: '¿Sabías que en su auge Puerto Octay fue el principal puerto del circuito lacustre? El trigo de Osorno y Río Negro cruzaba el lago en barcos a vapor. Todo cambió cuando llegaron el ferrocarril y las carreteras. El puerto perdió su rol y su tiempo de esplendor.',
         estimatedStayMinutes: 30
       },
       {
@@ -3347,7 +3347,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Compra tu entrada con anticipación en el sitio oficial de pases de parques nacionales; el parque es reserva y los accesos se controlan, especialmente en verano.',
-        trivia: 'El Parque Nacional Vicente Pérez Rosales es el más antiguo de Chile (1926) y el segundo de Sudamérica, y el color turquesa de los Saltos del Petrohué se debe a la harina glacial del Lago Todos los Santos.',
+        trivia: '¿Sabías que el Parque Nacional Vicente Pérez Rosales es el más antiguo de Chile? Fue creado en 1926 y es el segundo de Sudamérica. El color turquesa de los Saltos del Petrohué se debe a la harina glacial del lago Todos los Santos. Naturaleza antigua y protegida desde hace casi un siglo.',
         estimatedStayMinutes: 60
       }
     ],
@@ -3453,7 +3453,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Tramita la licencia el día anterior por internet con tu ClaveÚnica y guárdala en el celular: la versión digital es válida para exhibirla cuando te la pidan.',
-        trivia: 'En el lago operan centros de cultivo de salmónidos en agua dulce (Camanchaca y Caleta Bay), lo que obliga a Sernapesca a vigilar fugas y especies asilvestradas en temporada de desove.',
+        trivia: '¿Sabías que en el lago operan centros de cultivo de salmónidos? Entre ellos están Camanchaca y Caleta Bay, en agua dulce. Por eso Sernapesca vigila las fugas y las especies asilvestradas en temporada de desove. La acuicultura y el cuidado del ecosistema deben ir juntos.',
         estimatedStayMinutes: 360
       },
       {
@@ -3493,7 +3493,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Si tu objetivo es el salmón Chinook, agéndate entre marzo y abril; en el resto de la temporada la trucha fario y la arcoíris dan el show durante el primer pique de la mañana.',
-        trivia: 'Los estudios de la cuenca del Petrohué muestran que la trucha fario es la más abundante, cerca del 37% de los ejemplares, seguida por el salmón Chinook y la trucha arcoíris.',
+        trivia: '¿Sabías que la trucha fario es la especie más abundante de la cuenca del Petrohué? Los estudios indican que representa cerca del 37 por ciento de los ejemplares. La siguen el salmón Chinook y la trucha arcoíris. Conocer estas cifras ayuda a cuidar el equilibrio del río.',
         estimatedStayMinutes: 480
       },
       {
@@ -3533,7 +3533,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Pregunta a tu guía por las ventanas de marea y el tramo de la jornada: el tramo alto se pesca de vadeo y los tramos medio y bajo, en bote con la neblina de la mañana.',
-        trivia: 'El Santuario de la Naturaleza Humedales del Río Maullín protege unas 8.097 hectáreas y es hábitat del flamenco chileno y del huillín, la nutria de río en peligro de extinción.',
+        trivia: '¿Sabías que el Santuario de la Naturaleza Humedales del Río Maullín protege unas 8.097 hectáreas? En él vive el flamenco chileno y el huillín, la nutria de río en peligro de extinción. Es un refugio de gran valor para la vida silvestre. Su protección es clave para la biodiversidad de la zona.',
         estimatedStayMinutes: 480
       },
       {
@@ -3573,7 +3573,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Consulta las tablas de marea y el parte del golfo antes de salir: las mejores ventanas de mezcla dulce-salada suelen darse en las dos horas alrededor de la marea alta.',
-        trivia: 'En el cierre de la temporada truchera se han documentado capturas para el recuerdo en la boca del Maullín, como una trucha arcoíris de casi 5 kilos devuelta viva al agua.',
+        trivia: '¿Sabías que en la boca del Maullín se devuelven ejemplares muy grandes al agua? En el cierre de la temporada truchera se han documentado capturas para el recuerdo, como una trucha arcoíris de casi cinco kilos liberada viva. La pesca deportiva puede ser también una forma de conservación. Devolver el pez asegura que siga creciendo.',
         estimatedStayMinutes: 420
       },
       {
@@ -3613,7 +3613,7 @@ export const INITIAL_TOURS: Tour[] = [
         },
         documents: [],
         tips: 'Antes de volver a casa, renueva tu licencia para la próxima temporada online y descarga el PDF al celular: la versión digital es válida en todo el país.',
-        trivia: 'El Estuario de Reloncaví es la puerta marina del salmón Chinook que cada temporada remonta el Petrohué: la misma agua que atraviesas hoy, la recorren los peces más grandes de la cuenca.',
+        trivia: '¿Sabías que el Estuario de Reloncaví es la puerta marina del salmón Chinook? Cada temporada, este pez remonta el Petrohué desde el mar. La misma agua que atraviesas hoy la recorren los peces más grandes de la cuenca. Es una ruta natural que une océano y río.',
         estimatedStayMinutes: 360
       }
     ],

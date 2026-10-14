@@ -95,8 +95,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       },
       documents: [],
       tips: 'Llega temprano (antes de las 11:00) en temporada alta: el estacionamiento tiene cupos y en verano el parque regula el ingreso. Consulta horarios de cierre, que cambian entre invierno y verano.',
-      trivia:
-        'Aunque no está documentada una etimología oficial del nombre «Clarillo», el río que da nombre al parque es famoso por sus aguas transparentes: agua clara, río claro.',
+      trivia: '¿Sabías que el nombre Clarillo alude al agua clara de este río? Aunque no existe una etimología oficial documentada, el río que da nombre al parque es famoso por la transparencia de sus aguas. Agua clara, río claro: el nombre parece describirlo solo. Esa pureza es también la razón de que sea un lugar tan apreciado para visitar.',
       estimatedStayMinutes: 20
     },
     {
@@ -137,8 +136,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Infórmate del estado del caudal antes de ingresar al agua: tras lluvias intensas el río baja fuerte y las rocas se vuelven resbaladizas. No dejes basura en la orilla.',
-      trivia:
-        'Las piscinas que forman el río varían con cada estación: el agua modela la piedra, y por eso cada año el anfiteatro de pozas cambia de forma.',
+      trivia: '¿Sabías que las piscinas del río cambian de forma cada año? El agua modela la piedra poco a poco, así que el anfiteatro de pozas nunca es igual dos temporadas seguidas. Cada crecida reordena las rocas y abre nuevos remansos. Volver al mismo lugar no es volver al mismo paisaje.',
       estimatedStayMinutes: 45
     },
     {
@@ -181,8 +179,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       },
       documents: [],
       tips: 'El sendero es de dificultad baja a media y toma unas dos horas ida y vuelta. Lleva agua, sombrero y protector solar: el bosque esclerófilo deja pasar mucha luz.',
-      trivia:
-        'El quillay, el árbol de la corteza jabonosa, fue uno de los primeros recursos de exportación del Chile republicano: su saponina viajó al mundo para hacer jabón y champú.',
+      trivia: '¿Sabías que el quillay fue uno de los primeros recursos de exportación del Chile republicano? Su corteza es jabonosa: contiene saponina, una sustancia que limpia como el jabón. Por eso su madera y su corteza viajaron por el mundo para fabricar jabón y champú. Un árbol del bosque chileno que llegó a los hogares de otros continentes.',
       estimatedStayMinutes: 50
     },
     {
@@ -223,8 +220,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'El mirador no tiene sombra: evita las horas de sol directo para la meditación y prefiere la mañana o el atardecer, cuando además la luz es más hermosa.',
-      trivia:
-        'Desde los puntos altos del parque se adivina el corredor de conservación que une los Andes con la Cordillera de la Costa: los manchones verdes que hoy ves son los restos del bosque mediterráneo de Chile central.',
+      trivia: '¿Sabías que desde los puntos altos del parque se adivina un corredor de conservación? Ese corredor une los Andes con la Cordillera de la Costa, permitiendo que plantas y animales se desplacen entre ambos. Los manchones verdes que ves son los restos del bosque mediterráneo de Chile central. Cada fragmento es un eslabón de esa gran cadena.',
       estimatedStayMinutes: 25
     },
     {
@@ -265,8 +261,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'El Arboretum es muy apto para niños y grupos escolares: tiene carteles con nombres y usos tradicionales de cada especie.',
-      trivia:
-        'Muchas especies del Arboretum son «madres» de la medicina tradicional chilena: el boldo en la infusión digestiva, la bailahuén en los resfriados y la murta en los dulces.',
+      trivia: '¿Sabías que muchas especies del Arboretum son madres de la medicina tradicional chilena? El boldo se usa en infusiones digestivas, la bailahuén para los resfriados y la murta para endulzar y dar aroma. Estos usos pasaron de generación en generación, mucho antes de que existieran las farmacias. El saber del bosque es también un saber de las personas.',
       estimatedStayMinutes: 25
     },
     {
@@ -307,8 +302,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'El Trikau es corto y llano: perfecto como sendero de calentamiento antes de Jorquera, o como opción principal para grupos con movilidad reducida.',
-      trivia:
-        'El sendero Trikau es uno de los pocos de la red nacional de áreas silvestres protegidas pensado desde su diseño para la accesibilidad universal.',
+      trivia: '¿Sabías que el sendero Trikau fue diseñado pensando en la accesibilidad universal? Es uno de los pocos de la red nacional de áreas protegidas ideado desde su origen para que todas las personas puedan recorrerlo. Eso incluye a quienes usan silla de ruedas o tienen movilidad reducida. La naturaleza es un derecho de todos, y este sendero lo hace realidad.',
       estimatedStayMinutes: 20
     },
     {
@@ -349,8 +343,7 @@ export const tourParqueNacionalRioClarillo: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Si la jornada fue larga, termina con agua, comida y abrigo antes del atardecer: en otoño el frío baja rápido en la precordillera.',
-      trivia:
-        'El baño de bosque, o shinrin-yoku, nació en Japón en los años ochenta como práctica de bienestar: hoy es una de las recomendaciones médicas más estudiadas y este parque lo aplica al bosque mediterráneo de Chile central.',
+      trivia: '¿Sabías que el baño de bosque nació en Japón en los años ochenta? Se llama shinrin-yoku y consiste en sumergirse en el bosque con los sentidos abiertos, como práctica de bienestar. Hoy es una de las recomendaciones médicas más estudiadas del mundo. Este parque la aplica al bosque mediterráneo de Chile central.',
       estimatedStayMinutes: 25
     }
   ]

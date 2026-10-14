@@ -89,7 +89,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'Aclimatiza una o dos noches en Putre (3.500 m) antes de subir; hidrátate y protégé la piel. La entrada al parque se reserva con Pase de Parques CONAF.',
-      trivia: 'Se estiman menos de 2.500 gatos andinos en toda la cordillera de los Andes, y Chile es uno de sus últimos refugios.',
+      trivia: '¿Sabías que el gato andino es uno de los felinos más raros del planeta? Se estima que quedan menos de dos mil quinientos en toda la cordillera de los Andes, escondidos entre roqueríos y quebradas de gran altura. Chile es uno de sus últimos refugios, junto con Bolivia, Perú y Argentina. Verlo es un privilegio al alcance de muy pocos.',
       estimatedStayMinutes: 35
     },
     {
@@ -130,7 +130,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'Lleva abrigo para la niebla y recorre los senderos El Bosque y la cumbre del Cerro Fray Jorge; los mejores avistamientos ocurren al amanecer.',
-      trivia: 'La camanchaca entrega en verano más humedad que la lluvia misma, manteniendo vivo un bosque valdiviano en pleno ambiente semiárido.',
+      trivia: '¿Sabías que en el desierto la niebla puede dar más agua que la lluvia? La camanchaca es esa bruma costera que se cuelga de los cerros y que en verano entrega más humedad que las lluvias mismas. Gracias a ella sobrevive un bosque de tipo valdiviano en pleno ambiente semiárido, una rareza que desafía el paisaje. Es la prueba de que la vida encuentra su camino incluso donde casi no llueve.',
       estimatedStayMinutes: 40
     },
     {
@@ -171,7 +171,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'Reserva tu ingreso con el Pase de Parques CONAF y llega temprano; la güiña se mueve al amanecer y el atardecer, siempre en silencio.',
-      trivia: 'La güiña es el único felino endémico de Chile y un símbolo de la conservación del bosque mediterráneo.',
+      trivia: '¿Sabías que la güiña es el único felino endémico de Chile? Eso quiere decir que no vive de forma natural en ningún otro país del mundo, y por eso se ha convertido en un símbolo de la conservación del bosque mediterráneo. Aunque es pequeña, es una gran trepadora y una cazadora nocturna muy hábil. Su presencia es señal de que el bosque nativo todavía está sano.',
       estimatedStayMinutes: 40
     },
     {
@@ -212,7 +212,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'Usa ropa impermeable: es una de las zonas más lluviosas de Chile. El sendero desde Correntoso hacia el Lago Sargo exige buen estado físico.',
-      trivia: 'El alerce (Fitzroya cupressoides) puede superar los 3.600 años de vida, siendo uno de los seres vivos más longevos del planeta.',
+      trivia: '¿Sabías que el alerce puede vivir más de tres mil seiscientos años? Es uno de los seres vivos más longevos del planeta, y crece tan despacio que apenas gana un milímetro de grosor al año. Un solo ejemplar puede haber sido testigo de toda la historia humana de su entorno. Por eso, cortar un alerce es borrar siglos de vida.',
       estimatedStayMinutes: 45
     },
     {
@@ -247,7 +247,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'Reserva con anticipación el programa guiado por guardaparques; lleva linterna roja y cámara con teleobjetivo para el avistamiento nocturno.',
-      trivia: 'En Chiloé existe un morfo melánico de la güiña totalmente negro, que los lugareños llaman "gato montés" y que rara vez se deja ver.',
+      trivia: '¿Sabías que en Chiloé existe una güiña totalmente negra? Es un morfo melánico, una variación natural de la misma especie, y los lugareños la llaman gato montés. Es tan esquiva que casi nunca se deja ver, y por eso su avistamiento se ha vuelto casi un mito local. Para muchos isleños, cruzarse con ella es señal de buena suerte.',
       estimatedStayMinutes: 45
     },
     {
@@ -288,7 +288,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'La ruta a la Laguna Cerro Castillo exige condición media-alta y un cruce a los 1.550 metros; informa tu itinerario en la administración CONAF de la reserva.',
-      trivia: 'El huemul, en peligro de extinción desde el escudo nacional, encuentra aquí uno de sus últimos refugios junto al puma.',
+      trivia: '¿Sabías que el huemul figura en el escudo nacional pero está en peligro de extinción? Este ciervo nativo, que comparte con el cóndor el emblema de Chile, ha perdido gran parte de su territorio histórico. En estos bosques encuentra uno de sus últimos refugios, compartiendo el paisaje con el puma. Su supervivencia depende hoy de que protejamos estos ambientes.',
       estimatedStayMinutes: 50
     },
     {
@@ -329,7 +329,7 @@ export const tourFelinosChile: Tour = {
       },
       documents: [],
       tips: 'Busca pumas al amanecer y el crepúsculo con guías rastreadores autorizados del sector Laguna Amarga; respeta siempre el protocolo de avistamiento responsable.',
-      trivia: 'Torres del Paine alberga la mayor concentración de pumas de Sudamérica y, desde 2025, el primer protocolo mundial de avistamiento responsable de estos felinos.',
+      trivia: '¿Sabías que Torres del Paine alberga la mayor concentración de pumas de Sudamérica? Estos felinos, que en casi todo el continente son dificilísimos de ver, aquí son relativamente abundantes y se han vuelto un atractivo mundial. Desde 2025 rige el primer protocolo del mundo para el avistamiento responsable de pumas. Así, el turismo se convierte en un aliado de la conservación.',
       estimatedStayMinutes: 45
     }
   ]

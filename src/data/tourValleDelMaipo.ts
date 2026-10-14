@@ -96,8 +96,7 @@ const bienvenidaStops: TourStop[] = [
     socialLinks: {},
     documents: [],
     tips: 'Sal temprano desde Santiago: en hora punta el acceso por Puente Alto se congestiona y se pierde la mejor luz de la mañana, la preferida para fotografiar los viñedos.',
-    trivia:
-      'El Maipo concentra la oferta enológica más densa de Chile: 36 viñas abiertas formalmente al enoturismo en una sola denominación de origen.',
+    trivia: '¿Sabías que el Maipo es la zona con más viñas abiertas al turismo de todo Chile? Solo en esta denominación de origen hay 36 viñas que reciben visitantes de forma formal, una densidad que no se repite en ningún otro valle del país. Eso significa que en pocos kilómetros puedes pasar de una bodega histórica a una boutique, catando vinos de un mismo territorio. Es como un museo al aire libre del vino chileno.',
     estimatedStayMinutes: 20
   },
   {
@@ -138,8 +137,7 @@ const bienvenidaStops: TourStop[] = [
     socialLinks: {},
     documents: [],
     tips: 'No te bañes: el Maipo es un río de régimen andino, frío y de caudal variable. Disfrútalo desde la ribera y respeta los senderos habilitados.',
-    trivia:
-      'El régimen de riego heredado de los canales prehispánicos convive hoy con más de 10.000 hectáreas tecnificadas con goteo de alta precisión para enfrentar la megasequía.',
+    trivia: '¿Sabías que parte del riego del Maipo viene de canales heredados de tiempos prehispánicos? Aquellos surcos antiguos siguen llevando agua a los viñedos, ahora en convivencia con más de 10.000 hectáreas regadas con goteo de alta precisión. La técnica moderna existe para enfrentar una sequía que se ha vuelto larga y severa. Así, la memoria del agua y la tecnología del presente trabajan en el mismo campo.',
     estimatedStayMinutes: 25
   },
   {
@@ -180,8 +178,7 @@ const bienvenidaStops: TourStop[] = [
     socialLinks: {},
     documents: [],
     tips: 'Cuando visites una viña, pide expresamente ver sus «parras antiguas» o bloques «ungrafted»: suelen albergar las cepas históricas y son el mejor lugar para entender esta historia.',
-    trivia:
-      'En 1994, el ampelógrafo francés Jean-Michel Boursiquot redescubrió la cepa Carmenère en el Maipo, creyéndose extinta en el mundo desde la crisis filoxérica europea.',
+    trivia: '¿Sabías que la cepa Carmenère, que se creía extinguida en el mundo, fue redescubierta en el Maipo? En 1994, el especialista francés Jean-Michel Boursiquot identificó estas parras, que habían viajado a Chile confundidas con otra variedad. La plaga que arrasó los viñedos europeos en el siglo XIX la había borrado del mapa, salvo aquí. Hoy el Carmenère es el gran emblema del vino chileno, y esta historia es su mejor prueba.',
     estimatedStayMinutes: 25
   },
   {
@@ -224,8 +221,7 @@ const bienvenidaStops: TourStop[] = [
     },
     documents: [],
     tips: 'Si viajas en marzo o abril, revisa las fechas de las vendimias: son la mejor puerta de entrada a la cultura del valle, pero conviene reservar con anticipación.',
-    trivia:
-      'Las Fiestas de la Vendimia del Maipo se rigen por el Manual de Buenas Prácticas de las Vendimias de Chile, que otorga el Sello Vendimia según seis ámbitos obligatorios.',
+    trivia: '¿Sabías que las Fiestas de la Vendimia del Maipo se ajustan a un manual de buenas prácticas? Para recibir el llamado Sello Vendimia, cada celebración debe cumplir con seis ámbitos obligatorios de calidad y seguridad. La idea es que la fiesta no solo sea alegre, sino también ordenada y respetuosa con el valle y su gente. Cuando participes en una, estarás dentro de una tradición cuidada con reglas claras.',
     estimatedStayMinutes: 40
   }
 ];
@@ -262,8 +258,7 @@ const altoIntro: TourStop = {
   socialLinks: {},
   documents: [],
   tips: 'En el Alto Maipo las noches son notablemente más frías que el día: lleva una capa de abrigo incluso en verano para los atardeceres con maridaje.',
-  trivia:
-    'La rotundone, el compuesto que da el aroma a pimienta negra al Syrah, se potencia en el Alto Maipo gracias a las frías corrientes nocturnas que bajan de la cordillera.',
+  trivia: '¿Sabías que el aroma a pimienta negra de algunos Syrah del Maipo tiene una explicación natural? El responsable es un compuesto llamado rotundone, que se potencia gracias a las corrientes frías que bajan de la cordillera por las noches. Es decir, no es un sabor añadido: lo produce el propio clima del lugar. Por eso cada sorbo guarda una huella del paisaje donde nació la uva.',
   estimatedStayMinutes: 30
 };
 
@@ -305,8 +300,7 @@ const centralIntro: TourStop = {
   socialLinks: {},
   documents: [],
   tips: 'Combina la visita a Buin o Paine con un almuerzo campestre: los Carmenère del Maipo Medio piden platos de sabor intenso, como asados de tres tiempos.',
-  trivia:
-    'La tercera y cuarta terraza aluvial de cantos rodados se formó por el arrastre milenario de los ríos: es la firma geológica detrás de los grandes Cabernet del valle.',
+  trivia: '¿Sabías que los suelos del Maipo guardan siglos de historia en sus piedras? Las terrazas de cantos rodados se formaron por el arrastre milenario de los ríos que bajaban de la montaña. Sobre esas capas bien drenadas crecen los grandes Cabernet del valle, que toman de allí su carácter. Es la geología, y no solo el clima, la que firma cada botella.',
   estimatedStayMinutes: 30
 };
 
@@ -342,8 +336,7 @@ const pacificIntro: TourStop = {
   socialLinks: {},
   documents: [],
   tips: 'Si tu ruta incluye el Pacific Maipo, reserva la cata de blancos para la mañana: las neblinas costeras y la luz fresca realzan su tensión cítrico-salina.',
-  trivia:
-    'El Semillón, hoy casi olvidado en el mundo, registra en Isla de Maipo un renacimiento a partir de parras ancestrales en pie franco: un fósil vivo del vino chileno.',
+  trivia: '¿Sabías que el Semillón, casi olvidado en el mundo, vive un renacimiento en Isla de Maipo? Estas parras ancestrales crecen en pie franco, es decir, sobre sus propias raíces y sin injerto. Por eso se las considera un fósil vivo del vino chileno, una joya que sobrevivió a las plagas que arrasaron los viñedos europeos. Catarlo es probar un capítulo poco conocido de nuestra historia vitivinícola.',
   estimatedStayMinutes: 30
 };
 

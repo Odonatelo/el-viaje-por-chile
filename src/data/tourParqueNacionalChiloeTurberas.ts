@@ -95,8 +95,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       },
       documents: [],
       tips: 'Lleva calzado cerrado y ropa impermeable: el clima de Cucao cambia en minutos y la pasarela mojada se vuelve resbaladiza. Consulta el estado de los senderos en el control antes de partir.',
-      trivia:
-        'El parque protege el paisaje cultural huilliche: la palabra Chiloé viene de la lengua de los pueblos originarios de la isla y el territorio de Cucao conserva décadas de vida lacustre.',
+      trivia: '¿Sabías que la palabra Chiloé viene de la lengua de sus pueblos originarios? El nombre nació entre los huilliches, los habitantes del sur de la isla, y forma parte de un paisaje cultural que el parque protege. En el territorio de Cucao, esa herencia se expresa en décadas de vida junto al lago y a la costa. Aquí, el paisaje natural y la cultura isleña son una sola cosa.',
       estimatedStayMinutes: 20
     },
     {
@@ -137,8 +136,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'El circuito de El Tepual toma unos 45 minutos y es de baja dificultad: perfecto para familias. No salgas de la pasarela: el musgo y las turberas no se recuperan de una pisada.',
-      trivia:
-        'El tepú es una especie emblemática del bosque de Chiloé: sus flores blancas, muy visitadas por abejas nativas, convierten el tepual en un jardín sonoro cuando florece.',
+      trivia: '¿Sabías que el tepú es una de las especies más emblemáticas del bosque de Chiloé? Sus flores blancas son muy visitadas por abejas nativas y, cuando el tepual florece, el bosque se llena de color y de zumbidos. Ese jardín sonoro es también una señal de que el ecosistema está vivo. Detenerse a escucharlo es parte del paseo.',
       estimatedStayMinutes: 45
     },
     {
@@ -179,8 +177,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'En días nublados la vista del mar puede cerrarse: el lago Cucao se aprecia igual con nubarrones bajos, que aquí son parte de la atmósfera del parque.',
-      trivia:
-        'El lago Cucao es el mayor lago de Chiloé y por su ribera occidental corre el sendero que hoy interpreta el parque: agua de lento movimiento que alimenta los humedales.',
+      trivia: '¿Sabías que el lago Cucao es el más grande de Chiloé? Por su ribera occidental corre el sendero que hoy recorre el parque, entre juncos y bosque nativo. Sus aguas, de movimiento lento, alimentan los humedales que tanto valor tienen en la isla. Caminar junto a él es caminar junto a la despensa de agua de Chiloé.',
       estimatedStayMinutes: 20
     },
     {
@@ -223,8 +220,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       },
       documents: [],
       tips: 'No busques caminar sobre la turbera: aunque el musgo parezca firme, una pisada destruye décadas de crecimiento. El parque indica siempre las superficies autorizadas.',
-      trivia:
-        'Se estima que las turberas de Chile cubren más de dos millones de hectáreas y concentran gran parte del carbón orgánico del país: futuros grandes del clima guardados bajo el musgo.',
+      trivia: '¿Sabías que las turberas de Chile cubren más de dos millones de hectáreas? Bajo el musgo guardan enormes cantidades de carbón orgánico acumulado durante miles de años. Por eso se las considera aliadas frente al cambio climático: son como grandes depósitos naturales de carbono. Cada paso sobre ellas pisa un tesoro que tardó siglos en formarse.',
       estimatedStayMinutes: 15
     },
     {
@@ -265,8 +261,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Lleva agua y algo de abrigo: el viento en las dunas acelera la sensación térmica incluso en verano. El sendero completo, entre dunas y playa, toma unas dos horas ida y vuelta.',
-      trivia:
-        'Las dunas de Cucao se mueven: su forma cambia con cada temporal, y por eso el sendero, la vegetación y las pasarelas se reajustan año a año.',
+      trivia: '¿Sabías que las dunas de Cucao se mueven? Su forma cambia con cada temporal, y por eso el sendero, la vegetación y las pasarelas se reajustan año a año. Lo que hoy es un camino, mañana puede estar cubierto de arena. Caminar aquí es caminar sobre un paisaje que nunca está del todo quieto.',
       estimatedStayMinutes: 40
     },
     {
@@ -307,8 +302,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'No te bañes: la playa no es apta para el baño y las corrientes han causado accidentes. Disfrútala caminando, mirando o simplemente escuchando el mar.',
-      trivia:
-        'Fauna como el chungungo (nutria de mar) y las aves playeras frecuentan estas costas: con paciencia y silencio, es posible divisarlas en la línea de marea.',
+      trivia: '¿Sabías que en estas costas vive el chungungo, la nutria de mar? Junto a él frecuentan la orilla las aves playeras, que llegan a alimentarse en la línea de marea. Con paciencia y silencio es posible divisarlos sin espantarlos. El premio de la calma es poder observar la vida silvestre de cerca.',
       estimatedStayMinutes: 25
     },
     {
@@ -351,8 +345,7 @@ export const tourParqueNacionalChiloeTurberas: Tour = {
       },
       documents: [],
       tips: 'Antes de salir, agradece al parque: el aporte de la entrada financia el mantenimiento de las pasarelas y el trabajo de los guardaparques que custodian la turbera.',
-      trivia:
-        'Darwin describió Chiloé en su «Diario de viaje» como una isla cubierta de bosques impenetrables y junto a mares de mareas gigantes: casi dos siglos después, el parque nacional protege gran parte de esa misma epidermis.',
+      trivia: '¿Sabías que Darwin describió Chiloé como una isla cubierta de bosques impenetrables? En su diario de viaje habló también de sus mares de mareas gigantes, un rasgo que hasta hoy asombra a los visitantes. Casi dos siglos después, el parque nacional protege gran parte de esa misma piel de bosque. Su mirada de científico sigue ayudándonos a entender estas islas.',
       estimatedStayMinutes: 25
     }
   ]

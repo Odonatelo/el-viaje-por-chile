@@ -285,6 +285,18 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           </button>
 
           <button
+            onClick={() => {
+              setQrStop(null);
+              setShowQrModal(true);
+            }}
+            className="p-2 rounded-xl bg-white text-slate-600 border border-[#E4D8BF] hover:bg-[#F6F1E5] transition-colors"
+            title="Compartir el código QR de la audioguía"
+            aria-label="Compartir el código QR de la audioguía"
+          >
+            <QrCode className="w-4 h-4" />
+          </button>
+
+          <button
             onClick={handleWhatsAppShare}
             className="p-2 rounded-xl bg-[#25D366] text-white hover:bg-[#1ebe5b] transition-colors"
             title="Compartir por WhatsApp"

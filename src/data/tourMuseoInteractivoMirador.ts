@@ -95,8 +95,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       },
       documents: [],
       tips: 'El MIM abre de martes a domingo y cierra los lunes. Compra tus entradas online con anticipación en los periodos de vacaciones escolares: los fines de semana se agotan.',
-      trivia:
-        'El MIM recibe cerca de 430.000 visitas al año y alrededor del 70% de ellas son escolares: es el museo de ciencia más concurrido de Chile.',
+      trivia: '¿Sabías que el MIM es el museo de ciencia más visitado de Chile? Recibe cerca de cuatrocientas treinta mil visitas al año, y alrededor del setenta por ciento son escolares. Es decir, la mayoría de quienes lo recorren son niños y niñas que vienen a aprender jugando. Ese público es el verdadero corazón del museo.',
       estimatedStayMinutes: 20
     },
     {
@@ -139,8 +138,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       },
       documents: [],
       tips: 'La onda sísmica tiene capacidad limitada y se arma fila: prueba llegar a primera hora o poco después del almuerzo, cuando las salas se vacían.',
-      trivia:
-        'Chile es uno de los países más sísmicos del planeta y el MIM convirtió esa realidad en un módulo educativo: un lugar donde los terremotos se transforman de miedo en conocimiento.',
+      trivia: '¿Sabías que Chile es uno de los países más sísmicos del planeta? Los terremotos son parte de nuestra historia y de nuestra vida cotidiana, aunque muchas veces den miedo. El MIM tomó esa realidad y la convirtió en un módulo educativo, donde los sismos pasan de ser un susto a una fuente de conocimiento. Así se aprende a entender y respetar la fuerza de la tierra.',
       estimatedStayMinutes: 30
     },
     {
@@ -183,8 +181,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       },
       documents: [],
       tips: 'En vacaciones escolares los módulos más concurridos (péndulo, generadores y onda sísmica) se llenan: organiza el recorrido en sentido antihorario para llegar antes de las filas.',
-      trivia:
-        'Los módulos del MIM provienen de talleres propios y de la colaboración internacional: varios de ellos fueron diseñados por el Exploratorium de San Francisco, cuna de los museos interactivos.',
+      trivia: '¿Sabías que varios módulos del MIM nacieron en San Francisco? Provienen de talleres propios y de la colaboración internacional, y algunos fueron diseñados por el Exploratorium, el museo que inventó la idea de aprender ciencia interactuando. Esa escuela llegó a Chile y se adaptó a nuestra realidad. Por eso aquí se toca, se prueba y se experimenta.',
       estimatedStayMinutes: 30
     },
     {
@@ -225,8 +222,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Mahuida cierra temporalmente en algunos horarios por mantenimiento: revisa en la entrada el estado de los módulos destacados antes de armar la ruta.',
-      trivia:
-        'El nombre Mahuida proviene del mapudungun «montaña»: el módulo reinterpreta los volcanes de Chile, la cordillera que vertebra el país, como territorio de juego y aprendizaje.',
+      trivia: '¿Sabías que Mahuida significa montaña en mapudungun? Con ese nombre, el módulo reinterpreta los volcanes de Chile, la cordillera que recorre y sostiene el país, como un territorio de juego. Al subir y trepar, los visitantes descubren que aprender también puede sentirse como explorar. La palabra y el juego van de la mano.',
       estimatedStayMinutes: 25
     },
     {
@@ -269,8 +265,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       },
       documents: [],
       tips: 'La entrada al Museo Interactivo de Astronomía está incluida en el ticket, pero las sesiones del domo operan por horarios: agenda tu cupo apenas llegues, antes de recorrer las salas.',
-      trivia:
-        'Chile es hogar del 40% de la observación astronómica del mundo; el MIA es la puerta de entrada lúdica a esa estrellera nación.',
+      trivia: '¿Sabías que Chile concentra cerca del cuarenta por ciento de la observación astronómica del mundo? Sus cielos limpios y oscuros son un tesoro natural único. El MIA es la puerta de entrada lúdica a esa nación de estrellas, pensada para que grandes y chicos se asomen al universo. El espacio se vuelve así algo cercano y cotidiano.',
       estimatedStayMinutes: 40
     },
     {
@@ -311,8 +306,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'La plaza es un buen punto de reencuentro familiar: si el grupo se separa entre salas, este es el lugar neutral y sombreado para encontrarse.',
-      trivia:
-        'La Cruz del Sur, la constelación que nombra esta plaza, es la que guió a los navegantes del hemisferio sur y figura en la bandera nacional: un museo que enseña desde su propio suelo la identidad del cielo chileno.',
+      trivia: '¿Sabías que la Cruz del Sur guió a los navegantes del hemisferio sur? Esa constelación da nombre a esta plaza y figura en la bandera nacional. Es un símbolo que nos identifica tanto en el cielo como en la tierra. El museo enseña la identidad del cielo chileno desde su propio suelo.',
       estimatedStayMinutes: 15
     },
     {
@@ -353,8 +347,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'La zona de los Penetrables es exterior y con sol fuerte al mediodía: ideal entre las once y las cuatro, con sombrero y bloqueador.',
-      trivia:
-        'Estas instalaciones inmersivas descienden de los «penetrables» de los años setenta, pero el MIM las transformó en un módulo educativo de conciencia espacial y fotografía.',
+      trivia: '¿Sabías que estas instalaciones inmersivas tienen sus antepasados en los años setenta? Descienden de los penetrables, obras de arte en las que el público entraba y se movía por dentro. El MIM las transformó en un módulo educativo de conciencia espacial y fotografía. Así, una idea artística se convirtió en una experiencia para aprender.',
       estimatedStayMinutes: 20
     },
     {
@@ -397,8 +390,7 @@ export const tourMuseoInteractivoMirador: Tour = {
       },
       documents: [],
       tips: 'El parque cierra junto con el museo: deja tu picnic para después de recorrer las salas para aprovechar la luz de la tarde. Hay café y zonas de descanso en el sector central.',
-      trivia:
-        'La Rueda de Larmahue evoca las ruedas de agua movidas por la corriente que durante siglos regaron los campos de Chile: una ingeniería rural de hierro y madera que el MIM convirtió en arte público.',
+      trivia: '¿Sabías que la Rueda de Larmahue evoca una antigua ingeniería rural? Eran ruedas de agua que, movidas por la corriente, regaron los campos de Chile durante siglos. De hierro y madera, funcionaban con la fuerza del río y el ingenio del campo. El MIM la convirtió en arte público para que no se olvide.',
       estimatedStayMinutes: 35
     }
   ]

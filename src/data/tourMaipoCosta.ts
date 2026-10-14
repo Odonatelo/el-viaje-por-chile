@@ -93,8 +93,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.demartino.cl' },
       documents: [],
       tips: 'Pide ver las tinajas de greda y los bloques de parras ungrafted: son el corazón de la propuesta de mínima intervención de la viña.',
-      trivia:
-        'Las parras «ungrafted» de De Martino crecen sobre sus propias raíces: sobrevivieron a la filoxera que arrasó Europa y hoy son una rareza vitícola mundial.',
+      trivia: '¿Sabías que algunas parras de esta zona sobrevivieron a la plaga que devastó los viñedos europeos? Las parras sin injerto de De Martino crecen sobre sus propias raíces, y por eso son una rareza en el mundo. Mientras en Europa una plaga terminó con casi todas las viñas antiguas, aquí algunas quedaron a salvo. Hoy son un tesoro vivo que cuenta esa historia.',
       estimatedStayMinutes: 90
     },
     {
@@ -129,8 +128,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.terramater.cl' },
       documents: [],
       tips: 'Reserva el Restaurante Zinfandel con antelación: es la parada gastronómica estrella del Pacific Maipo y suele completarse en Vendimias.',
-      trivia:
-        'TerraMater cultiva Zinfandel y Sangiovese, cepas de origen californiano e italiano poco frecuentes en el Maipo: su apuesta por la diversidad varietal es un rasgo distintivo.',
+      trivia: '¿Sabías que en el Maipo se cultivan uvas de origen californiano e italiano? TerraMater apuesta por cepas como la Zinfandel y la Sangiovese, poco frecuentes en el valle. Esa búsqueda de diversidad es un rasgo que la distingue del resto. Así, el paisaje del vino chileno se enriquece con aromas que vienen de muy lejos.',
       estimatedStayMinutes: 120
     },
     {
@@ -165,8 +163,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.odfjellvineyards.cl' },
       documents: [],
       tips: 'Pregunta por el uso de tracción animal: es la práctica más singular de la viña y explica buena parte de su filosofía orgánica.',
-      trivia:
-        'Odfjell pertenece a una familia de armadores noruegos: el vino nació como un proyecto personal de los dueños, lejos de su negocio naviero original.',
+      trivia: '¿Sabías que esta viña nació en una familia de marinos noruegos? Odfjell pertenece a dueños cuyo oficio original era el transporte marítimo, muy lejos del vino. La bodega empezó como un proyecto personal, casi un sueño aparte. Hoy es un ejemplo de cómo el valle atrajo a gente de mundos insospechados.',
       estimatedStayMinutes: 75
     },
     {
@@ -201,8 +198,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.teillery.cl' },
       documents: [],
       tips: 'Las micro-bodegas reciben con cita previa: reserva con tiempo y confirma disponibilidad, sobre todo en días de semana.',
-      trivia:
-        'La viticultura orgánica evita agroquímicos sintéticos y suele basarse en compost y manejo biológico de plagas, como en los huertos de Isla de Maipo.',
+      trivia: '¿Sabías que hay viñedos que se cuidan sin químicos de laboratorio? La viticultura orgánica evita los productos sintéticos y se apoya en el compost y en el control natural de las plagas. En los huertos de Isla de Maipo esta forma de trabajar es una tradición que se mantiene. El resultado es una uva más sana y una tierra más viva.',
       estimatedStayMinutes: 60
     },
     {
@@ -237,8 +233,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.santaema.cl' },
       documents: [],
       tips: 'Compara en la misma cata un tinto del Pacific Maipo y uno del Maipo Central: la diferencia de frescura y cuerpo explica el efecto del lugar.',
-      trivia:
-        'El Pacific Maipo recibe la influencia marina que enfría las noches: esa amplitud térmica favorece vinos de acidez más viva que los del interior.',
+      trivia: '¿Sabías que el mar influye en el sabor de estos vinos? En el Pacific Maipo, la cercanía al océano enfría las noches y crea una gran diferencia de temperatura entre el día y la noche. Esa amplitud térmica da vinos con una acidez más viva que la de los viñedos del interior. Es el océano, en el fondo, el que afina cada botella.',
       estimatedStayMinutes: 65
     },
     {
@@ -273,8 +268,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Las viñas boutique suelen ofrecer catas personalizadas: avisa si buscas cepas específicas o vinos de guarda para armar la degustación.',
-      trivia:
-        'El río Maipo formó en Isla de Maipo una isla de tierra entre brazos de agua: de ahí el nombre de la comarca, hoy tierra de micro-bodegas.',
+      trivia: '¿Sabías que Isla de Maipo debe su nombre a una isla de verdad? El río formó allí un trozo de tierra rodeado por sus brazos de agua, y esa forma quedó en el nombre de la comarca. Hoy es una tierra de pequeñas bodegas familiares. El río, una vez más, le puso el nombre al lugar.',
       estimatedStayMinutes: 55
     },
     {
@@ -309,8 +303,7 @@ export const tourMaipoCosta: Tour = {
       socialLinks: { website: 'https://www.chocalan.cl' },
       documents: [],
       tips: 'Chocalán queda más al oeste: planifica el regreso con luz de día, ya que los caminos rurales hacia Melipilla no tienen buena iluminación.',
-      trivia:
-        'El Pacific Maipo también se conoce como Maipo Bajo o Maipo Costa: su cercanía al océano es la que permite los blancos vibrantes y salinos de la zona.',
+      trivia: '¿Sabías que esta parte del valle tiene tres nombres? Se la conoce como Pacific Maipo, Maipo Bajo o Maipo Costa, y todos aluden a lo mismo: su cercanía al océano. Esa vecindad con el mar es la que permite vinos blancos frescos, con un dejo salino. Tres nombres para un mismo paisaje de vino.',
       estimatedStayMinutes: 70
     }
   ]

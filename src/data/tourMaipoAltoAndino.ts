@@ -99,8 +99,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.cousinomacul.com' },
       documents: [],
       tips: 'Reserva la visita guiada con anticipación: los subterráneos de cal y canto se recorren en grupos reducidos y son el punto más solicitado.',
-      trivia:
-        'El cal y canto, mezcla de cal, arena y clara de huevo usada en sus bóvedas, es un mortero patrimonial que mantiene la temperatura estable sin electricidad.',
+      trivia: '¿Sabías que las bóvedas de esta viña se construyeron con cal y canto? Esa mezcla de cal, arena y clara de huevo es un mortero muy antiguo que mantiene la temperatura estable sin necesidad de electricidad. Los maestros de obra lo usaban siglos atrás para lograr edificios frescos en verano y templados en invierno. Aquí sigue cumpliendo su función, como un pequeño aire acondicionado de otra época.',
       estimatedStayMinutes: 60
     },
     {
@@ -135,7 +134,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.aquitania.cl' },
       documents: [],
       tips: 'Peñalolén combina viñas y cerros: considera un paseo corto por la precordillera después de la cata para completar la jornada.',
-      trivia: 'Aquitania toma su nombre de la antigua región de Aquitania, en el suroeste de Francia, cuna histórica del vino de Burdeos.',
+      trivia: '¿Sabías que esta viña toma su nombre de una región francesa? Aquitania, en el suroeste de Francia, es la cuna histórica del vino de Burdeos y de muchas de las tradiciones que llegaron a Chile. Al bautizar el proyecto con ese nombre, sus creadores rindieron homenaje a ese origen. Cada botella es, en el fondo, un pequeño viaje entre dos mundos del vino.',
       estimatedStayMinutes: 50
     },
     {
@@ -176,8 +175,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.domusaurea.cl' },
       documents: [],
       tips: 'Si vas en primavera, el cauce de la quebrada puede llevar agua: sigue solo los senderos autorizados y no cruces fuera de las zonas habilitadas.',
-      trivia:
-        'Domus Aurea significa «casa dorada» en latín y toma su nombre de una escalera que conducía a la viña desde el fundo original.',
+      trivia: '¿Sabías que Domus Aurea significa «casa dorada» en latín? El nombre proviene de una escalera que bajaba desde el fundo original hasta la viña, y que se convirtió en el símbolo del proyecto. Es un guiño a los nombres solemnes de la antigüedad, aplicado a un rincón del valle. Así, una simple escalera terminó bautizando a uno de los vinos más reconocidos del Alto Maipo.',
       estimatedStayMinutes: 50
     },
     {
@@ -224,8 +222,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.conchaytoro.com' },
       documents: [],
       tips: 'El tour del Casillero del Diablo es apto para familias y muy solicitado: compra la entrada en línea para evitar filas, sobre todo en fines de semana.',
-      trivia:
-        'El rumor del diablo en la cava funcionó tan bien como estrategia antirrobo que se convirtió en la marca insignia de la viña y en una de las etiquetas más vendidas del mundo.',
+      trivia: '¿Sabías que una leyenda sirvió para espantar ladrones en esta viña? Cuenta la historia que su fundador difundió el rumor de que el diablo vivía en la cava, para que nadie se atreviera a entrar de noche. La treta funcionó tan bien que se transformó en la marca de la casa. Hoy es una de las etiquetas de vino chileno más vendidas del mundo, nacida de un cuento bien contado.',
       estimatedStayMinutes: 90
     },
     {
@@ -260,8 +257,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.elprincipal.cl' },
       documents: [],
       tips: 'Pirque es ideal para combinar viñas con gastronomía local: muchas casas ofrecen almuerzos campestres que conviene reservar el mismo día.',
-      trivia:
-        'Pirque conserva el trazado agrícola de los fundos coloniales, con canales de riego que siguen llevando el agua andina a los cuadros de vid.',
+      trivia: '¿Sabías que en Pirque todavía se ven las huellas de los antiguos fundos coloniales? Su trazado agrícola sigue en pie, con los mismos canales que traen el agua de los Andes hasta los cuadros de vid. Es un paisaje que combina siglos de historia con la viticultura de hoy. Caminar por aquí es como leer un mapa del Chile rural de otras épocas.',
       estimatedStayMinutes: 50
     },
     {
@@ -296,8 +292,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.harasdepirque.com' },
       documents: [],
       tips: 'La arquitectura en herradura se aprecia mejor desde cierta distancia: pide que te indiquen el mejor punto panorámico dentro del fundo.',
-      trivia:
-        'El nombre «Haras» proviene de la cría de caballos: el proyecto nació ligado a la actividad ecuestre del fundo antes de convertirse en viña.',
+      trivia: '¿Sabías que esta viña lleva el nombre de los caballos? «Haras» se refiere a la crianza de caballos, y el proyecto nació ligado a la actividad ecuestre del fundo antes de dedicarse al vino. Ese pasado dejó su marca en el nombre y en el espíritu del lugar. Es un ejemplo de cómo muchos viñedos chilenos crecieron a partir de otras labores del campo.',
       estimatedStayMinutes: 60
     },
     {
@@ -332,7 +327,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.alyan.cl' },
       documents: [],
       tips: 'Reserva la Sunset Experience con anticipación y confirma el pronóstico: la experiencia depende del cielo despejado para el atardecer sobre la cordillera.',
-      trivia: 'El camino G-425 de Pirque es una ruta rural clásica del vino: concentra varias viñas boutique entre quebradas y fundos.',
+      trivia: '¿Sabías que basta recorrer un solo camino rural para encontrar varias viñas boutique? El camino G-425, en Pirque, es una ruta clásica del vino que serpentea entre quebradas y fundos. En pocos kilómetros se pasa de un proyecto familiar a una bodega con siglos de historia. Es una forma sencilla y hermosa de conocer el valle sin recorrer grandes distancias.',
       estimatedStayMinutes: 90
     },
     {
@@ -367,7 +362,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.williamfevre.cl' },
       documents: [],
       tips: 'Si te interesan los blancos, pide una cata comparativa de Chardonnay del Maipo: la diferencia de acidez y mineralidad con las zonas costeras sorprende.',
-      trivia: 'William Fevre fue pionero de los vinos de Chablis en Francia: su llegada al Maipo en los noventa marcó la apertura del valle a los blancos de autor.',
+      trivia: '¿Sabías que el Maipo también hizo historia con los vinos blancos? William Fevre fue un pionero de los vinos de Chablis en Francia, y su llegada al valle en los años noventa abrió la puerta a los blancos de autor. Hasta entonces, el Maipo era conocido sobre todo por sus tintos. Su apuesta demostró que aquí también pueden nacer grandes vinos blancos.',
       estimatedStayMinutes: 45
     },
     {
@@ -402,8 +397,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.donmelchor.cl' },
       documents: [],
       tips: 'Las catas de vinos ícono suelen tener cupos reducidos y costo aparte: confirma disponibilidad y reserva directamente con la viña.',
-      trivia:
-        'Don Melchor comparte nombre con Don Melchor de Concha y Toro, fundador de Concha y Toro en 1883, de quien hereda la búsqueda de un vino de guarda excepcional.',
+      trivia: '¿Sabías que este vino lleva el nombre del fundador de una de las casas más antiguas de Chile? Don Melchor de Concha y Toro creó su viña en 1883 y persiguió siempre un tinto excepcional, capaz de mejorar con los años. Ese mismo nombre bautiza hoy a uno de los vinos de guarda más celebrados del país. Es un homenaje directo a quien empezó la historia.',
       estimatedStayMinutes: 60
     },
     {
@@ -438,8 +432,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.almavivawinery.com' },
       documents: [],
       tips: 'La bodega es un ícono de arquitectura: lleva cámara y pregúntale al guía por el sistema gravitacional, que no siempre se explica en la visita estándar.',
-      trivia:
-        'El nombre Almaviva proviene de «Le Comte Almaviva», figura del teatro clásico francés, en homenaje al origen bordelés de la familia Rothschild.',
+      trivia: '¿Sabías que el nombre de este vino viene del teatro francés? «Le Comte Almaviva» es un personaje clásico de la escena gala, y su nombre fue elegido en homenaje al origen bordelés de la familia Rothschild, socia del proyecto. Es un guiño culto que une la tradición francesa con el valle chileno. Así, una figura de ficción terminó dando nombre a un gran vino del Maipo.',
       estimatedStayMinutes: 60
     },
     {
@@ -474,8 +467,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.chadwick.cl' },
       documents: [],
       tips: 'Las catas de los vinos ícono suelen requerir reserva previa y no siempre están disponibles para el visitante general: consulta con antelación.',
-      trivia:
-        'Comparte el apellido Chadwick con la familia que impulsó el proyecto, ligado históricamente a la agricultura y a la viticultura chilena.',
+      trivia: '¿Sabías que este vino lleva el apellido de la familia que lo hizo posible? El apellido Chadwick pertenece a una familia ligada desde hace generaciones a la agricultura y a la viticultura chilena. Su impulso fue clave para levantar el proyecto. Poner el apellido en la etiqueta es una forma de firmar el trabajo con la propia historia familiar.',
       estimatedStayMinutes: 55
     },
     {
@@ -510,8 +502,7 @@ export const tourMaipoAltoAndino: Tour = {
       socialLinks: { website: 'https://www.perezcruz.com' },
       documents: [],
       tips: 'Paine está al sur del circuito: si vienes desde Pirque, calcula 40 a 50 minutos en auto y combínalo con Buin para enlazar con la Ruta 2.',
-      trivia:
-        'El enfriamiento por flujo eólico natural de la bodega aprovecha los vientos del valle para mantener la temperatura de fermentación: naturaleza convertida en sistema.',
+      trivia: '¿Sabías que esta bodega se enfría con el viento del valle? Su diseño aprovecha las corrientes naturales de aire para mantener la temperatura que necesita la fermentación, sin depender solo de energía. Es un ejemplo de cómo la arquitectura puede trabajar de la mano con el clima del lugar. La naturaleza, bien entendida, se vuelve parte del sistema.',
       estimatedStayMinutes: 55
     }
   ]

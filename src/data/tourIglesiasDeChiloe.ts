@@ -122,7 +122,7 @@ export const tourIglesiasDeChiloe: Tour = {
         }
       ],
       tips: 'Compra aquí tu Pasaporte de la Ruta al comenzar: cada iglesia lo sella con su propia marca y quedará tu recuerdo del recorrido completo por las 16 iglesias.',
-      trivia: 'Entre los años 2000 y 2001, dieciséis iglesias de Chiloé fueron inscritas en la Lista del Patrimonio Mundial de la UNESCO: catorce en diciembre de 2000 y dos más en junio de 2001.',
+      trivia: '¿Sabías que dieciséis iglesias de Chiloé son Patrimonio Mundial de la UNESCO? Fueron inscritas entre 2000 y 2001: catorce en diciembre de 2000 y dos más en junio de 2001. Lo protegido no es solo cada templo, sino todo un sistema de fe, oficios y comunidad construido en madera. Es un reconocimiento a una cultura única en el mundo.',
       estimatedStayMinutes: 45
     },
     {
@@ -163,7 +163,7 @@ export const tourIglesiasDeChiloe: Tour = {
       },
       documents: [],
       tips: 'Sube por el pasaje Gamboa para la postal clásica: la torre fucsia de la iglesia y los palafitos del fiordo en un mismo encuadre.',
-      trivia: 'La torre original de San Francisco de Castro, de madera, se incendió el año 2002 y fue reconstruida con técnicas tradicionales: hoy vuelve a ser el faro de tejuelas del centro de Castro.',
+      trivia: '¿Sabías que la torre de la iglesia de San Francisco de Castro se incendió en 2002? Era una torre de madera, levantada al modo tradicional, y el fuego la consumió casi por completo. Carpinteros y vecinos la reconstruyeron con las mismas técnicas de siempre, sin apuro y a mano. Hoy vuelve a ser el faro de tejuelas que guía la vista en el centro de Castro.',
       estimatedStayMinutes: 25
     },
     {
@@ -196,7 +196,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Visita de enero a marzo con el Pasaporte de la Ruta: los anfitriones locales abren las iglesias y narran la historia de su propia comunidad.',
-      trivia: 'La iglesia de Chonchi fue declarada Monumento Histórico y su fachada, con el blanco y el celeste, es una de las más fotografiadas de las islas.',
+      trivia: '¿Sabías que la iglesia de Chonchi fue declarada Monumento Histórico? Su fachada, con el blanco y el celeste, es una de las más fotografiadas de todo el archipiélago. De hecho, se ha convertido en la imagen postal de las islas. Vale la pena detenerse a mirarla con calma antes de entrar.',
       estimatedStayMinutes: 20
     },
     {
@@ -229,7 +229,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'En Rilán la mejor hora es la tarde: la luz dorada ilumina la fachada blanca sobre los potreros y el canal de Quinchao al fondo.',
-      trivia: 'La palabra minga, que nombra el trabajo comunitario, viene del quechua: en Chiloé se usa para techos, para el curanto e incluso para mudar casas enteras.',
+      trivia: '¿Sabías que la palabra minga significa trabajo comunitario? Viene del quechua y llegó a Chiloé por antiguos lazos con el mundo andino. Aquí se usa para todo lo que se hace entre muchos: levantar un techo, preparar un curanto o incluso mudar una casa entera de lugar. Es la palabra que nombra una forma de vivir basada en la ayuda mutua.',
       estimatedStayMinutes: 20
     },
     {
@@ -262,7 +262,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'La lancha del canal sale cada pocos minutos hacia Quinchao: en diez minutos quedas en la isla de las iglesias patrimoniales.',
-      trivia: 'Los viajes de los misioneros europeos en Chiloé solían combinar semanas de navegación con largas travesías a pie por la Cordillera de la Costa insular.',
+      trivia: '¿Sabías que los misioneros recorrían Chiloé a pie y en bote? Sus viajes solían combinar semanas de navegación entre islas con largas caminatas por la Cordillera de la Costa insular. Cruzaban bosques, ríos y cerros para llegar a cada comunidad. De ese esfuerzo nació la red de iglesias que hoy puedes recorrer.',
       estimatedStayMinutes: 25
     },
     {
@@ -295,7 +295,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Conserva el horario de apertura (febrero y temporada estival): los anfitriones de la comunidad abren los retablos dorados y el órgano antiguo del templo.',
-      trivia: 'La misión circular de los padres Melchor Strasser y Miguel Meyer, entre 1758 y 1759, comenzó en la capilla de Ichuac y recorrió Rilán, Dalcahue y Caguach en un itinerario que hoy casi coincide con la Ruta de las Iglesias.',
+      trivia: '¿Sabías que la primera misión circular de Chiloé partió en 1758? Los padres Melchor Strasser y Miguel Meyer recorrieron las islas entre 1758 y 1759, comenzando en la capilla de Ichuac y pasando por Rilán, Dalcahue y Caguach. Su itinerario coincide hoy casi por completo con la Ruta de las Iglesias. Caminar por ella es repetir una huella de más de doscientos cincuenta años.',
       estimatedStayMinutes: 30
     },
     {
@@ -328,7 +328,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'La torre se ve desde varios kilómetros: busca el punto más alto del camino rural para la panorámica completa de esta iglesia entre praderas.',
-      trivia: 'El archipiélago de Chiloé tiene más de cuarenta islas habitables; la zona de Quinchao concentra cinco de las dieciséis iglesias patrimoniales.',
+      trivia: '¿Sabías que Chiloé tiene más de cuarenta islas habitables? Cada isla guarda su propia historia y su propia capilla, muchas levantadas por los propios vecinos. La zona de Quinchao concentra cinco de las dieciséis iglesias patrimoniales, una densidad única. Recorrerlas es recorrer la geografía de la fe isleña.',
       estimatedStayMinutes: 20
     },
     {
@@ -361,7 +361,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Para vivir la peregrinación, pregunta por las fechas del novenario del Nazareno: las lanchas decoradas y las procesiones marítimas son inolvidables.',
-      trivia: 'El Nazareno de Caguach es conocido como el "patrono de los isleños": su devoción sobrevivió a la propia expulsión de los jesuitas en 1767.',
+      trivia: '¿Sabías que el Nazareno de Caguach es llamado el patrono de los isleños? Su devoción es tan fuerte que sobrevivió incluso a la expulsión de los jesuitas en 1767, cuando la orden debió dejar estas tierras. La comunidad siguió celebrando su fiesta año tras año, sin interrupción. Hoy reúne a peregrinos de todo el archipiélago.',
       estimatedStayMinutes: 35
     },
     {
@@ -394,7 +394,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Busca el retablo interior: muchos templos conservan el dorado original que realza la imaginería traída o tallada localmente.',
-      trivia: 'Varios nombres de las iglesias del conjunto corresponden a advocaciones que honran el calendario misional jesuita y el patronazgo de los nuevos templos.',
+      trivia: '¿Sabías que los nombres de estas iglesias guardan memoria del calendario misional? Cada advocación honra a un santo o a una fiesta del calendario jesuita, y señalaba la protección que la comunidad pedía para su templo. Así, el nombre de la iglesia también marcaba el tiempo y la vida del pueblo. Detrás de cada nombre hay una historia de fe compartida.',
       estimatedStayMinutes: 20
     },
     {
@@ -427,7 +427,7 @@ export const tourIglesiasDeChiloe: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'Pide el sello del Pasaporte a los anfitriones y reúne los sellos de las iglesias que visites: tendrás un mapa vivo de tu propia misión circular.',
-      trivia: 'Tras la expulsión de los jesuitas en 1767, las misiones continuaron con los franciscanos y luego con el clero secular, pero las comunidades y sus fiscales jamás dejaron de mantener sus iglesias en pie.',
+      trivia: '¿Sabías que tras la expulsión de los jesuitas las iglesias siguieron en pie? Cuando la orden dejó Chiloé en 1767, las misiones pasaron a los franciscanos y luego al clero secular. Pero fueron las propias comunidades, con sus fiscales, quienes nunca dejaron de cuidar y mantener sus templos. Esa continuidad es la razón de que hoy podamos verlos en pie.',
       estimatedStayMinutes: 20
     }
   ]

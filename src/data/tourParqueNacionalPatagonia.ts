@@ -97,7 +97,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'Compra tus entradas con anticipación en pasesparques.cl; cada sector (Valle Chacabuco, Tamango y Jeinimeni) exige registro CONAF. Pocos refugios; revisa cupos y cierres estacionales antes de viajar.',
-      trivia: 'El huemul es una de las dos especies del escudo de Chile. En este parque vive cerca del 10% de la población remanente del país, por eso hoy es el corazón del "Corredor del Huemul".',
+      trivia: '¿Sabías que en este parque vive cerca del diez por ciento de los huemules que quedan en Chile? El huemul es una de las dos especies del escudo nacional, junto al cóndor, y está en peligro de extinción. Por eso esta área se ha convertido en el corazón del Corredor del Huemul. Protegerlo aquí es proteger un símbolo de todo el país.',
       estimatedStayMinutes: 40
     },
     {
@@ -132,7 +132,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'Lleva binoculares y, si puedes, telescopio. Camina en grupo, mantén el registro y no te acerques a la ribera en crecida: el sector está catalogado con posible presencia de pumas y perros asilvestrados.',
-      trivia: 'El río Baker nace en el Lago Bertrand y desemboca en el Pacífico; su caudal promedio supera los 800 m³/s, el mayor de Chile.',
+      trivia: '¿Sabías que el río Baker es el de mayor caudal de Chile? Nace en el lago Bertrand y desemboca en el océano Pacífico, con un promedio que supera los ochocientos metros cúbicos por segundo. Es un río joven y poderoso, alimentado por glaciares y lluvias del sur. Su fuerza es uno de los grandes espectáculos naturales de la Patagonia.',
       estimatedStayMinutes: 30
     },
     {
@@ -173,7 +173,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'El sendero es exigente por desnivel acumulado y viento; lleva agua (no hay fuentes seguras en altura), cortaviento y reserva energética. En verano verás chulengos, las crías de guanaco, correteando junto a las madres.',
-      trivia: 'El guanaco es el pariente silvestre de la llama y la base de la dieta del puma; al recuperarse del sobrepastoreo, su regreso ha cambiado el paisaje del Valle Chacabuco.',
+      trivia: '¿Sabías que el guanaco es el pariente silvestre de la llama? Es la presa principal del puma y, al recuperarse del sobrepastoreo, su regreso ha transformado el paisaje del Valle Chacabuco. Donde vuelve el guanaco, vuelve también el pastizal y con él toda una cadena de vida. Su presencia es señal de un ecosistema que se recupera.',
       estimatedStayMinutes: 120
     },
     {
@@ -214,7 +214,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'El avistamiento exige paciencia y madrugada. Muévete lento, sin colores llamativos; y si ves a un huemul, congelate, mira con binoculares y disfruta en silencio: tu quietud es el mejor regalo a esta especie.',
-      trivia: 'Los senderos "Los Huemules" (6,8 km en Tamango) y "Huemules" (22 km en Valle Chacabuco) llevan el nombre del ciervo que este parque protege como ninguna otra área de Chile.',
+      trivia: '¿Sabías que dos senderos de este parque llevan el nombre del huemul? Son Los Huemules, de seis coma ocho kilómetros en Tamango, y Huemules, de veintidós kilómetros en Valle Chacabuco. El nombre no es casual: recuerda al ciervo que este parque protege como ninguna otra área de Chile. Caminarlos es recorrer el hogar de una especie en peligro.',
       estimatedStayMinutes: 90
     },
     {
@@ -255,7 +255,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'Suma la navegación por el río Cochrane o el Lago Cochrane desde el pueblo para completar el avistaje; respeta los cierres invernales (mayo–agosto) del sector.',
-      trivia: 'El sendero Los Pumas debe su nombre a la presencia histórica del depredador tope en estas laderas: observa huellas, fecas y rasguños en los troncos de lenga.',
+      trivia: '¿Sabías que el sendero Los Pumas debe su nombre al depredador tope de estas laderas? El puma ha recorrido históricamente esta zona y aún deja sus señales en el paisaje. Si miras con atención, puedes encontrar huellas, fecas y rasguños en los troncos de lenga. Aprender a leer esos rastros es aprender a ver lo que casi nunca se muestra.',
       estimatedStayMinutes: 100
     },
     {
@@ -296,7 +296,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'El sector cuenta con senderismo fácil (Mirador 2 km, Costanera 11,4 km) y la travesía de 3 a 4 días hacia el Valle Chacabuco por el Valle Avilés. Respeta el aviso sanitario de influenza aviar: no toques aves muertas ni enfermas.',
-      trivia: 'La translocación binacional de choiques de 2025 fue la primera captura y traslado de fauna silvestre entre un país latinoamericano y otro con fines de conservación.',
+      trivia: '¿Sabías que en 2025 se trasladaron choiques entre dos países por razones de conservación? Fue la primera captura y traslado binacional de fauna silvestre entre un país latinoamericano y otro con ese fin. Los choiques viajaron para reforzar las poblaciones del parque y darles un futuro más seguro. Es un ejemplo de cómo la ciencia y la cooperación pueden trabajar juntas.',
       estimatedStayMinutes: 70
     },
     {
@@ -331,7 +331,7 @@ export const tourParqueNacionalPatagonia: Tour = {
       },
       documents: [],
       tips: 'Descarga la "Guía de campo | Parque Nacional Patagonia" incluida en esta ruta (Fundación Rewilding Chile) y lleva tus avistamientos a las casetas CONAF: participas del monitoreo de huemules, guanacos y pumas.',
-      trivia: 'El programa de monitoreo de pumas del parque comenzó en 2008, con el apoyo de National Geographic y la Universidad de California en Davis, y es uno de los estudios a largo plazo más importantes de Sudamérica.',
+      trivia: '¿Sabías que el programa de monitoreo de pumas del parque comenzó en 2008? Nació con el apoyo de National Geographic y la Universidad de California en Davis, y con los años se ha convertido en uno de los estudios de largo plazo más importantes de Sudamérica. Gracias a él se ha aprendido muchísimo sobre la vida de estos felinos. La observación paciente también es una forma de proteger.',
       estimatedStayMinutes: 25
     }
   ]

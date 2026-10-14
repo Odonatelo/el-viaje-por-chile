@@ -93,8 +93,7 @@ export const tourMaipoBoutiqueAutor: Tour = {
       socialLinks: { website: 'https://www.antiyal.com' },
       documents: [],
       tips: 'Avisa que te interesa la biodinámica: las visitas suelen profundizar en los preparados y el manejo del suelo, según el interés del grupo.',
-      trivia:
-        'La agricultura biodinámica se basa en las ideas de Rudolf Steiner y busca equilibrar el viñedo mediante preparados naturales y un calendario agrícola.',
+      trivia: '¿Sabías que algunos viñedos del Maipo se cultivan siguiendo un método nacido hace un siglo? La agricultura biodinámica se inspira en las ideas de Rudolf Steiner y busca equilibrar el viñedo con preparados naturales y un calendario que ordena las labores del campo. Más que una técnica, es una manera de mirar la viña como un organismo vivo. Muchos productores la eligen para cuidar la tierra a largo plazo.',
       estimatedStayMinutes: 80
     },
     {
@@ -129,8 +128,7 @@ export const tourMaipoBoutiqueAutor: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Las viñas de autor reciben con reserva previa: confirma horarios directamente, ya que suelen atender a un grupo reducido por vez.',
-      trivia:
-        'Los «vinos de autor» se distinguen por llevar la firma de un enólogo o familia: la persona se vuelve el sello de calidad del proyecto.',
+      trivia: '¿Sabías que hay vinos que llevan la firma de una persona? Los llamados «vinos de autor» se distinguen porque detrás hay un enólogo o una familia que pone su nombre en la etiqueta. Esa firma se convierte en un sello de confianza y de estilo propio. Al elegir uno, en realidad estás eligiendo a quien lo pensó.',
       estimatedStayMinutes: 60
     },
     {
@@ -165,8 +163,7 @@ export const tourMaipoBoutiqueAutor: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Comprar directamente en viñas familiares suele ser la mejor forma de apoyar a los pequeños productores y de llevarse botellas que no llegan al retail.',
-      trivia:
-        'En el valle del Maipo conviven proyectos de miles de hectáreas con viñas familiares de pocas hectáreas: la misma D.O., dos escalas opuestas.',
+      trivia: '¿Sabías que en el Maipo caben dos mundos opuestos? En el mismo valle conviven proyectos de miles de hectáreas con pequeñas viñas familiares de apenas unas pocas. Comparten el mismo origen y el mismo sello, pero trabajan a escalas completamente distintas. Esa mezcla es, quizás, una de las riquezas del paisaje vitivinícola chileno.',
       estimatedStayMinutes: 55
     },
     {
@@ -201,8 +198,7 @@ export const tourMaipoBoutiqueAutor: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Las viñas familiares suelen ofrecer degustaciones informales: si te interesa el detalle técnico, avísalo al reservar para que preparen la cata.',
-      trivia:
-        'Muchos de los proyectos boutique del Maipo nacieron como viñas de hobby que, con los años, se profesionalizaron y abrieron al enoturismo.',
+      trivia: '¿Sabías que algunas viñas famosas empezaron como un pasatiempo? Varios proyectos boutique del Maipo nacieron como afición de sus dueños y, con los años, se profesionalizaron y abrieron sus puertas al turismo. Lo que comenzó como un hobby terminó convertido en un oficio serio. Es una prueba de que las grandes historias a veces empiezan en pequeño.',
       estimatedStayMinutes: 50
     },
     {
@@ -237,8 +233,7 @@ export const tourMaipoBoutiqueAutor: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Si te interesan las cepas patrimoniales, pide probar vinos de parras viejas: son partidas pequeñas y suelen venderse solo en la viña.',
-      trivia:
-        'El rescate de cepas «de raíz» se relaciona con el movimiento que busca recuperar variedades antiguas y viñas de pie franco en el valle central.',
+      trivia: '¿Sabías que hay un movimiento dedicado a rescatar viejas cepas del valle? Se trata de recuperar variedades antiguas y viñas de pie franco, es decir, parras que crecen sobre sus propias raíces. Muchas de ellas habían quedado olvidadas en rincones del campo. Rescatarlas es devolverle al vino chileno parte de su memoria.',
       estimatedStayMinutes: 55
     },
     {
@@ -273,8 +268,7 @@ export const tourMaipoBoutiqueAutor: Tour = {
       socialLinks: { website: 'https://www.elviaje.cl' },
       documents: [],
       tips: 'Reserva la mesa con antelación y avisa si tienes restricciones alimentarias: en cocinas de autor el menú de maridaje suele adaptarse.',
-      trivia:
-        'La tradición de maridar vino y cocina local es una de las señas del enoturismo moderno: busca que el visitante entienda el vino dentro de su cultura gastronómica.',
+      trivia: '¿Sabías que probar un vino con la comida del lugar cambia por completo la experiencia? Maridar vino y cocina local es una de las señas del turismo del vino de hoy. La idea es que el visitante entienda cada botella dentro de la cultura que la rodea. Un buen maridaje no solo alegra el paladar: cuenta la historia del territorio.',
       estimatedStayMinutes: 90
     }
   ]

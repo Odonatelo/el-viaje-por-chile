@@ -93,8 +93,7 @@ export const tourMaipoGrandesCasas: Tour = {
       socialLinks: { website: 'https://www.sanpedro.cl' },
       documents: [],
       tips: 'Consulta los horarios de visita: muchas grandes casas ofrecen recorridos solo con reserva previa y en días específicos.',
-      trivia:
-        'La línea 1865 de San Pedro toma su nombre del año de fundación de la viña: una convención común en las casas históricas para bautizar sus vinos ícono.',
+      trivia: '¿Sabías que algunos vinos llevan un año como nombre? La línea 1865 de San Pedro toma su nombre del año en que se fundó la viña. Es una costumbre común entre las casas históricas para bautizar sus vinos más importantes. Así, la fecha de nacimiento se convierte en la firma de la casa.',
       estimatedStayMinutes: 75
     },
     {
@@ -129,8 +128,7 @@ export const tourMaipoGrandesCasas: Tour = {
       socialLinks: { website: 'https://www.santacarolina.cl' },
       documents: [],
       tips: 'Pregunta específicamente por las cavas patrimoniales: no siempre están incluidas en el recorrido estándar y son el mayor atractivo histórico.',
-      trivia:
-        'Santa Carolina pertenece al selecto grupo de marcas chilenas con más de un siglo de historia continua: su nombre es sinónimo de tradición vitivinícola.',
+      trivia: '¿Sabías que Santa Carolina es una de las marcas chilenas con más de un siglo de historia? Pertenece a un grupo selecto de viñas que llevan más de cien años funcionando sin interrupción. Su nombre es, para muchos, sinónimo de tradición del vino chileno. Pocas empresas pueden mostrar una continuidad tan larga.',
       estimatedStayMinutes: 70
     },
     {
@@ -165,8 +163,7 @@ export const tourMaipoGrandesCasas: Tour = {
       socialLinks: { website: 'https://www.conosur.com' },
       documents: [],
       tips: 'Pregunta por sus prácticas sustentables: es uno de los ejes de comunicación de la viña y un buen tema para entender el vino chileno actual.',
-      trivia:
-        'Cono Sur fue pionera en adoptar la bicicleta como símbolo de su compromiso ambiental, imagen que acompaña a varias de sus etiquetas.',
+      trivia: '¿Sabías que una viña adoptó la bicicleta como símbolo de su cuidado del medio ambiente? Cono Sur fue pionera en usar esa imagen para mostrar su compromiso con el entorno. La bicicleta aparece en varias de sus etiquetas como una promesa de trabajo más limpio. Es un pequeño dibujo que dice mucho sobre una manera de hacer las cosas.',
       estimatedStayMinutes: 65
     },
     {
@@ -201,8 +198,7 @@ export const tourMaipoGrandesCasas: Tour = {
       socialLinks: { website: 'https://www.escudorojo.com' },
       documents: [],
       tips: 'Compara un Escudo Rojo con un Almaviva del Alto Maipo: ambos nacen del sello Rothschild en Chile, pero en terroirs y escalas distintas.',
-      trivia:
-        'Escudo Rojo toma su nombre del escudo de armas de la familia Rothschild: la heráldica francesa aplicada a una etiqueta chilena.',
+      trivia: '¿Sabías que el nombre de este vino viene de un escudo de armas? Escudo Rojo toma su nombre del emblema de la familia Rothschild, de origen francés. Esa tradición heráldica europea quedó plasmada en una etiqueta chilena. Así, un símbolo nobiliario de otro continente se volvió parte del paisaje del vino local.',
       estimatedStayMinutes: 65
     }
   ]

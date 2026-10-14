@@ -88,7 +88,7 @@ export const tourJardinBotanicoUACh: Tour = {
       },
       documents: [],
       tips: 'Horario de visita 09:00 a 19:00; el acceso es con aporte voluntario y no se permite el ingreso de mascotas. Puedes agendar una visita guiada y descargar el plano del jardín escribiendo a visitas.jardinbotanico@uach.cl.',
-      trivia: 'Desde 1957 y con código internacional VALD, el jardín reúne cerca de 950 especies y fue elegido uno de los "Siete Tesoros del Patrimonio Cultural de Valdivia".',
+      trivia: '¿Sabías que este jardín fue elegido uno de los "Siete Tesoros del Patrimonio Cultural de Valdivia"? Nació en 1957 y hoy reúne cerca de 950 especies de plantas, muchas de ellas nativas del sur. Su herbario tiene un código internacional, VALD, que las universidades del mundo reconocen. Un pulmón verde de diez hectáreas a la orilla del río, en pleno campus universitario.',
       estimatedStayMinutes: 30
     },
     {
@@ -141,7 +141,7 @@ export const tourJardinBotanicoUACh: Tour = {
       },
       documents: [],
       tips: 'No recolectes ni dañes las plantas: estas colecciones sostienen la investigación y la docencia del herbario VALD. Para la meditación, elige una sola especie y quédate con ella uno o dos minutos.',
-      trivia: 'El canelo es el árbol sagrado del pueblo mapuche: su corteza aromática fue una de las primeras medicinas del sur documentada por la ciencia europea y da nombre a la especie Drimys winteri.',
+      trivia: '¿Sabías que el canelo es el árbol sagrado del pueblo mapuche? Su corteza aromática fue una de las primeras medicinas del sur que la ciencia europea registró, y hoy da nombre a la especie Drimys winteri. Crece junto a otras plantas medicinales en la botica viva del jardín, donde cada hoja guarda un uso antiguo. Para la cultura mapuche, curar y agradecer a la planta van siempre de la mano.',
       estimatedStayMinutes: 40
     },
     {
@@ -188,7 +188,7 @@ export const tourJardinBotanicoUACh: Tour = {
       },
       documents: [],
       tips: 'Agenda una visita guiada con los monitores del jardín o participa de "Jardineo en el Botánico" para aportar a la conservación. El sector del canal interior es un buen contemplatorio para cerrar la experiencia con quietud.',
-      trivia: 'El bosque valdiviano es uno de los ecosistemas templados más ricos del planeta y aquí, en pleno campus universitario, puedes observarlo sin salir de la ciudad.',
+      trivia: '¿Sabías que el bosque valdiviano es uno de los ecosistemas templados más ricos del planeta? Aquí lo tienes a pocos pasos, dentro de un campus universitario y a orillas del río Cau-Cau. Helechos gigantes, olivillos y ulmos forman un bosque húmedo que sobrevive en muy pocos lugares del mundo. Poder verlo sin salir de la ciudad es una verdadera rareza.',
       estimatedStayMinutes: 35
     }
   ]

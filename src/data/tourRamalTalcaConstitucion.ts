@@ -95,8 +95,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       },
       documents: [],
       tips: 'Revisa el horario del día en el panel de la estación o en www.efe.cl: el ramal tiene salidas por la mañana y el viaje completo dura cerca de tres horas. Los asientos de madera no reservan numeración, así que llega unos veinte minutos antes para elegir ventana.',
-      trivia:
-        'El buscarril que ves en el andén es un Ferrostaal de fabricación alemana de los años sesenta: en Chile se los conoce cariñosamente como «buscarriles» y el de este ramal es uno de los últimos en servicio comercial del mundo.',
+      trivia: '¿Sabías que el buscarril de este ramal es uno de los últimos en servicio comercial del mundo? Es un Ferrostaal de fabricación alemana, de los años sesenta. En Chile se los conoce cariñosamente como buscarriles, por su forma de andar sobre la vía. Subirse a él es viajar en una pieza viva de la historia ferroviaria.',
       estimatedStayMinutes: 25
     },
     {
@@ -139,8 +138,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       },
       documents: [],
       tips: 'Si quieres la experiencia del Tren del Vino (copa, parada y paisaje), consulta las fechas especiales en EFE: no todos los días el servicio incluye el descenso en Corinto. En invierno el secano se vuelve verde y en verano dorado: cada estación cambia el parronal.',
-      trivia:
-        'Zonas como Corinto forman parte de la Denominación de Origen Maule, una de las regiones vitivinícolas más antiguas de Chile, donde las cepas de país llevan más de cuatro siglos dando fruto sin una gota de riego.',
+      trivia: '¿Sabías que zonas como Corinto forman parte de la Denominación de Origen Maule? Es una de las regiones vitivinícolas más antiguas de Chile, con siglos de tradición. Allí las cepas de país llevan más de cuatrocientos años dando fruto sin una gota de riego. Es un viñedo que se sostiene solo con la lluvia y la tierra.',
       estimatedStayMinutes: 20
     },
     {
@@ -181,8 +179,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'No todos los trenes paran en todos los paraderos: confirma las paradas facultativas antes de bajar, porque algunas solo funcionan bajo demanda señalizada desde el andén o desde el propio tren.',
-      trivia:
-        'Estos paraderos menores fueron locales de la llamada «chica» del ferrocarril, la red de ramales rurales que a principios del siglo veinte conectaba hasta los fundos más lejanos con la Red Central.',
+      trivia: '¿Sabías que estos paraderos menores pertenecieron a la llamada chica del ferrocarril? Era la red de ramales rurales que a principios del siglo veinte conectaba hasta los fundos más lejanos con la Red Central. Por esos rieles viajaban productos, encargos y personas. Los paraderos que ves son la huella de aquel tiempo.',
       estimatedStayMinutes: 15
     },
     {
@@ -225,8 +222,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       },
       documents: [],
       tips: 'El tiempo de parada en estas estaciones intermedias suele ser breve: si bajas, ten en cuenta que el tren parte cuando el guarda lo indica y no espera a rezagados.',
-      trivia:
-        'González Bastías es un giro del patrimonio literario rural: sus poemas fueron leídos por Pablo Neruda, que lo consideró «el último poeta del campo chileno».',
+      trivia: '¿Sabías que González Bastías fue un poeta campesino admirado por Pablo Neruda? Neruda lo consideró el último poeta del campo chileno, y sus versos retratan la vida rural con una sensibilidad única. Su obra une la tierra, el trabajo y la palabra. Recordarlo en este ramal es también recordar a quien le cantó.',
       estimatedStayMinutes: 20
     },
     {
@@ -267,8 +263,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'En época de lluvias el río Maule sube: el ramal se opera con precaución y puede haber cambios de último minuto. Revisa el estado del servicio antes de viajar.',
-      trivia:
-        'El tramo entre Pichamán y Constitución cruza el Maule dos veces y atraviesa uno de los últimos bosques ribereños de la Región del Maule, refugio de aves como el martín pescador y el chucao.',
+      trivia: '¿Sabías que el tramo entre Pichamán y Constitución cruza el río Maule dos veces? A lo largo de ese recorrido, el tren atraviesa uno de los últimos bosques ribereños de la Región del Maule. Ese bosque es refugio de aves como el martín pescador y el chucao. Un viaje en tren y una reserva de vida al mismo tiempo.',
       estimatedStayMinutes: 15
     },
     {
@@ -309,8 +304,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       socialLinks: {},
       documents: [],
       tips: 'En Maquehua conviene asomarse por la ventana del lado derecho del tren en dirección a Constitución: es el mejor ángulo para ver la cordillera de la costa y el valle que se angosta.',
-      trivia:
-        'Los Ferrostaal del ramal pueden alcanzar los 60 kilómetros por hora, pero la vía y los paraderos lo llevan a un trote rural de cerca de 30: por eso el viaje completo es la metáfora perfecta del «buen vivir» y la razón por la que a este tren se le conoce como el tren más lento del mundo... con más fans.',
+      trivia: '¿Sabías que a este tren se le llama el más lento del mundo, pero con más fans? Los Ferrostaal podrían alcanzar sesenta kilómetros por hora, pero la vía y los paraderos lo llevan a un trote rural de unos treinta. Esa lentitud no es un defecto: es lo que permite disfrutar del paisaje y del viaje. Por eso el recorrido completo se ha vuelto una metáfora del buen vivir.',
       estimatedStayMinutes: 15
     },
     {
@@ -353,8 +347,7 @@ export const tourRamalTalcaConstitucion: Tour = {
       },
       documents: [],
       tips: 'En Constitución puedes almorzar en los restaurantes de la costanera y, si el día acompaña, subir a los miradores de la zona alta para ver la barra del Maule desde el cerro. El regreso a Talca suele tener su última salida en la tarde: confirma el horario al llegar.',
-      trivia:
-        'Todo el ramal —línea, estaciones y buscarril— fue declarado Monumento Histórico Nacional, una de las pocas veces en que la protección patrimonial incluye al tren, a la vía y a la forma de viajar completa.',
+      trivia: '¿Sabías que todo el ramal fue declarado Monumento Histórico Nacional? La protección incluye la línea, las estaciones y el propio buscarril. Es una de las pocas veces en que se resguarda al tren, a la vía y a la forma de viajar completa. Así, el patrimonio no es solo un objeto, sino toda una experiencia.',
       estimatedStayMinutes: 30
     }
   ]
