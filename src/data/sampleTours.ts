@@ -8,9 +8,11 @@ import { tourMuseoInteractivoMirador } from './tourMuseoInteractivoMirador';
 import { tourParqueNacionalChiloeTurberas } from './tourParqueNacionalChiloeTurberas';
 import { tourParqueNacionalRioClarillo } from './tourParqueNacionalRioClarillo';
 import { tourValleDelMaipo } from './tourValleDelMaipo';
+import { tourMaullin } from './tourMaullin';
 
 export const INITIAL_TOURS: Tour[] = [
   tourValleDelMaipo,
+  tourMaullin,
   tourParqueNacionalPatagonia,
   tourFelinosChile,
   tourJardinBotanicoUACh,
