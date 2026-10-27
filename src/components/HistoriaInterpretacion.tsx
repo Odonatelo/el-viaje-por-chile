@@ -1042,8 +1042,7 @@ export const HistoriaInterpretacion: React.FC<HistoriaInterpretacionProps> = ({ 
                 </h3>
                 <p className="text-xs text-[#CDD9CF] leading-relaxed max-w-2xl">
                   La obra de Oltremari es destacada en la investigación que Jorge Morales Miranda ha dedicado a la
-                  historia de la disciplina (recogida en el artículo de Juan C. Castaing en el legado de la
-                  National Association for Interpretation, AIP): sitúa a Chile entre los primeros países en adoptar
+                  historia de la disciplina —recogida en el artículo de Juan C. Castaing publicado en la revista <em>Legacy en Español</em> de la NAI (EE. UU.)—. Esta investigación sitúa a Chile entre los primeros países en adoptar
                   la interpretación como herramienta de gestión institucional, junto a los centros de visitantes y
                   los senderos autoguiados de Puyehue.
                 </p>
