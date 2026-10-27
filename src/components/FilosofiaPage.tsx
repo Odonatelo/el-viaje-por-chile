@@ -41,9 +41,9 @@ const SITIOS: LinkOficial[] = [
   },
   {
     nombre: 'Boletín n.º 40 · Los orígenes de la interpretación en EE. UU. (1872-1920)',
-    url: 'https://bit.ly/33GT7vv',
+    url: 'https://www.interpretaciondelpatrimonio.com/wp-content/uploads/2025/02/boletin_de_interpretacion_40.pdf',
     descripcion:
-      'Artículo monográfico de J. Morales Miranda sobre los orígenes de la profesión, entre la protección y la educación. Lectura sugerida en este ensayo.',
+      'Todo método gana al conocer sus orígenes. La investigación disciplinar de la AIP dedicó su boletín número 40 al artículo acerca de los orígenes de la interpretación del patrimonio en los Estados Unidos (1872-1920). Artículo de Marta Brunelli, «La interpretación de la naturaleza en los Estados Unidos (1872-1920). Los orígenes de la práctica profesional de la interpretación del patrimonio: entre la protección y la educación» (pp. 9-41). Editado por Morales y Guerra. El trabajo reconstruye el período en el que la joven profesión osciló —como hoy— entre proteger, entretener y educar: exactamente la tensión que el paraguas interpretativo pretende conciliar, porque restaurar requiere proteger, apreciar y aprender.',
   },
   {
     nombre: 'National Association for Interpretation (NAI)',
@@ -757,7 +757,7 @@ La ecología profunda de Arne Naess resuena aquí como eco intertextual: los eco
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
               <a
-                href="https://bit.ly/33GT7vv"
+                href="https://www.interpretaciondelpatrimonio.com/wp-content/uploads/2025/02/boletin_de_interpretacion_40.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#B04E2A] hover:bg-[#9A3F1E] text-white text-xs font-bold uppercase tracking-wider transition-colors"
