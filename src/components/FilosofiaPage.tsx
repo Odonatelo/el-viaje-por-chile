@@ -852,8 +852,8 @@ La ecología profunda de Arne Naess resuena aquí como eco intertextual: los eco
           <div className="space-y-3">
             <LayerRow />
             <p className="text-xl sm:text-2xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] max-w-2xl leading-snug">
-              Interpretar es co-diseñar: dar al visitante la experiencia que lo haga, si quererlo,
-              co-autor del paisaje que restaura. El paraguas está abierto; solo falta sostenerlo.
+              Interpretar es co-diseñar: dar al visitante la experiencia que lo haga, sin quererlo,
+              co-autor del paisaje que restaura. El paraguas está abierto; solo faltas tú para sostenerlo.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
