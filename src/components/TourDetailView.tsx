@@ -625,7 +625,7 @@ export const TourDetailView: React.FC<TourDetailViewProps> = ({
           </div>
 
           {/* Criterio TORA del guion interpretativo */}
-          {tour.tora && (
+          {false && tour.tora && (
             <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E4D8BF] space-y-3">
               <h3 className="text-xs font-bold text-[#14281C] uppercase tracking-wider font-['Cormorant_Garamond',Georgia,serif]">
                 Criterio TORA del guion interpretativo
