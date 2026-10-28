@@ -185,8 +185,8 @@ export const tourMaipoAltoAndino: Tour = {
       subtitle: 'Pirque, casona neoclásica, jardines y bodega subterránea',
       category: 'history',
       location: {
-        lat: -33.639,
-        lng: -70.576,
+        lat: -33.6355768,
+        lng: -70.5745469,
         address: 'Fundo Concha y Toro, Pirque (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 130,
@@ -267,8 +267,8 @@ export const tourMaipoAltoAndino: Tour = {
       subtitle: 'Pirque, la familia Antinori y el ensamble Albis',
       category: 'monument',
       location: {
-        lat: -33.65,
-        lng: -70.56,
+        lat: -33.6946247,
+        lng: -70.609302,
         address: 'Pirque, Alto Maipo (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,
@@ -372,8 +372,8 @@ export const tourMaipoAltoAndino: Tour = {
       subtitle: 'Puente Alto, el terroir puro de la montaña',
       category: 'monument',
       location: {
-        lat: -33.6,
-        lng: -70.58,
+        lat: -33.6102856,
+        lng: -70.6121928,
         address: 'Puente Alto, Alto Maipo (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,
@@ -407,8 +407,8 @@ export const tourMaipoAltoAndino: Tour = {
       subtitle: 'Puente Alto, vinificación gravitacional y estilo First Growth',
       category: 'monument',
       location: {
-        lat: -33.595,
-        lng: -70.583,
+        lat: -33.6056511,
+        lng: -70.6169417,
         address: 'Puente Alto, Alto Maipo (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,
@@ -442,8 +442,8 @@ export const tourMaipoAltoAndino: Tour = {
       subtitle: 'Puente Alto, ultra-alta gama y un puntaje legendario',
       category: 'monument',
       location: {
-        lat: -33.59,
-        lng: -70.575,
+        lat: -33.6080805,
+        lng: -70.6247312,
         address: 'Puente Alto, Alto Maipo (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,

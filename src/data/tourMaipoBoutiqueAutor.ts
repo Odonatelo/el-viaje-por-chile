@@ -68,8 +68,8 @@ export const tourMaipoBoutiqueAutor: Tour = {
       subtitle: 'Maipo, la filosofía de Álvaro Espinoza',
       category: 'nature',
       location: {
-        lat: -33.62,
-        lng: -70.58,
+        lat: -33.8595634,
+        lng: -70.6219072,
         address: 'Maipo Alto, Región Metropolitana (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,

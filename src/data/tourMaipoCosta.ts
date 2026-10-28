@@ -138,8 +138,8 @@ export const tourMaipoCosta: Tour = {
       subtitle: 'Padre Hurtado, la mirada de armadores noruegos',
       category: 'nature',
       location: {
-        lat: -33.57,
-        lng: -70.8,
+        lat: -33.5399108,
+        lng: -70.8775191,
         address: 'Padre Hurtado, Pacific Maipo (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,

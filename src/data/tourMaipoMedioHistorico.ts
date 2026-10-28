@@ -68,8 +68,8 @@ export const tourMaipoMedioHistorico: Tour = {
       subtitle: 'Buin, el patrimonio de excepción del Maipo Central',
       category: 'museum',
       location: {
-        lat: -33.733,
-        lng: -70.744,
+        lat: -33.7223082,
+        lng: -70.6711195,
         address: 'Camino a Santa Rita, Buin (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 130,
@@ -150,8 +150,8 @@ export const tourMaipoMedioHistorico: Tour = {
       subtitle: 'Talagante, jardines botánicos y vocación exportadora',
       category: 'monument',
       location: {
-        lat: -33.65,
-        lng: -70.92,
+        lat: -33.6469615,
+        lng: -70.886804,
         address: 'Camino a Melipilla, Talagante (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 130,

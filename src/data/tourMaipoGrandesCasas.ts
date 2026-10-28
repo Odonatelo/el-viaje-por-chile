@@ -68,8 +68,8 @@ export const tourMaipoGrandesCasas: Tour = {
       subtitle: 'Una línea que cruza fronteras y una historia fundacional',
       category: 'history',
       location: {
-        lat: -33.445,
-        lng: -70.655,
+        lat: -33.4755346,
+        lng: -70.6164572,
         address: 'Presencia en el valle y Santiago, Región Metropolitana (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,
@@ -103,8 +103,8 @@ export const tourMaipoGrandesCasas: Tour = {
       subtitle: 'Patrimonio del vino chileno y guarda de larga tradición',
       category: 'monument',
       location: {
-        lat: -33.49,
-        lng: -70.61,
+        lat: -33.4755346,
+        lng: -70.6164572,
         address: 'Santiago, Región Metropolitana (coordenadas aproximadas)'
       },
       triggerRadiusMeters: 120,
