@@ -197,7 +197,7 @@ const ORGS: Org[] = [
         desc: 'La profesión del intérprete del patrimonio: formación, estándares y desafíos.',
         ano: '2019',
         tipo: 'pdf',
-        url: '/pdf/organizaciones/aip/AIP_Boletin_40.pdf',
+        url: 'https://www.interpretaciondelpatrimonio.com/wp-content/uploads/2025/02/boletin_de_interpretacion_40.pdf',
       },
       {
         titulo: 'Hemeroteca del Boletín de Interpretación',
