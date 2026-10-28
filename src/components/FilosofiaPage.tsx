@@ -310,15 +310,15 @@ export function FilosofiaPage({ onBack }: Props) {
               Ensayo · Interpretación y co-diseño
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-['Cormorant_Garamond',Georgia,serif] leading-[1.05]">
-              El paraguas interpretativo: patrimonio y diseño de experiencias como{' '}
+              El paraguas interpretativo: patrimonio y diseño de experiencias para visitantes como{' '}
               <span className="text-[#E8A58B]">método de co-diseño</span>
             </h1>
             <p className="text-base sm:text-lg text-[#E4D8BF] leading-relaxed max-w-3xl">
               Este ensayo no es una revisión de autores: es un argumento. Sostiene que la
-              interpretación del patrimonio y el diseño de experiencias —una sola tradición que el
+              interpretación del patrimonio y el diseño de experiencias para visitantes —una sola tradición que el
               canon disciplinar reconoce como tal— forman el paraguas metodológico bajo el cual es
               posible diseñar, por fin, medios interpretativos y experiencias para visitantes de
-              manera intencionada, medible y restauradora.
+              manera intencionada, medible y restauradora. En este contexto, el diseño de experiencias para visitantes tiene un foco distinto y un <em>know-how</em> particular: no se orienta al entretenimiento por sí mismo, sino a facilitar una conexión significativa, ética y transformadora con el patrimonio.
             </p>
           </div>
 
