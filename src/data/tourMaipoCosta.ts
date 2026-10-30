@@ -134,7 +134,7 @@ export const tourMaipoCosta: Tour = {
     {
       id: 'stop-costa-odfjell',
       order: 3,
-      title: 'Odfjell Vineyards (1994): Tracción Animal y Vinos Orgánicos',
+      title: 'Odfjell Vineyards (1994): Tracción Animal y Vinos Orgánicos\n\nInformación para visitar (Odfjell Vineyards): Dirección — Camino a Valparaíso Km 10.5, Padre Hurtado, Región Metropolitana. Horario — Con recorridos programados; se recomienda reservar con antelación. Experiencias — Catas guiadas, recorridos por viñedos orgánicos/biodinámicos. Reservas — https://www.odfjellvineyards.cl/.',
       subtitle: 'Padre Hurtado, la mirada de armadores noruegos',
       category: 'nature',
       location: {
