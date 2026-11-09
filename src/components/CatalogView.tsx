@@ -468,6 +468,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             </span>
           </div>
 
+          {!staticMode && (
           <button
             onClick={onResetTours}
             className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#B04E2A] transition-colors"
@@ -476,6 +477,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
             <RefreshCw className="w-3.5 h-3.5" />
             <span>Restaurar Rutas Oficiales</span>
           </button>
+          )}
         </div>
 
         {/* Empty state */}
@@ -624,6 +626,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                           </button>
                         )}
 
+                        {!staticMode && (
                         <button
                           onClick={() => onEditTour(tour)}
                           className="p-2 rounded-xl bg-[#EEE6D3] hover:bg-[#E4D8BF] text-slate-700 transition-colors"
@@ -631,7 +634,9 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                         >
                           <Edit className="w-3.5 h-3.5" />
                         </button>
+                        )}
 
+                        {!staticMode && (
                         <button
                           onClick={() => onDeleteTour(tour.id)}
                           className="p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
@@ -639,6 +644,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
+                        )}
 
                         <button
                           onClick={() => onSelectTour(tour)}

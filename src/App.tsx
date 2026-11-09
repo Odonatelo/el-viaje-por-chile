@@ -1240,7 +1240,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
             tour={selectedTour}
             initialStopId={routeStopId}
             onBack={() => setViewMode('catalog')}
-            onEditTour={handleEditTour}
+            onEditTour={STATIC_MODE ? undefined : handleEditTour}
             relatedTours={(selectedTour.relatedTourIds || [])
               .map((id) => visibleTours.find((t) => t.id === id))
               .filter((t): t is Tour => Boolean(t))}

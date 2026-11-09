@@ -57,6 +57,10 @@ export const AudioGuidePlayer: React.FC<AudioGuidePlayerProps> = ({
   // Sintetiza con voz premium del servidor (Speechify o Gemini) en vez de la voz del navegador
   useEffect(() => {
     const shouldUseServerTts = audio?.type === 'ai_generated' && !audio?.url && fallbackText;
+    if (import.meta.env.VITE_STATIC_MODE === 'true') {
+      setPremiumFailed(true);
+      return;
+    }
     if (!shouldUseServerTts) return;
     let cancelled = false;
     setPremiumFetching(true);
