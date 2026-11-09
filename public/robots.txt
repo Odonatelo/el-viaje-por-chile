@@ -1,0 +1,8 @@
+﻿User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /estudio
+Disallow: /mis-rutas
+Disallow: /api/
+
+Sitemap: https://www.interpretaciondelpatrimonio.cl/sitemap.xml
