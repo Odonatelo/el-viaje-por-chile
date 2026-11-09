@@ -1,0 +1,8 @@
+# Cloudflare Pages — configuracion local para `wrangler pages dev/deploy`
+name = "el-viaje-por-chile"
+pages_build_output_dir = "dist"
+
+# El deploy real se hace via GitHub Actions (.github/workflows/deploy-cloudflare-pages.yml).
+# Para desplegar manualmente:
+#   npm run build:static:cf
+#   npx wrangler pages deploy dist --project-name=el-viaje-por-chile
