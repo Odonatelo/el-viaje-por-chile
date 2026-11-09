@@ -22,6 +22,7 @@ interface HomeLandingProps {
   onOpenConsultingModal: () => void;
   onOpenMembershipModal: () => void;
   onOpenAchpiModal: () => void;
+  staticMode?: boolean;
 }
 
 const FALLBACK_COVER =
@@ -42,6 +43,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
   onOpenConsultingModal,
   onOpenMembershipModal,
   onOpenAchpiModal,
+  staticMode = false,
 }) => {
   const featured = tours.slice(0, 3);
 
@@ -276,6 +278,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
               la plataforma.
             </p>
             <div className="flex flex-wrap items-center gap-3">
+              {!staticMode && (
               <button
                 onClick={onOpenAchpiModal}
                 className="flex items-center gap-2 px-5 py-2.5 bg-[#F5F1E8] text-[#0B0A08] text-xs font-bold rounded-full hover:bg-white active:scale-95 transition-all"
@@ -283,12 +286,15 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
                 <Users className="w-4 h-4" />
                 Solicitar Inscripción ACHPI
               </button>
+              )}
+              {!staticMode && (
               <button
                 onClick={onOpenMembershipModal}
                 className="px-5 py-2.5 bg-transparent text-[#F5F1E8] text-xs font-bold rounded-full border border-white/30 hover:border-white hover:bg-white/10 transition-all"
               >
                 Membresía de la Plataforma
               </button>
+              )}
             </div>
           </div>
 
@@ -503,12 +509,14 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({
               <Feather className="w-4 h-4" />
               Diseñar mi Viaje
             </button>
+            {!staticMode && (
             <button
               onClick={onOpenMembershipModal}
               className="px-6 py-3 bg-transparent text-[#F5F1E8] font-bold text-sm rounded-full border border-white/30 hover:border-white hover:bg-white/10 transition-all"
             >
               Hacerme miembro
             </button>
+            )}
           </div>
 
           <div className="flex items-center justify-center gap-5 pt-4 text-[11px] font-semibold text-white/40">

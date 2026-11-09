@@ -50,6 +50,39 @@ import { MyToursView } from './components/MyToursView';
 import { AnalisisUsuarioPage } from './components/AnalisisUsuarioPage';
 import { DisenoExperienciasPage } from './components/DisenoExperienciasPage';
 
+// Modo estático (GitHub Pages): el catálogo se sirve embebido y se desactivan
+// las funciones que dependen del servidor (cuentas, pagos, Studio, IA).
+const STATIC_MODE = import.meta.env.VITE_STATIC_MODE === 'true';
+
+// Claves del menú que requieren backend y se ocultan en modo estático
+const STATIC_HIDDEN_NAV = new Set([
+  'membresia',
+  'achpi',
+  'achpi-admin',
+  'admin',
+  'studio',
+  'ia',
+  'myTours',
+  'consulta',
+]);
+
+// GitHub Pages sirve el sitio bajo /el-viaje-por-chile/, así que la URL real
+// incluye ese prefijo. El router interno trabaja siempre con rutas sin base.
+const ROUTE_BASE = STATIC_MODE ? (import.meta.env.BASE_URL || '/').replace(/\/+$/, '') : '';
+
+function currentRoutePath(): string {
+  const p = window.location.pathname;
+  if (ROUTE_BASE && p.startsWith(ROUTE_BASE)) {
+    const rest = p.slice(ROUTE_BASE.length);
+    return rest === '' ? '/' : rest;
+  }
+  return p;
+}
+
+function withBase(path: string): string {
+  return STATIC_MODE ? ROUTE_BASE + path : path;
+}
+
 // Deep link de una audioguía: /tour/:id, /tour/:id/:stopId, o legacy
 // /tours?tourId=...&stopId=... y /tours?stopId=... (QR/GPX generados antes)
 function parseTourDeepLink(pathname: string, search: string): { tourId?: string; stopId?: string } | null {
@@ -91,43 +124,43 @@ export default function App() {
   }, [tours]);
 type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibilidad' | 'matriz' | 'normativas' | 'testeo' | 'historia' | 'medios' | 'tematica' | 'organizaciones' | 'analisis' | 'diseno' | 'filosofia' | 'admin';
   const [viewMode, setViewMode] = useState<ViewMode>(() =>
-    window.location.pathname.startsWith('/factibilidad')
+    currentRoutePath().startsWith('/factibilidad')
       ? 'factibilidad'
-      : window.location.pathname === '/matrizderiesgo' || window.location.pathname.startsWith('/matrizderiesgo/')
+      : currentRoutePath() === '/matrizderiesgo' || currentRoutePath().startsWith('/matrizderiesgo/')
         ? 'matriz'
-        : window.location.pathname.startsWith('/normativas')
+        : currentRoutePath().startsWith('/normativas')
           ? 'normativas'
-          : window.location.pathname.startsWith('/testeo')
+          : currentRoutePath().startsWith('/testeo')
             ? 'testeo'
-          : window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
+          : currentRoutePath().startsWith('/historia') || currentRoutePath().startsWith('/hitoria')
  ? 'historia'
-            : window.location.pathname.startsWith('/medios')
+            : currentRoutePath().startsWith('/medios')
               ? 'medios'
-              : window.location.pathname.startsWith('/tematica')
+              : currentRoutePath().startsWith('/tematica')
                 ? 'tematica'
-                : window.location.pathname.startsWith('/organizaciones')
+                : currentRoutePath().startsWith('/organizaciones')
                   ? 'organizaciones'
-                : window.location.pathname.startsWith('/analisis')
+                : currentRoutePath().startsWith('/analisis')
             ? 'analisis'
-            : window.location.pathname.startsWith('/disenodeexperiencias')
+            : currentRoutePath().startsWith('/disenodeexperiencias')
               ? 'diseno'
-              : window.location.pathname.startsWith('/filosofia')
+              : currentRoutePath().startsWith('/filosofia')
                 ? 'filosofia'
-                : window.location.pathname.startsWith('/estudio')
+                : currentRoutePath().startsWith('/estudio')
                   ? 'studio'
-                  : window.location.pathname.startsWith('/mis-rutas')
+                  : currentRoutePath().startsWith('/mis-rutas')
                     ? 'myTours'
-                    : window.location.pathname === '/admin'
+                    : currentRoutePath() === '/admin'
           ? 'admin'
-          : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
+          : currentRoutePath() === '/explorar' || currentRoutePath() === '/coleccion'
             ? 'catalog'
-            : parseTourDeepLink(window.location.pathname, window.location.search)
+            : parseTourDeepLink(currentRoutePath(), window.location.search)
               ? 'detail'
               : 'home',
   );
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [routeStopId, setRouteStopId] = useState<string | undefined>(
-    () => parseTourDeepLink(window.location.pathname, window.location.search)?.stopId,
+    () => parseTourDeepLink(currentRoutePath(), window.location.search)?.stopId,
   );
   const [editingTour, setEditingTour] = useState<Tour | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -167,6 +200,10 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
 
   // Carga el contador de solicitudes ACHPI pendientes para el propietario (badge del header)
   useEffect(() => {
+    if (STATIC_MODE) {
+      setAchpiPendingCount(0);
+      return;
+    }
     if (!isOwner) {
       setAchpiPendingCount(0);
       return;
@@ -184,6 +221,15 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
   }, [isOwner, showAchpiAdminModal]);
 
   const refreshUser = async () => {
+    if (STATIC_MODE) {
+      setCurrentUser(null);
+      setIsOwner(false);
+      setIsMember(false);
+      setMemberType('none');
+      setAchpiStatus('none');
+      setAchpiCode('');
+      return;
+    }
     try {
       const res = await fetch('/api/auth/me');
       const data = await res.json();
@@ -218,7 +264,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
     const params = new URLSearchParams(window.location.search);
     if (params.get('auth_error')) {
       alert('No se pudo iniciar sesión con Google: ' + params.get('auth_error'));
-      window.history.replaceState({}, '', window.location.pathname);
+      window.history.replaceState({}, '', withBase(currentRoutePath()));
     }
   }, []);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
@@ -232,7 +278,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
   const [showEntornoModal, setShowEntornoModal] = useState<boolean>(false);
 
   // Membership States
-  const [isMember, setIsMember] = useState<boolean>(true);
+  const [isMember, setIsMember] = useState<boolean>(!STATIC_MODE);
   const [memberType, setMemberType] = useState<'none' | 'basic_free' | 'annual_paid' | 'consulting_free'>('none');
   const [showMembershipModal, setShowMembershipModal] = useState<boolean>(false);
 
@@ -250,6 +296,13 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
   const fetchTours = async () => {
     setIsLoading(true);
     setApiError(null);
+    if (STATIC_MODE) {
+      // Catálogo embebido: no hay servidor, todo se sirve desde el build.
+      setTours(sampleTours);
+      resolveTourDeepLink(sampleTours);
+      setIsLoading(false);
+      return;
+    }
     try {
       const res = await fetch('/api/tours');
       if (res.ok) {
@@ -290,8 +343,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
 
   // Navegación con URL real (SPA): /factibilidad abre la Guía de Factibilidad
   const navigateTo = (mode: ViewMode, path: string) => {
-    if (window.location.pathname !== path) {
-      window.history.pushState({}, '', path);
+    if (currentRoutePath() !== path) {
+      window.history.pushState({}, '', withBase(path));
     }
     setViewMode(mode);
   };
@@ -299,8 +352,8 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
   // Abre una audioguía empujando su deep link canónico (/tour/:id o /tour/:id/:stopId)
   const openTour = (tour: Tour, stopId?: string) => {
     const path = `/tour/${encodeURIComponent(tour.id)}` + (stopId ? `/${encodeURIComponent(stopId)}` : '');
-    if (window.location.pathname !== path) {
-      window.history.pushState({}, '', path);
+    if (currentRoutePath() !== path) {
+      window.history.pushState({}, '', withBase(path));
     }
     setSelectedTour(tour);
     setRouteStopId(stopId);
@@ -309,7 +362,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
 
   // Resuelve un deep link (carga inicial o atrás/adelante) contra el pool de tours
   const resolveTourDeepLink = (pool: Tour[]) => {
-    const dl = parseTourDeepLink(window.location.pathname, window.location.search);
+    const dl = parseTourDeepLink(currentRoutePath(), window.location.search);
     if (!dl) return;
     let t: Tour | undefined;
     if (dl.tourId) {
@@ -318,9 +371,9 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
       t = pool.find((x) => x.stops.some((s) => s.id === dl.stopId));
     }
     if (!t) {
-      const isLegacyTourUrl = window.location.pathname.startsWith('/tour/') || window.location.pathname.startsWith('/tours');
+      const isLegacyTourUrl = currentRoutePath().startsWith('/tour/') || currentRoutePath().startsWith('/tours');
       if (isLegacyTourUrl) {
-        window.history.replaceState({}, '', '/explorar');
+        window.history.replaceState({}, '', withBase('/explorar'));
         setViewMode('catalog');
       }
       return;
@@ -333,41 +386,41 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
   // Sincroniza la vista cuando el usuario usa los botones atrás/adelante del navegador
   useEffect(() => {
     const onPopState = () => {
-      const dl = parseTourDeepLink(window.location.pathname, window.location.search);
+      const dl = parseTourDeepLink(currentRoutePath(), window.location.search);
       if (dl) {
         resolveTourDeepLink(toursRef.current);
         return;
       }
       setViewMode(
-        window.location.pathname.startsWith('/factibilidad')
+        currentRoutePath().startsWith('/factibilidad')
           ? 'factibilidad'
-          : window.location.pathname === '/matrizderiesgo' || window.location.pathname.startsWith('/matrizderiesgo/')
+          : currentRoutePath() === '/matrizderiesgo' || currentRoutePath().startsWith('/matrizderiesgo/')
             ? 'matriz'
-            : window.location.pathname.startsWith('/normativas')
+            : currentRoutePath().startsWith('/normativas')
               ? 'normativas'
-              : window.location.pathname.startsWith('/testeo')
+              : currentRoutePath().startsWith('/testeo')
                 ? 'testeo'
-: window.location.pathname.startsWith('/historia') || window.location.pathname.startsWith('/hitoria')
+: currentRoutePath().startsWith('/historia') || currentRoutePath().startsWith('/hitoria')
               ? 'historia'
-            : window.location.pathname.startsWith('/medios')
+            : currentRoutePath().startsWith('/medios')
               ? 'medios'
-            : window.location.pathname.startsWith('/tematica')
+            : currentRoutePath().startsWith('/tematica')
               ? 'tematica'
-            : window.location.pathname.startsWith('/organizaciones')
+            : currentRoutePath().startsWith('/organizaciones')
               ? 'organizaciones'
-              : window.location.pathname.startsWith('/analisis')
+              : currentRoutePath().startsWith('/analisis')
             ? 'analisis'
-            : window.location.pathname.startsWith('/disenodeexperiencias')
+            : currentRoutePath().startsWith('/disenodeexperiencias')
               ? 'diseno'
-              : window.location.pathname.startsWith('/filosofia')
+              : currentRoutePath().startsWith('/filosofia')
                 ? 'filosofia'
-                : window.location.pathname.startsWith('/estudio')
+                : currentRoutePath().startsWith('/estudio')
                   ? 'studio'
-                  : window.location.pathname.startsWith('/mis-rutas')
+                  : currentRoutePath().startsWith('/mis-rutas')
                     ? 'myTours'
-                    : window.location.pathname === '/admin'
+                    : currentRoutePath() === '/admin'
               ? 'admin'
-              : window.location.pathname === '/explorar' || window.location.pathname === '/coleccion'
+              : currentRoutePath() === '/explorar' || currentRoutePath() === '/coleccion'
                 ? 'catalog'
                 : 'home',
       );
@@ -701,6 +754,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
       onOpenMembershipModal={() => setShowMembershipModal(true)}
       onOpenAchpiModal={() => setShowAchpiModal(true)}
       onOpenAchpiAdminModal={() => setShowAchpiAdminModal(true)}
+      staticMode={STATIC_MODE}
       onOpenQRCode={(tour) => {
         setGlobalQrTour(tour);
         setGlobalQrStop(null);
@@ -717,7 +771,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
   );
 
   // ===== Botonera del header: símbolos + texto restringido por breakpoint =====
-  const headerNavItems: HeaderNavItem[] = [
+  const headerNavItemsAll: HeaderNavItem[] = [
     {
       key: 'catalog',
       label: 'Explorar Rutas',
@@ -958,6 +1012,10 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
     },
   ];
 
+  const headerNavItems = STATIC_MODE
+    ? headerNavItemsAll.filter((item) => !STATIC_HIDDEN_NAV.has(item.key))
+    : headerNavItemsAll;
+
   const renderHeaderNavItem = (item: HeaderNavItem) => {
     const Icon = item.icon;
     const base =
@@ -1092,6 +1150,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
           <div className="flex flex-wrap items-center justify-end gap-1.5 max-w-4xl">{headerNavItems.map(renderHeaderNavItem)}</div>
 
           {/* Google Account Profile Button */}
+          {!STATIC_MODE && (
           <button
             onClick={() => setShowAuthModal(true)}
             className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl bg-[#1D3626] hover:bg-[#2E4E37] border border-[#40624A] transition-all ml-1 flex-shrink-0"
@@ -1123,6 +1182,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
               </>
             )}
           </button>
+          )}
           </div>
         </div>
       </header>
@@ -1291,6 +1351,7 @@ type ViewMode = 'home' | 'catalog' | 'detail' | 'studio' | 'myTours' | 'factibil
             onOpenConsultingModal={() => setShowConsultingModal(true)}
             onOpenMembershipModal={() => setShowMembershipModal(true)}
             onOpenAchpiModal={() => setShowAchpiModal(true)}
+            staticMode={STATIC_MODE}
           />
         ) : (
           renderCatalogView()

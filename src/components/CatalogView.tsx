@@ -54,6 +54,7 @@ interface CatalogViewProps {
   achpiCode?: string;
   routeLimit?: number;
   routeUsage?: number;
+  staticMode?: boolean;
 }
 
 export const CatalogView: React.FC<CatalogViewProps> = ({
@@ -77,6 +78,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
   achpiCode = '',
   routeLimit = 1,
   routeUsage = 0,
+  staticMode = false,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCity, setSelectedCity] = useState<string>('all');
@@ -143,6 +145,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
 
           {/* Quick Actions Bar */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            {!staticMode && (
             <button
               onClick={onCreateNewTour}
               className="flex items-center gap-2 px-6 py-3 bg-[#B04E2A] hover:bg-[#9A3F1E] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#B04E2A]/30 hover:scale-105 active:scale-95 transition-all"
@@ -150,7 +153,9 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               <Plus className="w-4 h-4" />
               <span>Crear Ruta en Studio</span>
             </button>
+            )}
 
+            {!staticMode && (
             <button
               onClick={onOpenAIGenerator}
               className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D97706] to-[#B04E2A] hover:from-[#B45309] hover:to-[#9A3F1E] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#D97706]/30 hover:scale-105 active:scale-95 transition-all"
@@ -158,6 +163,7 @@ export const CatalogView: React.FC<CatalogViewProps> = ({
               <Sparkles className="w-4 h-4 text-amber-200" />
               <span>Diseñar Ruta con IA</span>
             </button>
+            )}
 
             {onOpenConsultingModal && (
               <button
