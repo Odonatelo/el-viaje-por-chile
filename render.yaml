@@ -1,0 +1,48 @@
+﻿# Render Blueprint — "El Viaje Por Chile"
+# https://render.com/docs/blueprint-spec
+#
+# Uso:
+#   1. Render Dashboard -> New -> Blueprint -> conecta el repo de GitHub.
+#   2. Render lee este archivo y crea el servicio web (plan free).
+#   3. Carga los secretos en el dashboard (Environment) — ver MIGRATION.md.
+#
+# Build: npm run build  (vite build + esbuild server.cjs)
+# Start: npm start       (NODE_ENV=production node dist/server.cjs)
+
+services:
+  - type: web
+    name: el-viaje-por-chile
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci --no-audit --no-fund && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OWNER_EMAIL
+        value: juancarlos.castaing@gmail.com
+      - key: APP_URL
+        sync: false
+      - key: GOOGLE_OAUTH_REDIRECT
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: MERCADOPAGO_ACCESS_TOKEN
+        sync: false
+      - key: MERCADOPAGO_PUBLIC_KEY
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: SPEECHIFY_API_KEY
+        sync: false
+      - key: SPEECHIFY_VOICE_ID
+        value: mariana
+      # GCS_BUCKET se deja vacio en Render: la persistencia usa el disco local.
+      # (El disco de Render es efimero: los datos sobreviven sleep/wake pero se
+      #  borran en cada redeploy. Para persistencia real, ver MIGRATION.md.)
