@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "tsx server.ts",
     "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
-    "build:static": "vite build --mode static --base=/el-viaje-por-chile/ && node scripts/prefix-public-assets.mjs /el-viaje-por-chile/",
+    "build:static": "vite build --mode static && node scripts/prefix-public-assets.mjs /",
+    "build:static:project": "vite build --mode static --base=/el-viaje-por-chile/ && node scripts/prefix-public-assets.mjs /el-viaje-por-chile/",
     "build:static:cf": "vite build --mode static && node scripts/prefix-public-assets.mjs /",
     "start": "NODE_ENV=production node dist/server.cjs",
     "serve": "NODE_ENV=production node dist/server.cjs",
