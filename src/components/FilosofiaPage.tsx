@@ -2,7 +2,7 @@ import React from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpenCheck,
+  Umbrella,
   Brain,
   Compass,
   ExternalLink,
@@ -731,7 +731,7 @@ La ecología profunda de Arne Naess resuena aquí como eco intertextual: los eco
       <section className="bg-[#F1EAD9] px-4 sm:px-6 py-14">
         <div className="max-w-4xl mx-auto space-y-6">
           <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B04E2A]">
-            <BookOpenCheck className="w-4 h-4" />
+            <Umbrella className="w-4 h-4" />
             Movimiento IX · La relectura
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold font-['Cormorant_Garamond',Georgia,serif]">
